@@ -63,6 +63,18 @@ List<Product> productsFromJson(String jsonString) {
 }
 
 class BuySellPage extends StatefulWidget {
+
+  const BuySellPage({
+    Key? key,
+    required this.searchKey,
+    required this.filteredProductPrice,
+    required this.filteredCurrency,
+  }) : super(key: key);
+
+  final String searchKey;
+  final String filteredProductPrice;
+  final String filteredCurrency;
+
   @override
   _BuySellPageState createState() => _BuySellPageState();
 }
@@ -71,13 +83,16 @@ class _BuySellPageState extends State<BuySellPage> {
   //late List<Product> products;
   buyandsellPostsList? buyandsellPostsListObject;
 
-  Future _buyandsell_posts_list() async {
+  Future _buyandsell_posts_searchandfilter() async {
     String serviceAddress =
-        'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
+        'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
-      //"buyerorseller":"s",
+      "buyerOrSeller": "s", //seller
+      "searchKey": widget.searchKey,
+      "filteredProductPrice": widget.filteredProductPrice,
+      "filteredCurrency": widget.filteredCurrency,
     });
 
     String stringData = response.body;
@@ -93,7 +108,7 @@ class _BuySellPageState extends State<BuySellPage> {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
-    _buyandsell_posts_list();
+    _buyandsell_posts_searchandfilter();
   }
 
   @override

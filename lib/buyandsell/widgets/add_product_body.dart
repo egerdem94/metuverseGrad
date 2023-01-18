@@ -53,6 +53,7 @@ class _AddProductBodyState extends State<AddProductBody> {
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "buyerOrSeller": "s",
       "description": description.text,
       "productPrice": productPrice.text,
       "currency": _selectedCurrency,
@@ -241,7 +242,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                                     true) {
                                   //token = loginObject?.currentUserToken;
 
-                                  Get.to(BuySellPage());
+                                  Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(

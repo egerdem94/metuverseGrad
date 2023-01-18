@@ -39,7 +39,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(BuySellPage());
+                Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                 // go back
               },
             ),
