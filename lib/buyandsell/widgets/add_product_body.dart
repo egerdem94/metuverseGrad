@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/palette.dart';
 
 import '../../generalResponse.dart';
+import '../../util/user.dart';
 import '../screens/buyAndSellPage.dart';
 
 class AddProductBody extends StatefulWidget {
@@ -52,7 +53,8 @@ class _AddProductBodyState extends State<AddProductBody> {
         'http://www.birikikoli.com/mv_services/buyandsell_posts_create.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "token": User.token,
       "buyerOrSeller": "s",
       "description": description.text,
       "productPrice": productPrice.text,

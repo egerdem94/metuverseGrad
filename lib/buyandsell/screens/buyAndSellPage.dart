@@ -8,6 +8,7 @@ import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
+import '../../util/user.dart';
 import '../models/buyAndSellPostList.dart';
 import '../models/product.dart';
 import '../widgets/productContainer.dart';
@@ -88,7 +89,8 @@ class _BuySellPageState extends State<BuySellPage> {
         'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "token": User.token,
       "buyerOrSeller": "s", //seller
       "searchKey": widget.searchKey,
       "filteredProductPrice": widget.filteredProductPrice,

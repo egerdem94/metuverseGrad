@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metuverse/home/screens/mainPage.dart';
+import '../../util/user.dart';
 import '../../widgets/background-image.dart';
 import 'package:get/get.dart';
 
 import '../widgets/login-text-input.dart';
 import 'forgotPassword.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -27,13 +29,18 @@ class _LoginPageState extends State<LoginPage> {
   login? loginObject;
   bool passwordVisibilityBool = true;
 
+
   void dispose() {
     // Clean up the controller when the widget is disposed.
     email.dispose();
     password.dispose();
     super.dispose();
   }
-
+  void insertUserValues(String token, String fullName, String? profilePicture) {
+    User.token = token;
+    User.fullName = fullName;
+    User.profilePicture = profilePicture;
+  }
   void _user_login() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/user_login.php';
@@ -163,9 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextButton(
                                     onPressed: () {
                                       _user_login();
-                                      Timer(Duration(seconds: 3), () {
+                                      Timer(Duration(seconds: 2), () {
                                         if (loginObject?.loginStatus == true) {
-                                          //token = loginObject?.currentUserToken;
+                                          //token = loginObject?.token;
+                                          insertUserValues(
+                                              loginObject?.token ?? '',
+                                              loginObject?.fullName ?? '',
+                                              loginObject?.profilePicture ?? null);
                                           Get.to(MainPage());
                                         } else {
                                           ScaffoldMessenger.of(context)
