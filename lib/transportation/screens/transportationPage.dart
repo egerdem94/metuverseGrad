@@ -8,6 +8,7 @@ import 'package:metuverse/transportation/widget/transportationContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
+import '../../util/user.dart';
 import '../model/transportationPostList.dart';
 import '../widget/transportationBottom.dart';
 import '../widget/transportationCarContainer.dart';
@@ -77,7 +78,8 @@ class _TransportationPageState extends State<TransportationPage> {
         'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "token": User.token,
       //"buyerorseller":"s",
     });
 

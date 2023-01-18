@@ -84,7 +84,8 @@ class _BuySellPageState extends State<BuySellPage> {
     String serviceAddress = 'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "token": User.token,
     });
 
     String stringData = response.body;
