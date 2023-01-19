@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import '../models/ZDeprecatedProduct.dart';
 
 class ProductList extends StatelessWidget {
-  final List<Product> products;
+  final List<DeprecatedProduct> products;
 
   ProductList({required this.products});
 

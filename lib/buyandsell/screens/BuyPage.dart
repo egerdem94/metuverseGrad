@@ -10,7 +10,7 @@ import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 import '../../util/user.dart';
-import '../models/buyAndSellPostList.dart';
+import '../models/SellPostList.dart';
 import '../widgets/SellPostContainer.dart';
 
 class lookingForPage extends StatefulWidget {

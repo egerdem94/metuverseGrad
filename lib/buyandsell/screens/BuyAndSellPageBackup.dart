@@ -8,8 +8,8 @@ import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../models/buyAndSellPostList.dart';
-import '../models/product.dart';
+import '../models/SellPostList.dart';
+import '../models/ZDeprecatedProduct.dart';
 import '../widgets/SellPostContainer.dart';
 
 List<Product> dummyProducts = [

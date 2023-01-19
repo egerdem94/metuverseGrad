@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photoGrid.dart';
-import '../models/product.dart';
+import '../models/ZDeprecatedProduct.dart';
 
 class ProductContainer extends StatelessWidget {
-  final Product product;
+  final DeprecatedProduct product;
   final bool isSeller;
 
   ProductContainer({required this.product, required this.isSeller});

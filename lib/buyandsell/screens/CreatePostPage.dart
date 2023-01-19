@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/models/buyAndSellPostList.dart';
+import 'package:metuverse/buyandsell/models/SellPostList.dart';
 import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
 import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
 import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/buyandsell/widgets/deneme.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
-import '../models/product.dart';
+import '../models/ZDeprecatedProduct.dart';
 
 class CreatePostPage extends StatefulWidget {
   @override

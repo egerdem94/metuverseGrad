@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Product {
+class DeprecatedProduct {
   final String id;
   final String name;
   final double price;
@@ -10,7 +10,7 @@ class Product {
   final String sellerName;
   final bool isAvailable;
 
-  Product({
+  DeprecatedProduct({
     required this.id,
     required this.name,
     required this.price,
@@ -21,8 +21,8 @@ class Product {
     required this.isAvailable,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
+  factory DeprecatedProduct.fromJson(Map<String, dynamic> json) {
+    return DeprecatedProduct(
         id: json['id'],
         name: json['name'],
         price: json['price'],
@@ -47,9 +47,9 @@ class Product {
   }
 }
 
-List<Product> productsFromJson(String jsonString) {
+List<DeprecatedProduct> productsFromJson(String jsonString) {
   final jsonData = json.decode(jsonString);
-  return List<Product>.from(
-    jsonData.map((x) => Product.fromJson(x)),
+  return List<DeprecatedProduct>.from(
+    jsonData.map((x) => DeprecatedProduct.fromJson(x)),
   );
 }

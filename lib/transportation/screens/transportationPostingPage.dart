@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/models/buyAndSellPostList.dart';
+import 'package:metuverse/buyandsell/models/SellPostList.dart';
 import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
 import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
 import 'package:metuverse/buyandsell/widgets/deneme.dart';

@@ -1,14 +1,14 @@
-class lookingForList {
-  List<SinglePostItem>? items;
+class BuyPostList {
+  List<BuyPost>? items;
   int? total;
 
-  lookingForList({this.items, this.total});
+  BuyPostList({this.items, this.total});
 
-  lookingForList.fromJson(Map<String, dynamic> json) {
+  BuyPostList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <SinglePostItem>[];
+      items = <BuyPost>[];
       json['items'].forEach((v) {
-        items!.add(new SinglePostItem.fromJson(v));
+        items!.add(new BuyPost.fromJson(v));
       });
     }
     total = json['total'];
@@ -24,21 +24,21 @@ class lookingForList {
   }
 }
 
-class SinglePostItem {
+class BuyPost {
   String? fullName;
   Null? profilePicture;
   int? postID;
   String? description;
   int? productStatus;
 
-  SinglePostItem(
+  BuyPost(
       {this.fullName,
       this.profilePicture,
       this.postID,
       this.description,
       this.productStatus});
 
-  SinglePostItem.fromJson(Map<String, dynamic> json) {
+  BuyPost.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
     postID = json['postID'];

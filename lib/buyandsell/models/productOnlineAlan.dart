@@ -1,3 +1,4 @@
+/*
 class buyandsellPostsList {
   List<Items>? items;
   int? total;
@@ -68,3 +69,4 @@ class Items {
     return data;
   }
 }
+*/

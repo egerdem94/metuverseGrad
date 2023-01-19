@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import '../models/ZDeprecatedProduct.dart';
 
 class MyFavorites extends StatelessWidget {
-  final List<Product> favorites;
+  final List<DeprecatedProduct> favorites;
 
   MyFavorites({required this.favorites});
 

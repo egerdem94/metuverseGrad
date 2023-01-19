@@ -9,59 +9,10 @@ import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 import '../../util/user.dart';
-import '../models/buyAndSellPostList.dart';
-import '../models/product.dart';
+import '../models/SellPostList.dart';
+import '../models/ZDeprecatedProduct.dart';
 import '../widgets/SellPostContainer.dart';
 
-List<Product> dummyProducts = [
-  Product(
-    name: 'Product 1',
-    price: 10.0,
-    imageUrl: [
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-    ],
-    description: 'selling box',
-    id: '1',
-    sellerId: '123',
-    sellerName: 'user 1 ',
-    isAvailable: true,
-  ),
-  Product(
-    name: 'Product 2',
-    price: 20.0,
-    imageUrl: [
-      'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png',
-    ],
-    description: 'selling guitar',
-    id: '2',
-    sellerId: '123',
-    sellerName: 'user 2',
-    isAvailable: false,
-  ),
-  Product(
-    name: 'Product 3',
-    price: 30.0,
-    imageUrl: [
-      'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png',
-    ],
-    description: 'selling guitar',
-    id: '3',
-    sellerId: '123',
-    sellerName: 'user 3',
-    isAvailable: true,
-  ),
-];
-
-List<Product> productsFromJson(String jsonString) {
-  final jsonData = json.decode(jsonString);
-  return List<Product>.from(
-    jsonData.map((x) => Product.fromJson(x)),
-  );
-}
 
 class BuySellPage extends StatefulWidget {
 
