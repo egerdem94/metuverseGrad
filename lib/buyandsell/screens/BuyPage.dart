@@ -13,30 +13,45 @@ import '../../util/user.dart';
 import '../models/SellPostList.dart';
 import '../widgets/SellPostContainer.dart';
 
-class lookingForPage extends StatefulWidget {
+class BuyPage extends StatefulWidget {
+  const BuyPage({
+    Key? key,
+    required this.searchKey,
+    required this.filteredProductPrice,
+    required this.filteredCurrency,
+  }) : super(key: key);
+
+  final String searchKey;
+  final String filteredProductPrice;
+  final String filteredCurrency;
   @override
-  _lookingForPageState createState() => _lookingForPageState();
+  _BuyPageState createState() => _BuyPageState();
 }
 
-class _lookingForPageState extends State<lookingForPage> {
+class _BuyPageState extends State<BuyPage> {
   //late List<Product> products;
-  BuySellPostList? lookingForPostsListObject;
+  BuySellPostList? buyandsellPostsListObject;
 
-  Future _lookingfor_posts_list() async {
+  Future _buyandsell_posts_searchandfilter() async {
     String serviceAddress =
-        'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
+    //'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
+        'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter_deneme.php';
     Uri serviceUri = Uri.parse(serviceAddress);
+    //print("yavuz_token: " + User.token);
     final response = await http.post(serviceUri, body: {
       //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
       "token": User.token,
-      //"buyerorseller":"b",
+      "buyerOrSeller": "b", //seller
+      "searchKey": widget.searchKey,
+      "filteredProductPrice": widget.filteredProductPrice,
+      "filteredCurrency": widget.filteredCurrency,
     });
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      lookingForPostsListObject = BuySellPostList.fromJson(jsonObject);
+      buyandsellPostsListObject = BuySellPostList.fromJson(jsonObject);
     });
   }
 
@@ -45,7 +60,7 @@ class _lookingForPageState extends State<lookingForPage> {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
-    _lookingfor_posts_list();
+    _buyandsell_posts_searchandfilter();
   }
 
   @override
@@ -66,10 +81,10 @@ class _lookingForPageState extends State<lookingForPage> {
           ), // set the background color to blue
         ),
         child: ListView.builder(
-          itemCount: lookingForPostsListObject?.total,
+          itemCount: buyandsellPostsListObject?.total,
           itemBuilder: (context, index) {
             return BuyPostContainer(
-                post: lookingForPostsListObject!.items![index]);
+                post: buyandsellPostsListObject!.items![index]);
           },
         ),
       ),

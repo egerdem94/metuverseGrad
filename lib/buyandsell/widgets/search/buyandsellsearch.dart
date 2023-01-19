@@ -18,7 +18,7 @@ class _BuyandSellSearchPageState extends State<BuyandSellSearchPage> {
 
   void _submitSearch() {
     // code to perform search with the text in _searchController
-    Get.to(BuySellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
+    Get.to(SellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
   }
 
   @override

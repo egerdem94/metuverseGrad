@@ -14,9 +14,9 @@ import '../models/ZDeprecatedProduct.dart';
 import '../widgets/SellPostContainer.dart';
 
 
-class BuySellPage extends StatefulWidget {
+class SellPage extends StatefulWidget {
 
-  const BuySellPage({
+  const SellPage({
     Key? key,
     required this.searchKey,
     required this.filteredProductPrice,
@@ -28,10 +28,10 @@ class BuySellPage extends StatefulWidget {
   final String filteredCurrency;
 
   @override
-  _BuySellPageState createState() => _BuySellPageState();
+  _SellPageState createState() => _SellPageState();
 }
 
-class _BuySellPageState extends State<BuySellPage> {
+class _SellPageState extends State<SellPage> {
   //late List<Product> products;
   BuySellPostList? buyandsellPostsListObject;
 

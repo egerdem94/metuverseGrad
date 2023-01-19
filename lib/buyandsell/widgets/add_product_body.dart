@@ -291,7 +291,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                                     true || 1 == 1) {
                                   //token = loginObject?.currentUserToken;
 
-                                  Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                                  Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(

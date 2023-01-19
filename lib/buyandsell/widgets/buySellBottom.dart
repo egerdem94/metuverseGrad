@@ -41,7 +41,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                 // go back
               },
             ),
@@ -83,7 +83,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(lookingForPage());
+                Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                 // go back
               },
             ),

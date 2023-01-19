@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                      Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
                     },
                     imageUrl: 'assets-images/13717.jpg',
                   ),
