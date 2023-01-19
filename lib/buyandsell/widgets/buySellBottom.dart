@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/buyandsell/screens/AddProduct.dart';
+import 'package:metuverse/buyandsell/screens/CreatePostPage.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/buyandsell/screens/buyAndSellPage.dart';
-import 'package:metuverse/buyandsell/screens/lookingforPage.dart';
+import 'package:metuverse/buyandsell/screens/SellPage.dart';
+import 'package:metuverse/buyandsell/screens/BuyPage.dart';
 import 'package:metuverse/home/screens/mainPage.dart';
 
 import '../../util/user.dart';
@@ -62,7 +62,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(AddProductPage());
+                        Get.to(CreatePostPage());
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors

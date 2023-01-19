@@ -10,7 +10,7 @@ import 'package:metuverse/widgets/drawer.dart';
 
 import '../models/buyAndSellPostList.dart';
 import '../models/product.dart';
-import '../widgets/productContainer.dart';
+import '../widgets/SellPostContainer.dart';
 
 List<Product> dummyProducts = [
   Product(

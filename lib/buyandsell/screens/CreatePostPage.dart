@@ -11,12 +11,12 @@ import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import '../models/product.dart';
 
-class AddProductPage extends StatefulWidget {
+class CreatePostPage extends StatefulWidget {
   @override
-  _AddProductPageState createState() => _AddProductPageState();
+  _CreatePostPageState createState() => _CreatePostPageState();
 }
 
-class _AddProductPageState extends State<AddProductPage> {
+class _CreatePostPageState extends State<CreatePostPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -36,8 +36,8 @@ class _AddProductPageState extends State<AddProductPage> {
     });
   }
 
-  SinglePostSendingItem _createProduct() {
-    return SinglePostSendingItem(
+  PostItem _createProduct() {
+    return PostItem(
       productPrice: _priceController.text,
       description: _descriptionController.text,
       currency: _currencyController.text,
@@ -46,16 +46,9 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _submitForm() {
-    if (_descriptionController.text == "a") {
-      print("BASTI");
-    }
-    if (_currencyController.text == "₺") {
-      print("BASTI");
-    }
-
     // if (_formKey.currentState!.validate()) {
-    SinglePostSendingItem singlePostSendingItem = _createProduct();
-    print("YAVUZ");
+    PostItem singlePostSendingItem = _createProduct();
+    //print("YAVUZ");
     // code to store newProduct in thedatabase
     Navigator.pop(context);
     //}

@@ -24,8 +24,8 @@ class _TransportationPostingPageState extends State<TransportationPostingPage> {
   final TextEditingController _currencyController = TextEditingController();
   List<String> _imageUrls = [];
 
-  SinglePostSendingItem _createProduct() {
-    return SinglePostSendingItem(
+  PostItem _createProduct() {
+    return PostItem(
       productPrice: _priceController.text,
       description: _descriptionController.text,
       currency: _currencyController.text,
@@ -42,7 +42,7 @@ class _TransportationPostingPageState extends State<TransportationPostingPage> {
     }
     print("YAVUZ");
     //if (_formKey.currentState!.validate()) {
-    SinglePostSendingItem singlePostSendingItem = _createProduct();
+    PostItem singlePostSendingItem = _createProduct();
 
     // code to store newProduct in thedatabase
     Navigator.pop(context);

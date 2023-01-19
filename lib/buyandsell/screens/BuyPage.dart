@@ -5,13 +5,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
-import 'package:metuverse/buyandsell/widgets/lookingForContainer.dart';
+import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 import '../../util/user.dart';
 import '../models/buyAndSellPostList.dart';
-import '../widgets/productContainer.dart';
+import '../widgets/SellPostContainer.dart';
 
 class lookingForPage extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class lookingForPage extends StatefulWidget {
 
 class _lookingForPageState extends State<lookingForPage> {
   //late List<Product> products;
-  buyandsellPostsList? lookingForPostsListObject;
+  BuySellPostList? lookingForPostsListObject;
 
   Future _lookingfor_posts_list() async {
     String serviceAddress =
@@ -36,7 +36,7 @@ class _lookingForPageState extends State<lookingForPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      lookingForPostsListObject = buyandsellPostsList.fromJson(jsonObject);
+      lookingForPostsListObject = BuySellPostList.fromJson(jsonObject);
     });
   }
 
@@ -68,8 +68,8 @@ class _lookingForPageState extends State<lookingForPage> {
         child: ListView.builder(
           itemCount: lookingForPostsListObject?.total,
           itemBuilder: (context, index) {
-            return lookingForContainer(
-                singlePostItem: lookingForPostsListObject!.items![index]);
+            return BuyPostContainer(
+                post: lookingForPostsListObject!.items![index]);
           },
         ),
       ),

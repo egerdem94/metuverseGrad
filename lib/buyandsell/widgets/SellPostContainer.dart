@@ -6,14 +6,14 @@ import '../models/buyAndSellPostList.dart';
 import '../models/product.dart';
 
 class ProductContainer extends StatelessWidget {
-  final SinglePostItem singlePostItem;
+  final Post post;
 
   /*final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];*/
 
-  ProductContainer({required this.singlePostItem});
+  ProductContainer({required this.post});
 
   String currencySymbol = '';
 
@@ -45,14 +45,14 @@ class ProductContainer extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                    post.getProfilePicture()),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
-              Text(singlePostItem.fullName ?? "", style: kUsersText),
+              Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
               Text(
-                  '${singlePostItem.productPrice ?? 0} ${currencyConverter(singlePostItem.currency ?? "")}',
+                  '${post.productPrice ?? 0} ${currencyConverter(post.currency ?? "")}',
                   style: kwhiteText),
               SizedBox(width: 8.0),
               IconButton(
@@ -67,20 +67,20 @@ class ProductContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.0),
-          Text(singlePostItem.description ?? "", style: kwhiteText),
+          Text(post.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
             height: 260.0,
             child: PhotoGrid(
               //imageUrls: imagesUrls, // pass the imageUrls here
-              imageUrls: singlePostItem.mediaList(),
+              imageUrls: post.mediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => FullscreenImageView(
-                      imageUrl: singlePostItem.mediaList()[index],
+                      imageUrl: post.mediaList()[index],
                       //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
                     ),
                   ),
@@ -166,14 +166,14 @@ class ProductContainer extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  singlePostItem.productStatus! == 1 ? 'Available' : 'Sold',
+                  post.productStatus! == 1 ? 'Available' : 'Sold',
                   style: TextStyle(
-                    color: singlePostItem.productStatus! == 1
+                    color: post.productStatus! == 1
                         ? Colors.white
                         : Colors.black,
                   ),
                 ),
-                backgroundColor: singlePostItem.productStatus! == 1
+                backgroundColor: post.productStatus! == 1
                     ? Colors.green
                     : Colors.red,
               ),

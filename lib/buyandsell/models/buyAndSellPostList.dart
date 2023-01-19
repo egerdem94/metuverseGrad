@@ -1,16 +1,16 @@
 //import 'dart:ffi';
 
-class buyandsellPostsList {
-  List<SinglePostItem>? items;
+class BuySellPostList {
+  List<Post>? items;
   int? total;
 
-  buyandsellPostsList({this.items, this.total});
+  BuySellPostList({this.items, this.total});
 
-  buyandsellPostsList.fromJson(Map<String, dynamic> json) {
+  BuySellPostList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <SinglePostItem>[];
+      items = <Post>[];
       json['items'].forEach((v) {
-        items!.add(new SinglePostItem.fromJson(v));
+        items!.add(new Post.fromJson(v));
       });
     }
     total = json['total'];
@@ -26,7 +26,7 @@ class buyandsellPostsList {
   }
 }
 
-class SinglePostItem {
+class Post {
   bool? belongToUser;
   String? fullName;
   String? profilePicture;
@@ -37,7 +37,7 @@ class SinglePostItem {
   String? currency;
   int? productStatus;
 
-  SinglePostItem(
+  Post(
       {this.belongToUser,
       this.fullName,
       this.profilePicture,
@@ -58,8 +58,16 @@ class SinglePostItem {
     }
     return mediaList;
   }
+  String getProfilePicture(){
+    if (this.profilePicture != null) {
+      return this.profilePicture!;
+    }
+    else{
+      return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+    }
+  }
 
-  SinglePostItem.fromJson(Map<String, dynamic> json) {
+  Post.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
@@ -87,12 +95,12 @@ class SinglePostItem {
 
 }
 
-class SinglePostSendingItem {
+class PostItem {
   String? description;
   String? productPrice;
   String? currency;
 
-  SinglePostSendingItem({
+  PostItem({
     this.description,
     this.productPrice,
     this.currency,

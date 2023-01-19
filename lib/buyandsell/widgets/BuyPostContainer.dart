@@ -5,14 +5,14 @@ import '../../widgets/photoGrid.dart';
 import '../models/buyAndSellPostList.dart';
 import '../models/product.dart';
 
-class lookingForContainer extends StatelessWidget {
-  final SinglePostItem singlePostItem;
+class BuyPostContainer extends StatelessWidget {
+  final Post post;
 
   final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];
-  lookingForContainer({required this.singlePostItem});
+  BuyPostContainer({required this.post});
 
   String currencySymbol = '';
 
@@ -44,11 +44,12 @@ class lookingForContainer extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                    //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                    post.getProfilePicture()),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
-              Text(singlePostItem.fullName ?? "", style: kUsersText),
+              Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
               IconButton(
                 icon: Icon(
@@ -62,7 +63,7 @@ class lookingForContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.0),
-          Text(singlePostItem.description!, style: kwhiteText),
+          Text(post.description!, style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -152,14 +153,14 @@ class lookingForContainer extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  singlePostItem.productStatus! == 1 ? 'Looking' : 'Found',
+                  post.productStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
-                    color: singlePostItem.productStatus! == 1
+                    color: post.productStatus! == 1
                         ? Colors.white
                         : Colors.black,
                   ),
                 ),
-                backgroundColor: singlePostItem.productStatus! == 1
+                backgroundColor: post.productStatus! == 1
                     ? Colors.green
                     : Colors.red,
               ),

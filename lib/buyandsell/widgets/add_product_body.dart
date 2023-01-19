@@ -9,7 +9,7 @@ import 'package:metuverse/palette.dart';
 
 import '../../generalResponse.dart';
 import '../../util/user.dart';
-import '../screens/buyAndSellPage.dart';
+import '../screens/SellPage.dart';
 
 class AddProductBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();

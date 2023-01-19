@@ -11,7 +11,7 @@ import 'package:metuverse/widgets/drawer.dart';
 import '../../util/user.dart';
 import '../models/buyAndSellPostList.dart';
 import '../models/product.dart';
-import '../widgets/productContainer.dart';
+import '../widgets/SellPostContainer.dart';
 
 List<Product> dummyProducts = [
   Product(
@@ -82,7 +82,7 @@ class BuySellPage extends StatefulWidget {
 
 class _BuySellPageState extends State<BuySellPage> {
   //late List<Product> products;
-  buyandsellPostsList? buyandsellPostsListObject;
+  BuySellPostList? buyandsellPostsListObject;
 
   Future _buyandsell_posts_searchandfilter() async {
     String serviceAddress =
@@ -103,7 +103,7 @@ class _BuySellPageState extends State<BuySellPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      buyandsellPostsListObject = buyandsellPostsList.fromJson(jsonObject);
+      buyandsellPostsListObject = BuySellPostList.fromJson(jsonObject);
     });
   }
 
@@ -136,7 +136,7 @@ class _BuySellPageState extends State<BuySellPage> {
           itemCount: buyandsellPostsListObject?.total,
           itemBuilder: (context, index) {
             return ProductContainer(
-                singlePostItem: buyandsellPostsListObject!.items![index]);
+                post: buyandsellPostsListObject!.items![index]);
           },
         ),
       ),
