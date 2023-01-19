@@ -96,7 +96,8 @@ class _AddProductBodyState extends State<AddProductBody> {
                     padding: EdgeInsets.only(left: 16.0),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
+                        //'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
+                        User.profilePicture,
                       ),
                     ),
                   ),

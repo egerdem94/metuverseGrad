@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../util/user.dart';
+
 class CustomAppNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,8 @@ class CustomAppNavigationBar extends StatelessWidget {
           child: CircleAvatar(
             radius: 16.0,
             backgroundImage: NetworkImage(
-              "https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+              //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+              User.profilePicture,
             ),
           ),
         ),

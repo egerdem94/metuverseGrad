@@ -29,7 +29,7 @@ class buyandsellPostsList {
 class SinglePostItem {
   bool? belongToUser;
   String? fullName;
-  Null? profilePicture;
+  String? profilePicture;
   int? postID;
   String? description;
   int? productPrice;
@@ -45,6 +45,17 @@ class SinglePostItem {
       this.productPrice,
       this.currency,
       this.productStatus});
+
+  List<String> mediaList(){
+    List<String> mediaList = [];
+    if (this.profilePicture != null) {
+      mediaList.add(this.profilePicture!);
+    }
+    else{
+      mediaList.add("https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp");
+    }
+    return mediaList;
+  }
 
   SinglePostItem.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
@@ -69,6 +80,7 @@ class SinglePostItem {
     data['productStatus'] = this.productStatus;
     return data;
   }
+
 }
 
 class SinglePostSendingItem {

@@ -9,6 +9,7 @@ import 'package:metuverse/transportation/screens/transportationCarPage.dart';
 import 'package:metuverse/transportation/screens/transportationPage.dart';
 import 'package:metuverse/transportation/screens/transportationPostingPage.dart';
 
+import '../../util/user.dart';
 import 'transportationContainer.dart';
 
 class CustomTransportationBottomNavigationBar extends StatelessWidget {
@@ -95,7 +96,8 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
               icon: CircleAvatar(
                 radius: 18.0,
                 backgroundImage: NetworkImage(
-                  "https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                  //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                  User.profilePicture,
                 ),
               ),
               onPressed: () {

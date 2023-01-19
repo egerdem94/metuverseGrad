@@ -8,10 +8,11 @@ import '../models/product.dart';
 class ProductContainer extends StatelessWidget {
   final SinglePostItem singlePostItem;
 
-  final List<String> imagesUrls = [
+  /*final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
-  ];
+  ];*/
+
   ProductContainer({required this.singlePostItem});
 
   String currencySymbol = '';
@@ -72,13 +73,15 @@ class ProductContainer extends StatelessWidget {
             width: double.infinity,
             height: 260.0,
             child: PhotoGrid(
-              imageUrls: imagesUrls, // pass the imageUrls here
+              //imageUrls: imagesUrls, // pass the imageUrls here
+              imageUrls: singlePostItem.mediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => FullscreenImageView(
-                      imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
+                      imageUrl: singlePostItem.mediaList()[index],
+                      //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
                     ),
                   ),
                 );

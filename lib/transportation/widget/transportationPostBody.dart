@@ -5,6 +5,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:metuverse/palette.dart';
 
+import '../../util/user.dart';
+
 class TransportationPostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _priceController = TextEditingController();
@@ -49,7 +51,8 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     padding: EdgeInsets.only(left: 16.0),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
+                        //'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
+                        User.profilePicture,
                       ),
                     ),
                   ),

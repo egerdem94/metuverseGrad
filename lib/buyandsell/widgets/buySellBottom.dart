@@ -5,6 +5,8 @@ import 'package:metuverse/buyandsell/screens/buyAndSellPage.dart';
 import 'package:metuverse/buyandsell/screens/lookingforPage.dart';
 import 'package:metuverse/home/screens/mainPage.dart';
 
+import '../../util/user.dart';
+
 class CustomBuySellBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,8 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
               icon: CircleAvatar(
                 radius: 18.0,
                 backgroundImage: NetworkImage(
-                  "https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                  //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                  User.profilePicture,
                 ),
               ),
               onPressed: () {

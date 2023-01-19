@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../util/user.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/drawer.dart';
@@ -47,6 +48,7 @@ class _ProfilePageState extends State<ProfilePage>
                         image: DecorationImage(
                             image: NetworkImage(
                                 'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                                //User.profilePicture),
                             fit: BoxFit.cover)),
                   ),
                 ),
@@ -73,7 +75,8 @@ class _ProfilePageState extends State<ProfilePage>
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                                        //'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                                        User.profilePicture),
                                     fit: BoxFit.cover)),
                             margin: EdgeInsets.only(top: 130),
                           ),
