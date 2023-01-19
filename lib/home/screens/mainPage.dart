@@ -71,7 +71,7 @@ class MainPage extends StatelessWidget {
                     onPressed: () {
                       // do something
                     },
-                    imageUrl: '',
+                    imageUrl: 'assets-images/academiccalendar.png',
                   ),
                 ],
               ),

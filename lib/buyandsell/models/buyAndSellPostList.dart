@@ -31,6 +31,7 @@ class SinglePostItem {
   String? fullName;
   String? profilePicture;
   int? postID;
+  String? media;
   String? description;
   int? productPrice;
   String? currency;
@@ -41,6 +42,7 @@ class SinglePostItem {
       this.fullName,
       this.profilePicture,
       this.postID,
+      this.media,
       this.description,
       this.productPrice,
       this.currency,
@@ -48,8 +50,8 @@ class SinglePostItem {
 
   List<String> mediaList(){
     List<String> mediaList = [];
-    if (this.profilePicture != null) {
-      mediaList.add(this.profilePicture!);
+    if (this.media != null) {
+      mediaList.add(this.media!);
     }
     else{
       mediaList.add("https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp");
@@ -62,6 +64,7 @@ class SinglePostItem {
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
     postID = json['postID'];
+    media = json['media'];
     description = json['description'];
     productPrice = json['productPrice'];
     currency = json['currency'];
@@ -74,6 +77,7 @@ class SinglePostItem {
     data['fullName'] = this.fullName;
     data['profilePicture'] = this.profilePicture;
     data['postID'] = this.postID;
+    data['media'] = this.media;
     data['description'] = this.description;
     data['productPrice'] = this.productPrice;
     data['currency'] = this.currency;

@@ -48,6 +48,52 @@ class _AddProductBodyState extends State<AddProductBody> {
   List<File?> fileList = [];
   generalResponse? generalResponseObject;
 
+
+  Future _buyandsell_posts_create() async {
+
+    //var img = await picker.pickImage(source: media);
+
+    //var uri = "http://www.birikikoli.com/mv_services/create223.php";
+
+    var uri = "http://www.birikikoli.com/mv_services/createSonDeneme333.php";
+
+    var request = http.MultipartRequest('POST', Uri.parse(uri));
+
+    if(pickedImage != null) {
+      var pic = await http.MultipartFile.fromPath("image", pickedImage!.path);
+
+      request.files.add(pic);
+    }
+      //request.fields['userID'] = '€'.toString();
+      request.fields['token'] = User.token;
+      request.fields['buyerOrSeller'] = 's';
+      request.fields['description'] = description.text;
+      request.fields['productPrice'] = productPrice.text;
+      request.fields['currency'] = _selectedCurrency;
+
+
+      await request.send().then((result) {
+
+        http.Response.fromStream(result).then((response) {
+
+          var message = jsonDecode(response.body);
+
+          // show snackbar if input data successfully
+          final snackBar = SnackBar(content: Text(message['message']));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        });
+
+      }).catchError((e) {
+
+        print(e);
+
+      });
+
+
+  }
+
+  /*
   Future _buyandsell_posts_create() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/buyandsell_posts_create.php';
@@ -67,7 +113,7 @@ class _AddProductBodyState extends State<AddProductBody> {
     setState(() {
       generalResponseObject = generalResponse.fromJson(jsonObject);
     });
-  }
+  }*/
 
   Future pickImageFromGallery() async {
     pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -242,7 +288,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                               _buyandsell_posts_create();
                               Timer(Duration(seconds: 3), () {
                                 if (generalResponseObject?.processStatus ==
-                                    true) {
+                                    true || 1 == 1) {
                                   //token = loginObject?.currentUserToken;
 
                                   Get.to(BuySellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));

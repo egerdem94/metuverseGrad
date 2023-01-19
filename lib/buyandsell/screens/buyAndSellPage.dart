@@ -86,10 +86,10 @@ class _BuySellPageState extends State<BuySellPage> {
 
   Future _buyandsell_posts_searchandfilter() async {
     String serviceAddress =
-        'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
-        //'http://www.birikikoli.com/mv_services/buyandsell_posts_create_deneme.php';
+        //'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
+        'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter_deneme.php';
     Uri serviceUri = Uri.parse(serviceAddress);
-    print("yavuz_token: " + User.token);
+    //print("yavuz_token: " + User.token);
     final response = await http.post(serviceUri, body: {
       //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
       "token": User.token,
