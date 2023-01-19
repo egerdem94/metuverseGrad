@@ -9,6 +9,7 @@ import 'package:metuverse/palette.dart';
 
 import '../../generalResponse.dart';
 import '../../util/user.dart';
+import '../screens/BuyPage.dart';
 import '../screens/SellPage.dart';
 
 class AddProductBody extends StatefulWidget {
@@ -37,20 +38,19 @@ class _AddProductBodyState extends State<AddProductBody> {
   final TextEditingController description = TextEditingController();
   final TextEditingController productPrice = TextEditingController();
   final TextEditingController productCurrency = TextEditingController();
-
   final picker = ImagePicker();
 
   String _selectedCurrency = '₺';
   List<String> _currencies = ['₺', '\$', '€', '£'];
+  String _buyerOrSeller = 'Selling';
+  List<String> _who = ['Buying', 'Selling'];
   File? file;
   XFile? pickedImage;
   bool isLoading = false;
   List<File?> fileList = [];
   generalResponse? generalResponseObject;
 
-
   Future _buyandsell_posts_create() async {
-
     //var img = await picker.pickImage(source: media);
 
     //var uri = "http://www.birikikoli.com/mv_services/create223.php";
@@ -59,38 +59,29 @@ class _AddProductBodyState extends State<AddProductBody> {
 
     var request = http.MultipartRequest('POST', Uri.parse(uri));
 
-    if(pickedImage != null) {
+    if (pickedImage != null) {
       var pic = await http.MultipartFile.fromPath("image", pickedImage!.path);
 
       request.files.add(pic);
     }
-      //request.fields['userID'] = '€'.toString();
-      request.fields['token'] = User.token;
-      request.fields['buyerOrSeller'] = 's';
-      request.fields['description'] = description.text;
-      request.fields['productPrice'] = productPrice.text;
-      request.fields['currency'] = _selectedCurrency;
+    //request.fields['userID'] = '€'.toString();
+    request.fields['token'] = User.token;
+    request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
+    request.fields['description'] = description.text;
+    request.fields['productPrice'] = productPrice.text;
+    request.fields['currency'] = _selectedCurrency;
 
+    await request.send().then((result) {
+      http.Response.fromStream(result).then((response) {
+        var message = jsonDecode(response.body);
 
-      await request.send().then((result) {
-
-        http.Response.fromStream(result).then((response) {
-
-          var message = jsonDecode(response.body);
-
-          // show snackbar if input data successfully
-          final snackBar = SnackBar(content: Text(message['message']));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-        });
-
-      }).catchError((e) {
-
-        print(e);
-
+        // show snackbar if input data successfully
+        final snackBar = SnackBar(content: Text(message['message']));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
-
-
+    }).catchError((e) {
+      print(e);
+    });
   }
 
   /*
@@ -144,6 +135,40 @@ class _AddProductBodyState extends State<AddProductBody> {
                       backgroundImage: NetworkImage(
                         //'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
                         User.profilePicture,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 35,
+                    margin: EdgeInsets.only(top: 16.0, left: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      child: DropdownButton<String>(
+                        value: _buyerOrSeller,
+                        items: _who.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _buyerOrSeller = newValue!;
+                          });
+                        },
+                        style: TextStyle(color: Colors.white),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.blue,
+                        ),
+                        dropdownColor: Colors.blue,
                       ),
                     ),
                   ),
@@ -206,14 +231,13 @@ class _AddProductBodyState extends State<AddProductBody> {
                 ],
               ),
               Container(
-                  margin: EdgeInsets.only(
-                      top: 20, left: 16.0, right: 16.0, bottom: 8.0),
+                  margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                              top: 20, left: 16.0, right: 16.0, bottom: 8.0),
+                              left: 16.0, right: 16.0, bottom: 8.0),
                           child: TextFormField(
                             style: kCreateText,
                             controller: description,
@@ -231,11 +255,11 @@ class _AddProductBodyState extends State<AddProductBody> {
                                   color: Color.fromARGB(255, 111, 111, 111)),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.transparent),
+                                BorderSide(color: Colors.transparent),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.transparent),
+                                BorderSide(color: Colors.transparent),
                               ),
                             ),
                             maxLines: null,
@@ -247,8 +271,8 @@ class _AddProductBodyState extends State<AddProductBody> {
                           child: GridView.builder(
                             itemCount: fileList.length,
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3),
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3),
                             itemBuilder: (BuildContext context, int i) {
                               return Container(
                                 padding: const EdgeInsets.all(10),
@@ -288,10 +312,21 @@ class _AddProductBodyState extends State<AddProductBody> {
                               _buyandsell_posts_create();
                               Timer(Duration(seconds: 3), () {
                                 if (generalResponseObject?.processStatus ==
-                                    true || 1 == 1) {
+                                    true ||
+                                    1 == 1) {
                                   //token = loginObject?.currentUserToken;
-
-                                  Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                                  if(_buyerOrSeller == 'Selling'){
+                                    Get.to(SellPage(
+                                        searchKey: "",
+                                        filteredProductPrice: "",
+                                        filteredCurrency: ""));
+                                  }
+                                  else{
+                                    Get.to(BuyPage(
+                                        searchKey: "",
+                                        filteredProductPrice: "",
+                                        filteredCurrency: ""));
+                                  }
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
