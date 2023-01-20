@@ -47,7 +47,8 @@ class _AddProductBodyState extends State<AddProductBody> {
   File? file;
   XFile? pickedImage;
   bool isLoading = false;
-  bool isButtonClicked = false;
+  bool isButtonClicked = false; //to prevent multiple clicks
+  bool isResponseReceived = false;
   List<File?> fileList = [];
   generalResponse? generalResponseObject;
   var generalResponseCreatePost;
@@ -76,11 +77,34 @@ class _AddProductBodyState extends State<AddProductBody> {
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {
         var message = jsonDecode(response.body);
+        isResponseReceived = true;
         generalResponseCreatePost = message;
 
         // show snackbar if input data successfully
         final snackBar = SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        if (generalResponseCreatePost['processStatus'] == true) {
+          //token = loginObject?.currentUserToken;
+          if(_buyerOrSeller == 'Selling'){
+            Get.to(SellPage(
+                searchKey: "",
+                filteredProductPrice: "",
+                filteredCurrency: ""));
+          }
+          else{
+            Get.to(BuyPage(
+                searchKey: "",
+                filteredProductPrice: "",
+                filteredCurrency: ""));
+          }
+        } else {
+          isButtonClicked = false;
+          isResponseReceived = false;
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(
+            content: Text("Post create failed."),
+          ));
+        }
       });
     }).catchError((e) {
       print(e);
@@ -315,28 +339,6 @@ class _AddProductBodyState extends State<AddProductBody> {
                               if(isButtonClicked == false){
                                 isButtonClicked = true;
                                 _send_post_to_backend();
-                                Timer(Duration(seconds: 5), () {
-                                  if (generalResponseCreatePost['processStatus'] == true) {
-                                    //token = loginObject?.currentUserToken;
-                                    if(_buyerOrSeller == 'Selling'){
-                                      Get.to(SellPage(
-                                          searchKey: "",
-                                          filteredProductPrice: "",
-                                          filteredCurrency: ""));
-                                    }
-                                    else{
-                                      Get.to(BuyPage(
-                                          searchKey: "",
-                                          filteredProductPrice: "",
-                                          filteredCurrency: ""));
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text("Post create failed."),
-                                    ));
-                                  }
-                                });
                               }
                               // Validate the form
                               // if (widget._formKey.currentState!.validate()) {
