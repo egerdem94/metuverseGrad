@@ -45,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
     else{
       //User.profilePicture = "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
       // User.profilePicture = "https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg";
-      User.profilePicture = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      //User.profilePicture = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      User.profilePicture = "http://birikikoli.com/images/blank-profile-picture.jpg";
     }
   }
   void _user_login() async {
