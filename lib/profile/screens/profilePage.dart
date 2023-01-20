@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metuverse/profile/widget/profilebottom.dart';
 
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
@@ -210,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        bottomNavigationBar: CustomBottomNavigationBar(),
+        bottomNavigationBar: ProfileBottomBar(),
       ),
     );
   }

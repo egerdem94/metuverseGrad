@@ -44,19 +44,20 @@ class BuyPostContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-
             children: [
               GestureDetector(
-              onTap: () {
-              Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
-              },
-              child:
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
-                    post.getProfilePicture()),
-                radius: 24.0,
-              ),
+                onTap: () {
+                  Get.to(OtherUserProfilePage(
+                    userFullName: post.fullName,
+                    profilePicture: post.getProfilePicture(),
+                  ));
+                },
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                      post.getProfilePicture()),
+                  radius: 24.0,
+                ),
               ),
               SizedBox(width: 8.0),
               Text(post.fullName ?? "", style: kUsersText),
@@ -167,14 +168,12 @@ class BuyPostContainer extends StatelessWidget {
                 label: Text(
                   post.productStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
-                    color: post.productStatus! == 1
-                        ? Colors.white
-                        : Colors.black,
+                    color:
+                        post.productStatus! == 1 ? Colors.white : Colors.black,
                   ),
                 ),
-                backgroundColor: post.productStatus! == 1
-                    ? Colors.green
-                    : Colors.red,
+                backgroundColor:
+                    post.productStatus! == 1 ? Colors.green : Colors.red,
               ),
             ],
           )
