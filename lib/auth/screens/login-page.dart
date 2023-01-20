@@ -61,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     loginObject = login.fromJson(jsonObject);
+    //
   }
 
   @override
