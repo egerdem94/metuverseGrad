@@ -37,7 +37,7 @@ class _SellPageState extends State<SellPage> {
 
   Future _buyandsell_posts_searchandfilter() async {
     String serviceAddress =
-        //'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
+    //'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter.php';
         'http://www.birikikoli.com/mv_services/buyandsell_posts_searchandfilter_deneme.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     //print("yavuz_token: " + User.token);
@@ -96,7 +96,7 @@ class _SellPageState extends State<SellPage> {
     );
   }
 
-  /*void _loadProducts() async {
+/*void _loadProducts() async {
     // Replace 'https://example.com/api/products' with the URL of your server's API endpoint
     var response = await http.get('https://example.com/api/products');
     if (response.statusCode == 200) {
