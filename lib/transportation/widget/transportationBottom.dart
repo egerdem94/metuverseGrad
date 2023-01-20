@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/buyandsell/screens/CreatePostPage.dart';
+
 import 'package:get/get.dart';
-import 'package:metuverse/buyandsell/screens/BuyPage.dart';
+
 import 'package:metuverse/home/screens/mainPage.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/transportation/screens/transportationCarPage.dart';
 import 'package:metuverse/transportation/screens/transportationPage.dart';
 import 'package:metuverse/transportation/screens/transportationPostingPage.dart';
@@ -101,7 +102,7 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // navigate to the profile page
+                Get.to(ProfilePage());
               },
             ),
           ],

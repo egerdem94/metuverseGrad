@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/buyandsell/screens/BuyPage.dart';
 import 'package:metuverse/home/screens/mainPage.dart';
+import 'package:metuverse/profile/screens/profilePage.dart';
 
 import '../../util/user.dart';
 
@@ -41,7 +42,10 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                Get.to(SellPage(
+                    searchKey: "",
+                    filteredProductPrice: "",
+                    filteredCurrency: ""));
                 // go back
               },
             ),
@@ -83,7 +87,10 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                Get.to(BuyPage(
+                    searchKey: "",
+                    filteredProductPrice: "",
+                    filteredCurrency: ""));
                 // go back
               },
             ),
@@ -99,7 +106,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // navigate to the profile page
+                Get.to(ProfilePage());
               },
             ),
           ],

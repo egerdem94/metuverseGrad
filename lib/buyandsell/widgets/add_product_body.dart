@@ -81,27 +81,22 @@ class _AddProductBodyState extends State<AddProductBody> {
         generalResponseCreatePost = message;
 
         // show snackbar if input data successfully
-        final snackBar = SnackBar(content: Text(generalResponseCreatePost['message']));
+        final snackBar =
+            SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         if (generalResponseCreatePost['processStatus'] == true) {
           //token = loginObject?.currentUserToken;
-          if(_buyerOrSeller == 'Selling'){
+          if (_buyerOrSeller == 'Selling') {
             Get.to(SellPage(
-                searchKey: "",
-                filteredProductPrice: "",
-                filteredCurrency: ""));
-          }
-          else{
+                searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+          } else {
             Get.to(BuyPage(
-                searchKey: "",
-                filteredProductPrice: "",
-                filteredCurrency: ""));
+                searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
           }
         } else {
           isButtonClicked = false;
           isResponseReceived = false;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Post create failed."),
           ));
         }
@@ -166,14 +161,14 @@ class _AddProductBodyState extends State<AddProductBody> {
                     ),
                   ),
                   Container(
-                    height: 35,
+                    height: 40,
                     margin: EdgeInsets.only(top: 16.0, left: 10.0),
                     decoration: BoxDecoration(
                       color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       child: DropdownButton<String>(
                         value: _buyerOrSeller,
                         items: _who.map((String value) {
@@ -202,13 +197,13 @@ class _AddProductBodyState extends State<AddProductBody> {
                   Row(
                     children: [
                       Container(
-                        height: 50,
+                        height: 45,
                         margin: EdgeInsets.only(top: 16.0),
                         width: 80,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(4.0),
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 255, 255),
                         ),
                         child: TextFormField(
                           controller: productPrice,
@@ -282,11 +277,11 @@ class _AddProductBodyState extends State<AddProductBody> {
                                   color: Color.fromARGB(255, 111, 111, 111)),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
-                                BorderSide(color: Colors.transparent),
+                                    BorderSide(color: Colors.transparent),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide:
-                                BorderSide(color: Colors.transparent),
+                                    BorderSide(color: Colors.transparent),
                               ),
                             ),
                             maxLines: null,
@@ -298,8 +293,8 @@ class _AddProductBodyState extends State<AddProductBody> {
                           child: GridView.builder(
                             itemCount: fileList.length,
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3),
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3),
                             itemBuilder: (BuildContext context, int i) {
                               return Container(
                                 padding: const EdgeInsets.all(10),
@@ -336,7 +331,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                           margin: EdgeInsets.only(right: 10.0, bottom: 18.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              if(isButtonClicked == false){
+                              if (isButtonClicked == false) {
                                 isButtonClicked = true;
                                 _send_post_to_backend();
                               }
@@ -378,19 +373,15 @@ class _AddProductBodyState extends State<AddProductBody> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              BackButton(
+                color: Colors.white,
+              ),
               IconButton(
                 onPressed: () {
                   pickImageFromGallery();
                 },
                 icon: const Icon(
                   Icons.photo_size_select_actual_rounded,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: (() {}),
-                icon: const Icon(
-                  Icons.camera_alt,
                   color: Colors.white,
                 ),
               ),

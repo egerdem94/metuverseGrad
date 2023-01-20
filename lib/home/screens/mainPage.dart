@@ -36,7 +36,10 @@ class MainPage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+                      Get.to(SellPage(
+                          searchKey: "",
+                          filteredProductPrice: "",
+                          filteredCurrency: ""));
                     },
                     imageUrl: 'assets-images/13717.jpg',
                   ),
@@ -67,11 +70,12 @@ class MainPage extends StatelessWidget {
                     imageUrl: 'assets-images/academiccalendar.png',
                   ),
                   RoundedSquareButton(
-                    text: "Button 6",
+                    text: "",
                     onPressed: () {
                       // do something
                     },
-                    imageUrl: 'assets-images/academiccalendar.png',
+                    imageUrl:
+                        'assets-images/Fast-food-design-Premium-vector-PNG.png',
                   ),
                 ],
               ),

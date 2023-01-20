@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/home/screens/mainPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
 import '../util/user.dart';
@@ -21,14 +22,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // go back
-              },
+            BackButton(
+              color: Colors.white,
             ),
             SizedBox(width: 110.0),
             IconButton(
@@ -37,7 +32,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(ChatScreen());
+                Get.to(MainPage());
               },
             ),
             SizedBox(width: 25.0),
