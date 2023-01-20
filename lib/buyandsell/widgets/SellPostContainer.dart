@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
+import '../../auth/screens/login-page.dart';
+import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photoGrid.dart';
 import '../models/SellPostList.dart';
@@ -43,11 +47,19 @@ class ProductContainer extends StatelessWidget {
         children: [
           Row(
             children: [
+          GestureDetector(
+            onTap: () {
+              Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
+            },
+            child:
               CircleAvatar(
+
                 backgroundImage: NetworkImage(
                     post.getProfilePicture()),
                 radius: 24.0,
               ),
+          ),
+
               SizedBox(width: 8.0),
               Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
