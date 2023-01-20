@@ -49,6 +49,7 @@ class _AddProductBodyState extends State<AddProductBody> {
   bool isLoading = false;
   List<File?> fileList = [];
   generalResponse? generalResponseObject;
+  var generalResponseCreatePost;
 
   Future _buyandsell_posts_create() async {
     //var img = await picker.pickImage(source: media);
@@ -74,9 +75,10 @@ class _AddProductBodyState extends State<AddProductBody> {
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {
         var message = jsonDecode(response.body);
+        generalResponseCreatePost = message;
 
         // show snackbar if input data successfully
-        final snackBar = SnackBar(content: Text(message['message']));
+        final snackBar = SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
     }).catchError((e) {
@@ -310,10 +312,8 @@ class _AddProductBodyState extends State<AddProductBody> {
                           child: ElevatedButton(
                             onPressed: () {
                               _buyandsell_posts_create();
-                              Timer(Duration(seconds: 3), () {
-                                if (generalResponseObject?.processStatus ==
-                                    true ||
-                                    1 == 1) {
+                              Timer(Duration(seconds: 5), () {
+                                if (generalResponseCreatePost['processStatus'] == true) {
                                   //token = loginObject?.currentUserToken;
                                   if(_buyerOrSeller == 'Selling'){
                                     Get.to(SellPage(
@@ -330,7 +330,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                    content: Text("Post yaratilamadi."),
+                                    content: Text("Post create failed."),
                                   ));
                                 }
                               });
