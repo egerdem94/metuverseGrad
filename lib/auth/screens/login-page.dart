@@ -184,12 +184,19 @@ class _LoginPageState extends State<LoginPage> {
                                               loginObject?.token ?? '',
                                               loginObject?.fullName ?? '',
                                               loginObject?.profilePicture ?? null);
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content:
+                                            Text("Welcome to Metuverse ${loginObject?.fullName}"),
+                                          ));
+
                                           Get.to(MainPage());
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content:
-                                                Text("Hatalı giris yaptiniz."),
+                                                Text("Incorrect login, please check your entries."),
                                           ));
                                         }
                                       });
