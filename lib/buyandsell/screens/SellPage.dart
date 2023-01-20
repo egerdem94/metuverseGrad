@@ -83,6 +83,7 @@ class _SellPageState extends State<SellPage> {
             ],
           ), // set the background color to blue
         ),
+
         child: ListView.builder(
           itemCount: buyandsellPostsListObject?.total,
           itemBuilder: (context, index) {

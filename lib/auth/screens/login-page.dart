@@ -61,6 +61,20 @@ class _LoginPageState extends State<LoginPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     loginObject = login.fromJson(jsonObject);
+    if (loginObject?.loginStatus == true) {
+      //token = loginObject?.token;
+      insertUserValues(
+          loginObject?.token ?? '',
+          loginObject?.fullName ?? '',
+          loginObject?.profilePicture ?? null);
+      Get.to(MainPage());
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(
+        content:
+        Text("Email or password is incorrect. Please try again."),
+      ));
+    }
   }
 
   @override
@@ -177,22 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextButton(
                                     onPressed: () {
                                       _user_login();
-                                      Timer(Duration(seconds: 2), () {
-                                        if (loginObject?.loginStatus == true) {
-                                          //token = loginObject?.token;
-                                          insertUserValues(
-                                              loginObject?.token ?? '',
-                                              loginObject?.fullName ?? '',
-                                              loginObject?.profilePicture ?? null);
-                                          Get.to(MainPage());
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content:
-                                                Text("Hatalı giris yaptiniz."),
-                                          ));
-                                        }
-                                      });
+
                                     },
                                     child: Text(
                                       'Login',
