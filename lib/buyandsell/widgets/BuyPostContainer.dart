@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
+import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photoGrid.dart';
 import '../models/SellPostList.dart';
@@ -41,12 +44,19 @@ class BuyPostContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+
             children: [
+              GestureDetector(
+              onTap: () {
+              Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
+              },
+              child:
               CircleAvatar(
                 backgroundImage: NetworkImage(
                     //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
                     post.getProfilePicture()),
                 radius: 24.0,
+              ),
               ),
               SizedBox(width: 8.0),
               Text(post.fullName ?? "", style: kUsersText),
