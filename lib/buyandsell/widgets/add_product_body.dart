@@ -47,11 +47,12 @@ class _AddProductBodyState extends State<AddProductBody> {
   File? file;
   XFile? pickedImage;
   bool isLoading = false;
+  bool isButtonClicked = false;
   List<File?> fileList = [];
   generalResponse? generalResponseObject;
   var generalResponseCreatePost;
 
-  Future _buyandsell_posts_create() async {
+  Future _send_post_to_backend() async {
     //var img = await picker.pickImage(source: media);
 
     //var uri = "http://www.birikikoli.com/mv_services/create223.php";
@@ -311,29 +312,32 @@ class _AddProductBodyState extends State<AddProductBody> {
                           margin: EdgeInsets.only(right: 10.0, bottom: 18.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              _buyandsell_posts_create();
-                              Timer(Duration(seconds: 5), () {
-                                if (generalResponseCreatePost['processStatus'] == true) {
-                                  //token = loginObject?.currentUserToken;
-                                  if(_buyerOrSeller == 'Selling'){
-                                    Get.to(SellPage(
-                                        searchKey: "",
-                                        filteredProductPrice: "",
-                                        filteredCurrency: ""));
+                              if(isButtonClicked == false){
+                                isButtonClicked = true;
+                                _send_post_to_backend();
+                                Timer(Duration(seconds: 5), () {
+                                  if (generalResponseCreatePost['processStatus'] == true) {
+                                    //token = loginObject?.currentUserToken;
+                                    if(_buyerOrSeller == 'Selling'){
+                                      Get.to(SellPage(
+                                          searchKey: "",
+                                          filteredProductPrice: "",
+                                          filteredCurrency: ""));
+                                    }
+                                    else{
+                                      Get.to(BuyPage(
+                                          searchKey: "",
+                                          filteredProductPrice: "",
+                                          filteredCurrency: ""));
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text("Post create failed."),
+                                    ));
                                   }
-                                  else{
-                                    Get.to(BuyPage(
-                                        searchKey: "",
-                                        filteredProductPrice: "",
-                                        filteredCurrency: ""));
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text("Post create failed."),
-                                  ));
-                                }
-                              });
+                                });
+                              }
                               // Validate the form
                               // if (widget._formKey.currentState!.validate()) {
                               // If the form is valid, submit the form
