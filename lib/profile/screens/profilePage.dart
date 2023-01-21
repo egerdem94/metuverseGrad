@@ -1,15 +1,21 @@
+import 'dart:async';
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/profile/widget/profilebottom.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:metuverse/auth/screens/login-page.dart';
 
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
+import '../../home/screens/mainPage.dart';
 import '../../util/user.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;
+
+import '../widget/profilebottom.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -36,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             // check if scroll is vertical ( left to right OR right to left)
             final scrollTabs = (scrollNotification.metrics.axisDirection ==
-                    AxisDirection.right ||
+                AxisDirection.right ||
                 scrollNotification.metrics.axisDirection == AxisDirection.left);
 
             if (!scrollTabs) {
@@ -135,22 +141,22 @@ class _ProfilePageState extends State<ProfilePage> {
                             : Color.fromARGB(255, 0, 0, 0),
                         image: isExpanded
                             ? DecorationImage(
-                                fit: BoxFit.cover,
-                                alignment: Alignment.bottomCenter,
-                                image: NetworkImage(
-                                    'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-                              )
+                          fit: BoxFit.cover,
+                          alignment: Alignment.bottomCenter,
+                          image: NetworkImage(
+                              'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                        )
                             : null),
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: isExpanded
                           ? Transform(
-                              transform: Matrix4.identity()
-                                ..translate(0.0, avatarMaximumRadius),
-                              child: MyAvatar(
-                                size: avatarRadius,
-                              ),
-                            )
+                        transform: Matrix4.identity()
+                          ..translate(0.0, avatarMaximumRadius),
+                        child: MyAvatar(
+                          size: avatarRadius,
+                        ),
+                      )
                           : SizedBox.shrink(),
                     ),
                   ),
@@ -168,11 +174,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: <Widget>[
                             isExpanded
                                 ? SizedBox(
-                                    height: avatarMinimumRadius * 2,
-                                  )
+                              height: avatarMinimumRadius * 2,
+                            )
                                 : MyAvatar(
-                                    size: avatarMinimumRadius,
-                                  ),
+                              size: avatarMinimumRadius,
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(right: 10.0),
                               child: Container(
@@ -202,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                        (context, index) {
                       return Post();
                     },
                   ),
@@ -211,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        bottomNavigationBar: ProfileBottomBar(),
+        bottomNavigationBar: ProfileBottomBar()
       ),
     );
   }
@@ -335,10 +341,83 @@ class _PostState extends State<Post> {
 }
 
 ////////////PROFİL FOTOSU BURDA
-class MyAvatar extends StatelessWidget {
+class MyAvatar extends StatefulWidget {
   final double? size;
+  const MyAvatar({Key? key,  required this.size}) : super(key: key);
 
-  const MyAvatar({Key? key, this.size}) : super(key: key);
+  @override
+  State<MyAvatar> createState() => _MyAvatarState();
+}
+
+
+
+class _MyAvatarState extends State<MyAvatar> {
+
+  XFile? pickedImage;
+  File? file;
+  List<File?> fileList = [];
+
+  final picker = ImagePicker();
+  var generalResponseCreatePost;
+
+  Future _user_profilePicture_edit() async {
+    var uri = "http://www.birikikoli.com/mv_services/userPictureEdit.php";
+
+    var request = http.MultipartRequest('POST', Uri.parse(uri));
+
+    if (pickedImage != null) {
+      var pic = await http.MultipartFile.fromPath("image", pickedImage!.path);
+
+      request.files.add(pic);
+    }
+
+    request.fields['token'] = User.token;
+
+
+    await request.send().then((result) {
+      http.Response.fromStream(result).then((response) {
+        var message = jsonDecode(response.body);
+        //isResponseReceived = true;
+        generalResponseCreatePost = message;
+
+        // show snackbar if input data successfully
+        final snackBar =
+        SnackBar(content: Text(generalResponseCreatePost['message']));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        developer.log("JSON: Status: " + generalResponseCreatePost['processStatus'].toString() + " Message: " + generalResponseCreatePost['message'] + "ProfilePicture: " + generalResponseCreatePost['profilePicture'], name: 'my.app.category');
+
+        if (generalResponseCreatePost['processStatus'] == true) {
+          //token = loginObject?.currentUserToken;
+          User.profilePicture = generalResponseCreatePost['profilePicture'];
+          Timer(Duration(seconds: 1), () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfilePage()));
+          });
+
+
+        } else {
+          //isButtonClicked = false;
+          //isResponseReceived = false;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Update failed."),
+          ));
+        }
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  Future pickImageFromGallery() async {
+    pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(pickedImage!.path);
+      fileList.add(file);
+    });
+    _user_profilePicture_edit();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -353,10 +432,18 @@ class MyAvatar extends StatelessWidget {
             shape: BoxShape.circle),
         child: Padding(
           padding: const EdgeInsets.all(2.0),
-          child: CircleAvatar(
-            radius: size,
-            backgroundImage: NetworkImage(
-              User.profilePicture,
+          child:
+          GestureDetector(
+            onTap: () {
+              pickImageFromGallery();
+            },
+            child:
+            CircleAvatar(
+              radius: widget.size,
+              backgroundImage:
+              NetworkImage(
+                User.profilePicture,
+              ),
             ),
           ),
         ),

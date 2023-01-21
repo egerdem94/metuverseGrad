@@ -24,6 +24,7 @@ class ProfileBottomBar extends StatelessWidget {
           children: [
             BackButton(
               color: Colors.white,
+
             ),
             SizedBox(width: 110.0),
             IconButton(
