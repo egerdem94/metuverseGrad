@@ -389,12 +389,10 @@ class _MyAvatarState extends State<MyAvatar> {
         if (generalResponseCreatePost['processStatus'] == true) {
           //token = loginObject?.currentUserToken;
           User.profilePicture = generalResponseCreatePost['profilePicture'];
-          Timer(Duration(seconds: 1), () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ProfilePage()));
-          });
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ProfilePage()));
 
 
         } else {

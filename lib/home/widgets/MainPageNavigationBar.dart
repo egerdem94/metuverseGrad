@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/auth/screens/login-page.dart';
 import 'package:metuverse/home/screens/mainPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
+import 'package:metuverse/util/user.dart';
+import 'package:metuverse/widgets/robot/robotPage.dart';
 
-import '../../util/user.dart';
-import '../../widgets/robot/robotPage.dart';
 
-class ProfileBottomBar extends StatelessWidget {
+class MainPageNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,10 +22,9 @@ class ProfileBottomBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            BackButton(
+            /*BackButton(
               color: Colors.white,
-
-            ),
+            ),*/
             SizedBox(width: 110.0),
             IconButton(
               icon: Icon(
@@ -49,19 +47,15 @@ class ProfileBottomBar extends StatelessWidget {
             ),
             SizedBox(width: 25.0),
             IconButton(
-              icon: Icon(
-                MdiIcons.logout,
-                color: Colors.white,
+              icon: CircleAvatar(
+                radius: 18.0,
+                backgroundImage: NetworkImage(
+                  //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                  User.profilePicture,
+                ),
               ),
               onPressed: () {
-                User.logout();
-                //Get.to(ProfilePage());
-                //Get.to(LoginPage());
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
-                  return LoginPage();
-                }), (r){
-                  return false;
-                });
+                Get.to(ProfilePage());
               },
             ),
           ],

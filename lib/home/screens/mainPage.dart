@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
+import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
@@ -83,7 +84,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: MainPageNavigationBar(),
     );
   }
 }

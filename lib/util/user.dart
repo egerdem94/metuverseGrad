@@ -3,4 +3,10 @@ class User{
  static late String token;
  static late String profilePicture;
 
+  static void logout() {
+    fullName = '';
+    token = '';
+    profilePicture = '';
+  }
+
 }
