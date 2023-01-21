@@ -392,7 +392,7 @@ class _MyAvatarState extends State<MyAvatar> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => ProfilePage()));
+                  builder: (context) => MainPage()));
 
 
         } else {

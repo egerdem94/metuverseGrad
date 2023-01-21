@@ -22,9 +22,9 @@ class MainPageNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            /*BackButton(
+            BackButton(
               color: Colors.white,
-            ),*/
+            ),
             SizedBox(width: 110.0),
             IconButton(
               icon: Icon(
