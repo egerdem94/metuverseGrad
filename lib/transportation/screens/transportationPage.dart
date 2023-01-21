@@ -14,49 +14,6 @@ import '../widget/transportationBottom.dart';
 import '../widget/transportationCarContainer.dart';
 
 /*
-List<Product> dummyProducts = [
-  Product(
-    name: 'Product 1',
-    price: 10.0,
-    imageUrl: [
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-      'https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp',
-    ],
-    description: 'selling box',
-    id: '1',
-    sellerId: '123',
-    sellerName: 'user 1 ',
-    isAvailable: true,
-  ),
-  Product(
-    name: 'Product 2',
-    price: 20.0,
-    imageUrl: [
-      'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png',
-    ],
-    description: 'selling guitar',
-    id: '2',
-    sellerId: '123',
-    sellerName: 'user 2',
-    isAvailable: false,
-  ),
-  Product(
-    name: 'Product 3',
-    price: 30.0,
-    imageUrl: [
-      'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png',
-    ],
-    description: 'selling guitar',
-    id: '3',
-    sellerId: '123',
-    sellerName: 'user 3',
-    isAvailable: true,
-  ),
-];*/
-/*
 List<Product> productsFromJson(String jsonString) {
   final jsonData = json.decode(jsonString);
   return List<Product>.from(
@@ -70,9 +27,55 @@ class TransportationPage extends StatefulWidget {
 }
 
 class _TransportationPageState extends State<TransportationPage> {
+  List<SinglePostItem> dummyList = [
+    SinglePostItem(
+      belongToUser: true,
+      fullName: "Yavuz Erbaş",
+      profilePicture: null,
+      postID: 1,
+      description: "If anyone going to girne. I can join",
+      productPrice: 200,
+      currency: "USD",
+      productStatus: 1,
+    ),
+    SinglePostItem(
+      belongToUser: false,
+      fullName: "Batuhan SANDIKCI",
+      profilePicture: null,
+      postID: 2,
+      description: "I will go to Ercan wednesday 9pm.",
+      productPrice: null,
+      currency: null,
+      productStatus: 0,
+    ),
+    SinglePostItem(
+      belongToUser: true,
+      fullName: "Ali Veli",
+      profilePicture: null,
+      postID: 3,
+      description: "Me and my friends looking for ride to lefkoşa tonight.",
+      productPrice: 1000,
+      currency: "USD",
+      productStatus: 1,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDummyProducts();
+  }
+
+  void _loadDummyProducts() {
+    setState(() {
+      transportationPostsListObject =
+          transportationPostsList(items: dummyList, total: dummyList.length);
+    });
+  }
+
   //late List<Product> products;
   transportationPostsList? transportationPostsListObject;
-
+/*
   Future _transportation_posts_list() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
@@ -90,15 +93,16 @@ class _TransportationPageState extends State<TransportationPage> {
       transportationPostsListObject =
           transportationPostsList.fromJson(jsonObject);
     });
-  }
+  }*/
 
-  @override
+/*  @override
   void initState() {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
-    _transportation_posts_list();
-  }
+    //SinglePostItem = dummyList;
+    //_transportation_posts_list();
+  }*/
 
   @override
   Widget build(BuildContext context) {

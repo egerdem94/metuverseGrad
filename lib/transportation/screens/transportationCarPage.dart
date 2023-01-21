@@ -16,6 +16,53 @@ class TransportationCarPage extends StatefulWidget {
 }
 
 class _TransportationCarPageState extends State<TransportationCarPage> {
+  List<SinglePostItem> dummyList = [
+    SinglePostItem(
+      belongToUser: true,
+      fullName: "Ali Veli",
+      profilePicture: null,
+      postID: 1,
+      description:
+          "I am going to girne if anyone want to join. We can split gas.",
+      productPrice: 200,
+      currency: "USD",
+      productStatus: 1,
+    ),
+    SinglePostItem(
+      belongToUser: false,
+      fullName: "Jane Doe",
+      profilePicture: null,
+      postID: 2,
+      description: "Going Lefkoşa",
+      productPrice: 100,
+      currency: null,
+      productStatus: 0,
+    ),
+    SinglePostItem(
+      belongToUser: true,
+      fullName: "Bob Johnson",
+      profilePicture: null,
+      postID: 3,
+      description: "Going Ercan tonight. I have 3 available seats",
+      productPrice: 100,
+      currency: "USD",
+      productStatus: 1,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDummyProducts();
+  }
+
+  void _loadDummyProducts() {
+    setState(() {
+      transportationCarPostsListObject =
+          transportationPostsList(items: dummyList, total: dummyList.length);
+    });
+  }
+
   //late List<Product> products;
   transportationPostsList? transportationCarPostsListObject;
 
@@ -37,13 +84,13 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
     });
   }
 
-  @override
+  /* @override
   void initState() {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
     _lookingfor_posts_list();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

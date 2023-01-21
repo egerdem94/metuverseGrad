@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
@@ -11,7 +12,6 @@ import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;
 
 class OtherUserProfilePage extends StatefulWidget {
-
   const OtherUserProfilePage({
     Key? key,
     required this.userFullName,
@@ -45,7 +45,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
 
             // check if scroll is vertical ( left to right OR right to left)
             final scrollTabs = (scrollNotification.metrics.axisDirection ==
-                AxisDirection.right ||
+                    AxisDirection.right ||
                 scrollNotification.metrics.axisDirection == AxisDirection.left);
 
             if (!scrollTabs) {
@@ -144,23 +144,23 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                             : Color.fromARGB(255, 0, 0, 0),
                         image: isExpanded
                             ? DecorationImage(
-                          fit: BoxFit.cover,
-                          alignment: Alignment.bottomCenter,
-                          image: NetworkImage(
-                              'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-                        )
+                                fit: BoxFit.cover,
+                                alignment: Alignment.bottomCenter,
+                                image: NetworkImage(
+                                    'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                              )
                             : null),
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: isExpanded
                           ? Transform(
-                        transform: Matrix4.identity()
-                          ..translate(0.0, avatarMaximumRadius),
-                        child: MyAvatar(
-                          size: avatarRadius,
-                          profilePicture: widget.profilePicture!,
-                        ),
-                      )
+                              transform: Matrix4.identity()
+                                ..translate(0.0, avatarMaximumRadius),
+                              child: MyAvatar(
+                                size: avatarRadius,
+                                profilePicture: widget.profilePicture!,
+                              ),
+                            )
                           : SizedBox.shrink(),
                     ),
                   ),
@@ -178,11 +178,23 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                           children: <Widget>[
                             isExpanded
                                 ? SizedBox(
-                              height: avatarMinimumRadius * 2,
-                            )
+                                    height: avatarMinimumRadius * 2,
+                                  )
                                 : MyAvatar(
-                              size: avatarMinimumRadius,
-                              profilePicture: widget.profilePicture!,
+                                    size: avatarMinimumRadius,
+                                    profilePicture: widget.profilePicture!,
+                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.messageFast,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  // handle direct message button press
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -197,7 +209,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                        (context, index) {
+                    (context, index) {
                       return PostContainer();
                     },
                   ),
@@ -264,7 +276,6 @@ class ProfileTabs extends SliverPersistentHeaderDelegate {
 
 /////AD FALAN
 class ProfileHeader extends StatelessWidget {
-
   const ProfileHeader({
     Key? key,
     required this.userFullName,
@@ -344,10 +355,8 @@ class MyAvatar extends StatelessWidget {
 
   const MyAvatar({
     Key? key,
-
     this.size,
     required this.profilePicture,
-
   }) : super(key: key);
 
   @override

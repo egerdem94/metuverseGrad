@@ -25,19 +25,19 @@ class ProfileBottomBar extends StatelessWidget {
           children: [
             BackButton(
               color: Colors.white,
-
             ),
             SizedBox(width: 110.0),
-            IconButton(
-              icon: Icon(
-                MdiIcons.home,
-                color: Colors.white,
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.home,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Get.to(MainPage());
+                },
               ),
-              onPressed: () {
-                Get.to(MainPage());
-              },
             ),
-            SizedBox(width: 25.0),
             IconButton(
               icon: Icon(
                 MdiIcons.robotHappy,
@@ -57,9 +57,10 @@ class ProfileBottomBar extends StatelessWidget {
                 User.logout();
                 //Get.to(ProfilePage());
                 //Get.to(LoginPage());
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
                   return LoginPage();
-                }), (r){
+                }), (r) {
                   return false;
                 });
               },

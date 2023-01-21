@@ -6,7 +6,6 @@ import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/util/user.dart';
 import 'package:metuverse/widgets/robot/robotPage.dart';
 
-
 class MainPageNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,16 +25,17 @@ class MainPageNavigationBar extends StatelessWidget {
               color: Colors.white,
             ),
             SizedBox(width: 110.0),
-            IconButton(
-              icon: Icon(
-                MdiIcons.home,
-                color: Colors.white,
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.home,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Get.to(MainPage());
+                },
               ),
-              onPressed: () {
-                Get.to(MainPage());
-              },
             ),
-            SizedBox(width: 25.0),
             IconButton(
               icon: Icon(
                 MdiIcons.robotHappy,
