@@ -83,13 +83,28 @@ class _SellPageState extends State<SellPage> {
             ],
           ), // set the background color to blue
         ),
-        child: ListView.builder(
+        child: buyandsellPostsListObject != null ? ListView.builder(
           itemCount: buyandsellPostsListObject?.total,
           itemBuilder: (context, index) {
             return ProductContainer(
                 post: buyandsellPostsListObject!.items![index]);
           },
-        ),
+        )
+      :Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 10),
+                Text("Loading..."),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  child: Text("Retry"),
+                  onPressed: () => _buyandsell_posts_searchandfilter(),
+                )
+              ],
+            ),
+          )
       ),
       bottomNavigationBar: CustomBuySellBottomNavigationBar(),
     );
