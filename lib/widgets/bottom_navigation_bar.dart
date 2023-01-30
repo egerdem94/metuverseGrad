@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/home/screens/mainPage.dart';
+import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
 import '../util/user.dart';
@@ -33,7 +33,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(MainPage());
+                  Get.to(HomePage());
                 },
               ),
             ),

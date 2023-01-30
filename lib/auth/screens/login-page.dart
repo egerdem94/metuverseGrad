@@ -6,7 +6,7 @@ import 'package:metuverse/auth/model/loginclass.dart';
 import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:metuverse/home/screens/mainPage.dart';
+import 'package:metuverse/home/screens/HomePage.dart';
 import '../../util/user.dart';
 import '../../widgets/background-image.dart';
 import 'package:get/get.dart';
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                                             Text("Welcome to Metuverse ${loginObject?.fullName}"),
                                           ));
 
-                                          Get.to(MainPage());
+                                          Get.to(HomePage());
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(

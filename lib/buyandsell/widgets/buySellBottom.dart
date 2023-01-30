@@ -3,7 +3,7 @@ import 'package:metuverse/buyandsell/screens/CreatePostPage.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/buyandsell/screens/BuyPage.dart';
-import 'package:metuverse/home/screens/mainPage.dart';
+import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
 import '../../util/user.dart';
@@ -29,7 +29,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(MainPage());
+                Get.to(HomePage());
                 // go back
               },
             ),

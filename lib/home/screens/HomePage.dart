@@ -3,6 +3,7 @@ import 'package:flutter/src/material/colors.dart';
 import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
+import 'package:metuverse/new_buy_sell/screens/NewBuyPage.dart';
 import 'package:metuverse/whispers/screens/whispersPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
@@ -11,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:metuverse/widgets/rounded_square_button.dart';
 import '../../transportation/screens/transportationPage.dart';
 
-class MainPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +75,7 @@ class MainPage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      // do something
+                      Get.to(NewBuyPage());
                     },
                     imageUrl:
                         'assets-images/Fast-food-design-Premium-vector-PNG.png',

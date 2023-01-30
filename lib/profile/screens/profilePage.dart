@@ -9,7 +9,7 @@ import 'package:metuverse/auth/screens/login-page.dart';
 
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
-import '../../home/screens/mainPage.dart';
+import '../../home/screens/HomePage.dart';
 import '../../util/user.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
@@ -392,7 +392,7 @@ class _MyAvatarState extends State<MyAvatar> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => MainPage()));
+                  builder: (context) => HomePage()));
 
 
         } else {
