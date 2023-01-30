@@ -6,7 +6,7 @@ import 'package:metuverse/buyandsell/screens/BuyPage.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 
 class CustomBuySellBottomNavigationBar extends StatelessWidget {
   @override

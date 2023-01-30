@@ -10,7 +10,7 @@ import 'package:metuverse/transportation/screens/transportationCarPage.dart';
 import 'package:metuverse/transportation/screens/transportationPage.dart';
 import 'package:metuverse/transportation/screens/transportationPostingPage.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import 'transportationContainer.dart';
 
 class CustomTransportationBottomNavigationBar extends StatelessWidget {

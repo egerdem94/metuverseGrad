@@ -5,7 +5,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:metuverse/palette.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 
 class TransportationPostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();

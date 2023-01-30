@@ -10,7 +10,7 @@ import 'package:metuverse/auth/screens/login-page.dart';
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
 import '../../home/screens/HomePage.dart';
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;

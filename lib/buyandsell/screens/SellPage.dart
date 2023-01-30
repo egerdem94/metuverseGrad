@@ -8,7 +8,7 @@ import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../models/SellPostList.dart';
 import '../models/ZDeprecatedProduct.dart';
 import '../widgets/SellPostContainer.dart';

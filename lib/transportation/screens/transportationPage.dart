@@ -8,7 +8,7 @@ import 'package:metuverse/transportation/widget/transportationContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../model/transportationPostList.dart';
 import '../widget/transportationBottom.dart';
 import '../widget/transportationCarContainer.dart';

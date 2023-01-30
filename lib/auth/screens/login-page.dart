@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../../widgets/background-image.dart';
 import 'package:get/get.dart';
 

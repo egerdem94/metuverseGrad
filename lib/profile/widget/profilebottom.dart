@@ -5,7 +5,7 @@ import 'package:metuverse/auth/screens/login-page.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../../widgets/robot/robotPage.dart';
 
 class ProfileBottomBar extends StatelessWidget {

@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/palette.dart';
 
 import '../../generalResponse.dart';
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../screens/BuyPage.dart';
 import '../screens/SellPage.dart';
 

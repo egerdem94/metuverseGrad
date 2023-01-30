@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
-import 'package:metuverse/util/user.dart';
+import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/widgets/robot/robotPage.dart';
 
 class MainPageNavigationBar extends StatelessWidget {

@@ -10,7 +10,7 @@ import 'package:metuverse/whispers/widgets/whispersContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../models/whispersPostList.dart';
 
 class WhispersPage extends StatefulWidget {

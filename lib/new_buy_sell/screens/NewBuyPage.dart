@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
-import 'package:metuverse/util/GlobalBuyPostList.dart';
-import 'package:metuverse/util/models/NewBuySellPostList.dart';
-import 'package:metuverse/util/user.dart';
+import 'package:metuverse/storage/GlobalBuyPostList.dart';
+import 'package:metuverse/storage/models/NewBuySellPostList.dart';
+import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -25,7 +25,7 @@ class NewBuyPage extends StatefulWidget {
 }
 
 class _NewBuyPageState extends State<NewBuyPage> {
-  NewBuySellPostList? buyandsellPostsListObject;
+  NewBuySellPostList? buyandsellPostsListObject = GlobalBuyPostList.getBuySellPostList();
   //GlobalBuyPostList globalBuyPostList = GlobalBuyPostList();
 
 

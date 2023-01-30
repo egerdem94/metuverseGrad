@@ -6,7 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../buyandsell/models/SellPostList.dart';
 import '../../buyandsell/widgets/BuyPostContainer.dart';
-import '../../util/user.dart';
+import '../../storage/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;

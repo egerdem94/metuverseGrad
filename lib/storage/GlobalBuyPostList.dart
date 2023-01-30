@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:metuverse/util/models/NewBuySellPostList.dart';
+import 'package:metuverse/storage/models/NewBuySellPostList.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/util/user.dart';
+import 'package:metuverse/storage/User.dart';
 
 class GlobalBuyPostList{
 
@@ -10,8 +10,8 @@ class GlobalBuyPostList{
     items: [
       NewPost(
         belongToUser: true,
-        fullName: 'John Doe',
-        profilePicture: 'http://www.birikikoli.com/images/profileMedia/userID4.jpg',
+        fullName: 'Ava Addams',
+        profilePicture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg',
         postID: 1,
         media: 'http://www.birikikoli.com/images/nophoto.jpg',
         description: 'A new product',
@@ -57,8 +57,8 @@ class GlobalBuyPostList{
     //});
   }
   static Future<bool> apiCall() async {
+    await Future.delayed(Duration(seconds: 7));
     await _buyandsell_posts_searchandfilter();
-    await Future.delayed(Duration(seconds: 2));
     return true;
   }
 
