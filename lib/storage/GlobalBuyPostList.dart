@@ -1,14 +1,14 @@
 import 'dart:convert';
-
-import 'package:metuverse/storage/models/NewBuySellPostList.dart';
 import 'package:http/http.dart' as http;
+import 'package:metuverse/storage/models/NewBuyPostList.dart';
+
 import 'package:metuverse/storage/User.dart';
 
 class GlobalBuyPostList{
 
-  static NewBuySellPostList? newBuySellPostList = NewBuySellPostList(
+  static NewBuyPostList? newBuyPostList = NewBuyPostList(
     items: [
-      NewPost(
+      NewBuyPost(
         belongToUser: true,
         fullName: 'Ava Addams',
         profilePicture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg',
@@ -19,7 +19,7 @@ class GlobalBuyPostList{
         currency: 'TRY',
         productStatus: 1,
       ),
-      NewPost(
+      NewBuyPost(
         belongToUser: false,
         fullName: 'Jane Doe',
         profilePicture: 'http://www.birikikoli.com/images/profileMedia/userID3.jpeg',
@@ -53,7 +53,7 @@ class GlobalBuyPostList{
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     //setState(() {
-    newBuySellPostList = NewBuySellPostList.fromJson(jsonObject);
+    newBuyPostList = NewBuyPostList.fromJson(jsonObject);
     //});
   }
   static Future<bool> apiCall() async {
@@ -62,7 +62,9 @@ class GlobalBuyPostList{
     return true;
   }
 
-  static NewBuySellPostList? getBuySellPostList(){
-    return newBuySellPostList;
+  static NewBuyPostList? getBuySellPostList(){
+    return newBuyPostList;
   }
+
+
 }

@@ -2,31 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/storage/models/NewBuyPostList.dart';
-import 'package:metuverse/widgets/full_screen_imagePage.dart';
-import 'package:metuverse/widgets/photoGrid.dart';
+import 'package:metuverse/storage/models/NewSellPostList2.dart';
+import '../../auth/screens/login-page.dart';
+import '../../profile/screens/OtherUserProfilePage.dart';
+import '../../widgets/full_screen_imagePage.dart';
+import '../../widgets/photoGrid.dart';
 
-
-class NewBuyPostContainer extends StatelessWidget {
-  final NewBuyPost newPost;
+class NewSellPostContainer extends StatelessWidget {
+  final NewSellPostX post;
 
   /*final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];*/
-  NewBuyPostContainer({required this.newPost});
+
+  NewSellPostContainer({required this.post});
 
   String currencySymbol = '';
 
   String? currencyConverter(String? currencyText) {
-    if (currencyText == 'TL')
+    if (currencyText == 'TRY')
       currencySymbol = '₺';
-    else if (currencyText == 'DOLLAR')
+    else if (currencyText == 'USD')
       currencySymbol = '\$';
-    else if (currencyText == 'EURO')
+    else if (currencyText == 'EUR')
       currencySymbol = '€';
-    else if (currencyText == 'POUND') currencySymbol = '£';
+    else if (currencyText == 'GBP') currencySymbol = '£';
 
     return currencySymbol;
   }
@@ -47,21 +48,24 @@ class NewBuyPostContainer extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.to(OtherUserProfilePage(
-                    userFullName: newPost.fullName,
-                    profilePicture: newPost.getProfilePicture(),
-                  ));
+                  Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
                 },
-                child: CircleAvatar(
+                child:
+                CircleAvatar(
+
                   backgroundImage: NetworkImage(
-                    //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
-                      newPost.getProfilePicture()),
+                      post.getProfilePicture()),
                   radius: 24.0,
                 ),
               ),
+
               SizedBox(width: 8.0),
-              Text(newPost.fullName ?? "", style: kUsersText),
+              Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
+              Text(
+                  '${post.productPrice ?? 0} ${currencyConverter(post.currency ?? "")}',
+                  style: kwhiteText),
+              SizedBox(width: 8.0),
               IconButton(
                 icon: Icon(
                   Icons.message,
@@ -74,20 +78,20 @@ class NewBuyPostContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.0),
-          Text(newPost.description!, style: kwhiteText),
+          Text(post.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
             height: 260.0,
             child: PhotoGrid(
               //imageUrls: imagesUrls, // pass the imageUrls here
-              imageUrls: newPost.mediaList(),
+              imageUrls: post.mediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => FullscreenImageView(
-                      imageUrl: newPost.mediaList()[index],
+                      imageUrl: post.mediaList()[index],
                       //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
                     ),
                   ),
@@ -151,11 +155,18 @@ class NewBuyPostContainer extends StatelessWidget {
               if (!false)
                 IconButton(
                   onPressed: () {
-                    // Leave a comment
+// Add product to favorites
                   },
-                  icon: Icon(Icons.comment_rounded),
+                  icon: Icon(Icons.add_circle_outline),
                   color: Colors.blue,
                 ),
+              IconButton(
+                onPressed: () {
+                  // Leave a comment
+                },
+                icon: Icon(Icons.comment_rounded),
+                color: Colors.blue,
+              ),
               IconButton(
                 onPressed: () {
                   // Leave a comment
@@ -166,14 +177,16 @@ class NewBuyPostContainer extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  newPost.productStatus! == 1 ? 'Looking' : 'Found',
+                  post.productStatus! == 1 ? 'Available' : 'Sold',
                   style: TextStyle(
-                    color:
-                    newPost.productStatus! == 1 ? Colors.white : Colors.black,
+                    color: post.productStatus! == 1
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 ),
-                backgroundColor:
-                newPost.productStatus! == 1 ? Colors.green : Colors.red,
+                backgroundColor: post.productStatus! == 1
+                    ? Colors.green
+                    : Colors.red,
               ),
             ],
           )

@@ -1,16 +1,14 @@
-//import 'dart:ffi';
-
-class NewBuySellPostList {
-  List<NewPost>? items;
+class NewSellPostList2 {
+  List<NewSellPostX>? items;
   int? total;
 
-  NewBuySellPostList({this.items, this.total});
+  NewSellPostList2({this.items, this.total});
 
-  NewBuySellPostList.fromJson(Map<String, dynamic> json) {
+  NewSellPostList2.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <NewPost>[];
+      items = <NewSellPostX>[];
       json['items'].forEach((v) {
-        items!.add(new NewPost.fromJson(v));
+        items!.add(new NewSellPostX.fromJson(v));
       });
     }
     total = json['total'];
@@ -26,53 +24,36 @@ class NewBuySellPostList {
   }
 }
 
-class NewPost {
+class NewSellPostX {
   bool? belongToUser;
   String? fullName;
   String? profilePicture;
   int? postID;
+  int? updateVersion;
   String? media;
   String? description;
   int? productPrice;
   String? currency;
   int? productStatus;
 
-  NewPost(
+  NewSellPostX(
       {this.belongToUser,
         this.fullName,
         this.profilePicture,
         this.postID,
+        this.updateVersion,
         this.media,
         this.description,
         this.productPrice,
         this.currency,
         this.productStatus});
 
-  List<String> mediaList(){
-    List<String> mediaList = [];
-    if (this.media != null) {
-      mediaList.add(this.media!);
-    }
-    else{
-      mediaList.add("https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp");
-    }
-    return mediaList;
-  }
-  String getProfilePicture(){
-    if (this.profilePicture != null) {
-      return this.profilePicture!;
-    }
-    else{
-      //return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-      return "http://birikikoli.com/images/blank-profile-picture.jpg";
-    }
-  }
-
-  NewPost.fromJson(Map<String, dynamic> json) {
+  NewSellPostX.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
     postID = json['postID'];
+    updateVersion = json['updateVersion'];
     media = json['media'];
     description = json['description'];
     productPrice = json['productPrice'];
@@ -86,6 +67,7 @@ class NewPost {
     data['fullName'] = this.fullName;
     data['profilePicture'] = this.profilePicture;
     data['postID'] = this.postID;
+    data['updateVersion'] = this.updateVersion;
     data['media'] = this.media;
     data['description'] = this.description;
     data['productPrice'] = this.productPrice;
@@ -94,16 +76,24 @@ class NewPost {
     return data;
   }
 
-}
+  List<String> mediaList(){
+    List<String> mediaList = [];
+    if (this.media != null) {
+      mediaList.add(this.media!);
+    }
+    else{
+      mediaList.add("https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp");
+    }
+    return mediaList;
+  }
 
-class PostItem {
-  String? description;
-  String? productPrice;
-  String? currency;
-
-  PostItem({
-    this.description,
-    this.productPrice,
-    this.currency,
-  });
+  String getProfilePicture(){
+    if (this.profilePicture != null) {
+      return this.profilePicture!;
+    }
+    else{
+      //return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+      return "http://birikikoli.com/images/blank-profile-picture.jpg";
+    }
+  }
 }

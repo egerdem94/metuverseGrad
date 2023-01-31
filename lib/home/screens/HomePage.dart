@@ -4,6 +4,7 @@ import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuyPage.dart';
+import 'package:metuverse/new_buy_sell/screens/NewSellPage.dart';
 import 'package:metuverse/whispers/screens/whispersPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
@@ -75,7 +76,7 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(NewBuyPage());
+                      Get.to(NewSellPage());
                     },
                     imageUrl:
                         'assets-images/Fast-food-design-Premium-vector-PNG.png',
