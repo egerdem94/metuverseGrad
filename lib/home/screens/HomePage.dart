@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(NewBuySellPageX(buyOrSell: 's',));
+                      Get.to(NewBuySellPageX(buyOrSell: 's', searchModeFlag: false));
                     },
                     imageUrl:
                         'assets-images/Fast-food-design-Premium-vector-PNG.png',

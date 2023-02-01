@@ -1,27 +1,20 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
-import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
-import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewBuyPostContainer.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewSellPostContainer.dart';
 import 'package:metuverse/storage/GlobalBuySellPostList.dart';
-import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
-import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../widgets/NewBuyPostContainer.dart';
 
 
 class NewBuySellPageX extends StatefulWidget {
   final buyOrSell;
-
+  final searchModeFlag;
   const NewBuySellPageX({
     required this.buyOrSell,
+    required this.searchModeFlag,
     Key? key,
   }) : super(key: key);
 
@@ -45,7 +38,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BuyandSellAppBar(),
+      appBar: NewBuyAndSellAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
           decoration: BoxDecoration(

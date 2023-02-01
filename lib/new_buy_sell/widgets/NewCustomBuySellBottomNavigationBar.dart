@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/buyandsell/screens/CreatePostPage.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/buyandsell/screens/SellPage.dart';
-import 'package:metuverse/buyandsell/screens/BuyPage.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuySellPageX.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
+import 'package:metuverse/storage/User.dart';
 
-import '../../storage/User.dart';
 
 class NewCustomBuySellBottomNavigationBar extends StatelessWidget {
   @override
@@ -47,7 +44,7 @@ class NewCustomBuySellBottomNavigationBar extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NewBuySellPageX(buyOrSell: 's')
+                        builder: (context) => NewBuySellPageX(buyOrSell: 's', searchModeFlag: false,)
                     )
                 );
                 // go back
@@ -70,7 +67,7 @@ class NewCustomBuySellBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(CreatePostPage());
+                        Get.to(NewCustomBuySellBottomNavigationBar());
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -95,7 +92,7 @@ class NewCustomBuySellBottomNavigationBar extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NewBuySellPageX(buyOrSell: 'b')
+                        builder: (context) => NewBuySellPageX(buyOrSell: 'b', searchModeFlag: false,)
                     )
                 );
                 // go back

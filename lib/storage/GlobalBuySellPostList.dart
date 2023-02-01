@@ -30,29 +30,13 @@ class GlobalBuySellPostList{
 
 
   }
-/*  static Future _request_buy_posts(postIDList) async {
-    String serviceAddress =
-        'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
-    Uri serviceUri = Uri.parse(serviceAddress);
-    final response = await http.post(serviceUri, body: {
-      "token": User.token,
-      //"buyerOrSeller": "b", //seller
-      "postIDList": postIDList,
-    });
-
-    String stringData = response.body;
-    Map<String, dynamic> jsonObject = jsonDecode(stringData);
-
-    newBuyPostList = NewBuySellPostList2.fromJson(jsonObject);
-
-  }*/
-  static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller) async {
+  static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,{lastPostID:""}) async {
     String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.token,
       "buyerOrSeller": buyerOrSeller, //seller
-      "lastPostID": "5",
+      "lastPostID": lastPostID,
     });
 
     String stringData = response.body;
@@ -97,23 +81,8 @@ class GlobalBuySellPostList{
       print('Error in GlobalBuySellPostList.dart Unexpected buyOrSell value');
       return false;
     }
-    /*if(newSellPostList != null){
-      return true;
-    }
-    else{
-      return false;
-    }*/
   }
-/*  static Future<bool> initialBuyApiCall() async{
-    PostsToDisplay? postsToDisplay = await _request_posts_to_diplay('b');
-    await _request_buy_sell_posts(preparePostToRequestString(postsToDisplay));
-    if(newBuyPostList != null){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }*/
+
   static NewBuySellPostListX? getBuySellPostList(buyOrSell){
     if(buyOrSell == 's'){
       return newSellPostList;
@@ -125,10 +94,9 @@ class GlobalBuySellPostList{
       print('Error in GlobalBuySellPostList.dart Unexpected buyOrSell value');
       return null;
     }
-    return newSellPostList;
   }
-/*  static NewBuySellPostList2? getBuyPostList(){
-    return newBuyPostList;
-  }*/
+  static Future ToDoSearch() async{
+
+  }
 }
 
