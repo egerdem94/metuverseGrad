@@ -6,38 +6,38 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewSellPostContainer.dart';
-import 'package:metuverse/storage/GlobalBuyPostList.dart';
-import 'package:metuverse/storage/GlobalSellPostList.dart';
-import 'package:metuverse/storage/models/NewBuyPostList.dart';
+import 'package:metuverse/storage/GlobalBuySellPostList.dart';
 import 'package:metuverse/storage/User.dart';
-import 'package:metuverse/storage/models/NewSellPostList2.dart';
+import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 import '../widgets/NewBuyPostContainer.dart';
 
 
-class NewSellPage extends StatefulWidget {
-  const NewSellPage({
+class NewBuySellPageX extends StatefulWidget {
+  final buyOrSell;
+
+  const NewBuySellPageX({
+    required this.buyOrSell,
     Key? key,
   }) : super(key: key);
 
   @override
-  _NewSellPageState createState() => _NewSellPageState();
+  _NewBuySellPageXState createState() => _NewBuySellPageXState();
 }
 
-class _NewSellPageState extends State<NewSellPage> {
-  NewSellPostList2? buyandsellPostsListObject;
-  //GlobalBuyPostList globalBuyPostList = GlobalBuyPostList();
-
+class _NewBuySellPageXState extends State<NewBuySellPageX> {
+  NewBuySellPostListX? newBuySellPostList2;
 
   @override
   void initState() {
     super.initState();
-    GlobalSellPostList.initialApiCall().then((_) {
+    GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell).then((_) {
       setState(() {
-        buyandsellPostsListObject = GlobalSellPostList.getSellPostList();
+        newBuySellPostList2 = GlobalBuySellPostList.getBuySellPostList(widget.buyOrSell);
       });
     });
   }
@@ -59,13 +59,21 @@ class _NewSellPageState extends State<NewSellPage> {
               ],
             ), // set the background color to blue
           ),
-          child: buyandsellPostsListObject != null ? ListView.builder(
-            itemCount: buyandsellPostsListObject!.total,
-            itemBuilder: (context, index) {
-              return NewSellPostContainer(
-                  post: buyandsellPostsListObject!.items![index]);
-            },
-          )
+          child: newBuySellPostList2 != null ?
+            widget.buyOrSell == 's' ? ListView.builder(
+              itemCount: newBuySellPostList2!.total,
+              itemBuilder: (context, index) {
+                return NewSellPostContainer(
+                    post: newBuySellPostList2!.items![index]);
+              },
+            ):ListView.builder(
+              itemCount: newBuySellPostList2!.total,
+              itemBuilder: (context, index) {
+                return NewBuyPostContainer(
+                    newPost: newBuySellPostList2!.items![index]);
+              },
+            )
+
               :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,13 +84,13 @@ class _NewSellPageState extends State<NewSellPage> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text("Retry"),
-                  onPressed: () => GlobalBuyPostList.apiCall(),
+                  onPressed: () => GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell),
                 )
               ],
             ),
           )
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(),
+      bottomNavigationBar: NewCustomBuySellBottomNavigationBar(),
     );
   }
 

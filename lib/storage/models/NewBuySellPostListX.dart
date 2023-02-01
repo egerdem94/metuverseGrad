@@ -1,14 +1,14 @@
-class NewSellPostList2 {
-  List<NewSellPostX>? items;
+class NewBuySellPostListX {
+  List<NewBuySellPostX>? items;
   int? total;
 
-  NewSellPostList2({this.items, this.total});
+  NewBuySellPostListX({this.items, this.total});
 
-  NewSellPostList2.fromJson(Map<String, dynamic> json) {
+  NewBuySellPostListX.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <NewSellPostX>[];
+      items = <NewBuySellPostX>[];
       json['items'].forEach((v) {
-        items!.add(new NewSellPostX.fromJson(v));
+        items!.add(new NewBuySellPostX.fromJson(v));
       });
     }
     total = json['total'];
@@ -24,7 +24,7 @@ class NewSellPostList2 {
   }
 }
 
-class NewSellPostX {
+class NewBuySellPostX {
   bool? belongToUser;
   String? fullName;
   String? profilePicture;
@@ -36,7 +36,7 @@ class NewSellPostX {
   String? currency;
   int? productStatus;
 
-  NewSellPostX(
+  NewBuySellPostX(
       {this.belongToUser,
         this.fullName,
         this.profilePicture,
@@ -48,7 +48,7 @@ class NewSellPostX {
         this.currency,
         this.productStatus});
 
-  NewSellPostX.fromJson(Map<String, dynamic> json) {
+  NewBuySellPostX.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];

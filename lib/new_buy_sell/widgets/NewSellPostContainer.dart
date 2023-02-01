@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/storage/models/NewSellPostList2.dart';
+import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import '../../auth/screens/login-page.dart';
 import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photoGrid.dart';
 
 class NewSellPostContainer extends StatelessWidget {
-  final NewSellPostX post;
-
-  /*final List<String> imagesUrls = [
-    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
-    'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
-  ];*/
-
+  final NewBuySellPostX post;
   NewSellPostContainer({required this.post});
 
   String currencySymbol = '';
