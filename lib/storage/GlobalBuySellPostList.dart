@@ -1,12 +1,21 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/storage/db_example/DatabaseHelper.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 class GlobalBuySellPostList{
+  static final dbHelper = DatabaseHelper();
   static NewBuySellPostListX? newSellPostList;
   static NewBuySellPostListX? newBuyPostList;
 
+  static Future<void> init() async {
+    //dbHelper = DatabaseHelper();
+    WidgetsFlutterBinding.ensureInitialized();
+    await dbHelper.init();
+  }
   static Future _request_buy_sell_posts(postIDList,buyOrSell) async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
@@ -19,7 +28,12 @@ class GlobalBuySellPostList{
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
     if(buyOrSell == 's'){
+      await _query();
       newSellPostList = NewBuySellPostListX.fromJson(jsonObject);
+      newSellPostList!.newBuySellPostListX!.forEach((element) async {
+        final id = await dbHelper.insertNewBuySellPostX(element);
+        debugPrint('inserted row id: $id');
+      });
     }
     else if(buyOrSell == 'b'){
       newBuyPostList = NewBuySellPostListX.fromJson(jsonObject);
@@ -45,7 +59,15 @@ class GlobalBuySellPostList{
     postsToDisplay = PostsToDisplay.fromJson(jsonObject);
     return postsToDisplay;
   }
-
+  //debug purpose
+  static Future<bool> _query() async {
+    final allRows = await dbHelper.queryAllRows();
+    debugPrint('query all rows:');
+    for (final row in allRows) {
+      debugPrint(row.toString());
+    }
+    return true;
+  }
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
   static String preparePostToRequestString(PostsToDisplay? postsToDisplay){

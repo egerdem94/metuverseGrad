@@ -57,13 +57,13 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
               itemCount: newBuySellPostList2!.total,
               itemBuilder: (context, index) {
                 return NewSellPostContainer(
-                    post: newBuySellPostList2!.items![index]);
+                    post: newBuySellPostList2!.newBuySellPostListX![index]);
               },
             ):ListView.builder(
               itemCount: newBuySellPostList2!.total,
               itemBuilder: (context, index) {
                 return NewBuyPostContainer(
-                    newPost: newBuySellPostList2!.items![index]);
+                    newPost: newBuySellPostList2!.newBuySellPostListX![index]);
               },
             )
 

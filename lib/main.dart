@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metuverse/auth/screens/Register-page.dart';
+import 'package:metuverse/storage/GlobalBuySellPostList.dart';
 import 'auth/screens/login-page.dart';
 import 'package:get/get.dart';
 
-void main() {
+Future<void> main() async {
+  await GlobalBuySellPostList.init();
   runApp(const MyApp());
 }
 /*void main() {

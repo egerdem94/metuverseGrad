@@ -1,14 +1,16 @@
+import 'package:metuverse/storage/db_example/DatabaseHelper.dart';
+
 class NewBuySellPostListX {
-  List<NewBuySellPostX>? items;
+  List<NewBuySellPostX>? newBuySellPostListX;
   int? total;
 
-  NewBuySellPostListX({this.items, this.total});
+  NewBuySellPostListX({this.newBuySellPostListX, this.total});
 
   NewBuySellPostListX.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <NewBuySellPostX>[];
+      newBuySellPostListX = <NewBuySellPostX>[];
       json['items'].forEach((v) {
-        items!.add(new NewBuySellPostX.fromJson(v));
+        newBuySellPostListX!.add(new NewBuySellPostX.fromJson(v));
       });
     }
     total = json['total'];
@@ -16,8 +18,8 @@ class NewBuySellPostListX {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.items != null) {
-      data['items'] = this.items!.map((v) => v.toJson()).toList();
+    if (this.newBuySellPostListX != null) {
+      data['items'] = this.newBuySellPostListX!.map((v) => v.toJson()).toList();
     }
     data['total'] = this.total;
     return data;
@@ -75,7 +77,21 @@ class NewBuySellPostX {
     data['productStatus'] = this.productStatus;
     return data;
   }
-
+  // Converts a NewBuySellPostX object into a Map object
+  Map<String, dynamic> toDbMap() {
+    return {
+      DatabaseHelper.columnPostID: postID,
+      DatabaseHelper.columnFullName: fullName,
+      DatabaseHelper.columnProfilePicture: profilePicture,
+      DatabaseHelper.columnBelongToUser: belongToUser,
+      DatabaseHelper.columnUpdateVersion: updateVersion,
+      DatabaseHelper.columnMedia: media,
+      DatabaseHelper.columnDescription: description,
+      DatabaseHelper.columnProductPrice: productPrice,
+      DatabaseHelper.columnCurrency: currency,
+      DatabaseHelper.columnProductStatus: productStatus,
+    };
+  }
   List<String> mediaList(){
     List<String> mediaList = [];
     if (this.media != null) {

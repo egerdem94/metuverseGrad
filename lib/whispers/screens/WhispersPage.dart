@@ -1,16 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
-import 'package:metuverse/buyandsell/widgets/buyandSellAppBar.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
 import 'package:metuverse/whispers/widgets/whispersContainer.dart';
-import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
-
-import '../../storage/User.dart';
 import '../models/whispersPostList.dart';
 
 class WhispersPage extends StatefulWidget {
@@ -106,7 +98,7 @@ class _WhispersPageState extends State<WhispersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BuyandSellAppBar(),
+      appBar: NewBuyAndSellAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(

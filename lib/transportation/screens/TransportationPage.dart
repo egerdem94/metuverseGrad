@@ -1,50 +1,44 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
-import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
-import 'package:metuverse/transportation/widget/transportationCarContainer.dart';
-import 'package:metuverse/widgets/app_bar.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
+import 'package:metuverse/transportation/widget/transportationContainer.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import '../model/transportationPostList.dart';
 import '../widget/transportationBottom.dart';
 
-class TransportationCarPage extends StatefulWidget {
+class TransportationPage extends StatefulWidget {
   @override
-  _TransportationCarPageState createState() => _TransportationCarPageState();
+  _TransportationPageState createState() => _TransportationPageState();
 }
 
-class _TransportationCarPageState extends State<TransportationCarPage> {
+class _TransportationPageState extends State<TransportationPage> {
   List<SinglePostItem> dummyList = [
     SinglePostItem(
       belongToUser: true,
-      fullName: "Ali Veli",
+      fullName: "Yavuz Erbaş",
       profilePicture: null,
       postID: 1,
-      description:
-          "I am going to girne if anyone want to join. We can split gas.",
+      description: "If anyone going to girne. I can join",
       productPrice: 200,
       currency: "USD",
       productStatus: 1,
     ),
     SinglePostItem(
       belongToUser: false,
-      fullName: "Jane Doe",
+      fullName: "Batuhan SANDIKCI",
       profilePicture: null,
       postID: 2,
-      description: "Going Lefkoşa",
-      productPrice: 100,
+      description: "I will go to Ercan wednesday 9pm.",
+      productPrice: null,
       currency: null,
       productStatus: 0,
     ),
     SinglePostItem(
       belongToUser: true,
-      fullName: "Bob Johnson",
+      fullName: "Ali Veli",
       profilePicture: null,
       postID: 3,
-      description: "Going Ercan tonight. I have 3 available seats",
-      productPrice: 100,
+      description: "Me and my friends looking for ride to lefkoşa tonight.",
+      productPrice: 1000,
       currency: "USD",
       productStatus: 1,
     ),
@@ -58,44 +52,46 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
 
   void _loadDummyProducts() {
     setState(() {
-      transportationCarPostsListObject =
+      transportationPostsListObject =
           transportationPostsList(items: dummyList, total: dummyList.length);
     });
   }
 
   //late List<Product> products;
-  transportationPostsList? transportationCarPostsListObject;
-
-  Future _lookingfor_posts_list() async {
+  transportationPostsList? transportationPostsListObject;
+/*
+  Future _transportation_posts_list() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
-      //"buyerorseller":"b",
+      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      "token": User.token,
+      //"buyerorseller":"s",
     });
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      transportationCarPostsListObject =
+      transportationPostsListObject =
           transportationPostsList.fromJson(jsonObject);
     });
-  }
+  }*/
 
-  /* @override
+/*  @override
   void initState() {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
-    _lookingfor_posts_list();
+    //SinglePostItem = dummyList;
+    //_transportation_posts_list();
   }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MetuverseAppBar(),
+      appBar: NewBuyAndSellAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
@@ -110,11 +106,11 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
           ), // set the background color to blue
         ),
         child: ListView.builder(
-          itemCount: transportationCarPostsListObject?.total,
+          itemCount: transportationPostsListObject?.total,
           itemBuilder: (context, index) {
-            return TransportationCarContainer(
-                singlePostItem:
-                    transportationCarPostsListObject!.items![index]);
+            return TransportationContainer(
+              singlePostItem: transportationPostsListObject!.items![index],
+            );
           },
         ),
       ),

@@ -6,8 +6,8 @@ import 'package:metuverse/home/screens/HomePage.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
-import 'package:metuverse/transportation/screens/transportationCarPage.dart';
-import 'package:metuverse/transportation/screens/transportationPage.dart';
+import 'package:metuverse/transportation/screens/TransportationCarPage.dart';
+import 'package:metuverse/transportation/screens/TransportationPage.dart';
 import 'package:metuverse/transportation/screens/transportationPostingPage.dart';
 
 import '../../storage/User.dart';

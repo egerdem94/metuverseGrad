@@ -1,60 +1,48 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
-import 'package:metuverse/transportation/widget/transportationContainer.dart';
-import 'package:metuverse/widgets/app_bar.dart';
+import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
+import 'package:metuverse/transportation/widget/transportationCarContainer.dart';
 import 'package:metuverse/widgets/drawer.dart';
-
-import '../../storage/User.dart';
 import '../model/transportationPostList.dart';
 import '../widget/transportationBottom.dart';
-import '../widget/transportationCarContainer.dart';
 
-/*
-List<Product> productsFromJson(String jsonString) {
-  final jsonData = json.decode(jsonString);
-  return List<Product>.from(
-    jsonData.map((x) => Product.fromJson(x)),
-  );
-}
-*/
-class TransportationPage extends StatefulWidget {
+class TransportationCarPage extends StatefulWidget {
   @override
-  _TransportationPageState createState() => _TransportationPageState();
+  _TransportationCarPageState createState() => _TransportationCarPageState();
 }
 
-class _TransportationPageState extends State<TransportationPage> {
+class _TransportationCarPageState extends State<TransportationCarPage> {
   List<SinglePostItem> dummyList = [
     SinglePostItem(
       belongToUser: true,
-      fullName: "Yavuz Erbaş",
+      fullName: "Ali Veli",
       profilePicture: null,
       postID: 1,
-      description: "If anyone going to girne. I can join",
+      description:
+          "I am going to girne if anyone want to join. We can split gas.",
       productPrice: 200,
       currency: "USD",
       productStatus: 1,
     ),
     SinglePostItem(
       belongToUser: false,
-      fullName: "Batuhan SANDIKCI",
+      fullName: "Jane Doe",
       profilePicture: null,
       postID: 2,
-      description: "I will go to Ercan wednesday 9pm.",
-      productPrice: null,
+      description: "Going Lefkoşa",
+      productPrice: 100,
       currency: null,
       productStatus: 0,
     ),
     SinglePostItem(
       belongToUser: true,
-      fullName: "Ali Veli",
+      fullName: "Bob Johnson",
       profilePicture: null,
       postID: 3,
-      description: "Me and my friends looking for ride to lefkoşa tonight.",
-      productPrice: 1000,
+      description: "Going Ercan tonight. I have 3 available seats",
+      productPrice: 100,
       currency: "USD",
       productStatus: 1,
     ),
@@ -68,46 +56,44 @@ class _TransportationPageState extends State<TransportationPage> {
 
   void _loadDummyProducts() {
     setState(() {
-      transportationPostsListObject =
+      transportationCarPostsListObject =
           transportationPostsList(items: dummyList, total: dummyList.length);
     });
   }
 
   //late List<Product> products;
-  transportationPostsList? transportationPostsListObject;
-/*
-  Future _transportation_posts_list() async {
+  transportationPostsList? transportationCarPostsListObject;
+
+  Future _lookingfor_posts_list() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/buyandsell_posts_list.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      //"token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
-      "token": User.token,
-      //"buyerorseller":"s",
+      "token": "hL3JEZxp85hR0JDTP4B85Msy8e4v5X5nJ87n8FNh",
+      //"buyerorseller":"b",
     });
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      transportationPostsListObject =
+      transportationCarPostsListObject =
           transportationPostsList.fromJson(jsonObject);
     });
-  }*/
+  }
 
-/*  @override
+  /* @override
   void initState() {
     super.initState();
     //_loadProducts();
     //products = dummyProducts;
-    //SinglePostItem = dummyList;
-    //_transportation_posts_list();
+    _lookingfor_posts_list();
   }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MetuverseAppBar(),
+      appBar: NewBuyAndSellAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
@@ -122,11 +108,11 @@ class _TransportationPageState extends State<TransportationPage> {
           ), // set the background color to blue
         ),
         child: ListView.builder(
-          itemCount: transportationPostsListObject?.total,
+          itemCount: transportationCarPostsListObject?.total,
           itemBuilder: (context, index) {
-            return TransportationContainer(
-              singlePostItem: transportationPostsListObject!.items![index],
-            );
+            return TransportationCarContainer(
+                singlePostItem:
+                    transportationCarPostsListObject!.items![index]);
           },
         ),
       ),
