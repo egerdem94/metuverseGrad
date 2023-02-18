@@ -1,4 +1,5 @@
-import 'package:metuverse/storage/db_example/DatabaseHelper.dart';
+import 'package:flutter/material.dart';
+import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
 
 class NewBuySellPostListX {
   List<NewBuySellPostX>? newBuySellPostListX;
@@ -15,6 +16,14 @@ class NewBuySellPostListX {
     }
     total = json['total'];
   }
+  NewBuySellPostListX.fromDbMap(List<Map<String, dynamic>> json) {
+    if (json != null) {
+      newBuySellPostListX = <NewBuySellPostX>[];
+      json.forEach((v) {
+        newBuySellPostListX!.add(new NewBuySellPostX.fromDbMap(v));
+      });
+    }
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -23,6 +32,59 @@ class NewBuySellPostListX {
     }
     data['total'] = this.total;
     return data;
+  }
+  //function sorts the list by postID
+  void sortListByPostID(){
+    newBuySellPostListX!.sort((a, b) => a.postID!.compareTo(b.postID!));
+  }
+  //function adds new posts to the list
+  // if the postID is already in the list, it is not added
+  // comparison is done by postID
+  void addNewPosts(NewBuySellPostListX newPosts){
+    newPosts.newBuySellPostListX!.forEach((element) {
+      bool postIDAlreadyExists = false;
+      bool postIDAlreadyExistsButUpdated = false;
+      newBuySellPostListX!.forEach((newElement) {
+        if(element.postID == newElement.postID){
+          if(newElement.updateVersion! > element.updateVersion!){
+            postIDAlreadyExistsButUpdated = true;
+          }
+          else{
+            postIDAlreadyExists = true;
+          }
+        }
+      });
+      if(!postIDAlreadyExists){
+        newBuySellPostListX!.add(element);
+      }
+      else if(postIDAlreadyExistsButUpdated){
+        //replace the old post with the new one
+        for(int i = 0; i < newBuySellPostListX!.length; i++){
+          if(newBuySellPostListX![i].postID == element.postID){
+            newBuySellPostListX![i] = element;
+          }
+        }
+      }
+    });
+  }
+
+  //function returns the deletes the post with the given postID
+  void deletePost(int postID){
+    newBuySellPostListX!.removeWhere((element) => element.postID == postID);
+  }
+
+  //function returns the last postID in the list
+  int getLastPostID(){
+    sortListByPostID();
+    return newBuySellPostListX!.last.postID!;
+  }
+  int length(){
+    if(newBuySellPostListX == null){
+      return 0;
+    }
+    else{
+      return newBuySellPostListX!.length;
+    }
   }
 }
 
@@ -63,6 +125,25 @@ class NewBuySellPostX {
     productStatus = json['productStatus'];
   }
 
+  NewBuySellPostX.fromDbMap(Map<String, dynamic> json) {
+    //debugPrint("belongToUser: ${json[DatabaseHelper.columnBelongToUser]}");
+    json[DatabaseHelperSellBuy.columnBelongToUser] == 1
+        ? belongToUser = true
+        : belongToUser = false;
+    //belongToUser = json[DatabaseHelper.columnBelongToUser];
+    fullName = json[DatabaseHelperSellBuy.columnFullName];
+    profilePicture = json[DatabaseHelperSellBuy.columnProfilePicture];
+    postID = json[DatabaseHelperSellBuy.columnPostID];
+    updateVersion = json[DatabaseHelperSellBuy.columnUpdateVersion];
+    //media = json[DatabaseHelper.columnMedia];
+    media = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg";
+    //description = json[DatabaseHelper.columnDescription];
+    description = "anan";
+    productPrice = json[DatabaseHelperSellBuy.columnProductPrice];
+    currency = json[DatabaseHelperSellBuy.columnCurrency];
+    productStatus = json[DatabaseHelperSellBuy.columnProductStatus];
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['belongToUser'] = this.belongToUser;
@@ -80,16 +161,16 @@ class NewBuySellPostX {
   // Converts a NewBuySellPostX object into a Map object
   Map<String, dynamic> toDbMap() {
     return {
-      DatabaseHelper.columnPostID: postID,
-      DatabaseHelper.columnFullName: fullName,
-      DatabaseHelper.columnProfilePicture: profilePicture,
-      DatabaseHelper.columnBelongToUser: belongToUser,
-      DatabaseHelper.columnUpdateVersion: updateVersion,
-      DatabaseHelper.columnMedia: media,
-      DatabaseHelper.columnDescription: description,
-      DatabaseHelper.columnProductPrice: productPrice,
-      DatabaseHelper.columnCurrency: currency,
-      DatabaseHelper.columnProductStatus: productStatus,
+      DatabaseHelperSellBuy.columnPostID: postID,
+      DatabaseHelperSellBuy.columnFullName: fullName,
+      DatabaseHelperSellBuy.columnProfilePicture: profilePicture,
+      DatabaseHelperSellBuy.columnBelongToUser: belongToUser,
+      DatabaseHelperSellBuy.columnUpdateVersion: updateVersion,
+      DatabaseHelperSellBuy.columnMedia: media,
+      DatabaseHelperSellBuy.columnDescription: description,
+      DatabaseHelperSellBuy.columnProductPrice: productPrice,
+      DatabaseHelperSellBuy.columnCurrency: currency,
+      DatabaseHelperSellBuy.columnProductStatus: productStatus,
     };
   }
   List<String> mediaList(){

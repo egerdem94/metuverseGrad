@@ -23,14 +23,14 @@ class NewBuySellPageX extends StatefulWidget {
 }
 
 class _NewBuySellPageXState extends State<NewBuySellPageX> {
-  NewBuySellPostListX? newBuySellPostListX;
+  List<NewBuySellPostListX?> newBuySellPostListX = [];
 
   @override
   void initState() {
     super.initState();
     GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell).then((_) {
       setState(() {
-        newBuySellPostListX = GlobalBuySellPostList.getBuySellPostList(widget.buyOrSell);
+        newBuySellPostListX = GlobalBuySellPostList.getBuySellPostLists(widget.buyOrSell);
       });
     });
   }
@@ -54,20 +54,31 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
           ),
           child: newBuySellPostListX != null ?
           widget.buyOrSell == 's' ? ListView.builder(
-            itemCount: newBuySellPostListX!.length(),
-            itemBuilder: (context, index) {
-              return NewSellPostContainer(
-                  post: newBuySellPostListX!.newBuySellPostListX![index]);
+            itemCount: newBuySellPostListX!.length,
+            itemBuilder: (context, index) { return
+              ListView.builder(
+                itemCount: newBuySellPostListX![index]!.length(),
+                itemBuilder: (context, index2) {
+                  return NewSellPostContainer(
+                    post: newBuySellPostListX![index]!.newBuySellPostListX![index2]);
+                },
+              );
             },
           ):ListView.builder(
-            itemCount: newBuySellPostListX!.length(),
-            itemBuilder: (context, index) {
-              return NewBuyPostContainer(
-                  newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+            itemCount: newBuySellPostListX!.length,
+            itemBuilder: (context, index) { return
+              ListView.builder(
+                itemCount: newBuySellPostListX![index]!.length(),
+                itemBuilder: (context, index2) {
+                  return NewBuyPostContainer(
+                      newPost: newBuySellPostListX![index]!.newBuySellPostListX![index2]);
+                },
+              );
             },
           )
-
-          :Center(
+//return NewBuyPostContainer(
+//                   newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+              :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

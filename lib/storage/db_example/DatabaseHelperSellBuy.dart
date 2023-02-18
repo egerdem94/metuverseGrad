@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-class DatabaseHelper {
+class DatabaseHelperSellBuy {
   static const _databaseName = "MyDatabase.db";
   static const _databaseVersion = 1;
 
@@ -82,6 +82,42 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     return await _db.query(table);
   }
+
+  // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
+  // a key-value list of columns.
+  Future<List<Map<String, dynamic>>> queryRowsWithPostIDAndNotEqualUpdateVersion(
+      int postID, int updateVersion) async {
+    return await _db.query(table,
+        where: '$columnPostID = ? AND $columnUpdateVersion != ?',
+        whereArgs: [postID, updateVersion]);
+  }
+
+  // Rows with the given postID are returned as a list of maps, where each map is
+  // a key-value list of columns.
+  // if postID not found, returns null
+  Future<Map<String, dynamic>?> queryRowWithPostID(int postID) async {
+    List<Map<String, dynamic>> result = await _db.query(table,
+        where: '$columnPostID = ?',
+        whereArgs: [postID]);
+    if (result.length == 0) {
+      return null;
+    } else {
+      return result[0];
+    }
+  }
+  // Function gets postID list as input and calls queryRowWithPostID for each postID
+  // and returns a list of NewBuySellPostX objects
+  Future<List<NewBuySellPostX>> queryRowsWithPostIDList(List<int> postIDList) async {
+    List<NewBuySellPostX> newBuySellPostXList = [];
+    for (int postID in postIDList) {
+      Map<String, dynamic>? result = await queryRowWithPostID(postID);
+      if (result != null) {
+        newBuySellPostXList.add(NewBuySellPostX.fromDbMap(result));
+      }
+    }
+    return newBuySellPostXList;
+  }
+
 
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.

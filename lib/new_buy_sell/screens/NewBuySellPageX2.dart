@@ -9,20 +9,20 @@ import 'package:metuverse/widgets/drawer.dart';
 
 
 
-class NewBuySellPageX extends StatefulWidget {
+class NewBuySellPageX2 extends StatefulWidget {
   final buyOrSell;
   final searchModeFlag;
-  const NewBuySellPageX({
+  const NewBuySellPageX2({
     required this.buyOrSell,
     required this.searchModeFlag,
     Key? key,
   }) : super(key: key);
 
   @override
-  _NewBuySellPageXState createState() => _NewBuySellPageXState();
+  _NewBuySellPageX2State createState() => _NewBuySellPageX2State();
 }
 
-class _NewBuySellPageXState extends State<NewBuySellPageX> {
+class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
   NewBuySellPostListX? newBuySellPostListX;
 
   @override
@@ -67,7 +67,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
             },
           )
 
-          :Center(
+              :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

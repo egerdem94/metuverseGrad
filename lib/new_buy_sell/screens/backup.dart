@@ -67,7 +67,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
             },
           )
 
-          :Center(
+              :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
