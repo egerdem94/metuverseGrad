@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,12 @@ class GlobalBuySellPostList{
     WidgetsFlutterBinding.ensureInitialized();
     await dbHelper.init();
   }
-  static Future _request_buy_sell_posts(postIDList,buyOrSell) async {
+
+  static Future _request_buy_sell_posts_from_backend(postIDList,buyOrSell) async {
+    if(postIDList == ""){
+      debugPrint("Empty postIDList in _request_buy_sell_posts_from_backend");
+      return;
+    }
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
@@ -27,21 +33,53 @@ class GlobalBuySellPostList{
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
+    var temp = NewBuySellPostListX.fromJson(jsonObject);
     if(buyOrSell == 's'){
-      newSellPostLists.add(NewBuySellPostListX.fromJson(jsonObject));
+      newSellPostLists.add(temp);
       /*newSellPostList!.newBuySellPostListX!.forEach((element) async {
         final id = await dbHelper.insertNewBuySellPostX(element);
         debugPrint('inserted row id: $id');
       });*/
     }
     else if(buyOrSell == 'b'){
-      newBuyPostLists.add(NewBuySellPostListX.fromJson(jsonObject));
+      newBuyPostLists.add(temp);
     }
     else{
       print('Error in BuySellPostController.dart Unexpected buyOrSell value');
     }
+  }
 
-
+  static List<int> convertIdList(postIDListAsString){
+    List<int> convertedList = [];
+    if(postIDListAsString == "")
+      return convertedList;
+    var stringList = postIDListAsString.split(',');
+    stringList.removeAt(0); //removing empty element located in first index
+    for(var str in stringList){
+      convertedList.add(int.parse(str));
+    }
+    return convertedList;
+  }
+  static Future _request_buy_sell_posts_from_localdb(postIDListAsString,buyOrSell) async {
+    if(postIDListAsString == ""){
+      debugPrint("Empty postIDList in _request_buy_sell_posts_from_localdb");
+      return;
+    }
+    var postsToBeAskedToLocalDBAsIntList = convertIdList(postIDListAsString);
+    var tempNewBuySellPostListX = await dbHelper.queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
+    if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
+      debugPrint("Empty tempNewBuySellPostListX while string is not empty!!!");
+      return;
+    }
+    if(buyOrSell == 's'){
+      newSellPostLists.add(tempNewBuySellPostListX);
+    }
+    else if(buyOrSell == 'b'){
+      newBuyPostLists.add(tempNewBuySellPostListX);
+    }
+    else{
+      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+    }
   }
   static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,{lastPostID:""}) async {
     String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
@@ -69,18 +107,22 @@ class GlobalBuySellPostList{
   }
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
-  static Future<String> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
+  static Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
     //await _query();
-    String postIDList = '';
-    if(postsToDisplay != null){
-      for(int i = 0; i < postsToDisplay.postsToDisplayList!.length; i++){
-        postIDList += ','; //add comma before each postID
-        postIDList += postsToDisplay.postsToDisplayList![i].postID.toString();
-      }
+    var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
+    String postsToBeAskedBackendIDList = '';
+    for(int i = 0; i < postsToBeAsked[0].length; i++){
+      postsToBeAskedBackendIDList += ','; //add comma before each postID
+      postsToBeAskedBackendIDList += postsToBeAsked[0][i].toString();
     }
-    return postIDList;
+    String postsToBeAskedLocalDB = '';
+    for(int i = 0; i < postsToBeAsked[1].length; i++){
+      postsToBeAskedLocalDB += ','; //add comma before each postID
+      postsToBeAskedLocalDB += postsToBeAsked[1][i].toString();
+    }
+    return [postsToBeAskedBackendIDList,postsToBeAskedLocalDB];
   }
-  //function to request posts from sqflite
+  //function to request posts from sqlite
   static Future<NewBuySellPostListX?> requestPostsFromSqflite() async {
     final allRows = await dbHelper.queryAllRows();
     NewBuySellPostListX? newBuySellPostListX = NewBuySellPostListX();
@@ -99,8 +141,12 @@ class GlobalBuySellPostList{
     debugPrint("here2");
     PostsToDisplay? postsToDisplay = await _request_posts_to_diplay(buyOrSell);
     debugPrint("here3");
-    await _request_buy_sell_posts(await preparePostToRequestString(postsToDisplay),buyOrSell);
+    List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
     debugPrint("here4");
+    await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
+    debugPrint("here5");
+    await _request_buy_sell_posts_from_backend(postsToBeAsked[0],buyOrSell);
+    debugPrint("here6");
     if(buyOrSell == 's'){
       if(newSellPostLists != null){
         return true;

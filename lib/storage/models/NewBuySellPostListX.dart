@@ -6,6 +6,10 @@ class NewBuySellPostListX {
   int? total;
 
   NewBuySellPostListX({this.newBuySellPostListX, this.total});
+  //constructor with default values
+  NewBuySellPostListX.defaults()
+      : newBuySellPostListX = [],
+        total = 0;
 
   NewBuySellPostListX.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
@@ -42,7 +46,7 @@ class NewBuySellPostListX {
   // comparison is done by postID
   void addNewPosts(NewBuySellPostListX newPosts){
     newPosts.newBuySellPostListX!.forEach((element) {
-      bool postIDAlreadyExists = false;
+      /*bool postIDAlreadyExists = false;
       bool postIDAlreadyExistsButUpdated = false;
       newBuySellPostListX!.forEach((newElement) {
         if(element.postID == newElement.postID){
@@ -64,8 +68,34 @@ class NewBuySellPostListX {
             newBuySellPostListX![i] = element;
           }
         }
+      }*/
+      addNewPost(element);
+    });
+  }
+  void addNewPost(NewBuySellPostX newBuySellPostX){
+    bool postIDAlreadyExists = false;
+    bool postIDAlreadyExistsButUpdated = false;
+    newBuySellPostListX!.forEach((newElement) {
+      if(newBuySellPostX.postID == newElement.postID){
+        if(newElement.updateVersion! > newBuySellPostX.updateVersion!){
+          postIDAlreadyExistsButUpdated = true;
+        }
+        else{
+          postIDAlreadyExists = true;
+        }
       }
     });
+    if(!postIDAlreadyExists){
+      newBuySellPostListX!.add(newBuySellPostX);
+    }
+    else if(postIDAlreadyExistsButUpdated){
+      //replace the old post with the new one
+      for(int i = 0; i < newBuySellPostListX!.length; i++){
+        if(newBuySellPostListX![i].postID == newBuySellPostX.postID){
+          newBuySellPostListX![i] = newBuySellPostX;
+        }
+      }
+    }
   }
 
   //function returns the deletes the post with the given postID
@@ -137,8 +167,8 @@ class NewBuySellPostX {
     updateVersion = json[DatabaseHelperSellBuy.columnUpdateVersion];
     //media = json[DatabaseHelper.columnMedia];
     media = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg";
-    //description = json[DatabaseHelper.columnDescription];
-    description = "anan";
+    description = json[DatabaseHelperSellBuy.columnDescription];
+    //description = "anan";
     productPrice = json[DatabaseHelperSellBuy.columnProductPrice];
     currency = json[DatabaseHelperSellBuy.columnCurrency];
     productStatus = json[DatabaseHelperSellBuy.columnProductStatus];

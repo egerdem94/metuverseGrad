@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/PostsToDisplay.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -85,12 +87,35 @@ class DatabaseHelperSellBuy {
 
   // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
   // a key-value list of columns.
-  Future<List<Map<String, dynamic>>> queryRowsWithPostIDAndNotEqualUpdateVersion(
+  Future<bool> queryRowsWithPostIDAndNotEqualUpdateVersion(
       int postID, int updateVersion) async {
-    return await _db.query(table,
+    var returnedTable = await _db.query(table,
         where: '$columnPostID = ? AND $columnUpdateVersion != ?',
         whereArgs: [postID, updateVersion]);
+    if(returnedTable.isNotEmpty){
+      return true;
+    }
+    return false;
   }
+
+  Future<List<List<int>>> getNeededPostIdList(PostsToDisplay? postsToDisplay) async {
+    List<int> postIDsToBeAsked = [];
+    List<int> postIDsExistInLocalDB = [];
+    if(postsToDisplay == null){
+      return [postIDsToBeAsked, postIDsExistInLocalDB];
+    }
+    for(var postToDisplay in postsToDisplay!.postsToDisplayList!){
+      if(await queryRowsWithPostIDAndNotEqualUpdateVersion(postToDisplay.postID!, postToDisplay.updateVersion!)){
+        postIDsToBeAsked.add(postToDisplay.postID!);
+      }
+      else{
+        postIDsExistInLocalDB.add(postToDisplay.postID!);
+      }
+    }
+    return [postIDsToBeAsked, postIDsExistInLocalDB];
+  }
+
+
 
   // Rows with the given postID are returned as a list of maps, where each map is
   // a key-value list of columns.
@@ -107,15 +132,17 @@ class DatabaseHelperSellBuy {
   }
   // Function gets postID list as input and calls queryRowWithPostID for each postID
   // and returns a list of NewBuySellPostX objects
-  Future<List<NewBuySellPostX>> queryRowsWithPostIDList(List<int> postIDList) async {
-    List<NewBuySellPostX> newBuySellPostXList = [];
+  Future<NewBuySellPostListX> queryRowsWithPostIDList(List<int> postIDList) async {
+    //List<NewBuySellPostX> newBuySellPostXList = [];
+    NewBuySellPostListX newBuySellPostListX = new NewBuySellPostListX.defaults();
     for (int postID in postIDList) {
       Map<String, dynamic>? result = await queryRowWithPostID(postID);
       if (result != null) {
-        newBuySellPostXList.add(NewBuySellPostX.fromDbMap(result));
+        var tempPost = NewBuySellPostX.fromDbMap(result);
+        newBuySellPostListX.addNewPost(tempPost);
       }
     }
-    return newBuySellPostXList;
+    return newBuySellPostListX;
   }
 
 
