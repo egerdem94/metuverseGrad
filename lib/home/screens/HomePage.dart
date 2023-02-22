@@ -5,6 +5,7 @@ import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuySellPageX.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuySellPageX2.dart';
+import 'package:metuverse/new_buy_sell/screens/fromgptBackup.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
@@ -69,8 +70,9 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
+                      Get.to(MultidimensionalArrayPage());
                       //Get.to(AcademicCalendar());
-                      Get.to(NewBuySellPageX2(buyOrSell: 's', searchModeFlag: false));
+                      //Get.to(NewBuySellPageX2(buyOrSell: 's', searchModeFlag: false));
                     },
                     imageUrl: 'assets-images/academiccalendar.png',
                   ),

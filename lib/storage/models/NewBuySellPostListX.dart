@@ -190,11 +190,12 @@ class NewBuySellPostX {
   }
   // Converts a NewBuySellPostX object into a Map object
   Map<String, dynamic> toDbMap() {
+    int belongToUserAsInt = belongToUser == true ? 1 : 0;
     return {
       DatabaseHelperSellBuy.columnPostID: postID,
       DatabaseHelperSellBuy.columnFullName: fullName,
       DatabaseHelperSellBuy.columnProfilePicture: profilePicture,
-      DatabaseHelperSellBuy.columnBelongToUser: belongToUser,
+      DatabaseHelperSellBuy.columnBelongToUser: belongToUserAsInt,
       DatabaseHelperSellBuy.columnUpdateVersion: updateVersion,
       DatabaseHelperSellBuy.columnMedia: media,
       DatabaseHelperSellBuy.columnDescription: description,

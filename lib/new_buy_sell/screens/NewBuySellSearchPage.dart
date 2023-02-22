@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuySellPageX.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
-import 'package:metuverse/storage/BuySellPostController.dart';
+import 'package:metuverse/storage/BuySellPostHandler.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 

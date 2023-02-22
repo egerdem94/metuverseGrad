@@ -54,7 +54,7 @@ class DatabaseHelperSellBuy {
             $columnPostID INTEGER UNSIGNED PRIMARY KEY,
             $columnFullName TEXT NOT NULL,
             $columnProfilePicture TEXT,
-            $columnBelongToUser BOOLEAN NOT NULL,
+            $columnBelongToUser INTEGER NOT NULL,
             $columnUpdateVersion INTEGER UNSIGNED NOT NULL,
             $columnMedia TEXT,
             $columnDescription TEXT,
@@ -67,16 +67,24 @@ class DatabaseHelperSellBuy {
 
   // Helper methods
 
-  // Inserts a row in the database where each key in the Map is a column name
-  // and the value is the column value. The return value is the id of the
-  // inserted row.
-  Future<int> insert(Map<String, dynamic> row) async {
-    return await _db.insert(table, row);
+  Future<int> insertOrUpdate(Map<String, dynamic> row) async {
+
+    int postID = row['$columnPostID'];
+    int count = Sqflite.firstIntValue(await _db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnPostID = ?', [postID]));
+    if (count == 0) {
+      debugPrint('inserted row id: $postID');
+      return await _db.insert(table, row);
+    } else {
+      debugPrint('updated row id: $postID');
+      return await _db.update(table, row, where: '$columnPostID = ?', whereArgs: [postID]);
+    }
   }
 
   // Inserts a NewBuySellPostX object to the database
   Future<int> insertNewBuySellPostX(NewBuySellPostX newBuySellPostX) async {
-    return await _db.insert(table, newBuySellPostX.toDbMap());
+    //return await _db.insert(table, newBuySellPostX.toDbMap());
+    return await insertOrUpdate(newBuySellPostX.toDbMap());
+
   }
 
   // All of the rows are returned as a list of maps, where each map is
@@ -85,34 +93,47 @@ class DatabaseHelperSellBuy {
     return await _db.query(table);
   }
 
-  // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
+/*  // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
   // a key-value list of columns.
-  Future<bool> queryRowsWithPostIDAndNotEqualUpdateVersion(
+  Future<bool> isPostNeededToBeAskedBackend(
       int postID, int updateVersion) async {
     var returnedTable = await _db.query(table,
         where: '$columnPostID = ? AND $columnUpdateVersion != ?',
         whereArgs: [postID, updateVersion]);
-    if(returnedTable.isNotEmpty){
+    if(returnedTable.length == 0){
       return true;
     }
     return false;
+  }*/
+
+  // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
+  // a key-value list of columns.
+  Future<bool> isPostNeededToBeAskedBackend(
+      int postID, int updateVersion) async {
+    int count = Sqflite.firstIntValue(await _db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnPostID = ? AND $columnUpdateVersion = ?', [postID,updateVersion]));
+    if(count == 1){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 
   Future<List<List<int>>> getNeededPostIdList(PostsToDisplay? postsToDisplay) async {
-    List<int> postIDsToBeAsked = [];
+    List<int> postIDsToBeAskedBackend = [];
     List<int> postIDsExistInLocalDB = [];
     if(postsToDisplay == null){
-      return [postIDsToBeAsked, postIDsExistInLocalDB];
+      return [postIDsToBeAskedBackend, postIDsExistInLocalDB];
     }
     for(var postToDisplay in postsToDisplay!.postsToDisplayList!){
-      if(await queryRowsWithPostIDAndNotEqualUpdateVersion(postToDisplay.postID!, postToDisplay.updateVersion!)){
-        postIDsToBeAsked.add(postToDisplay.postID!);
+      if(await isPostNeededToBeAskedBackend(postToDisplay.postID!, postToDisplay.updateVersion!)){
+        postIDsToBeAskedBackend.add(postToDisplay.postID!);
       }
       else{
         postIDsExistInLocalDB.add(postToDisplay.postID!);
       }
     }
-    return [postIDsToBeAsked, postIDsExistInLocalDB];
+    return [postIDsToBeAskedBackend, postIDsExistInLocalDB];
   }
 
 

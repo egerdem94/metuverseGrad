@@ -40,12 +40,16 @@ class GlobalBuySellPostList{
         final id = await dbHelper.insertNewBuySellPostX(element);
         debugPrint('inserted row id: $id');
       });*/
+      temp.newBuySellPostListX!.forEach((element) async {
+        final id = await dbHelper.insertNewBuySellPostX(element);
+        //debugPrint('inserted row id: $id');
+      });
     }
     else if(buyOrSell == 'b'){
       newBuyPostLists.add(temp);
     }
     else{
-      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
     }
   }
 
@@ -78,7 +82,7 @@ class GlobalBuySellPostList{
       newBuyPostLists.add(tempNewBuySellPostListX);
     }
     else{
-      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
     }
   }
   static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,{lastPostID:""}) async {
@@ -108,7 +112,7 @@ class GlobalBuySellPostList{
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
   static Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
-    //await _query();
+    await _query();
     var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
     String postsToBeAskedBackendIDList = '';
     for(int i = 0; i < postsToBeAsked[0].length; i++){
@@ -133,20 +137,17 @@ class GlobalBuySellPostList{
     return newBuySellPostListX;
   }
 
-  static Future<bool> initialBuySellApiCall(buyOrSell) async{
-    debugPrint("here1");
+  static Future<bool> handlePostList(buyOrSell,firstTime) async{
     //newSellPostLists.add(await requestPostsFromSqflite());
     //wait 3 seconds
     //await Future.delayed(Duration(seconds: 3));
-    debugPrint("here2");
+
     PostsToDisplay? postsToDisplay = await _request_posts_to_diplay(buyOrSell);
-    debugPrint("here3");
+
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
-    debugPrint("here4");
-    await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
-    debugPrint("here5");
+
     await _request_buy_sell_posts_from_backend(postsToBeAsked[0],buyOrSell);
-    debugPrint("here6");
+    await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
       if(newSellPostLists != null){
         return true;
@@ -164,7 +165,7 @@ class GlobalBuySellPostList{
       }
     }
     else{
-      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
@@ -177,7 +178,7 @@ class GlobalBuySellPostList{
       return newBuyPostLists[0];
     }
     else{
-      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }
@@ -189,7 +190,7 @@ class GlobalBuySellPostList{
       return newBuyPostLists;
     }
     else{
-      print('Error in BuySellPostController.dart Unexpected buyOrSell value');
+      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return [];
     }
   }

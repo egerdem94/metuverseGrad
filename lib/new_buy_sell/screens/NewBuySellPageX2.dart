@@ -1,9 +1,10 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewBuyPostContainer.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewSellPostContainer.dart';
-import 'package:metuverse/storage/BuySellPostController.dart';
+import 'package:metuverse/storage/BuySellPostHandler.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -23,14 +24,14 @@ class NewBuySellPageX2 extends StatefulWidget {
 }
 
 class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
-  NewBuySellPostListX? newBuySellPostListX;
+  List<NewBuySellPostListX?> newBuySellPostListOfListX = [];
 
   @override
   void initState() {
     super.initState();
-    GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell).then((_) {
+    GlobalBuySellPostList.handlePostList(widget.buyOrSell,true).then((_) {
       setState(() {
-        newBuySellPostListX = GlobalBuySellPostList.getBuySellPostList(widget.buyOrSell);
+        newBuySellPostListOfListX = GlobalBuySellPostList.getBuySellPostLists(widget.buyOrSell);
       });
     });
   }
@@ -52,22 +53,39 @@ class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
               ],
             ), // set the background color to blue
           ),
-          child: newBuySellPostListX != null ?
+          child: newBuySellPostListOfListX != null ?
           widget.buyOrSell == 's' ? ListView.builder(
-            itemCount: newBuySellPostListX!.length(),
+            itemCount: newBuySellPostListOfListX.length,
             itemBuilder: (context, index) {
-              return NewSellPostContainer(
-                  post: newBuySellPostListX!.newBuySellPostListX![index]);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for(int i = 0; i < newBuySellPostListOfListX.length; i++){
+                      Row(
+                        children:[
+                          Ex
+                      ],
+                      )
+                  }
+            }
+
+                ],
+              );
+              */
+/*return NewSellPostContainer(
+                  post: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);*//*
+
             },
           ):ListView.builder(
-            itemCount: newBuySellPostListX!.length(),
+            itemCount: newBuySellPostListOfListX.length,
             itemBuilder: (context, index) {
-              return NewBuyPostContainer(
-                  newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+              */
+/*return NewBuyPostContainer(
+                  newPost: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);*//*
+
             },
           )
-
-              :Center(
+          :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -77,7 +95,7 @@ class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text("Retry"),
-                  onPressed: () => GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell),
+                  onPressed: () => GlobalBuySellPostList.handlePostList(widget.buyOrSell,true),
                 )
               ],
             ),
@@ -88,3 +106,4 @@ class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
   }
 
 }
+*/

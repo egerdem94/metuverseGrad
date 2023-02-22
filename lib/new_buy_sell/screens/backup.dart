@@ -1,9 +1,10 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewBuyAndSellAppBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewBuyPostContainer.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewSellPostContainer.dart';
-import 'package:metuverse/storage/BuySellPostController.dart';
+import 'package:metuverse/storage/BuySellPostHandler.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -28,7 +29,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
   @override
   void initState() {
     super.initState();
-    GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell).then((_) {
+    GlobalBuySellPostList.handlePostList(widget.buyOrSell).then((_) {
       setState(() {
         newBuySellPostListX = GlobalBuySellPostList.getBuySellPostList(widget.buyOrSell);
       });
@@ -77,7 +78,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text("Retry"),
-                  onPressed: () => GlobalBuySellPostList.initialBuySellApiCall(widget.buyOrSell),
+                  onPressed: () => GlobalBuySellPostList.handlePostList(widget.buyOrSell),
                 )
               ],
             ),
@@ -88,3 +89,4 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
   }
 
 }
+*/
