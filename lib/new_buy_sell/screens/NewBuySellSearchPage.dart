@@ -20,7 +20,7 @@ class _NewBuySellSearchPageState extends State<NewBuySellSearchPage> {
   void _submitSearch() {
     // code to perform search with the text in _searchController
     //Get.to(SellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
-    GlobalBuySellPostList.ToDoSearch();
+    BuySellPostHandler.ToDoSearch();
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

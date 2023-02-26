@@ -8,12 +8,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
-class BuySellPostHandler{
+class GlobalBuySellPostList{
   static final dbHelper = DatabaseHelperSellBuy();
-  /*static List<NewBuySellPostListX?> newSellPostLists =[];
-  static List<NewBuySellPostListX?> newBuyPostLists = [];*/
-  static NewBuySellPostListX newSellPostListX = NewBuySellPostListX.defaults();
-  static NewBuySellPostListX newBuyPostListX = NewBuySellPostListX.defaults();
+  static List<NewBuySellPostListX?> newSellPostLists =[];
+  static List<NewBuySellPostListX?> newBuyPostLists = [];
 
   static Future<void> init() async {
     //dbHelper = DatabaseHelper();
@@ -38,10 +36,7 @@ class BuySellPostHandler{
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
     var temp = NewBuySellPostListX.fromJson(jsonObject);
     if(buyOrSell == 's'){
-      //newSellPostLists.add(temp);
-
-      newSellPostListX.addNewPosts(temp);
-
+      newSellPostLists.add(temp);
       /*newSellPostList!.newBuySellPostListX!.forEach((element) async {
         final id = await dbHelper.insertNewBuySellPostX(element);
         debugPrint('inserted row id: $id');
@@ -52,7 +47,7 @@ class BuySellPostHandler{
       });
     }
     else if(buyOrSell == 'b'){
-      newBuyPostListX.addNewPosts(temp);
+      newBuyPostLists.add(temp);
     }
     else{
       print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
@@ -82,27 +77,16 @@ class BuySellPostHandler{
       return;
     }
     if(buyOrSell == 's'){
-      newSellPostListX.addNewPosts(tempNewBuySellPostListX);
-      //newSellPostLists.add(tempNewBuySellPostListX);
+      newSellPostLists.add(tempNewBuySellPostListX);
     }
     else if(buyOrSell == 'b'){
-      //newBuyPostLists.add(tempNewBuySellPostListX);
-      newBuyPostListX.addNewPosts(tempNewBuySellPostListX);
+      newBuyPostLists.add(tempNewBuySellPostListX);
     }
     else{
       print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
     }
   }
-  static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,firstTime) async {
-    var lastPostID = '';
-    if(!firstTime){
-      if(buyerOrSeller == 's'){
-        lastPostID = newSellPostListX.getLastPostID().toString();
-      }
-      else{
-        lastPostID = newBuyPostListX.getLastPostID().toString();
-      }
-    }
+  static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,{lastPostID:""}) async {
     String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
@@ -158,33 +142,27 @@ class BuySellPostHandler{
     //newSellPostLists.add(await requestPostsFromSqflite());
     //wait 3 seconds
     //await Future.delayed(Duration(seconds: 3));
-    PostsToDisplay? postsToDisplay;
-    if(firstTime){
-      newSellPostListX = NewBuySellPostListX.defaults();
-      newBuyPostListX = NewBuySellPostListX.defaults();
-      postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
-    }
-    else{
-      postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
-    }
+
+    PostsToDisplay? postsToDisplay = await _request_posts_to_diplay(buyOrSell);
+
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
 
     await _request_buy_sell_posts_from_backend(postsToBeAsked[0],buyOrSell);
     await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
-      if(newSellPostListX.isEmpty()){
-        return false;
+      if(newSellPostLists != null){
+        return true;
       }
       else{
-        return true;
+        return false;
       }
     }
     else if(buyOrSell == 'b'){
-      if(newBuyPostListX.isEmpty()){
-        return false;
+      if(newBuyPostLists != null){
+        return true;
       }
       else{
-        return true;
+        return false;
       }
     }
     else{
@@ -195,17 +173,17 @@ class BuySellPostHandler{
 
   static NewBuySellPostListX? getBuySellPostList(buyOrSell){
     if(buyOrSell == 's'){
-      return newSellPostListX;
+      return newSellPostLists[0];
     }
     else if(buyOrSell == 'b'){
-      return newBuyPostListX;
+      return newBuyPostLists[0];
     }
     else{
       print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }
-/*  static List<NewBuySellPostListX?> getBuySellPostLists(buyOrSell){
+  static List<NewBuySellPostListX?> getBuySellPostLists(buyOrSell){
     if(buyOrSell == 's'){
       return newSellPostLists;
     }
@@ -216,7 +194,7 @@ class BuySellPostHandler{
       print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return [];
     }
-  }*/
+  }
   static Future ToDoSearch() async{
 
   }

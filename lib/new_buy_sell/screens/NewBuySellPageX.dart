@@ -28,9 +28,9 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
   @override
   void initState() {
     super.initState();
-    GlobalBuySellPostList.handlePostList(widget.buyOrSell,true).then((_) {
+    BuySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
       setState(() {
-        newBuySellPostListX = GlobalBuySellPostList.getBuySellPostList(widget.buyOrSell);
+        newBuySellPostListX = BuySellPostHandler.getBuySellPostList(widget.buyOrSell);
       });
     });
   }
@@ -66,7 +66,6 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
                   newPost: newBuySellPostListX!.newBuySellPostListX![index]);
             },
           )
-
           :Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,11 +76,23 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text("Retry"),
-                  onPressed: () => GlobalBuySellPostList.handlePostList(widget.buyOrSell,true),
+                  onPressed: () => BuySellPostHandler.handlePostList(widget.buyOrSell,true),
                 )
               ],
             ),
-          )
+          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            BuySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
+              setState(() {
+                newBuySellPostListX = BuySellPostHandler.getBuySellPostList(widget.buyOrSell);
+              });
+            });
+          });
+        },
       ),
       bottomNavigationBar: NewCustomBuySellBottomNavigationBar(),
     );

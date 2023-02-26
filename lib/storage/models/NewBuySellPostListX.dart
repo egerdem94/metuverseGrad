@@ -39,7 +39,13 @@ class NewBuySellPostListX {
   }
   //function sorts the list by postID
   void sortListByPostID(){
-    newBuySellPostListX!.sort((a, b) => a.postID!.compareTo(b.postID!));
+    newBuySellPostListX!.sort((b, a) => a.postID!.compareTo(b.postID!));
+  }
+  bool isEmpty(){
+    if(newBuySellPostListX == null || newBuySellPostListX!.length == 0)
+      return true;
+    else
+      return false;
   }
   //function adds new posts to the list
   // if the postID is already in the list, it is not added
@@ -71,6 +77,7 @@ class NewBuySellPostListX {
       }*/
       addNewPost(element);
     });
+    sortListByPostID();// IMPORTANT! This might be a bad idea. You might do ordering while inserting!
   }
   void addNewPost(NewBuySellPostX newBuySellPostX){
     bool postIDAlreadyExists = false;
@@ -165,8 +172,8 @@ class NewBuySellPostX {
     profilePicture = json[DatabaseHelperSellBuy.columnProfilePicture];
     postID = json[DatabaseHelperSellBuy.columnPostID];
     updateVersion = json[DatabaseHelperSellBuy.columnUpdateVersion];
-    //media = json[DatabaseHelper.columnMedia];
-    media = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg";
+    media = json[DatabaseHelperSellBuy.columnMedia];
+    //media = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg";
     description = json[DatabaseHelperSellBuy.columnDescription];
     //description = "anan";
     productPrice = json[DatabaseHelperSellBuy.columnProductPrice];

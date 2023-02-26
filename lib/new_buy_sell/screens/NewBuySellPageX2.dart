@@ -71,17 +71,15 @@ class _NewBuySellPageX2State extends State<NewBuySellPageX2> {
 
                 ],
               );
-              */
-/*return NewSellPostContainer(
-                  post: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);*//*
+return NewSellPostContainer(
+                  post: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);
 
             },
           ):ListView.builder(
             itemCount: newBuySellPostListOfListX.length,
             itemBuilder: (context, index) {
-              */
-/*return NewBuyPostContainer(
-                  newPost: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);*//*
+return NewBuyPostContainer(
+                  newPost: newBuySellPostListOfListX!.newBuySellPostListOfListX![index]);
 
             },
           )
