@@ -267,10 +267,18 @@ class _NewCreatePostBodyState extends State<NewCreatePostBody> {
                     child: Column(
                       children: [
                         Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           margin: EdgeInsets.only(
-                              left: 16.0, right: 16.0, bottom: 8.0),
+                              left: 16.0, right: 16.0, bottom: 8.0,top: 20),
                           child: TextFormField(
-                            style: kCreateText,
+                            style: TextStyle(
+                              color: Colors.black, // Set the text color to black
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal,
+                            ),
                             controller: description,
                             validator: (value) {
                               if (value!.isEmpty) {
