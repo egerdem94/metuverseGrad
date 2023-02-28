@@ -11,18 +11,6 @@ class DatabaseHelperSellBuy {
 
   static const table = 'buy_sell_posts';
 
-  /*
-    bool? belongToUser;
-    String? fullName;
-    String? profilePicture;
-    int? postID;
-    int? updateVersion;
-    String? media;
-    String? description;
-    int? productPrice;
-    String? currency;
-    int? productStatus;
-   */
   static const columnPostID = '_postID';
   static const columnFullName = 'fullName';
   static const columnProfilePicture = 'profilePicture';

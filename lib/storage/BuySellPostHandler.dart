@@ -21,7 +21,7 @@ class BuySellPostHandler{
     await dbHelper.init();
   }
 
-  static Future _request_buy_sell_posts_from_backend(postIDList,buyOrSell) async {
+  static Future _requestPostsFromBackend(postIDList,buyOrSell) async {
     if(postIDList == ""){
       debugPrint("Empty postIDList in _request_buy_sell_posts_from_backend");
       return;
@@ -169,7 +169,7 @@ class BuySellPostHandler{
     }
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
 
-    await _request_buy_sell_posts_from_backend(postsToBeAsked[0],buyOrSell);
+    await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
       if(newSellPostListX.isEmpty()){

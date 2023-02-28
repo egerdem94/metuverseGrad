@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/storage/models/IPostList.dart';
 
-class NewBuySellPostListX {
+class NewBuySellPostListX implements IPostList{
   List<NewBuySellPostX>? newBuySellPostListX;
   int? total;
 
@@ -125,7 +126,7 @@ class NewBuySellPostListX {
   }
 }
 
-class NewBuySellPostX {
+class NewBuySellPostX implements IPost{
   bool? belongToUser;
   String? fullName;
   String? profilePicture;
