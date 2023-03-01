@@ -1,17 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:metuverse/storage/User.dart';
-import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/storage/backend/BackendHelperSellBuy.dart';
 import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BuySellPostHandler{
   static final dbHelper = DatabaseHelperSellBuy();
-  /*static List<NewBuySellPostListX?> newSellPostLists =[];
-  static List<NewBuySellPostListX?> newBuyPostLists = [];*/
+  static final backendHelper = BackendHelperSellBuy();
   static NewBuySellPostListX newSellPostListX = NewBuySellPostListX.defaults();
   static NewBuySellPostListX newBuyPostListX = NewBuySellPostListX.defaults();
 
@@ -19,44 +14,6 @@ class BuySellPostHandler{
     //dbHelper = DatabaseHelper();
     WidgetsFlutterBinding.ensureInitialized();
     await dbHelper.init();
-  }
-
-  static Future _requestPostsFromBackend(postIDList,buyOrSell) async {
-    if(postIDList == ""){
-      debugPrint("Empty postIDList in _request_buy_sell_posts_from_backend");
-      return;
-    }
-    String serviceAddress =
-        'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
-    Uri serviceUri = Uri.parse(serviceAddress);
-    final response = await http.post(serviceUri, body: {
-      "token": User.token,
-      "postIDList": postIDList,
-    });
-
-    String stringData = response.body;
-    Map<String, dynamic> jsonObject = jsonDecode(stringData);
-    var temp = NewBuySellPostListX.fromJson(jsonObject);
-    if(buyOrSell == 's'){
-      //newSellPostLists.add(temp);
-
-      newSellPostListX.addNewPosts(temp);
-
-      /*newSellPostList!.newBuySellPostListX!.forEach((element) async {
-        final id = await dbHelper.insertNewBuySellPostX(element);
-        debugPrint('inserted row id: $id');
-      });*/
-      temp.newBuySellPostListX!.forEach((element) async {
-        final id = await dbHelper.insertNewBuySellPostX(element);
-        //debugPrint('inserted row id: $id');
-      });
-    }
-    else if(buyOrSell == 'b'){
-      newBuyPostListX.addNewPosts(temp);
-    }
-    else{
-      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
-    }
   }
 
   static List<int> convertIdList(postIDListAsString){
@@ -70,30 +27,8 @@ class BuySellPostHandler{
     }
     return convertedList;
   }
-  static Future _request_buy_sell_posts_from_localdb(postIDListAsString,buyOrSell) async {
-    if(postIDListAsString == ""){
-      debugPrint("Empty postIDList in _request_buy_sell_posts_from_localdb");
-      return;
-    }
-    var postsToBeAskedToLocalDBAsIntList = convertIdList(postIDListAsString);
-    var tempNewBuySellPostListX = await dbHelper.queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
-    if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
-      debugPrint("Empty tempNewBuySellPostListX while string is not empty!!!");
-      return;
-    }
-    if(buyOrSell == 's'){
-      newSellPostListX.addNewPosts(tempNewBuySellPostListX);
-      //newSellPostLists.add(tempNewBuySellPostListX);
-    }
-    else if(buyOrSell == 'b'){
-      //newBuyPostLists.add(tempNewBuySellPostListX);
-      newBuyPostListX.addNewPosts(tempNewBuySellPostListX);
-    }
-    else{
-      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
-    }
-  }
-  static Future<PostsToDisplay?> _request_posts_to_diplay(buyerOrSeller,firstTime) async {
+
+  static String getLastPostID(buyerOrSeller,firstTime){
     var lastPostID = '';
     if(!firstTime){
       if(buyerOrSeller == 's'){
@@ -103,33 +38,12 @@ class BuySellPostHandler{
         lastPostID = newBuyPostListX.getLastPostID().toString();
       }
     }
-    String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
-    Uri serviceUri = Uri.parse(serviceAddress);
-    final response = await http.post(serviceUri, body: {
-      "token": User.token,
-      "buyerOrSeller": buyerOrSeller, //seller
-      "lastPostID": lastPostID,
-    });
-
-    String stringData = response.body;
-    Map<String, dynamic> jsonObject = jsonDecode(stringData);
-    PostsToDisplay? postsToDisplay;
-    postsToDisplay = PostsToDisplay.fromJson(jsonObject);
-    return postsToDisplay;
-  }
-  //debug purpose
-  static Future<bool> _query() async {
-    final allRows = await dbHelper.queryAllRows();
-    debugPrint('query all rows:');
-    for (final row in allRows) {
-      debugPrint(row.toString());
-    }
-    return true;
+    return lastPostID;
   }
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
   static Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
-    await _query();
+    //await _query();
     var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
     String postsToBeAskedBackendIDList = '';
     for(int i = 0; i < postsToBeAsked[0].length; i++){
@@ -143,35 +57,33 @@ class BuySellPostHandler{
     }
     return [postsToBeAskedBackendIDList,postsToBeAskedLocalDB];
   }
-  //function to request posts from sqlite
-  static Future<NewBuySellPostListX?> requestPostsFromSqflite() async {
-    final allRows = await dbHelper.queryAllRows();
-    NewBuySellPostListX? newBuySellPostListX = NewBuySellPostListX();
-    newBuySellPostListX.newBuySellPostListX = [];
-    for (final row in allRows) {
-      newBuySellPostListX.newBuySellPostListX!.add(NewBuySellPostX.fromDbMap(row));
-    }
-    return newBuySellPostListX;
-  }
 
   static Future<bool> handlePostList(buyOrSell,firstTime) async{
-    //newSellPostLists.add(await requestPostsFromSqflite());
-    //wait 3 seconds
-    //await Future.delayed(Duration(seconds: 3));
+
     PostsToDisplay? postsToDisplay;
     if(firstTime){
       newSellPostListX = NewBuySellPostListX.defaults();
       newBuyPostListX = NewBuySellPostListX.defaults();
-      postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
     }
-    else{
-      postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
-    }
+    //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
+    postsToDisplay = await backendHelper.request_posts_to_diplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
 
-    await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
-    await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
+    //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
+    //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
+      NewBuySellPostListX? temp = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
+      if(temp != null){
+        newSellPostListX.addNewPosts(temp);
+        temp.newBuySellPostListX!.forEach((element) async {
+          final id = await dbHelper.insertNewBuySellPostX(element);
+          //debugPrint('inserted row id: $id');
+        });
+      }
+      NewBuySellPostListX? temp2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
+      if(temp2 != null){
+        newSellPostListX.addNewPosts(temp2);
+      }
       if(newSellPostListX.isEmpty()){
         return false;
       }
@@ -180,6 +92,18 @@ class BuySellPostHandler{
       }
     }
     else if(buyOrSell == 'b'){
+      NewBuySellPostListX? temp = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
+      if(temp != null){
+        newBuyPostListX.addNewPosts(temp);
+        temp.newBuySellPostListX!.forEach((element) async {
+          final id = await dbHelper.insertNewBuySellPostX(element);
+          //debugPrint('inserted row id: $id');
+        });
+      }
+      NewBuySellPostListX? temp2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
+      if(temp2 != null){
+        newBuyPostListX.addNewPosts(temp2);
+      }
       if(newBuyPostListX.isEmpty()){
         return false;
       }
@@ -205,20 +129,7 @@ class BuySellPostHandler{
       return null;
     }
   }
-/*  static List<NewBuySellPostListX?> getBuySellPostLists(buyOrSell){
-    if(buyOrSell == 's'){
-      return newSellPostLists;
-    }
-    else if(buyOrSell == 'b'){
-      return newBuyPostLists;
-    }
-    else{
-      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
-      return [];
-    }
-  }*/
   static Future ToDoSearch() async{
 
   }
 }
-
