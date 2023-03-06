@@ -6,7 +6,7 @@ import 'auth/screens/login-page.dart';
 import 'package:get/get.dart';
 
 Future<void> main() async {
-  await BuySellPostHandler.init();
+  //await BuySellPostHandler.init();
   runApp(const MyApp());
 }
 /*void main() {

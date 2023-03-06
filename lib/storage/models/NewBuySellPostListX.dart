@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/IPostList.dart';
 
 class NewBuySellPostListX implements IPostList{

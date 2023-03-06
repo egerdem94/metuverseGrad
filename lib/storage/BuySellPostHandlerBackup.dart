@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/User.dart';
-import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/storage/db_example/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

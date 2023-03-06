@@ -23,16 +23,32 @@ class NewBuySellPageX extends StatefulWidget {
 }
 
 class _NewBuySellPageXState extends State<NewBuySellPageX> {
+  final _scrollController = ScrollController();
   NewBuySellPostListX? newBuySellPostListX;
-
+  late BuySellPostHandler buySellPostHandler;
   @override
   void initState() {
     super.initState();
-    BuySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
+    _scrollController.addListener(_scrollListener);
+    buySellPostHandler = BuySellPostHandler();
+    buySellPostHandler.init();
+    buySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
       setState(() {
-        newBuySellPostListX = BuySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
       });
     });
+  }
+  void _scrollListener() {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
+      // Load more data
+      setState(() {
+        buySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+      });
+    }
   }
 
   @override
@@ -54,12 +70,14 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
           ),
           child: newBuySellPostListX != null ?
           widget.buyOrSell == 's' ? ListView.builder(
+            controller: _scrollController,
             itemCount: newBuySellPostListX!.length(),
             itemBuilder: (context, index) {
               return NewSellPostContainer(
                   post: newBuySellPostListX!.newBuySellPostListX![index]);
             },
           ):ListView.builder(
+            controller: _scrollController,
             itemCount: newBuySellPostListX!.length(),
             itemBuilder: (context, index) {
               return NewBuyPostContainer(
@@ -76,24 +94,24 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   child: Text("Retry"),
-                  onPressed: () => BuySellPostHandler.handlePostList(widget.buyOrSell,true),
+                  onPressed: () => buySellPostHandler.handlePostList(widget.buyOrSell,true),
                 )
               ],
             ),
           ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           setState(() {
-            BuySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
+            buySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
               setState(() {
-                newBuySellPostListX = BuySellPostHandler.getBuySellPostList(widget.buyOrSell);
+                newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
               });
             });
           });
         },
-      ),
+      ),*/
       bottomNavigationBar: NewCustomBuySellBottomNavigationBar(),
     );
   }

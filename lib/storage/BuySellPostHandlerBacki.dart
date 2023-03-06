@@ -5,18 +5,18 @@ import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BuySellPostHandler{
-  final dbHelper = DatabaseHelperSellBuy();
-  final backendHelper = BackendHelperSellBuy();
-  NewBuySellPostListX newSellPostListX = NewBuySellPostListX.defaults();
-  NewBuySellPostListX newBuyPostListX = NewBuySellPostListX.defaults();
+  static final dbHelper = DatabaseHelperSellBuy();
+  static final backendHelper = BackendHelperSellBuy();
+  static NewBuySellPostListX newSellPostListX = NewBuySellPostListX.defaults();
+  static NewBuySellPostListX newBuyPostListX = NewBuySellPostListX.defaults();
 
-  Future<void> init() async {
+  static Future<void> init() async {
     //dbHelper = DatabaseHelper();
     WidgetsFlutterBinding.ensureInitialized();
     await dbHelper.init();
   }
 
-  List<int> convertIdList(postIDListAsString){
+  static List<int> convertIdList(postIDListAsString){
     List<int> convertedList = [];
     if(postIDListAsString == "")
       return convertedList;
@@ -28,7 +28,7 @@ class BuySellPostHandler{
     return convertedList;
   }
 
-  String getLastPostID(buyerOrSeller,firstTime){
+  static String getLastPostID(buyerOrSeller,firstTime){
     var lastPostID = '';
     if(!firstTime){
       if(buyerOrSeller == 's'){
@@ -42,7 +42,7 @@ class BuySellPostHandler{
   }
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
-  Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
+  static Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
     //await _query();
     var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
     String postsToBeAskedBackendIDList = '';
@@ -58,7 +58,7 @@ class BuySellPostHandler{
     return [postsToBeAskedBackendIDList,postsToBeAskedLocalDB];
   }
 
-  Future<bool> handlePostList(buyOrSell,firstTime) async{
+  static Future<bool> handlePostList(buyOrSell,firstTime) async{
 
     PostsToDisplay? postsToDisplay;
     if(firstTime){
@@ -117,7 +117,7 @@ class BuySellPostHandler{
     }
   }
 
-  NewBuySellPostListX? getBuySellPostList(buyOrSell){
+  static NewBuySellPostListX? getBuySellPostList(buyOrSell){
     if(buyOrSell == 's'){
       return newSellPostListX;
     }
