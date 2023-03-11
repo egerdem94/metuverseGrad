@@ -3,6 +3,7 @@ import 'package:flutter/src/material/colors.dart';
 import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/buyandsell/screens/SellPage.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
+import 'package:metuverse/new_buy_sell/PhotoScreen.dart';
 import 'package:metuverse/new_buy_sell/screens/NewBuySellPageX.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
@@ -68,8 +69,8 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(AcademicCalendar());
-                      //Get.to(NewBuySellPageX2(buyOrSell: 's', searchModeFlag: false));
+                      //Get.to(AcademicCalendar());
+                      Get.to(PhotoScreen());
                     },
                     imageUrl: 'assets-images/academiccalendar.png',
                   ),
