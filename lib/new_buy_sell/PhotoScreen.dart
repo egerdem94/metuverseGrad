@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/database/DatabaseHelperPhoto.dart';
+import 'package:metuverse/storage/database/PhotoDBHelper.dart';
 //import 'package:metuverse/storage/database/PhotoDBHelper.dart';
 
 
@@ -15,25 +16,39 @@ class _PhotoScreenState extends State<PhotoScreen> {
   DatabaseHelperPhoto databaseHelperPhoto = DatabaseHelperPhoto();
   @override
   void initState() {
+    //WidgetsFlutterBinding.ensureInitialized();
     super.initState();
-    _loadPhotos();
+    _loadPhotos2();
   }
 
   Future<void> _loadPhotos() async {
-    /*var x = await PhotoDatabase.instance.insertPhotoFromUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
+    var x = await PhotoDatabase.instance.insertPhotoFromUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
     debugPrint("inserted:" + x.toString());
-    final photos = await PhotoDatabase.instance.getPhotos();*/
+    final photos = await PhotoDatabase.instance.getPhotos();
 
-    await databaseHelperPhoto.init();
+    //await databaseHelperPhoto.init();
     //await databaseHelperPhoto.insertPhotoFromUrl(36,"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
     //final photos = await databaseHelperPhoto.getAllPhotosWithPostID(36);
-    final photos = await databaseHelperPhoto.getAllPhotosInDB();
+    //final photos = await databaseHelperPhoto.getAllPhotosInDB();
     setState(() {
       //if(photos!= null)
       _photos = photos;
     });
   }
+  Future<void> _loadPhotos2() async {
+/*    var x = await PhotoDatabase.instance.insertPhotoFromUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
+    debugPrint("inserted:" + x.toString());
+    final photos = await PhotoDatabase.instance.getPhotos();*/
 
+    await databaseHelperPhoto.init();
+    await databaseHelperPhoto.insertPhotoFromUrl(36,"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
+    final photos = await databaseHelperPhoto.getAllPhotosWithPostID(36);
+    //final photos = await databaseHelperPhoto.getAllPhotosInDB();
+    setState(() {
+      //if(photos!= null)
+      _photos = photos;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,15 +1,16 @@
-/*
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/database/DatabaseHelper.dart';
+import 'package:metuverse/storage/models/Photo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PhotoDatabase{
   static final PhotoDatabase instance = PhotoDatabase._init();
   static Database? _database;
-
+  static const databaseName = "photosDB";
+  static const databaseVersion = 1;
 
 
   PhotoDatabase._init();
@@ -51,6 +52,7 @@ class PhotoDatabase{
     return await db.insert('photos', {'data': photoData});
   }
 
+
   Future<List<Uint8List>> getPhotos() async {
     final db = await instance.database;
     final photosData = await db.query('photos');
@@ -61,4 +63,3 @@ class PhotoDatabase{
     }).toList();
   }
 }
-*/

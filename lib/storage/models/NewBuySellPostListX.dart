@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/IPostList.dart';
-
+import 'package:metuverse/storage/models/Photo.dart';
 class NewBuySellPostListX implements IPostList{
   List<NewBuySellPostX>? newBuySellPostListX;
   int? total;
@@ -41,6 +41,17 @@ class NewBuySellPostListX implements IPostList{
   //function sorts the list by postID
   void sortListByPostID(){
     newBuySellPostListX!.sort((b, a) => a.postID!.compareTo(b.postID!));
+  }
+  NewBuySellPostX? getPostWithID(int id){
+    if(newBuySellPostListX == null){
+      return null;
+    }
+    for(var post in newBuySellPostListX!){
+      if(id == post.postID){
+        return post;
+      }
+    }
+    return null;
   }
   bool isEmpty(){
     if(newBuySellPostListX == null || newBuySellPostListX!.length == 0)
@@ -110,7 +121,20 @@ class NewBuySellPostListX implements IPostList{
   void deletePost(int postID){
     newBuySellPostListX!.removeWhere((element) => element.postID == postID);
   }
-
+  void addPhotos(PhotoList photos){
+    if(newBuySellPostListX == null){
+      debugPrint("Unexpected!");
+      return;
+    }
+    for(var photo in photos.photos){
+      for(var post in newBuySellPostListX!){
+        if(photo.postID == post.postID){
+          post.addPhoto(photo);
+          break;
+        }
+      }
+    }
+  }
   //function returns the last postID in the list
   int getLastPostID(){
     sortListByPostID();
@@ -137,6 +161,8 @@ class NewBuySellPostX implements IPost{
   int? productPrice;
   String? currency;
   int? productStatus;
+  late bool mediaExist;
+  PhotoList photoList = PhotoList();
 
   NewBuySellPostX(
       {this.belongToUser,
@@ -148,7 +174,8 @@ class NewBuySellPostX implements IPost{
         this.description,
         this.productPrice,
         this.currency,
-        this.productStatus});
+        this.productStatus,
+      });
 
   NewBuySellPostX.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
@@ -174,12 +201,11 @@ class NewBuySellPostX implements IPost{
     postID = json[DatabaseHelperSellBuy.columnPostID];
     updateVersion = json[DatabaseHelperSellBuy.columnUpdateVersion];
     media = json[DatabaseHelperSellBuy.columnMedia];
-    //media = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/D6B_7884_-_Ava_Addams_%2816211617408%29.jpg/800px-D6B_7884_-_Ava_Addams_%2816211617408%29.jpg";
     description = json[DatabaseHelperSellBuy.columnDescription];
-    //description = "anan";
     productPrice = json[DatabaseHelperSellBuy.columnProductPrice];
     currency = json[DatabaseHelperSellBuy.columnCurrency];
     productStatus = json[DatabaseHelperSellBuy.columnProductStatus];
+    mediaExist = true;
   }
 
   Map<String, dynamic> toJson() {
@@ -222,7 +248,17 @@ class NewBuySellPostX implements IPost{
     }
     return mediaList;
   }
-
+  bool doesMediaExist(){
+    if(mediaExist == true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  void addPhoto(Photo photo){
+    this.photoList.addPhoto(photo);
+  }
   String getProfilePicture(){
     if (this.profilePicture != null) {
       return this.profilePicture!;

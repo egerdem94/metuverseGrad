@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/backend/BackendHelperSellBuy.dart';
-import 'package:metuverse/storage/database/DatabaseHelperPhoto.dart';
 import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
-import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BuySellPostHandler{
   final dbHelper = DatabaseHelperSellBuy();
   final backendHelper = BackendHelperSellBuy();
-  final photoHelper = DatabaseHelperPhoto();
-
   NewBuySellPostListX newSellPostListX = NewBuySellPostListX.defaults();
   NewBuySellPostListX newBuyPostListX = NewBuySellPostListX.defaults();
-  //PhotoList photoList = PhotoList();
-  //List<int> idListForPhotos = <int>[];
+
   Future<void> init() async {
     //dbHelper = DatabaseHelper();
     WidgetsFlutterBinding.ensureInitialized();
@@ -45,14 +40,6 @@ class BuySellPostHandler{
     }
     return lastPostID;
   }
-  List<int> postIDListHandlingForPhotos(List<String> postsToBeAsked){
-    List<int> idListForPhotos = convertIdList(postsToBeAsked[0]); //firstList
-    var secondList = convertIdList(postsToBeAsked[1]);
-    for(int i in secondList){
-      idListForPhotos.add(i);
-    }
-    return idListForPhotos;
-  }
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
   Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
@@ -81,7 +68,7 @@ class BuySellPostHandler{
     //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
     postsToDisplay = await backendHelper.request_posts_to_diplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
-    List<int> idListOfPostsForPhotos = postIDListHandlingForPhotos(postsToBeAsked); //for photo process
+
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
@@ -101,7 +88,6 @@ class BuySellPostHandler{
         return false;
       }
       else{
-        await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
         return true;
       }
     }
@@ -122,7 +108,6 @@ class BuySellPostHandler{
         return false;
       }
       else{
-        await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
         return true;
       }
     }
@@ -130,55 +115,6 @@ class BuySellPostHandler{
       print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
-  }
-  List<PseudoPhoto> getPseudoPhoto(int id,buyOrSell){
-    List<PseudoPhoto> pseudoPhotos = <PseudoPhoto>[];
-    NewBuySellPostX? post;
-    if(buyOrSell == 's'){
-      post = newSellPostListX.getPostWithID(id);
-    }
-    else{
-      post = newBuyPostListX.getPostWithID(id);
-    }
-    if(post == null){
-      return pseudoPhotos;
-    }
-    List<String> mediaList = post.mediaList();
-    if(mediaList.length == 0){
-      return pseudoPhotos;
-    }
-    for(var media in mediaList){
-      pseudoPhotos.add(PseudoPhoto(id, media));
-    }
-    return pseudoPhotos;
-  }
-  List<List<PseudoPhoto>> getPseudoPhotos(buyOrSell,idListOfPostsForPhotos){
-    List<List<PseudoPhoto>> pseudoPhotos = <List<PseudoPhoto>>[];
-    if(idListOfPostsForPhotos.length == 0){
-      return pseudoPhotos;
-    }
-    for(int id in idListOfPostsForPhotos){
-      List<PseudoPhoto> pseudos = getPseudoPhoto(id, buyOrSell);
-      if(pseudos != []){
-        pseudoPhotos.add(pseudos);
-      }
-    }
-    return pseudoPhotos;
-  }
-  void feedPhotosToPosts(buyOrSell,PhotoList photoList){
-    if(buyOrSell == 's'){
-      newSellPostListX.addPhotos(photoList);
-    }
-    else{
-      newBuyPostListX.addPhotos(photoList);
-    }
-  }
-  Future handlePhotoList(buyOrSell,idListOfPostsForPhotos) async{
-    await photoHelper.init();
-    List<List<PseudoPhoto>> pseudoPhotosList = getPseudoPhotos(buyOrSell,idListOfPostsForPhotos);
-    await photoHelper.insertPseudoLists(pseudoPhotosList);
-    PhotoList photoList = await photoHelper.getPhotosGivenPostIDs(idListOfPostsForPhotos);
-    feedPhotosToPosts(buyOrSell, photoList);
   }
 
   NewBuySellPostListX? getBuySellPostList(buyOrSell){

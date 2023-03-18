@@ -37,11 +37,6 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
         newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
       });
     });
-/*    buySellPostHandler.handlePhotoList(widget.buyOrSell).then((_) {
-      setState(() {
-        newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-      });
-    });*/
   }
   void _scrollListener() {
     if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
@@ -62,48 +57,48 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
       appBar: NewBuyAndSellAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 0, 0, 0),
-                Color.fromARGB(255, 0, 0, 0),
-                Color.fromARGB(255, 0, 0, 0),
-              ],
-            ), // set the background color to blue
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 0, 0, 0),
+              Color.fromARGB(255, 0, 0, 0),
+              Color.fromARGB(255, 0, 0, 0),
+            ],
+          ), // set the background color to blue
+        ),
+        child: newBuySellPostListX != null ?
+        widget.buyOrSell == 's' ? ListView.builder(
+          controller: _scrollController,
+          itemCount: newBuySellPostListX!.length(),
+          itemBuilder: (context, index) {
+            return NewSellPostContainer(
+                post: newBuySellPostListX!.newBuySellPostListX![index]);
+          },
+        ):ListView.builder(
+          controller: _scrollController,
+          itemCount: newBuySellPostListX!.length(),
+          itemBuilder: (context, index) {
+            return NewBuyPostContainer(
+                newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+          },
+        )
+            :Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 10),
+              Text("Loading..."),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text("Retry"),
+                onPressed: () => buySellPostHandler.handlePostList(widget.buyOrSell,true),
+              )
+            ],
           ),
-          child: newBuySellPostListX != null ?
-          widget.buyOrSell == 's' ? ListView.builder(
-            controller: _scrollController,
-            itemCount: newBuySellPostListX!.length(),
-            itemBuilder: (context, index) {
-              return NewSellPostContainer(
-                  post: newBuySellPostListX!.newBuySellPostListX![index]);
-            },
-          ):ListView.builder(
-            controller: _scrollController,
-            itemCount: newBuySellPostListX!.length(),
-            itemBuilder: (context, index) {
-              return NewBuyPostContainer(
-                  newPost: newBuySellPostListX!.newBuySellPostListX![index]);
-            },
-          )
-          :Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 10),
-                Text("Loading..."),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  child: Text("Retry"),
-                  onPressed: () => buySellPostHandler.handlePostList(widget.buyOrSell,true),
-                )
-              ],
-            ),
-          ),
+        ),
       ),
       /*floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

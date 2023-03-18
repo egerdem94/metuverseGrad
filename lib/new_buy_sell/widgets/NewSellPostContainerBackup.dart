@@ -3,15 +3,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
-import 'package:metuverse/widgets/NewPhotoGrid.dart';
 import '../../auth/screens/login-page.dart';
 import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photoGrid.dart';
 
-class NewSellPostContainer extends StatelessWidget {
+class NewSellPostContainerBackup extends StatelessWidget {
   final NewBuySellPostX post;
-  NewSellPostContainer({required this.post});
+  NewSellPostContainerBackup({required this.post});
 
   String currencySymbol = '';
 
@@ -78,9 +77,9 @@ class NewSellPostContainer extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 260.0,
-            child: NewPhotoGrid(
+            child: PhotoGrid(
               //imageUrls: imagesUrls, // pass the imageUrls here
-              photoList: post.photoList,
+              imageUrls: post.mediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
