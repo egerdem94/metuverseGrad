@@ -42,7 +42,7 @@ class MainPageNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(ChatScreen());
+                //Get.to(ChatScreen());
               },
             ),
             SizedBox(width: 25.0),

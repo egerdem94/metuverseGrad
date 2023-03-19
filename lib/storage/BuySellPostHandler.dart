@@ -101,7 +101,7 @@ class BuySellPostHandler{
         return false;
       }
       else{
-        await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
+        //await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
         return true;
       }
     }
@@ -122,7 +122,7 @@ class BuySellPostHandler{
         return false;
       }
       else{
-        await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
+        //await handlePhotoList(buyOrSell,idListOfPostsForPhotos);
         return true;
       }
     }

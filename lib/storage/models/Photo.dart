@@ -17,10 +17,11 @@ class PhotoList{
       this.photos.add(new Photo(photoID, postID, photoUrl, photoData));
     }
   }
+
   void addPhoto(Photo photo){
-    if(!isPhotoExistInTheList(photo.photoID)){
+    //if(!isPhotoExistInTheList(photo.photoID)){
       this.photos.add(photo);
-    }
+    //}
   }
   bool isPhotoExistInTheList(int photoID){
     for(var photo in photos){
@@ -37,7 +38,9 @@ class Photo{
   late int postID;//is it true? (BigInt)
   late String photoUrl;
   late Uint8List photoData;
+  late bool shouldBeInsertedToDB;
   Photo(this.photoID,this.postID,this.photoUrl,this.photoData);
+  Photo.secondConstructor(this.postID,this.photoUrl,this.photoData, this.shouldBeInsertedToDB);
   /*
     static const columnPhotoID = '_photoID';
   static const columnPostID = 'postID';

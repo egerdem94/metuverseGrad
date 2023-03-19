@@ -1,24 +1,54 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:metuverse/storage/PhotoHandler.dart';
+import 'package:metuverse/storage/database/DatabaseHelperPhoto.dart';
+import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewPhotoGrid extends StatefulWidget {
-  final PhotoList photoList;
+  final BasePost basePost;
   final Function(int) onImageClicked;
 
+  PhotoList photoList = PhotoList();
+
   NewPhotoGrid({
-    required this.photoList,
+    required this.basePost,
     required this.onImageClicked,
   });
 
   @override
   createState() => _NewPhotoGridState();
+
 }
 
 class _NewPhotoGridState extends State<NewPhotoGrid> {
   final _pageController = PageController();
+  late PhotoHandler photoHandler;
+
+  @override
+  void initState()  {
+    super.initState();
+    /*
+    Post`un fotoğrafı var mı, yok mu kontrol et.
+          Eğer yoksa: Fotoğraf display etme.
+          Eğer varsa: devam et.
+
+    Postun fotoğrafları database`de var mı? Kontrol et.
+          Herbir fotoğraf için eğer fotoğraf database`de yoksa: Fotoğrafları internetten çek, display et ve database`e insert et.
+          Eğer varsa: fotoğrafları database`den çek.
+     */
+
+    photoHandler = PhotoHandler(basePost: widget.basePost);
+    //photoHandler.init(); //Future ama çalışıyor.
+    photoHandler.initializePhotos().then((_) {
+     setState(() {
+        widget.photoList = photoHandler.getPhotoList();
+     });
+    });
+  }
+
 
   @override
   void dispose() {
@@ -33,9 +63,9 @@ class _NewPhotoGridState extends State<NewPhotoGrid> {
         Expanded(
           child: PageView.builder(
             controller: _pageController,
-            itemCount: widget.photoList.photos.length,
+            itemCount: widget.basePost.photoList.photos.length,
             itemBuilder: (context, index) {
-              Uint8List imageBytes = widget.photoList.photos[index].photoData;
+              Uint8List imageBytes = widget.basePost.photoList.photos[index].photoData;
               return GestureDetector(
                 child: Image.memory(
                   imageBytes,
@@ -50,7 +80,7 @@ class _NewPhotoGridState extends State<NewPhotoGrid> {
           height: 20,
           child: SmoothPageIndicator(
             controller: _pageController,
-            count: widget.photoList.photos.length,
+            count: widget.basePost.photoList.photos.length,
             effect: WormEffect(
               dotHeight: 8,
               dotWidth: 8,

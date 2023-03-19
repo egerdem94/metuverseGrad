@@ -47,9 +47,18 @@ class DatabaseHelperPhoto extends DatabaseHelper{
       '''
     );
   }
-  Future<int> insertPhotoFromUrl(postID,String url) async {
-    final response = await http.get(Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Old_part_of_calne.size-_100_KB.jpg/1200px-Old_part_of_calne.size-_100_KB.jpg?20090310223710"));
-    //final response = await http.get(Uri.parse(url));
+
+  Future<bool> doesPhotoExist(int postID, String url) async {
+    int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnPostID = ? AND $columnPhotoSource = ?', [postID, url]));
+
+    return (count > 0) ? true : false;
+
+  }
+
+  Future<int> insertPhotoFromUrl(int postID,String url) async {
+    //if(await doesPhotoExist(postID, url)) //TODO: Daha sonra bak.
+    //final response = await http.get(Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Old_part_of_calne.size-_100_KB.jpg/1200px-Old_part_of_calne.size-_100_KB.jpg?20090310223710"));
+    final response = await http.get(Uri.parse(url));
     final photoData = response.bodyBytes;
     final row = {
       //columnPhotoID: 2,
@@ -71,6 +80,34 @@ class DatabaseHelperPhoto extends DatabaseHelper{
       await insertPseudoList(pseudos);
     }
   }
+
+  Future insertNewPhoto(Photo photo) async{
+    final row = {
+      //columnPhotoID: 2,
+      columnPostID: photo.postID,
+      columnPhotoSource: photo.photoUrl,
+      columnPhotoData: photo.photoData,
+      columnInsertionDate: DateTime.now().toIso8601String(),
+    };
+    //return await db.insert('$table', {'$columnPostID':postID,'$columnPhotoData': photoData});
+    return await db.insert(table, row);
+  }
+
+  Future insertNewPhotos(PhotoList photoList) async{
+    for(var photo in photoList.photos) {
+      if(photo.shouldBeInsertedToDB)
+        await insertNewPhoto(photo);
+    }
+  }
+
+  Future<Photo?> getPhotoGivenPostIDAndUrl(int postID, String Url) async{
+    final photosData = await db.query(table,
+        where: '$columnPostID = ? AND $columnPhotoSource = ?',
+        whereArgs: [postID, Url]);
+
+    return (photosData.length != 0) ? Photo.fromDbMap(photosData[0]) : null;
+  }
+
   Future<PhotoList> getPhotosGivenPostIDs(List<int> postIDs) async{
     PhotoList photoList = PhotoList();
     for(var id in postIDs){

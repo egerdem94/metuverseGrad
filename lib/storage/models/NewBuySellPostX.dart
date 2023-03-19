@@ -128,31 +128,25 @@ class NewBuySellPostListX extends BasePostList{
 }
 
 class NewBuySellPostX extends BasePost{
-  bool? belongToUser; //+
-  String? fullName; //+
-  String? profilePicture; //+
-  int? postID; //+
-  int? updateVersion; //+
-  String? media; //+
-  String? description;//+
+
   int? productPrice;
   String? currency;
   int? productStatus;
-  late bool mediaExist; //+
-  PhotoList photoList = PhotoList();//+
 
+
+  /*
   NewBuySellPostX(
       {this.belongToUser,
         this.fullName,
         this.profilePicture,
-        this.postID,
+        //this.postID,
         this.updateVersion,
         this.media,
         this.description,
         this.productPrice,
         this.currency,
         this.productStatus,
-      });
+      });*/
 
   NewBuySellPostX.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
@@ -215,16 +209,7 @@ class NewBuySellPostX extends BasePost{
       DatabaseHelperSellBuy.columnProductStatus: productStatus,
     };
   }
-  List<String> mediaList(){
-    List<String> mediaList = [];
-    if (this.media != null) {
-      mediaList.add(this.media!);
-    }
-    else{
-      mediaList.add("https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp");
-    }
-    return mediaList;
-  }
+
   bool doesMediaExist(){
     if(mediaExist == true){
       return true;
