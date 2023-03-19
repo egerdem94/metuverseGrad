@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/storage/models/IPostList.dart';
+import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
-class NewBuySellPostListX implements IPostList{
+class NewBuySellPostListX extends BasePostList{
   List<NewBuySellPostX>? newBuySellPostListX;
   int? total;
 
@@ -64,29 +64,6 @@ class NewBuySellPostListX implements IPostList{
   // comparison is done by postID
   void addNewPosts(NewBuySellPostListX newPosts){
     newPosts.newBuySellPostListX!.forEach((element) {
-      /*bool postIDAlreadyExists = false;
-      bool postIDAlreadyExistsButUpdated = false;
-      newBuySellPostListX!.forEach((newElement) {
-        if(element.postID == newElement.postID){
-          if(newElement.updateVersion! > element.updateVersion!){
-            postIDAlreadyExistsButUpdated = true;
-          }
-          else{
-            postIDAlreadyExists = true;
-          }
-        }
-      });
-      if(!postIDAlreadyExists){
-        newBuySellPostListX!.add(element);
-      }
-      else if(postIDAlreadyExistsButUpdated){
-        //replace the old post with the new one
-        for(int i = 0; i < newBuySellPostListX!.length; i++){
-          if(newBuySellPostListX![i].postID == element.postID){
-            newBuySellPostListX![i] = element;
-          }
-        }
-      }*/
       addNewPost(element);
     });
     sortListByPostID();// IMPORTANT! This might be a bad idea. You might do ordering while inserting!
@@ -150,19 +127,19 @@ class NewBuySellPostListX implements IPostList{
   }
 }
 
-class NewBuySellPostX implements IPost{
-  bool? belongToUser;
-  String? fullName;
-  String? profilePicture;
-  int? postID;
-  int? updateVersion;
-  String? media;
-  String? description;
+class NewBuySellPostX extends BasePost{
+  bool? belongToUser; //+
+  String? fullName; //+
+  String? profilePicture; //+
+  int? postID; //+
+  int? updateVersion; //+
+  String? media; //+
+  String? description;//+
   int? productPrice;
   String? currency;
   int? productStatus;
-  late bool mediaExist;
-  PhotoList photoList = PhotoList();
+  late bool mediaExist; //+
+  PhotoList photoList = PhotoList();//+
 
   NewBuySellPostX(
       {this.belongToUser,

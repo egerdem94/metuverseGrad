@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/NewBuySellPostX.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 import 'package:metuverse/widgets/photoGrid.dart';
 

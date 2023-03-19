@@ -69,8 +69,8 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      //Get.to(AcademicCalendar());
-                      Get.to(PhotoScreen());
+                      Get.to(AcademicCalendar());
+                      //Get.to(PhotoScreen());
                     },
                     imageUrl: 'assets-images/academiccalendar.png',
                   ),

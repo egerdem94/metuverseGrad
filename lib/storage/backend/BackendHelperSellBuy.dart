@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/storage/backend/IBackendHelperPostPage.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/storage/models/IPostList.dart';
-import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:metuverse/storage/models/NewBuySellPostX.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BackendHelperSellBuy implements IBackendHelperPostPage{
 
   @override
-  Future<IPostList?> getPostsFromBackend(postIDList) async {
+  Future<BasePostList?> getPostsFromBackend(postIDList) async {
     if(postIDList == ""){
       debugPrint("Empty postIDList in _request_buy_sell_posts_from_backend");
       return null;

@@ -1,7 +1,7 @@
-import 'package:metuverse/storage/models/IPostList.dart';
+import 'package:metuverse/storage/models/BasePost.dart';
 
 abstract class IBackendHelperPostPage{
-   Future<IPostList?> getPostsFromBackend(postIDList) async{
+   Future<BasePostList?> getPostsFromBackend(postIDList) async{
      return null;
    }
 

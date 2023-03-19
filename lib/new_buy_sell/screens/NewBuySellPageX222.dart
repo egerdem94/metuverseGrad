@@ -4,7 +4,7 @@ import 'package:metuverse/new_buy_sell/widgets/NewBuyPostContainer.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewCustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/widgets/NewSellPostContainer.dart';
 import 'package:metuverse/storage/BuySellPostHandler.dart';
-import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/NewBuySellPostX.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 

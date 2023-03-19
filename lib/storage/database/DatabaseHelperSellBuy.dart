@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/database/DatabaseHelper.dart';
-import 'package:metuverse/storage/models/IPostList.dart';
-import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:metuverse/storage/models/NewBuySellPostX.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -54,7 +54,7 @@ class DatabaseHelperSellBuy extends DatabaseHelper{
           )
           ''');
   }
-  Future<IPostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
+  Future<BasePostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
     var tempNewBuySellPostListX = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
     if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
       debugPrint("Empty tempNewBuySellPostListX while string is not empty!!!");

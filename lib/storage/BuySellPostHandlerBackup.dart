@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/backend/BackendHelperSellBuy.dart';
 import 'package:metuverse/storage/database/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/storage/models/NewBuySellPostListX.dart';
+import 'package:metuverse/storage/models/NewBuySellPostX.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BuySellPostHandler{

@@ -1,3 +1,4 @@
+/*
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -36,9 +37,11 @@ class _PhotoScreenState extends State<PhotoScreen> {
     });
   }
   Future<void> _loadPhotos2() async {
+*/
 /*    var x = await PhotoDatabase.instance.insertPhotoFromUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
     debugPrint("inserted:" + x.toString());
-    final photos = await PhotoDatabase.instance.getPhotos();*/
+    final photos = await PhotoDatabase.instance.getPhotos();*//*
+
 
     await databaseHelperPhoto.init();
     await databaseHelperPhoto.insertPhotoFromUrl(36,"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Addams_AVN_Expo_2015_2.jpg/330px-Ava_Addams_AVN_Expo_2015_2.jpg");
@@ -73,3 +76,4 @@ class _PhotoScreenState extends State<PhotoScreen> {
     );
   }
 }
+*/
