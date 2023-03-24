@@ -80,7 +80,7 @@ class NewSellPostContainer extends StatelessWidget {
             height: 260.0,
             child: NewPhotoGrid(
               //imageUrls: imagesUrls, // pass the imageUrls here
-              basePost: post,
+              photoList: post.photoList,
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(

@@ -55,8 +55,11 @@ class DatabaseHelperPhoto extends DatabaseHelper{
 
   }
 
-  Future<int> insertPhotoFromUrl(int postID,String url) async {
-    //if(await doesPhotoExist(postID, url)) //TODO: Daha sonra bak.
+  Future<Photo?> insertPhotoFromUrl(int postID,String url) async {
+    if(await doesPhotoExist(postID, url)) {
+      debugPrint("Photo already exist!");
+      return null;
+    }
     //final response = await http.get(Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Old_part_of_calne.size-_100_KB.jpg/1200px-Old_part_of_calne.size-_100_KB.jpg?20090310223710"));
     final response = await http.get(Uri.parse(url));
     final photoData = response.bodyBytes;
@@ -68,9 +71,10 @@ class DatabaseHelperPhoto extends DatabaseHelper{
       columnInsertionDate: DateTime.now().toIso8601String(),
     };
     //return await db.insert('$table', {'$columnPostID':postID,'$columnPhotoData': photoData});
-    return await db.insert(table, row);
+    var x = await db.insert(table, row); //Can be checked
+    return Photo(0,postID,url,photoData);
   }
-  Future insertPseudoList(List<PseudoPhoto> pseudoPhotos) async {
+/*  Future insertPseudoList(List<PseudoPhoto> pseudoPhotos) async {
     for(var pseudo in pseudoPhotos){
       await insertPhotoFromUrl(pseudo.postID,pseudo.photoUrl);
     }
@@ -79,7 +83,7 @@ class DatabaseHelperPhoto extends DatabaseHelper{
     for(var pseudos in pseudoPhotosList){
       await insertPseudoList(pseudos);
     }
-  }
+  }*/
 
   Future insertNewPhoto(Photo photo) async{
     final row = {

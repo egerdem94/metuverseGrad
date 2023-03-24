@@ -8,47 +8,21 @@ import 'package:metuverse/storage/models/Photo.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewPhotoGrid extends StatefulWidget {
-  final BasePost basePost;
+  final PhotoList? photoList;
   final Function(int) onImageClicked;
 
-  PhotoList photoList = PhotoList();
-
   NewPhotoGrid({
-    required this.basePost,
+    required this.photoList,
     required this.onImageClicked,
   });
 
   @override
   createState() => _NewPhotoGridState();
-
 }
 
 class _NewPhotoGridState extends State<NewPhotoGrid> {
   final _pageController = PageController();
-  late PhotoHandler photoHandler;
-
-  @override
-  void initState()  {
-    super.initState();
-    /*
-    Post`un fotoğrafı var mı, yok mu kontrol et.
-          Eğer yoksa: Fotoğraf display etme.
-          Eğer varsa: devam et.
-
-    Postun fotoğrafları database`de var mı? Kontrol et.
-          Herbir fotoğraf için eğer fotoğraf database`de yoksa: Fotoğrafları internetten çek, display et ve database`e insert et.
-          Eğer varsa: fotoğrafları database`den çek.
-     */
-
-    photoHandler = PhotoHandler(basePost: widget.basePost);
-    //photoHandler.init(); //Future ama çalışıyor.
-    photoHandler.initializePhotos().then((_) {
-     setState(() {
-        widget.photoList = photoHandler.getPhotoList();
-     });
-    });
-  }
-
+  //late PhotoHandler photoHandler;
 
   @override
   void dispose() {
@@ -58,39 +32,44 @@ class _NewPhotoGridState extends State<NewPhotoGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: widget.basePost.photoList.photos.length,
-            itemBuilder: (context, index) {
-              Uint8List imageBytes = widget.basePost.photoList.photos[index].photoData;
-              return GestureDetector(
-                child: Image.memory(
-                  imageBytes,
-                  fit: BoxFit.cover,
-                ),
-                onTap: () => widget.onImageClicked(index),
-              );
-            },
-          ),
-        ),
-        Container(
-          height: 20,
-          child: SmoothPageIndicator(
-            controller: _pageController,
-            count: widget.basePost.photoList.photos.length,
-            effect: WormEffect(
-              dotHeight: 8,
-              dotWidth: 8,
-              spacing: 8,
-              activeDotColor: Colors.blue,
-              dotColor: Colors.grey,
+    if (widget.photoList == null || widget.photoList!.photos.length == 0) {
+      return Text('No photos to display');
+    } else {
+      return Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: widget.photoList!.photos.length,
+              itemBuilder: (context, index) {
+                Uint8List imageBytes = widget.photoList!.photos[index].photoData;
+                return GestureDetector(
+                  child: Image.memory(
+                    imageBytes,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () => widget.onImageClicked(index),
+                );
+              },
             ),
           ),
-        ),
-      ],
-    );
+          Container(
+            height: 20,
+            child: SmoothPageIndicator(
+              controller: _pageController,
+              count: widget.photoList!.photos.length,
+              effect: WormEffect(
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 8,
+                activeDotColor: Colors.blue,
+                dotColor: Colors.grey,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
   }
 }

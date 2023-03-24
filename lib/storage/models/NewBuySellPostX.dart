@@ -133,21 +133,6 @@ class NewBuySellPostX extends BasePost{
   String? currency;
   int? productStatus;
 
-
-  /*
-  NewBuySellPostX(
-      {this.belongToUser,
-        this.fullName,
-        this.profilePicture,
-        //this.postID,
-        this.updateVersion,
-        this.media,
-        this.description,
-        this.productPrice,
-        this.currency,
-        this.productStatus,
-      });*/
-
   NewBuySellPostX.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     fullName = json['fullName'];
@@ -159,6 +144,7 @@ class NewBuySellPostX extends BasePost{
     productPrice = json['productPrice'];
     currency = json['currency'];
     productStatus = json['productStatus'];
+    mediaExist = true;
   }
 
   NewBuySellPostX.fromDbMap(Map<String, dynamic> json) {
@@ -218,9 +204,9 @@ class NewBuySellPostX extends BasePost{
       return false;
     }
   }
-  void addPhoto(Photo photo){
+/*  void addPhoto(Photo photo){
     this.photoList.addPhoto(photo);
-  }
+  }*/
   String getProfilePicture(){
     if (this.profilePicture != null) {
       return this.profilePicture!;

@@ -22,4 +22,7 @@ class BasePost{
 
     return mediaList;
   }
+  void addPhoto(Photo photo){
+    photoList.addPhoto(photo);
+  }
 }

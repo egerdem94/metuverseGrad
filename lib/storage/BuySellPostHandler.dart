@@ -19,6 +19,7 @@ class BuySellPostHandler{
     //dbHelper = DatabaseHelper();
     WidgetsFlutterBinding.ensureInitialized();
     await dbHelper.init();
+    await photoHelper.init();
   }
 
   List<int> convertIdList(postIDListAsString){
@@ -70,9 +71,37 @@ class BuySellPostHandler{
     }
     return [postsToBeAskedBackendIDList,postsToBeAskedLocalDB];
   }
+  Future newHandlePhoto (NewBuySellPostX newPostX) async{
+    if(!newPostX.mediaExist){
+      return;
+    }
+    var photoUrls = newPostX.mediaList();
+    for(var photoUrl in photoUrls){
+      var isExistInDB = await photoHelper.doesPhotoExist(newPostX.postID!,photoUrl);
+      if(!isExistInDB){
+        Photo? photo = await photoHelper.insertPhotoFromUrl(newPostX.postID!, photoUrl);
+        if(photo != null){
+          newPostX.addPhoto(photo);
+        }
+      }
+      else{
+        Photo? photo = await photoHelper.getPhotoGivenPostIDAndUrl(newPostX.postID!,photoUrl);
+        if(photo != null){
+          newPostX.addPhoto(photo);
+        }
+      }
+    }
+  }
+  Future newHandlePhotos(NewBuySellPostListX? postListX) async{
+    if(postListX == null || postListX.newBuySellPostListX == null){
+      return;
+    }
+    for(var postx in postListX.newBuySellPostListX!){
+      newHandlePhoto(postx);
+    }
+  }
 
   Future<bool> handlePostList(buyOrSell,firstTime) async{
-
     PostsToDisplay? postsToDisplay;
     if(firstTime){
       newSellPostListX = NewBuySellPostListX.defaults();
@@ -85,17 +114,19 @@ class BuySellPostHandler{
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
-      NewBuySellPostListX? temp = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
-      if(temp != null){
-        newSellPostListX.addNewPosts(temp);
-        temp.newBuySellPostListX!.forEach((element) async {
+      NewBuySellPostListX? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
+      if(tempPostList != null){
+        newSellPostListX.addNewPosts(tempPostList);
+        tempPostList.newBuySellPostListX!.forEach((element) async {
           final id = await dbHelper.insertNewBuySellPostX(element);
           //debugPrint('inserted row id: $id');
         });
+        newHandlePhotos(tempPostList);
       }
-      NewBuySellPostListX? temp2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
-      if(temp2 != null){
-        newSellPostListX.addNewPosts(temp2);
+      NewBuySellPostListX? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
+      newHandlePhotos(tempPostList2);
+      if(tempPostList2 != null){
+        newSellPostListX.addNewPosts(tempPostList2);
       }
       if(newSellPostListX.isEmpty()){
         return false;
@@ -131,7 +162,7 @@ class BuySellPostHandler{
       return false;
     }
   }
-  List<PseudoPhoto> getPseudoPhoto(int id,buyOrSell){
+/*  List<PseudoPhoto> getPseudoPhoto(int id,buyOrSell){
     List<PseudoPhoto> pseudoPhotos = <PseudoPhoto>[];
     NewBuySellPostX? post;
     if(buyOrSell == 's'){
@@ -151,8 +182,8 @@ class BuySellPostHandler{
       pseudoPhotos.add(PseudoPhoto(id, media));
     }
     return pseudoPhotos;
-  }
-  List<List<PseudoPhoto>> getPseudoPhotos(buyOrSell,idListOfPostsForPhotos){
+  }*/
+/*  List<List<PseudoPhoto>> getPseudoPhotos(buyOrSell,idListOfPostsForPhotos){
     List<List<PseudoPhoto>> pseudoPhotos = <List<PseudoPhoto>>[];
     if(idListOfPostsForPhotos.length == 0){
       return pseudoPhotos;
@@ -164,22 +195,22 @@ class BuySellPostHandler{
       }
     }
     return pseudoPhotos;
-  }
-  void feedPhotosToPosts(buyOrSell,PhotoList photoList){
+  }*/
+/*  void feedPhotosToPosts(buyOrSell,PhotoList photoList){
     if(buyOrSell == 's'){
       newSellPostListX.addPhotos(photoList);
     }
     else{
       newBuyPostListX.addPhotos(photoList);
     }
-  }
-  Future handlePhotoList(buyOrSell,idListOfPostsForPhotos) async{
+  }*/
+/*  Future handlePhotoList(buyOrSell,idListOfPostsForPhotos) async{
     await photoHelper.init();
     List<List<PseudoPhoto>> pseudoPhotosList = getPseudoPhotos(buyOrSell,idListOfPostsForPhotos);
     await photoHelper.insertPseudoLists(pseudoPhotosList);
     PhotoList photoList = await photoHelper.getPhotosGivenPostIDs(idListOfPostsForPhotos);
     feedPhotosToPosts(buyOrSell, photoList);
-  }
+  }*/
 
   NewBuySellPostListX? getBuySellPostList(buyOrSell){
     if(buyOrSell == 's'){
