@@ -31,17 +31,29 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
     super.initState();
     _scrollController.addListener(_scrollListener);
     buySellPostHandler = BuySellPostHandler();
-    buySellPostHandler.init();
-    buySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
-      setState(() {
-        newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+    buySellPostHandler.init().then((_) {
+      buySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+      Future.delayed(Duration(seconds: 2)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+      Future.delayed(Duration(seconds: 1)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+      Future.delayed(Duration(seconds: 1)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
       });
     });
-/*    buySellPostHandler.handlePhotoList(widget.buyOrSell).then((_) {
-      setState(() {
-        newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-      });
-    });*/
+
   }
   void _scrollListener() {
     if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
@@ -53,6 +65,22 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
           });
         });
       });
+      Future.delayed(Duration(seconds: 2)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+      Future.delayed(Duration(seconds: 1)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+      Future.delayed(Duration(seconds: 1)).then((_) {
+        setState(() {
+          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        });
+      });
+
     }
   }
 
@@ -86,7 +114,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
             itemCount: newBuySellPostListX!.length(),
             itemBuilder: (context, index) {
               return NewBuyPostContainer(
-                  newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+                  post: newBuySellPostListX!.newBuySellPostListX![index]);
             },
           )
           :Center(

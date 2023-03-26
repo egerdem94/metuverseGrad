@@ -46,14 +46,14 @@ class BuySellPostHandler{
     }
     return lastPostID;
   }
-  List<int> postIDListHandlingForPhotos(List<String> postsToBeAsked){
+/*  List<int> postIDListHandlingForPhotos(List<String> postsToBeAsked){
     List<int> idListForPhotos = convertIdList(postsToBeAsked[0]); //firstList
     var secondList = convertIdList(postsToBeAsked[1]);
     for(int i in secondList){
       idListForPhotos.add(i);
     }
     return idListForPhotos;
-  }
+  }*/
   /// This method is used to prepare the posts that are going to be requested as string.
   ///*/
   Future<List<String>> preparePostToRequestString(PostsToDisplay? postsToDisplay) async {
@@ -110,7 +110,7 @@ class BuySellPostHandler{
     //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
     postsToDisplay = await backendHelper.request_posts_to_diplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
-    List<int> idListOfPostsForPhotos = postIDListHandlingForPhotos(postsToBeAsked); //for photo process
+    //List<int> idListOfPostsForPhotos = postIDListHandlingForPhotos(postsToBeAsked); //for photo process
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(buyOrSell == 's'){
@@ -137,17 +137,19 @@ class BuySellPostHandler{
       }
     }
     else if(buyOrSell == 'b'){
-      NewBuySellPostListX? temp = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
-      if(temp != null){
-        newBuyPostListX.addNewPosts(temp);
-        temp.newBuySellPostListX!.forEach((element) async {
+      NewBuySellPostListX? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewBuySellPostListX?;
+      if(tempPostList != null){
+        newBuyPostListX.addNewPosts(tempPostList);
+        tempPostList.newBuySellPostListX!.forEach((element) async {
           final id = await dbHelper.insertNewBuySellPostX(element);
           //debugPrint('inserted row id: $id');
         });
+        newHandlePhotos(tempPostList);
       }
-      NewBuySellPostListX? temp2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
-      if(temp2 != null){
-        newBuyPostListX.addNewPosts(temp2);
+      NewBuySellPostListX? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewBuySellPostListX?;
+      newHandlePhotos(tempPostList2);
+      if(tempPostList2 != null){
+        newBuyPostListX.addNewPosts(tempPostList2);
       }
       if(newBuyPostListX.isEmpty()){
         return false;

@@ -81,7 +81,7 @@ class _NewBuySellPageXState extends State<NewBuySellPageX> {
           itemCount: newBuySellPostListX!.length(),
           itemBuilder: (context, index) {
             return NewBuyPostContainer(
-                newPost: newBuySellPostListX!.newBuySellPostListX![index]);
+                post: newBuySellPostListX!.newBuySellPostListX![index]);
           },
         )
             :Center(

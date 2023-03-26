@@ -4,18 +4,19 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
 import 'package:metuverse/storage/models/NewBuySellPostX.dart';
+import 'package:metuverse/widgets/NewPhotoGrid.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 import 'package:metuverse/widgets/photoGrid.dart';
 
 
 class NewBuyPostContainer extends StatelessWidget {
-  final NewBuySellPostX newPost;
+  final NewBuySellPostX post;
 
   /*final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];*/
-  NewBuyPostContainer({required this.newPost});
+  NewBuyPostContainer({required this.post});
 
   String currencySymbol = '';
 
@@ -48,19 +49,19 @@ class NewBuyPostContainer extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Get.to(OtherUserProfilePage(
-                    userFullName: newPost.fullName,
-                    profilePicture: newPost.getProfilePicture(),
+                    userFullName: post.fullName,
+                    profilePicture: post.getProfilePicture(),
                   ));
                 },
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(
                     //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
-                      newPost.getProfilePicture()),
+                      post.getProfilePicture()),
                   radius: 24.0,
                 ),
               ),
               SizedBox(width: 8.0),
-              Text(newPost.fullName ?? "", style: kUsersText),
+              Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
               IconButton(
                 icon: Icon(
@@ -74,12 +75,27 @@ class NewBuyPostContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.0),
-          Text(newPost.description!, style: kwhiteText),
+          Text(post.description!, style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
             height: 260.0,
-            child: PhotoGrid(
+            child: NewPhotoGrid(
+              //imageUrls: imagesUrls, // pass the imageUrls here
+              photoList: post.photoList,
+              onImageClicked: (index) {
+                // Show fullscreen image view
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FullscreenImageView(
+                      imageUrl: post.mediaList()[index],
+                      //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
+                    ),
+                  ),
+                );
+              },
+            ),
+            /*child: PhotoGrid(
               //imageUrls: imagesUrls, // pass the imageUrls here
               imageUrls: newPost.mediaList(),
               onImageClicked: (index) {
@@ -93,7 +109,7 @@ class NewBuyPostContainer extends StatelessWidget {
                   ),
                 );
               },
-            ),
+            ),*/
           ),
           SizedBox(height: 8.0),
           Row(
@@ -166,14 +182,14 @@ class NewBuyPostContainer extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  newPost.productStatus! == 1 ? 'Looking' : 'Found',
+                  post.productStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
                     color:
-                    newPost.productStatus! == 1 ? Colors.white : Colors.black,
+                    post.productStatus! == 1 ? Colors.white : Colors.black,
                   ),
                 ),
                 backgroundColor:
-                newPost.productStatus! == 1 ? Colors.green : Colors.red,
+                post.productStatus! == 1 ? Colors.green : Colors.red,
               ),
             ],
           )
