@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../buyandsell/models/SellPostList.dart';
-import '../../buyandsell/widgets/BuyPostContainer.dart';
 import '../../storage/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
@@ -207,13 +205,13 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                   pinned: true,
                   delegate: ProfileTabs(50.0),
                 ),
-                SliverList(
+                /*SliverList( TODO
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       return PostContainer();
                     },
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -320,7 +318,7 @@ class ProfileHeader extends StatelessWidget {
 }
 
 ////////////////BURALARA HER BİR POST LİSTESİ YAZILCAK
-class PostContainer extends StatefulWidget {
+/*class PostContainer extends StatefulWidget { //TODO
   const PostContainer({
     Key? key,
   }) : super(key: key);
@@ -346,7 +344,7 @@ class _PostContainerState extends State<PostContainer> {
       ),
     );
   }
-}
+}*/
 
 ////////////PROFİL FOTOSU BURDA
 class MyAvatar extends StatelessWidget {

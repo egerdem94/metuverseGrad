@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metuverse/auth/screens/Register-page.dart';
-import 'package:metuverse/storage/BuySellPostHandler.dart';
+import 'package:metuverse/new_buy_sell/controllers/storage/BuySellPostHandler.dart';
 import 'auth/screens/login-page.dart';
 import 'package:get/get.dart';
 

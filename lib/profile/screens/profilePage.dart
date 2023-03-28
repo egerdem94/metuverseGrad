@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:metuverse/auth/screens/login-page.dart';
 
-import '../../buyandsell/models/SellPostList.dart';
-import '../../buyandsell/widgets/BuyPostContainer.dart';
 import '../../home/screens/HomePage.dart';
 import '../../storage/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
@@ -206,13 +204,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   pinned: true,
                   delegate: ProfileTabs(50.0),
                 ),
-                SliverList(
+                /*SliverList( //TODO
                   delegate: SliverChildBuilderDelegate(
                         (context, index) {
                       return Post();
                     },
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -312,7 +310,7 @@ class ProfileHeader extends StatelessWidget {
 }
 
 ////////////////BURALARA HER BİR POST LİSTESİ YAZILCAK
-class Post extends StatefulWidget {
+/*class Post extends StatefulWidget { //TODO
   const Post({
     Key? key,
   }) : super(key: key);
@@ -338,7 +336,7 @@ class _PostState extends State<Post> {
       ),
     );
   }
-}
+}*/
 
 ////////////PROFİL FOTOSU BURDA
 class MyAvatar extends StatefulWidget {
