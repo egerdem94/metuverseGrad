@@ -10,6 +10,15 @@ import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/storage/User.dart';
 
+import 'package:image/image.dart' as IMG;
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+
 
 class CreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
@@ -27,7 +36,7 @@ class CreatePostBody extends StatefulWidget {
     required this.createProduct,
     required this.submitForm,
     required this.onImageSelected,
-  }) : super() {}
+  }) : super() ;
 
   @override
   _CreatePostBodyState createState() => _CreatePostBodyState();
@@ -52,6 +61,13 @@ class _CreatePostBodyState extends State<CreatePostBody> {
   generalResponse? generalResponseObject;
   var generalResponseCreatePost;
 
+  List<int> getResizedDimensions(int desiredHeight, int width, int height) {
+    if(height <= desiredHeight) return [height, width];
+    double ratio = height / desiredHeight;
+    return [(width / ratio).round(), desiredHeight];
+
+  }
+
   Future _send_post_to_backend() async {
     //var img = await picker.pickImage(source: media);
 
@@ -61,10 +77,29 @@ class _CreatePostBodyState extends State<CreatePostBody> {
 
     var request = http.MultipartRequest('POST', Uri.parse(uri));
 
-    if (pickedImage != null) {
-      var pic = await http.MultipartFile.fromPath("image", pickedImage!.path);
+    int i = 0;
+    for(var fL in fileList) {
+        if (fL != null) {
 
-      request.files.add(pic);
+
+        IMG.Image? img = IMG.decodeImage(await  fL.readAsBytes());
+        List<int> resizeDimList = getResizedDimensions(200, img!.width, img.height);
+        IMG.Image resized = IMG.copyResize(img, width: resizeDimList[0], height: resizeDimList[1]);
+
+
+        //String hash = md5.convert(utf8.encode(User.token)).toString();
+
+        final dir = await getTemporaryDirectory();
+        final path = "${dir.path}/test${User.username}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
+        final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
+
+
+        var pic = await http.MultipartFile.fromPath("image$i", newImg.path);
+        /* var pic = await http.MultipartFile.fromPath("image$i", fL!.path);*/
+
+        request.files.add(pic);
+        i++;
+      }
     }
     //request.fields['userID'] = '€'.toString();
     request.fields['token'] = User.token;
