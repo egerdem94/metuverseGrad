@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           page: () => LoginPage(),
         ),
       ],
+      debugShowCheckedModeBanner: false,
     );
   }
 }
