@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
+//import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 import 'package:metuverse/transportation/widget/transportationContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';

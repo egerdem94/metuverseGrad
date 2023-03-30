@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/buyandsell/models/SellPostList.dart';
-import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
-import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
-import 'package:metuverse/buyandsell/widgets/deneme.dart';
+import 'package:metuverse/storage/models/CreatePostItem.dart';
+//import 'package:metuverse/buyandsell/models/SellPostList.dart';
+//import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
+//import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
+//import 'package:metuverse/buyandsell/widgets/deneme.dart';
 import 'package:metuverse/transportation/widget/transportationPostBody.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
@@ -24,8 +25,8 @@ class _TransportationPostingPageState extends State<TransportationPostingPage> {
   final TextEditingController _currencyController = TextEditingController();
   List<String> _imageUrls = [];
 
-  PostItem _createProduct() {
-    return PostItem(
+  CreatePostItem _createProduct() {
+    return CreatePostItem(
       productPrice: _priceController.text,
       description: _descriptionController.text,
       currency: _currencyController.text,
@@ -42,7 +43,7 @@ class _TransportationPostingPageState extends State<TransportationPostingPage> {
     }
     print("YAVUZ");
     //if (_formKey.currentState!.validate()) {
-    PostItem singlePostSendingItem = _createProduct();
+    CreatePostItem singlePostSendingItem = _createProduct();
 
     // code to store newProduct in thedatabase
     Navigator.pop(context);

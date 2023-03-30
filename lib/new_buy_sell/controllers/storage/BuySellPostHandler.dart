@@ -192,56 +192,6 @@ class BuySellPostHandler{
       return false;
     }
   }
-/*  List<PseudoPhoto> getPseudoPhoto(int id,buyOrSell){
-    List<PseudoPhoto> pseudoPhotos = <PseudoPhoto>[];
-    NewBuySellPostX? post;
-    if(buyOrSell == 's'){
-      post = newSellPostListX.getPostWithID(id);
-    }
-    else{
-      post = newBuyPostListX.getPostWithID(id);
-    }
-    if(post == null){
-      return pseudoPhotos;
-    }
-    List<String> mediaList = post.mediaList();
-    if(mediaList.length == 0){
-      return pseudoPhotos;
-    }
-    for(var media in mediaList){
-      pseudoPhotos.add(PseudoPhoto(id, media));
-    }
-    return pseudoPhotos;
-  }*/
-/*  List<List<PseudoPhoto>> getPseudoPhotos(buyOrSell,idListOfPostsForPhotos){
-    List<List<PseudoPhoto>> pseudoPhotos = <List<PseudoPhoto>>[];
-    if(idListOfPostsForPhotos.length == 0){
-      return pseudoPhotos;
-    }
-    for(int id in idListOfPostsForPhotos){
-      List<PseudoPhoto> pseudos = getPseudoPhoto(id, buyOrSell);
-      if(pseudos != []){
-        pseudoPhotos.add(pseudos);
-      }
-    }
-    return pseudoPhotos;
-  }*/
-/*  void feedPhotosToPosts(buyOrSell,PhotoList photoList){
-    if(buyOrSell == 's'){
-      newSellPostListX.addPhotos(photoList);
-    }
-    else{
-      newBuyPostListX.addPhotos(photoList);
-    }
-  }*/
-/*  Future handlePhotoList(buyOrSell,idListOfPostsForPhotos) async{
-    await photoHelper.init();
-    List<List<PseudoPhoto>> pseudoPhotosList = getPseudoPhotos(buyOrSell,idListOfPostsForPhotos);
-    await photoHelper.insertPseudoLists(pseudoPhotosList);
-    PhotoList photoList = await photoHelper.getPhotosGivenPostIDs(idListOfPostsForPhotos);
-    feedPhotosToPosts(buyOrSell, photoList);
-  }*/
-
   BuySellPostList? getBuySellPostList(buyOrSell){
     if(buyOrSell == 's'){
       return sellPostList;

@@ -24,14 +24,14 @@ class CreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final List<String> imageUrls;
+  //final List<String> imageUrls;
   final Function updateImageUrls;
   final Function createProduct;
   final Function submitForm;
   final Function(File) onImageSelected;
 
   CreatePostBody({
-    this.imageUrls = const [],
+    //this.imageUrls = const [],
     required this.updateImageUrls,
     required this.createProduct,
     required this.submitForm,
@@ -68,31 +68,23 @@ class _CreatePostBodyState extends State<CreatePostBody> {
 
   }
 
-  Future _send_post_to_backend() async {
+  Future _sendPostToBackend() async {
     //var img = await picker.pickImage(source: media);
-
     //var uri = "http://www.birikikoli.com/mv_services/create223.php";
 
-    var uri = "http://www.birikikoli.com/mv_services/createSonDeneme333.php";
-
-    var request = http.MultipartRequest('POST', Uri.parse(uri));
+    var url = "http://www.birikikoli.com/mv_services/createSonDeneme333.php";
+    var request = http.MultipartRequest('POST', Uri.parse(url));
 
     int i = 0;
     for(var fL in fileList) {
         if (fL != null) {
-
-
         IMG.Image? img = IMG.decodeImage(await  fL.readAsBytes());
         List<int> resizeDimList = getResizedDimensions(200, img!.width, img.height);
         IMG.Image resized = IMG.copyResize(img, width: resizeDimList[0], height: resizeDimList[1]);
 
-
-        //String hash = md5.convert(utf8.encode(User.token)).toString();
-
         final dir = await getTemporaryDirectory();
         final path = "${dir.path}/test${User.username}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
         final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
-
 
         var pic = await http.MultipartFile.fromPath("image$i", newImg.path);
         /* var pic = await http.MultipartFile.fromPath("image$i", fL!.path);*/
@@ -385,7 +377,7 @@ class _CreatePostBodyState extends State<CreatePostBody> {
                             onPressed: () {
                               if (isButtonClicked == false) {
                                 isButtonClicked = true;
-                                _send_post_to_backend();
+                                _sendPostToBackend();
                               }
                               // Validate the form
                               // if (widget._formKey.currentState!.validate()) {

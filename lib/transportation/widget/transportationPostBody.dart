@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:metuverse/palette.dart';
 
 import '../../storage/User.dart';
@@ -26,10 +26,10 @@ class TransportationPostBody extends StatefulWidget {
 }
 
 class _TransportationPostBodyState extends State<TransportationPostBody> {
-  String _driverOrPassanger = 'Passanger';
-  List<String> _who = ['Driver', 'Passanger'];
-  String _SelectedLocation = 'Kalkanli';
-  List<String> _LocationList = [
+  String _driverOrPassenger = 'Passenger';
+  List<String> _who = ['Driver', 'Passenger'];
+  String _selectedDeparture = 'Kalkanli';
+  List<String> _locationList = [
     'Ercan',
     'Girne',
     'Güzelyurt',
@@ -39,8 +39,8 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
     'Lefkoşa',
     'Mağusa'
   ];
-  String _SelectedDestination = 'Kalkanli';
-  List<String> _DestinationList = [
+  String _selectedDestination = 'Kalkanli';
+  List<String> _destinationList = [
     'Ercan',
     'Girne',
     'Güzelyurt',
@@ -51,6 +51,63 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
     'Mağusa'
   ];
   bool _showPrice = true;
+  bool isButtonClicked = false;
+
+  Future _sendPostToBackend() async {
+/*    //var img = await picker.pickImage(source: media);
+    //var uri = "http://www.birikikoli.com/mv_services/create223.php";
+
+    var url = "x";
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+
+    //request.fields['userID'] = '€'.toString();
+    request.fields['token'] = User.token;
+    request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
+    request.fields['description'] = description.text;
+    request.fields['productPrice'] = productPrice.text;
+    request.fields['currency'] = _selectedCurrency;
+
+    await request.send().then((result) {
+      http.Response.fromStream(result).then((response) {
+        var message = jsonDecode(response.body);
+        isResponseReceived = true;
+        generalResponseCreatePost = message;
+
+        // show snackbar if input data successfully
+        final snackBar =
+        SnackBar(content: Text(generalResponseCreatePost['message']));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        if (generalResponseCreatePost['processStatus'] == true) {
+          //token = loginObject?.currentUserToken;
+          if (_buyerOrSeller == 'Selling') {
+            //Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
+                )
+            );
+          } else {
+            //Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
+                )
+            );
+          }
+        } else {
+          isButtonClicked = false;
+          isResponseReceived = false;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Post create failed."),
+          ));
+        }
+      });
+    }).catchError((e) {
+      print(e);
+    });*/
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,11 +140,11 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _driverOrPassanger == 'Passanger'
+                      color: _driverOrPassenger == 'Passenger'
                           ? Colors.black
                           : Colors.white,
                     ),
-                    child: _driverOrPassanger == 'Passanger'
+                    child: _driverOrPassenger == 'Passenger'
                         ? Container()
                         : TextFormField(
                             controller: widget._seatController,
@@ -112,11 +169,11 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _driverOrPassanger == 'Passanger'
+                      color: _driverOrPassenger == 'Passenger'
                           ? Color.fromARGB(255, 255, 255, 255)
                           : Colors.white,
                     ),
-                    child: _driverOrPassanger == 'Passanger'
+                    child: _driverOrPassenger == 'Passenger'
                         ? TextFormField(
                             controller: widget._personController,
                             validator: (value) {
@@ -174,7 +231,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                 SizedBox(width: 10.0),
                                 Expanded(
                                   child: DropdownButton<String>(
-                                    items: _LocationList.map<
+                                    items: _locationList.map<
                                             DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -184,10 +241,10 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                     }).toList(),
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _SelectedLocation = newValue!;
+                                        _selectedDeparture = newValue!;
                                       });
                                     },
-                                    value: _SelectedLocation,
+                                    value: _selectedDeparture,
                                   ),
                                 ),
                               ],
@@ -215,7 +272,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                 SizedBox(width: 10.0),
                                 Expanded(
                                   child: DropdownButton<String>(
-                                    items: _DestinationList.map<
+                                    items: _destinationList.map<
                                             DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -225,10 +282,10 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                     }).toList(),
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        _SelectedDestination = newValue!;
+                                        _selectedDestination = newValue!;
                                       });
                                     },
-                                    value: _SelectedDestination,
+                                    value: _selectedDestination,
                                   ),
                                 ),
                               ],
@@ -272,11 +329,16 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                           margin: EdgeInsets.only(right: 10.0, bottom: 18.0),
                           child: ElevatedButton(
                             onPressed: () {
+                              if (isButtonClicked == false) {
+                                isButtonClicked = true;
+                                _sendPostToBackend();
+                              }
                               // Validate the form
                               // if (widget._formKey.currentState!.validate()) {
                               // If the form is valid, submit the form
-                              widget.submitForm();
+                              //widget.submitForm();
                               //}
+
                             },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -313,7 +375,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
               onTap: () {
                 setState(() {
                   _showPrice = false;
-                  _driverOrPassanger = 'Passanger';
+                  _driverOrPassenger = 'Passenger';
                 });
               },
               child: Icon(
@@ -325,7 +387,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
               onTap: (() {
                 setState(() {
                   _showPrice = true;
-                  _driverOrPassanger = 'Driver';
+                  _driverOrPassenger = 'Driver';
                 });
               }),
               child: new Icon(
