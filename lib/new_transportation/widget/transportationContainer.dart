@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
-import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/widgets/full_screen_imagePage.dart';
-import 'package:metuverse/widgets/photoGrid.dart';
+import '../../widgets/full_screen_imagePage.dart';
+import '../../widgets/photo_grids/PhotoGridOnline.dart';
+import '../model/TransportationPost.dart';
 
+class TransportationContainer extends StatelessWidget {
+  final TransportationPost singlePostItem;
 
-class SellPostContainerBackup extends StatelessWidget {
-  final BuySellPost post;
-  SellPostContainerBackup({required this.post});
+  final List<String> imagesUrls = [
+    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
+    'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
+  ];
+  TransportationContainer({required this.singlePostItem});
 
   String currencySymbol = '';
 
   String? currencyConverter(String? currencyText) {
-    if (currencyText == 'TRY')
+    if (currencyText == 'TL')
       currencySymbol = '₺';
-    else if (currencyText == 'USD')
+    else if (currencyText == 'DOLLAR')
       currencySymbol = '\$';
-    else if (currencyText == 'EUR')
+    else if (currencyText == 'EURO')
       currencySymbol = '€';
-    else if (currencyText == 'GBP') currencySymbol = '£';
+    else if (currencyText == 'POUND') currencySymbol = '£';
 
     return currencySymbol;
   }
@@ -32,7 +34,7 @@ class SellPostContainerBackup extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
             bottom:
-            BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
+                BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -40,26 +42,14 @@ class SellPostContainerBackup extends StatelessWidget {
         children: [
           Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
-                },
-                child:
-                CircleAvatar(
-
-                  backgroundImage: NetworkImage(
-                      post.getProfilePicture()),
-                  radius: 24.0,
-                ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                radius: 24.0,
               ),
-
               SizedBox(width: 8.0),
-              Text(post.fullName ?? "", style: kUsersText),
+              Text(singlePostItem.fullName ?? "", style: kUsersText),
               Spacer(),
-              Text(
-                  '${post.productPrice ?? 0} ${currencyConverter(post.currency ?? "")}',
-                  style: kwhiteText),
-              SizedBox(width: 8.0),
               IconButton(
                 icon: Icon(
                   Icons.message,
@@ -72,25 +62,59 @@ class SellPostContainerBackup extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.0),
-          Text(post.description ?? "", style: kwhiteText),
+          Text(singlePostItem.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
-            height: 260.0,
-            child: PhotoGrid(
-              //imageUrls: imagesUrls, // pass the imageUrls here
-              imageUrls: post.mediaList(),
-              onImageClicked: (index) {
-                // Show fullscreen image view
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FullscreenImageView(
-                      imageUrl: post.mediaList()[index],
-                      //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
+            height: 130.0,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text("Location"),
+                      ],
                     ),
                   ),
-                );
-              },
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.place,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text("Destination"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 8.0),
@@ -151,7 +175,7 @@ class SellPostContainerBackup extends StatelessWidget {
                   onPressed: () {
 // Add product to favorites
                   },
-                  icon: Icon(Icons.add_circle_outline),
+                  icon: Icon(MdiIcons.carConnected),
                   color: Colors.blue,
                 ),
               IconButton(
@@ -171,14 +195,14 @@ class SellPostContainerBackup extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  post.productStatus! == 1 ? 'Available' : 'Sold',
+                  singlePostItem.productStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
-                    color: post.productStatus! == 1
+                    color: singlePostItem.productStatus! == 1
                         ? Colors.white
                         : Colors.black,
                   ),
                 ),
-                backgroundColor: post.productStatus! == 1
+                backgroundColor: singlePostItem.productStatus! == 1
                     ? Colors.green
                     : Colors.red,
               ),

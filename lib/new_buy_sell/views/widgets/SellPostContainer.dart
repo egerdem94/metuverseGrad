@@ -4,7 +4,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/widgets/NewPhotoGrid.dart';
+import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 
 
@@ -77,7 +77,22 @@ class SellPostContainer extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 260.0,
-            child: NewPhotoGrid(
+            child: PhotoGridGeneral(
+              photoList: post.photoList,
+              imageUrls: post.mediaList(),
+              onImageClicked: (index) {
+                // Show fullscreen image view
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FullscreenImageView(
+                      imageUrl: post.mediaList()[index],
+                      //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
+                    ),
+                  ),
+                );
+              },
+            ),
+            /*child: PhotoGridOffline(
               //imageUrls: imagesUrls, // pass the imageUrls here
               photoList: post.photoList,
               onImageClicked: (index) {
@@ -91,7 +106,7 @@ class SellPostContainer extends StatelessWidget {
                   ),
                 );
               },
-            ),
+            ),*/
           ),
           SizedBox(height: 8.0),
           Row(

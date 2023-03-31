@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 //import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 //import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
-import 'package:metuverse/transportation/widget/transportationCarContainer.dart';
+import 'package:metuverse/new_transportation/widget/transportationCarContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
-import '../model/transportationPostList.dart';
+import '../model/TransportationPost.dart';
 import '../widget/transportationBottom.dart';
 
 class TransportationCarPage extends StatefulWidget {
@@ -16,8 +16,8 @@ class TransportationCarPage extends StatefulWidget {
 }
 
 class _TransportationCarPageState extends State<TransportationCarPage> {
-  List<SinglePostItem> dummyList = [
-    SinglePostItem(
+  List<TransportationPost> dummyList = [
+    TransportationPost(
       belongToUser: true,
       fullName: "Ali Veli",
       profilePicture: null,
@@ -28,7 +28,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       currency: "USD",
       productStatus: 1,
     ),
-    SinglePostItem(
+    TransportationPost(
       belongToUser: false,
       fullName: "Jane Doe",
       profilePicture: null,
@@ -38,7 +38,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       currency: null,
       productStatus: 0,
     ),
-    SinglePostItem(
+    TransportationPost(
       belongToUser: true,
       fullName: "Bob Johnson",
       profilePicture: null,
@@ -59,12 +59,12 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
   void _loadDummyProducts() {
     setState(() {
       transportationCarPostsListObject =
-          transportationPostsList(items: dummyList, total: dummyList.length);
+          TransportationPostsList(items: dummyList, total: dummyList.length);
     });
   }
 
   //late List<Product> products;
-  transportationPostsList? transportationCarPostsListObject;
+  TransportationPostsList? transportationCarPostsListObject;
 
   Future _lookingfor_posts_list() async {
     String serviceAddress =
@@ -80,7 +80,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
 
     setState(() {
       transportationCarPostsListObject =
-          transportationPostsList.fromJson(jsonObject);
+          TransportationPostsList.fromJson(jsonObject);
     });
   }
 

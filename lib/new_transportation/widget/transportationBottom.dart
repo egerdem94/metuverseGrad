@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/new_transportation/views/transportationCarPage.dart';
+import 'package:metuverse/new_transportation/views/transportationPage.dart';
+import 'package:metuverse/new_transportation/views/transportationPostingPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
-import 'package:metuverse/transportation/screens/transportationCarPage.dart';
-import 'package:metuverse/transportation/screens/transportationPage.dart';
-import 'package:metuverse/transportation/screens/transportationPostingPage.dart';
+import 'package:metuverse/storage/User.dart';
 
-import '../../storage/User.dart';
+
+
 import 'transportationContainer.dart';
 
 class CustomTransportationBottomNavigationBar extends StatelessWidget {
@@ -47,7 +49,13 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(TransportationPage());
+                  //Get.to(TransportationPage());
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
+                      )
+                  );
                 }),
             Expanded(
               child: Container(
@@ -66,7 +74,7 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(TransportationPostingPage());
+                        Get.to(TransportationCreatePostPage());
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -87,7 +95,13 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                Get.to(TransportationCarPage());
+                //Get.to(TransportationCarPage());
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
+                    )
+                );
               },
             ),
             SizedBox(

@@ -7,20 +7,20 @@ import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class NewPhotoGrid extends StatefulWidget {
+class PhotoGridOffline extends StatefulWidget {
   final PhotoList? photoList;
   final Function(int) onImageClicked;
 
-  NewPhotoGrid({
+  PhotoGridOffline({
     required this.photoList,
     required this.onImageClicked,
   });
 
   @override
-  createState() => _NewPhotoGridState();
+  createState() => _PhotoGridOfflineState();
 }
 
-class _NewPhotoGridState extends State<NewPhotoGrid> {
+class _PhotoGridOfflineState extends State<PhotoGridOffline> {
   final _pageController = PageController();
   //late PhotoHandler photoHandler;
 

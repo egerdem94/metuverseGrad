@@ -1,16 +1,16 @@
 //import 'dart:ffi';
 
-class transportationPostsList {
-  List<SinglePostItem>? items;
+class TransportationPostsList {
+  List<TransportationPost>? items;
   int? total;
 
-  transportationPostsList({this.items, this.total});
+  TransportationPostsList({this.items, this.total});
 
-  transportationPostsList.fromJson(Map<String, dynamic> json) {
+  TransportationPostsList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <SinglePostItem>[];
+      items = <TransportationPost>[];
       json['items'].forEach((v) {
-        items!.add(new SinglePostItem.fromJson(v));
+        items!.add(new TransportationPost.fromJson(v));
       });
     }
     total = json['total'];
@@ -26,7 +26,7 @@ class transportationPostsList {
   }
 }
 
-class SinglePostItem {
+class TransportationPost {
   bool? belongToUser;
   String? fullName;
   Null? profilePicture;
@@ -36,7 +36,7 @@ class SinglePostItem {
   String? currency;
   int? productStatus;
 
-  SinglePostItem(
+  TransportationPost(
       {this.belongToUser,
       this.fullName,
       this.profilePicture,
@@ -46,7 +46,7 @@ class SinglePostItem {
       this.currency,
       this.productStatus});
 
-  SinglePostItem.fromJson(Map<String, dynamic> json) {
+  TransportationPost.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];

@@ -5,13 +5,18 @@ import 'package:metuverse/storage/models/Photo.dart';
 class BuySellPostList extends BasePostList{
   List<BuySellPost>? newBuySellPostListX;
   int? total;
+  bool nothingFound = false;
 
   BuySellPostList({this.newBuySellPostListX, this.total});
   //constructor with default values
   BuySellPostList.defaults()
       : newBuySellPostListX = [],
         total = 0;
-
+  //constructor with nothing found flag
+  BuySellPostList.nothingFound()
+      : newBuySellPostListX = [],
+        total = 0,
+        nothingFound = true;
   BuySellPostList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
       newBuySellPostListX = <BuySellPost>[];

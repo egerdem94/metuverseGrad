@@ -12,10 +12,14 @@ import 'package:metuverse/widgets/drawer.dart';
 class BuySellPage extends StatefulWidget {
   final buyOrSell;
   final searchModeFlag;
+  final searchKey;
+  final filteredProductPrice;
+  final filteredCurrency;
+
   const BuySellPage({
     required this.buyOrSell,
     required this.searchModeFlag,
-    Key? key,
+    Key? key, this.searchKey, this.filteredProductPrice, this.filteredCurrency,
   }) : super(key: key);
 
   @override
@@ -26,88 +30,124 @@ class _BuySellPageState extends State<BuySellPage> {
   final _scrollController = ScrollController();
   BuySellPostList? newBuySellPostListX;
   late BuySellPostHandler buySellPostHandler;
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
     buySellPostHandler = BuySellPostHandler();
     buySellPostHandler.init().then((_) {
-      buySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-        });
-      });
-    });
-
-  }
-  void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
-      // Load more data
-      setState(() {
-        buySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
+      if(widget.searchModeFlag){
+        buySellPostHandler.handleSearchPosts(widget.searchKey, widget.filteredProductPrice, widget.filteredCurrency,widget.buyOrSell).then((_) {
           setState(() {
             newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
           });
         });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
         });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
         });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
         });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
         });
-      });
-      Future.delayed(Duration(seconds: 1)).then((_) {
-        setState(() {
-          newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
         });
-      });
-
+      }
+      else{
+        buySellPostHandler.handlePostList(widget.buyOrSell,true).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+      }
+    });
+  }
+  void _scrollListener() {
+    if(!widget.searchModeFlag){
+      if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
+        // Load more data
+        setState(() {
+          buySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
+            setState(() {
+              newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+            });
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          setState(() {
+            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
+          });
+        });
+      }
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(),
+      appBar: NewBuyAndSellAppBar(buyOrSell: widget.buyOrSell,),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
@@ -165,7 +205,7 @@ class _BuySellPageState extends State<BuySellPage> {
           });
         },
       ),*/
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(),
+      bottomNavigationBar: CustomBuySellBottomNavigationBar(buyOrSell: widget.buyOrSell,),
     );
   }
 

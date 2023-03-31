@@ -7,17 +7,17 @@ import 'package:metuverse/storage/models/CreatePostItem.dart';
 //import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
 //import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
 //import 'package:metuverse/buyandsell/widgets/deneme.dart';
-import 'package:metuverse/transportation/widget/transportationPostBody.dart';
+import 'package:metuverse/new_transportation/widget/transportationPostBody.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-class TransportationPostingPage extends StatefulWidget {
+class TransportationCreatePostPage extends StatefulWidget {
   @override
-  _TransportationPostingPageState createState() =>
-      _TransportationPostingPageState();
+  _TransportationCreatePostPageState createState() =>
+      _TransportationCreatePostPageState();
 }
 
-class _TransportationPostingPageState extends State<TransportationPostingPage> {
+class _TransportationCreatePostPageState extends State<TransportationCreatePostPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();

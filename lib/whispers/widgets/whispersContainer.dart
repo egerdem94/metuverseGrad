@@ -5,7 +5,7 @@ import 'package:metuverse/palette.dart';
 import '../../auth/screens/login-page.dart';
 import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
-import '../../widgets/photoGrid.dart';
+import '../../widgets/photo_grids/PhotoGridOnline.dart';
 import '../models/whispersPostList.dart';
 import '../models/whispersPostList.dart';
 
@@ -59,7 +59,7 @@ class WhispersContainer extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 260.0,
-            child: PhotoGrid(
+            child: PhotoGridOnline(
               //imageUrls: imagesUrls, // pass the imageUrls here
               imageUrls: post.mediaList(),
               onImageClicked: (index) {

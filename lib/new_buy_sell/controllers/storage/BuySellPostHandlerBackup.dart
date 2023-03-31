@@ -66,7 +66,7 @@ class BuySellPostHandler{
       newBuyPostListX = BuySellPostList.defaults();
     }
     //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
-    postsToDisplay = await backendHelper.request_posts_to_diplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
+    postsToDisplay = await backendHelper.requestPostsToDisplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
 
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
@@ -112,7 +112,7 @@ class BuySellPostHandler{
       }
     }
     else{
-      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
@@ -125,7 +125,7 @@ class BuySellPostHandler{
       return newBuyPostListX;
     }
     else{
-      print('Error in BuySellPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }

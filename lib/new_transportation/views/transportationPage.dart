@@ -1,26 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-//import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
-import 'package:metuverse/transportation/widget/transportationContainer.dart';
+import 'package:metuverse/new_transportation/model/TransportationPost.dart';
+import 'package:metuverse/new_transportation/widget/transportationBottom.dart';
+import 'package:metuverse/new_transportation/widget/transportationContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../storage/User.dart';
-import '../model/transportationPostList.dart';
-import '../widget/transportationBottom.dart';
-import '../widget/transportationCarContainer.dart';
 
 class TransportationPage extends StatefulWidget {
+  final driverOrPassenger;
+  final searchModeFlag;
+
+  const TransportationPage({super.key, required this.driverOrPassenger, required this.searchModeFlag});
   @override
   _TransportationPageState createState() => _TransportationPageState();
 }
 
 class _TransportationPageState extends State<TransportationPage> {
-  List<SinglePostItem> dummyList = [
-    SinglePostItem(
+  List<TransportationPost> dummyList = [
+    TransportationPost(
       belongToUser: true,
       fullName: "Yavuz Erbaş",
       profilePicture: null,
@@ -30,7 +29,7 @@ class _TransportationPageState extends State<TransportationPage> {
       currency: "USD",
       productStatus: 1,
     ),
-    SinglePostItem(
+    TransportationPost(
       belongToUser: false,
       fullName: "Batuhan SANDIKCI",
       profilePicture: null,
@@ -40,7 +39,7 @@ class _TransportationPageState extends State<TransportationPage> {
       currency: null,
       productStatus: 0,
     ),
-    SinglePostItem(
+    TransportationPost(
       belongToUser: true,
       fullName: "Ali Veli",
       profilePicture: null,
@@ -50,7 +49,7 @@ class _TransportationPageState extends State<TransportationPage> {
       currency: "USD",
       productStatus: 1,
     ),
-    SinglePostItem(
+    TransportationPost(
       belongToUser: true,
       fullName: "Yavuz Erbaş",
       profilePicture: null,
@@ -71,12 +70,12 @@ class _TransportationPageState extends State<TransportationPage> {
   void _loadDummyProducts() {
     setState(() {
       transportationPostsListObject =
-          transportationPostsList(items: dummyList, total: dummyList.length);
+          TransportationPostsList(items: dummyList, total: dummyList.length);
     });
   }
 
   //late List<Product> products;
-  transportationPostsList? transportationPostsListObject;
+  TransportationPostsList? transportationPostsListObject;
 
   Future<void> _refreshPosts() async {
     // This is where you would normally make an HTTP request to fetch new data.

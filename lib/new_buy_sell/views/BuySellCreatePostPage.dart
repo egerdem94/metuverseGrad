@@ -5,12 +5,15 @@ import 'package:metuverse/new_buy_sell/views/widgets/CreatePostBody.dart';
 import 'package:metuverse/storage/models/CreatePostItem.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-class CreatePostPage extends StatefulWidget {
+class BuySellCreatePostPage extends StatefulWidget {
+  final buyOrSell;
+
+  const BuySellCreatePostPage({super.key, required this.buyOrSell});
   @override
-  _CreatePostPageState createState() => _CreatePostPageState();
+  _BuySellCreatePostPageState createState() => _BuySellCreatePostPageState();
 }
 
-class _CreatePostPageState extends State<CreatePostPage> {
+class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -50,7 +53,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(),
+      appBar: NewBuyAndSellAppBar(buyOrSell: widget.buyOrSell,),
       drawer: MetuverseDrawer(),
       body: CreatePostBody(
         updateImageUrls: updateImageUrls,

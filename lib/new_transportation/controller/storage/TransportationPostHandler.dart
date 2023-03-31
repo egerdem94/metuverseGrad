@@ -204,18 +204,7 @@ class BuySellPostHandler{
       return null;
     }
   }
-  Future handleSearchPosts(searchKey,filteredProductPrice,filteredCurrency,buyOrSell) async{
-    debugPrint("here");
-      BuySellPostList? tempSearchedPostList = await backendHelper.requestSearchPosts(searchKey,filteredProductPrice,filteredCurrency,buyOrSell);
-      if(buyOrSell == 's'){
-        sellPostList = tempSearchedPostList!;
-      }
-      else if(buyOrSell == 'b'){
-        buyPostList = tempSearchedPostList!;
-      }
-      else{
-        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
-      }
-    debugPrint("here2");
+  static Future ToDoSearch() async{
+
   }
 }

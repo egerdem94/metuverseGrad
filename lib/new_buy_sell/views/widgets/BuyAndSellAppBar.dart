@@ -7,6 +7,9 @@ import 'package:metuverse/widgets/robot/robotPage.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
 class NewBuyAndSellAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final buyOrSell;
+
+  const NewBuyAndSellAppBar({super.key, required this.buyOrSell});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +36,7 @@ class NewBuyAndSellAppBar extends StatelessWidget implements PreferredSizeWidget
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-              Get.to((BuySellSearchPage()));
+              Get.to((BuySellSearchPage(buyOrSell: buyOrSell,)));
             },
           ),
           IconButton(

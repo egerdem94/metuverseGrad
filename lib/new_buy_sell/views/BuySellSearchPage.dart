@@ -8,23 +8,33 @@ import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 class BuySellSearchPage extends StatefulWidget {
+  final buyOrSell;
+
+  const BuySellSearchPage({super.key, required this.buyOrSell});
   @override
   _BuySellSearchPageState createState() => _BuySellSearchPageState();
 }
 
 class _BuySellSearchPageState extends State<BuySellSearchPage> {
-  final _searchController = TextEditingController();
-  final _maxPriceController = TextEditingController();
-  final _currencyController = TextEditingController();
+  final searchController = TextEditingController();
+  final maxPriceController = TextEditingController();
+  final currencyController = TextEditingController();
+  late BuySellPostHandler buySellPostHandler;
+  @override
+  void initState() {
+    super.initState();
+    buySellPostHandler = BuySellPostHandler();
+    buySellPostHandler.init().then((_) {});
 
+  }
   void _submitSearch() {
     // code to perform search with the text in _searchController
     //Get.to(SellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
-    BuySellPostHandler.ToDoSearch();
-    Navigator.pushReplacement(
+    Get.offAll(BuySellPage(buyOrSell: widget.buyOrSell,searchModeFlag: true,searchKey: searchController.text, filteredProductPrice: maxPriceController.text, filteredCurrency: currencyController.text));
+/*    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => BuySellPage(buyOrSell: 's',searchModeFlag: true,)));
+            builder: (context) => BuySellPage(buyOrSell: 's',searchModeFlag: true,)));*/
   }
 
   @override
@@ -37,7 +47,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: _searchController,
+              controller: searchController,
               decoration: InputDecoration(
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
@@ -46,7 +56,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
             ),
             SizedBox(height: 16),
             TextField(
-              controller: _maxPriceController,
+              controller: maxPriceController,
               decoration: InputDecoration(
                 hintText: 'Max Price...',
                 prefixIcon: Icon(Icons.search),
@@ -55,7 +65,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
             ),
             SizedBox(height: 16),
             TextField(
-              controller: _currencyController,
+              controller: currencyController,
               decoration: InputDecoration(
                 hintText: 'Currency...',
                 prefixIcon: Icon(Icons.search),
@@ -70,7 +80,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(),
+      bottomNavigationBar: CustomBuySellBottomNavigationBar(buyOrSell: widget.buyOrSell,),
     );
   }
 }
