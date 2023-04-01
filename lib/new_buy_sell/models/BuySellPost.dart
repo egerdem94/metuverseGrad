@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 class BuySellPostList extends BasePostList{
@@ -154,19 +155,19 @@ class BuySellPost extends BasePost{
 
   BuySellPost.fromDbMap(Map<String, dynamic> json) {
     //debugPrint("belongToUser: ${json[DatabaseHelper.columnBelongToUser]}");
-    json[DatabaseHelperSellBuy.columnBelongToUser] == 1
+    json[SellBuyTableValues.columnBelongToUser] == 1
         ? belongToUser = true
         : belongToUser = false;
     //belongToUser = json[DatabaseHelper.columnBelongToUser];
-    fullName = json[DatabaseHelperSellBuy.columnFullName];
-    profilePicture = json[DatabaseHelperSellBuy.columnProfilePicture];
-    postID = json[DatabaseHelperSellBuy.columnPostID];
-    updateVersion = json[DatabaseHelperSellBuy.columnUpdateVersion];
-    media = json[DatabaseHelperSellBuy.columnMedia];
-    description = json[DatabaseHelperSellBuy.columnDescription];
-    productPrice = json[DatabaseHelperSellBuy.columnProductPrice];
-    currency = json[DatabaseHelperSellBuy.columnCurrency];
-    productStatus = json[DatabaseHelperSellBuy.columnProductStatus];
+    fullName = json[SellBuyTableValues.columnFullName];
+    profilePicture = json[SellBuyTableValues.columnProfilePicture];
+    postID = json[SellBuyTableValues.columnPostID];
+    updateVersion = json[SellBuyTableValues.columnUpdateVersion];
+    media = json[SellBuyTableValues.columnMedia];
+    description = json[SellBuyTableValues.columnDescription];
+    productPrice = json[SellBuyTableValues.columnProductPrice];
+    currency = json[SellBuyTableValues.columnCurrency];
+    productStatus = json[SellBuyTableValues.columnProductStatus];
     mediaExist = true;
   }
 
@@ -188,16 +189,16 @@ class BuySellPost extends BasePost{
   Map<String, dynamic> toDbMap() {
     int belongToUserAsInt = belongToUser == true ? 1 : 0;
     return {
-      DatabaseHelperSellBuy.columnPostID: postID,
-      DatabaseHelperSellBuy.columnFullName: fullName,
-      DatabaseHelperSellBuy.columnProfilePicture: profilePicture,
-      DatabaseHelperSellBuy.columnBelongToUser: belongToUserAsInt,
-      DatabaseHelperSellBuy.columnUpdateVersion: updateVersion,
-      DatabaseHelperSellBuy.columnMedia: media,
-      DatabaseHelperSellBuy.columnDescription: description,
-      DatabaseHelperSellBuy.columnProductPrice: productPrice,
-      DatabaseHelperSellBuy.columnCurrency: currency,
-      DatabaseHelperSellBuy.columnProductStatus: productStatus,
+      SellBuyTableValues.columnPostID: postID,
+      SellBuyTableValues.columnFullName: fullName,
+      SellBuyTableValues.columnProfilePicture: profilePicture,
+      SellBuyTableValues.columnBelongToUser: belongToUserAsInt,
+      SellBuyTableValues.columnUpdateVersion: updateVersion,
+      SellBuyTableValues.columnMedia: media,
+      SellBuyTableValues.columnDescription: description,
+      SellBuyTableValues.columnProductPrice: productPrice,
+      SellBuyTableValues.columnCurrency: currency,
+      SellBuyTableValues.columnProductStatus: productStatus,
     };
   }
 
