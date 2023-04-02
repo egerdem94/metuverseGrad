@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
+import 'package:metuverse/storage/database/database_helper_post/DatabaseHelperPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
@@ -8,7 +9,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-class DatabaseHelperSellBuy extends DatabaseHelperParent{
+class DatabaseHelperSellBuy extends DatabaseHelperPost{
 /*  static const table = 'buy_sell_posts';
 
   static const columnPostID = '_postID';
@@ -23,7 +24,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
   static const columnProductStatus = 'productStatus';*/
 
   // this opens the database (and creates it if it doesn't exist)
-  Future<void> init() async {
+/*  Future<void> init() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, databaseName);
     db = await openDatabase(
@@ -31,9 +32,9 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
       version: databaseVersion,
       onCreate: _onCreate,
     );
-  }
+  }*/
 
-  // SQL code to create the database table
+/*  // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE ${SellBuyTableValues.table} (
@@ -49,7 +50,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
             ${SellBuyTableValues.columnProductStatus} INTEGER UNSIGNED NOT NULL
           )
           ''');
-  }
+  }*/
   Future<BasePostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
     var tempNewBuySellPostListX = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
     if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
@@ -65,8 +66,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
 
   Future<int> insertOrUpdate(Map<String, dynamic> row) async {
     int postID = row['${SellBuyTableValues.columnPostID}'];
-
-    return await db.transaction<int>((txn) async {
+    int count = await db.transaction<int>((txn) async {
       List<Map<String, dynamic>> result = await txn.query(
         SellBuyTableValues.table,
         columns: ['COUNT(*) as count'],
@@ -74,8 +74,12 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
         whereArgs: [postID],
       );
 
-      int count = Sqflite.firstIntValue(result);
-
+      return Sqflite.firstIntValue(result);
+    });
+    if(count == 0) {
+      await baseInsertPost(postID);
+    }
+    return await db.transaction<int>((txn) async {
       if (count == 0) {
         debugPrint('inserted row id: $postID');
         return await txn.insert(SellBuyTableValues.table, row);
@@ -83,7 +87,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperParent{
         debugPrint('updated row id: $postID');
         return await txn.update(SellBuyTableValues.table, row, where: '${SellBuyTableValues.columnPostID} = ?', whereArgs: [postID]);
       }
-    });
+  });
   }
 
   // Inserts a NewBuySellPostX object to the database

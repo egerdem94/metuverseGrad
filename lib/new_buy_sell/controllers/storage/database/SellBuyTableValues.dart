@@ -2,7 +2,7 @@
 Warning database has been locked for 0:00:10.000000. Make sure you always use the transaction object for database operations during a transaction
  */
 class SellBuyTableValues{
-  static const table = 'buy_sell_posts';
+  static const table = 'buy_sell_post';
 
   static const columnPostID = '_postID';
   static const columnFullName = 'fullName';

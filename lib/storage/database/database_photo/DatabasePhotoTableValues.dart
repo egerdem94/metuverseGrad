@@ -7,7 +7,7 @@ class DatabasePhotoTableValues{
   static const columnPhotoSource = 'photoSource';
   static const columnPhotoData = 'photoData';
   static const columnInsertionDate = 'insertionDate';
-  //other table data
+  /*//other table data
   static const otherTable = 'buy_sell_posts';
-  static const columnOtherTablePostID = '_postID';
+  static const columnOtherTablePostID = '_postID';*/
 }
