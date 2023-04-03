@@ -8,7 +8,7 @@ import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
-class BackendHelperSellBuy implements IBackendHelperPostPage{
+class BackendHelperTransportation implements IBackendHelperPostPage{
 
   @override
   Future<BasePostList?> getPostsFromBackend(postIDList) async {
@@ -17,7 +17,7 @@ class BackendHelperSellBuy implements IBackendHelperPostPage{
       return null;
     }
     String serviceAddress =
-        'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
+        'http://www.birikikoli.com/mv_services/postPage/transportation/transportation_updatedList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.token,
@@ -29,12 +29,12 @@ class BackendHelperSellBuy implements IBackendHelperPostPage{
     var temp = BuySellPostList.fromJson(jsonObject);
     return temp;
   }
-  Future<PostsToDisplay?> request_posts_to_diplay(buyerOrSeller,lastPostID) async {
-    String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
+  Future<PostsToDisplay?> requestPostsToDisplay(customerOrDriver,lastPostID) async {
+    String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/transportation/transportation_latest.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.token,
-      "buyerOrSeller": buyerOrSeller, //seller
+      "customerOrDriver": customerOrDriver, //seller
       "lastPostID": lastPostID,
     });
 
@@ -44,7 +44,5 @@ class BackendHelperSellBuy implements IBackendHelperPostPage{
     postsToDisplay = PostsToDisplay.fromJson(jsonObject);
     return postsToDisplay;
   }
-
-
 
 }

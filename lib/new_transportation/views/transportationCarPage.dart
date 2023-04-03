@@ -4,12 +4,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 //import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 //import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
-import 'package:metuverse/new_transportation/widget/transportationCarContainer.dart';
+import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import '../model/TransportationPost.dart';
-import '../widget/transportationBottom.dart';
-
+import '../widget/CustomTransportationBottomNavigationBar.dart';
+/*
 class TransportationCarPage extends StatefulWidget {
   @override
   _TransportationCarPageState createState() => _TransportationCarPageState();
@@ -26,7 +26,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
           "I am going to girne if anyone want to join. We can split gas.",
       productPrice: 200,
       currency: "USD",
-      productStatus: 1,
+      transportationStatus: 1,
     ),
     TransportationPost(
       belongToUser: false,
@@ -36,7 +36,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       description: "Going Lefkoşa",
       productPrice: 100,
       currency: null,
-      productStatus: 0,
+      transportationStatus: 0,
     ),
     TransportationPost(
       belongToUser: true,
@@ -46,7 +46,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       description: "Going Ercan tonight. I have 3 available seats",
       productPrice: 100,
       currency: "USD",
-      productStatus: 1,
+      transportationStatus: 1,
     ),
   ];
 
@@ -135,3 +135,5 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
     }
   }*/
 }
+
+ */

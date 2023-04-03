@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/new_transportation/views/NewTransportationPage.dart';
 import 'package:metuverse/new_transportation/views/transportationCarPage.dart';
 import 'package:metuverse/new_transportation/views/transportationPage.dart';
 import 'package:metuverse/new_transportation/views/transportationPostingPage.dart';
@@ -13,9 +14,12 @@ import 'package:metuverse/storage/User.dart';
 
 
 
-import 'transportationContainer.dart';
+import 'TransportationCustomerContainer.dart';
 
 class CustomTransportationBottomNavigationBar extends StatelessWidget {
+  final customerOrDriver;
+
+  const CustomTransportationBottomNavigationBar({super.key, required this.customerOrDriver});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,7 +57,8 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
+                          //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
+                          builder: (context) => NewTransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
                       )
                   );
                 }),
@@ -99,7 +104,8 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
+                        //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
+                        builder: (context) => NewTransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
                     )
                 );
               },

@@ -1,5 +1,5 @@
-//import 'dart:ffi';
 
+//import 'dart:ffi';
 class TransportationPostsList {
   List<TransportationPost>? items;
   int? total;
@@ -27,14 +27,14 @@ class TransportationPostsList {
 }
 
 class TransportationPost {
-  bool? belongToUser;
-  String? fullName;
-  Null? profilePicture;
-  int? postID;
-  String? description;
+  bool? belongToUser; //+
+  String? fullName; //+
+  Null? profilePicture; //+
+  int? postID; //+
+  String? description; //+
   int? productPrice;
-  String? currency;
-  int? productStatus;
+  String? currency; //+
+  int? transportationStatus; //++
 
   TransportationPost(
       {this.belongToUser,
@@ -44,7 +44,7 @@ class TransportationPost {
       this.description,
       this.productPrice,
       this.currency,
-      this.productStatus});
+      this.transportationStatus});
 
   TransportationPost.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
@@ -54,7 +54,7 @@ class TransportationPost {
     description = json['description'];
     productPrice = json['productPrice'];
     currency = json['currency'];
-    productStatus = json['productStatus'];
+    transportationStatus = json['productStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -66,10 +66,12 @@ class TransportationPost {
     data['description'] = this.description;
     data['productPrice'] = this.productPrice;
     data['currency'] = this.currency;
-    data['productStatus'] = this.productStatus;
+    data['productStatus'] = this.transportationStatus;
     return data;
   }
 }
+
+
 
 class SinglePostSendingItem {
   String? description;
@@ -82,3 +84,5 @@ class SinglePostSendingItem {
     this.currency,
   });
 }
+
+

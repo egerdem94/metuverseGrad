@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/new_transportation/views/NewTransportationPage.dart';
 import 'package:metuverse/new_transportation/views/transportationPage.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
@@ -48,7 +49,8 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(TransportationPage(driverOrPassenger: 'p', searchModeFlag: false));
+                      //Get.to(TransportationPage(driverOrPassenger: 'p', searchModeFlag: false));
+                      Get.to(NewTransportationPage(customerOrDriver: 'c', searchModeFlag: false));
                     },
                     imageUrl: 'assets-images/carshare.PNG',
                   ),

@@ -1,9 +1,10 @@
+/*
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_transportation/model/TransportationPost.dart';
-import 'package:metuverse/new_transportation/widget/transportationBottom.dart';
-import 'package:metuverse/new_transportation/widget/transportationContainer.dart';
+import 'package:metuverse/new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/new_transportation/widget/TransportationCustomerContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -27,7 +28,7 @@ class _TransportationPageState extends State<TransportationPage> {
       description: "If anyone going to girne. I can join",
       productPrice: 200,
       currency: "USD",
-      productStatus: 1,
+      transportationStatus: 1,
     ),
     TransportationPost(
       belongToUser: false,
@@ -37,7 +38,7 @@ class _TransportationPageState extends State<TransportationPage> {
       description: "I will go to Ercan wednesday 9pm.",
       productPrice: null,
       currency: null,
-      productStatus: 0,
+      transportationStatus: 0,
     ),
     TransportationPost(
       belongToUser: true,
@@ -47,7 +48,7 @@ class _TransportationPageState extends State<TransportationPage> {
       description: "Me and my friends looking for ride to lefkoşa tonight.",
       productPrice: 1000,
       currency: "USD",
-      productStatus: 1,
+      transportationStatus: 1,
     ),
     TransportationPost(
       belongToUser: true,
@@ -57,7 +58,7 @@ class _TransportationPageState extends State<TransportationPage> {
       description: "If anyone going to girne. I can join",
       productPrice: 200,
       currency: "USD",
-      productStatus: 1,
+      transportationStatus: 1,
     ),
   ];
 
@@ -117,3 +118,4 @@ class _TransportationPageState extends State<TransportationPage> {
     );
   }
 }
+*/

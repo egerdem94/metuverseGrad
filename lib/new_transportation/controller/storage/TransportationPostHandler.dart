@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/backend/BackendHelperSellBuy.dart';
+import 'package:metuverse/new_transportation/controller/storage/backend/BackendHelperTransportation.dart';
+import 'package:metuverse/new_transportation/controller/storage/database/DatabaseHelperTransportation.dart';
+import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/storage/database/database_photo/DatabaseHelperPhoto.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
-class BuySellPostHandler{
-  final dbHelper = DatabaseHelperSellBuy();
-  final backendHelper = BackendHelperSellBuy();
+class TransportationPostHandler{
+  final dbHelper = DatabaseHelperTransportation();
+  final backendHelper = BackendHelperTransportation();
   final photoHelper = DatabaseHelperPhoto();
   bool initialized = false;
 
-  BuySellPostList sellPostList = BuySellPostList.defaults();
-  BuySellPostList buyPostList = BuySellPostList.defaults();
-  //PhotoList photoList = PhotoList();
-  //List<int> idListForPhotos = <int>[];
+  BuySellPostList sellPostList = BuySellPostList.defaults(); //-
+  BuySellPostList buyPostList = BuySellPostList.defaults(); //-
+  NewTransportationPostList customerPostList = NewTransportationPostList.dummy();
+  NewTransportationPostList driverPostList = NewTransportationPostList.dummy2();
   Future<void> init() async {
-    //dbHelper = DatabaseHelper();
     WidgetsFlutterBinding.ensureInitialized();
     await dbHelper.init();
     await photoHelper.init();
@@ -129,19 +129,19 @@ class BuySellPostHandler{
     }
   }
 
-  Future<bool> handlePostList(buyOrSell,firstTime) async{
-    PostsToDisplay? postsToDisplay;
+  Future<bool> handlePostList(customerOrDriver,firstTime) async{
+/*    PostsToDisplay? postsToDisplay;
     if(firstTime){
       sellPostList = BuySellPostList.defaults();
       buyPostList = BuySellPostList.defaults();
     }
     //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
-    postsToDisplay = await backendHelper.requestPostsToDisplay(buyOrSell,getLastPostID(buyOrSell, firstTime));
+    postsToDisplay = await backendHelper.requestPostsToDisplay(customerOrDriver,getLastPostID(customerOrDriver, firstTime));
     List<String> postsToBeAsked = await preparePostToRequestString(postsToDisplay);
     //List<int> idListOfPostsForPhotos = postIDListHandlingForPhotos(postsToBeAsked); //for photo process
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
-    if(buyOrSell == 's'){
+    if(customerOrDriver == 's'){
       BuySellPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;
       if(tempPostList != null){
         sellPostList.addNewPosts(tempPostList);
@@ -164,7 +164,7 @@ class BuySellPostHandler{
         return true;
       }
     }
-    else if(buyOrSell == 'b'){
+    else if(customerOrDriver == 'b'){
       BuySellPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;
       if(tempPostList != null){
         buyPostList.addNewPosts(tempPostList);
@@ -190,21 +190,47 @@ class BuySellPostHandler{
     else{
       print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
+    }*/
+    if(firstTime){
+      if(customerOrDriver == 'c'){
+        customerPostList = NewTransportationPostList.dummy();
+      }
+      else if(customerOrDriver == 'd'){
+        driverPostList = NewTransportationPostList.dummy2();
+      }
+      else{
+        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+        return false;
+      }
     }
+    else{
+      if(customerOrDriver == 'c'){
+        var tempList = NewTransportationPostList.dummy();
+        customerPostList.addAllXX(tempList);
+      }
+      else if(customerOrDriver == 'd'){
+        var tempList = NewTransportationPostList.dummy2();
+        driverPostList.addAllXX(tempList);
+      }
+      else{
+        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+        return false;
+      }
+
+    }
+    return true;
   }
-  BuySellPostList? getBuySellPostList(buyOrSell){
-    if(buyOrSell == 's'){
-      return sellPostList;
+
+  NewTransportationPostList? getTransportationPostList(customerOrDriver){
+    if(customerOrDriver == 'c'){
+      return customerPostList;
     }
-    else if(buyOrSell == 'b'){
-      return buyPostList;
+    else if(customerOrDriver == 'd'){
+      return driverPostList;
     }
     else{
       print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
-  }
-  static Future ToDoSearch() async{
-
   }
 }

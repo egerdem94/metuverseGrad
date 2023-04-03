@@ -11,7 +11,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 
 class DatabaseHelperPhoto extends DatabaseHelperParent{
-
+  /// check if photo exists in database
   Future<bool> doesPhotoExist(int postID, String url) async {
     return await db.transaction<bool>((txn) async {
       int count = Sqflite.firstIntValue(await txn.rawQuery('SELECT COUNT(*) FROM ${DatabasePhotoTableValues.table} WHERE ${DatabasePhotoTableValues.columnPostID} = ? AND ${DatabasePhotoTableValues.columnPhotoSource} = ?', [postID, url]));
@@ -19,10 +19,7 @@ class DatabaseHelperPhoto extends DatabaseHelperParent{
       return (count > 0) ? true : false;
     });
   }
-
-  /*
-    Inserts photo from url to database, also returns the photo object
-   */
+  ///Inserts photo from url to database, also returns the photo object
   Future<Photo?> insertPhotoFromUrl(int postID,String url) async {
     if(await doesPhotoExist(postID, url)) {
       debugPrint("Photo already exist!");
