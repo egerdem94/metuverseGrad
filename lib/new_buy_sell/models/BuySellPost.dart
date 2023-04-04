@@ -37,6 +37,7 @@ class BuySellPostList extends BasePostList{
     }
   }
 
+  /*
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.newBuySellPostListX != null) {
@@ -44,7 +45,7 @@ class BuySellPostList extends BasePostList{
     }
     data['total'] = this.total;
     return data;
-  }
+  }*/
   //function sorts the list by postID
   void sortListByPostID(){
     newBuySellPostListX!.sort((b, a) => a.postID!.compareTo(b.postID!));
@@ -146,7 +147,7 @@ class BuySellPost extends BasePostWithMedia{
     profilePicture = json['profilePicture'];
     postID = json['postID'];
     updateVersion = json['updateVersion'];
-    media = json['media'];
+    mediaList = json['media'].cast<String>();
     description = json['description'];
     productPrice = json['productPrice'];
     currency = json['currency'];
@@ -164,7 +165,7 @@ class BuySellPost extends BasePostWithMedia{
     profilePicture = json[SellBuyTableValues.columnProfilePicture];
     postID = json[SellBuyTableValues.columnPostID];
     updateVersion = json[SellBuyTableValues.columnUpdateVersion];
-    media = json[SellBuyTableValues.columnMedia];
+    //media = json[SellBuyTableValues.columnMedia];
     description = json[SellBuyTableValues.columnDescription];
     productPrice = json[SellBuyTableValues.columnProductPrice];
     currency = json[SellBuyTableValues.columnCurrency];
@@ -172,6 +173,7 @@ class BuySellPost extends BasePostWithMedia{
     mediaExist = true;
   }
 
+  /*
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['belongToUser'] = this.belongToUser;
@@ -185,7 +187,7 @@ class BuySellPost extends BasePostWithMedia{
     data['currency'] = this.currency;
     data['productStatus'] = this.productStatus;
     return data;
-  }
+  }*/
   // Converts a NewBuySellPostX object into a Map object
   Map<String, dynamic> toDbMap() {
     int belongToUserAsInt = belongToUser == true ? 1 : 0;
@@ -195,7 +197,7 @@ class BuySellPost extends BasePostWithMedia{
       SellBuyTableValues.columnProfilePicture: profilePicture,
       SellBuyTableValues.columnBelongToUser: belongToUserAsInt,
       SellBuyTableValues.columnUpdateVersion: updateVersion,
-      SellBuyTableValues.columnMedia: media,
+      //SellBuyTableValues.columnMedia: media,
       SellBuyTableValues.columnDescription: description,
       SellBuyTableValues.columnProductPrice: productPrice,
       SellBuyTableValues.columnCurrency: currency,

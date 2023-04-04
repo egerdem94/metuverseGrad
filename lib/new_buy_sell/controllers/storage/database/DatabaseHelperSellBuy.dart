@@ -10,47 +10,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelperSellBuy extends DatabaseHelperPost{
-/*  static const table = 'buy_sell_posts';
 
-  static const columnPostID = '_postID';
-  static const columnFullName = 'fullName';
-  static const columnProfilePicture = 'profilePicture';
-  static const columnBelongToUser = 'belongToUser';
-  static const columnUpdateVersion = 'updateVersion';
-  static const columnMedia = 'media';
-  static const columnDescription = 'description';
-  static const columnProductPrice = 'productPrice';
-  static const columnCurrency = 'currency';
-  static const columnProductStatus = 'productStatus';*/
-
-  // this opens the database (and creates it if it doesn't exist)
-/*  Future<void> init() async {
-    final documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, databaseName);
-    db = await openDatabase(
-      path,
-      version: databaseVersion,
-      onCreate: _onCreate,
-    );
-  }*/
-
-/*  // SQL code to create the database table
-  Future _onCreate(Database db, int version) async {
-    await db.execute('''
-          CREATE TABLE ${SellBuyTableValues.table} (
-            ${SellBuyTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
-            ${SellBuyTableValues.columnFullName} TEXT NOT NULL,
-            ${SellBuyTableValues.columnProfilePicture} TEXT,
-            ${SellBuyTableValues.columnBelongToUser} INTEGER NOT NULL,
-            ${SellBuyTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
-            ${SellBuyTableValues.columnMedia} TEXT,
-            ${SellBuyTableValues.columnDescription} TEXT,
-            ${SellBuyTableValues.columnProductPrice} INTEGER UNSIGNED,
-            ${SellBuyTableValues.columnCurrency} TEXT,
-            ${SellBuyTableValues.columnProductStatus} INTEGER UNSIGNED NOT NULL
-          )
-          ''');
-  }*/
   Future<BasePostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
     var tempNewBuySellPostListX = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
     if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
@@ -167,13 +127,16 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost{
 
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
+  /*
   Future<int> queryRowCount() async {
     final results = await db.rawQuery('SELECT COUNT(*) FROM ${SellBuyTableValues.table}');
     return Sqflite.firstIntValue(results) ?? 0;
   }
+  */
 
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
+
   Future<int> update(Map<String, dynamic> row) async {
     int id = row[SellBuyTableValues.columnPostID];
     return await db.update(

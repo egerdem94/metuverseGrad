@@ -4,6 +4,7 @@ import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelp
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
+
 class BuySellPostHandler{
   final dbHelper = DatabaseHelperSellBuy();
   final backendHelper = BackendHelperSellBuy();
@@ -112,7 +113,7 @@ class BuySellPostHandler{
       }
     }
     else{
-      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
@@ -125,7 +126,7 @@ class BuySellPostHandler{
       return newBuyPostListX;
     }
     else{
-      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }

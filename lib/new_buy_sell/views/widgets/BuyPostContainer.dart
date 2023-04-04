@@ -81,13 +81,13 @@ class BuyPostContainer extends StatelessWidget {
             height: 260.0,
             child: PhotoGridGeneral(
               photoList: post.photoList,
-              imageUrls: post.mediaList(),
+              imageUrls: post.getMediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => FullscreenImageView(
-                      imageUrl: post.mediaList()[index],
+                      imageUrl: post.getMediaList()[index],
                       //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
                     ),
                   ),

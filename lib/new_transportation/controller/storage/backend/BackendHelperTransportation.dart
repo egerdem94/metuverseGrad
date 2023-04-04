@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/storage/backend/IBackendHelperPostPage.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +27,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
-    var temp = BuySellPostList.fromJson(jsonObject);
+    var temp = NewTransportationPostList.fromJson(jsonObject);
     return temp;
   }
   Future<PostsToDisplay?> requestPostsToDisplay(customerOrDriver,lastPostID) async {
@@ -43,6 +44,10 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     PostsToDisplay? postsToDisplay;
     postsToDisplay = PostsToDisplay.fromJson(jsonObject);
     return postsToDisplay;
+  }
+
+  requestSearchPosts(searchKey, filteredProductPrice, filteredCurrency, buyOrSell) {
+    //TODO
   }
 
 }

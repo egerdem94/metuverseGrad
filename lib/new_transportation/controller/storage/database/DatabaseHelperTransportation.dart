@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
+import 'package:metuverse/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
 import 'package:metuverse/storage/database/database_helper_post/DatabaseHelperPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
@@ -9,109 +12,64 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelperTransportation extends DatabaseHelperPost{
-  //static const _databaseName = "MyDatabase.db";
-  //static const _databaseVersion = 1;
 
-  static const table = 'buy_sell_posts';
-
-  static const columnPostID = '_postID';
-  static const columnFullName = 'fullName';
-  static const columnProfilePicture = 'profilePicture';
-  static const columnBelongToUser = 'belongToUser';
-  static const columnUpdateVersion = 'updateVersion';
-  static const columnMedia = 'media';
-  static const columnDescription = 'description';
-  static const columnProductPrice = 'productPrice';
-  static const columnCurrency = 'currency';
-  static const columnProductStatus = 'productStatus';
-
-  //late Database db;
-
-  // this opens the database (and creates it if it doesn't exist)
-  Future<void> init() async {
-    final documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, databaseName);
-    db = await openDatabase(
-      path,
-      version: databaseVersion,
-      onCreate: _onCreate,
-    );
-  }
-
-  // SQL code to create the database table
-  Future _onCreate(Database db, int version) async {
-    await db.execute('''
-          CREATE TABLE $table (
-            $columnPostID INTEGER UNSIGNED PRIMARY KEY,
-            $columnFullName TEXT NOT NULL,
-            $columnProfilePicture TEXT,
-            $columnBelongToUser INTEGER NOT NULL,
-            $columnUpdateVersion INTEGER UNSIGNED NOT NULL,
-            $columnMedia TEXT,
-            $columnDescription TEXT,
-            $columnProductPrice INTEGER UNSIGNED,
-            $columnCurrency TEXT,
-            $columnProductStatus INTEGER UNSIGNED NOT NULL
-          )
-          ''');
-  }
   Future<BasePostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
-    var tempNewBuySellPostListX = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
-    if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
+    var tempNewTransportationPostList = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
+    if(tempNewTransportationPostList.posts == null || tempNewTransportationPostList.posts!.length == 0){
       debugPrint("Empty tempNewBuySellPostListX while string is not empty!!!");
       return null;
     }
     else{
-      return tempNewBuySellPostListX;
+      return tempNewTransportationPostList;
     }
   }
 
   // Helper methods
 
   Future<int> insertOrUpdate(Map<String, dynamic> row) async {
+    int postID = row['${TransportationPostTableValues.columnPostID}'];
+    int count = await db.transaction<int>((txn) async {
+      List<Map<String, dynamic>> result = await txn.query(
+        TransportationPostTableValues.table,
+        columns: ['COUNT(*) as count'],
+        where: '${TransportationPostTableValues.columnPostID} = ?',
+        whereArgs: [postID],
+      );
 
-    int postID = row['$columnPostID'];
-    int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnPostID = ?', [postID]));
-    if (count == 0) {
-      debugPrint('inserted row id: $postID');
-      return await db.insert(table, row);
-    } else {
-      debugPrint('updated row id: $postID');
-      return await db.update(table, row, where: '$columnPostID = ?', whereArgs: [postID]);
+      return Sqflite.firstIntValue(result);
+    });
+    if(count == 0) {
+      await baseInsertPost(postID);
     }
+    return await db.transaction<int>((txn) async {
+      if (count == 0) {
+        debugPrint('inserted row id: $postID');
+        return await txn.insert(TransportationPostTableValues.table, row);
+      } else {
+        debugPrint('updated row id: $postID');
+        return await txn.update(TransportationPostTableValues.table, row, where: '${TransportationPostTableValues.columnPostID} = ?', whereArgs: [postID]);
+      }
+    });
   }
 
   // Inserts a NewBuySellPostX object to the database
-  Future<int> insertNewBuySellPostX(BuySellPost newBuySellPostX) async {
-    //return await _db.insert(table, newBuySellPostX.toDbMap());
-    return await insertOrUpdate(newBuySellPostX.toDbMap());
+  Future<int> insertNewTransportationPost(NewTransportationPost newTransportationPost) async {
+    return await insertOrUpdate(newTransportationPost.toDbMap());
 
   }
 
   // All of the rows are returned as a list of maps, where each map is
   // a key-value list of columns.
   Future<List<Map<String, dynamic>>> queryAllRows() async {
-    return await db.query(table);
+    return await db.query(TransportationPostTableValues.table);
   }
 
-/*  // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
-  // a key-value list of columns.
-  Future<bool> isPostNeededToBeAskedBackend(
-      int postID, int updateVersion) async {
-    var returnedTable = await _db.query(table,
-        where: '$columnPostID = ? AND $columnUpdateVersion != ?',
-        whereArgs: [postID, updateVersion]);
-    if(returnedTable.length == 0){
-      return true;
-    }
-    return false;
-  }*/
 
   // Rows with the given postID and not equal to the given updateVersion are returned as a list of maps, where each map is
   // a key-value list of columns.
   Future<bool> isPostNeededToBeAskedBackend(
       int postID, int updateVersion) async {
-    int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnPostID = ? AND $columnUpdateVersion = ?', [postID,updateVersion]));
+    int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM ${TransportationPostTableValues.table} WHERE ${TransportationPostTableValues.columnPostID} = ? AND ${TransportationPostTableValues.columnUpdateVersion} = ?', [postID,updateVersion]));
     if(count == 1){
       return false;
     }
@@ -126,7 +84,7 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
     if(postsToDisplay == null){
       return [postIDsToBeAskedBackend, postIDsExistInLocalDB];
     }
-    for(var postToDisplay in postsToDisplay!.postsToDisplayList!){
+    for(var postToDisplay in postsToDisplay.postsToDisplayList!){
       if(await isPostNeededToBeAskedBackend(postToDisplay.postID!, postToDisplay.updateVersion!)){
         postIDsToBeAskedBackend.add(postToDisplay.postID!);
       }
@@ -143,8 +101,8 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
   // a key-value list of columns.
   // if postID not found, returns null
   Future<Map<String, dynamic>?> queryRowWithPostID(int postID) async {
-    List<Map<String, dynamic>> result = await db.query(table,
-        where: '$columnPostID = ?',
+    List<Map<String, dynamic>> result = await db.query(TransportationPostTableValues.table,
+        where: '${TransportationPostTableValues.columnPostID} = ?',
         whereArgs: [postID]);
     if (result.length == 0) {
       return null;
@@ -154,35 +112,27 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
   }
   // Function gets postID list as input and calls queryRowWithPostID for each postID
   // and returns a list of NewBuySellPostX objects
-  Future<BuySellPostList> queryRowsWithPostIDList(List<int> postIDList) async {
-    //List<NewBuySellPostX> newBuySellPostXList = [];
-    BuySellPostList newBuySellPostListX = new BuySellPostList.defaults();
+  Future<NewTransportationPostList> queryRowsWithPostIDList(List<int> postIDList) async {
+    NewTransportationPostList newTransportationPostList = NewTransportationPostList.defaults();
     for (int postID in postIDList) {
       Map<String, dynamic>? result = await queryRowWithPostID(postID);
       if (result != null) {
-        var tempPost = BuySellPost.fromDbMap(result);
-        newBuySellPostListX.addNewPost(tempPost);
+        var tempPost = NewTransportationPost.fromDbMap(result);
+        newTransportationPostList.addNewPost(tempPost);
       }
     }
-    return newBuySellPostListX;
-  }
-
-
-  // All of the methods (insert, query, update, delete) can also be done using
-  // raw SQL commands. This method uses a raw query to give the row count.
-  Future<int> queryRowCount() async {
-    final results = await db.rawQuery('SELECT COUNT(*) FROM $table');
-    return Sqflite.firstIntValue(results) ?? 0;
+    return newTransportationPostList;
   }
 
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
+  //TODO Bu "update" neye yarıyor???
   Future<int> update(Map<String, dynamic> row) async {
-    int id = row[columnPostID];
+    int id = row[TransportationPostTableValues.columnPostID];
     return await db.update(
-      table,
+      TransportationPostTableValues.table,
       row,
-      where: '$columnPostID = ?',
+      where: '${TransportationPostTableValues.columnPostID} = ?',
       whereArgs: [id],
     );
   }
@@ -191,8 +141,8 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {
     return await db.delete(
-      table,
-      where: '$columnPostID = ?',
+      TransportationPostTableValues.table,
+      where: '${TransportationPostTableValues.columnPostID} = ?',
       whereArgs: [id],
     );
   }

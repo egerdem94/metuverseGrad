@@ -103,7 +103,7 @@ class BuySellPostHandler{
     if(!newPostX.mediaExist){
       return;
     }
-    var photoUrls = newPostX.mediaList();
+    var photoUrls = newPostX.getMediaList();
     for(var photoUrl in photoUrls){
       var isExistInDB = await photoHelper.doesPhotoExist(newPostX.postID!,photoUrl);
       if(!isExistInDB){
@@ -188,7 +188,7 @@ class BuySellPostHandler{
       }
     }
     else{
-      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
@@ -200,7 +200,7 @@ class BuySellPostHandler{
       return buyPostList;
     }
     else{
-      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }
@@ -214,7 +214,7 @@ class BuySellPostHandler{
         buyPostList = tempSearchedPostList!;
       }
       else{
-        print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
+        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       }
     debugPrint("here2");
   }

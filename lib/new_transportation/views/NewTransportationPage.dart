@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
-import 'package:metuverse/new_transportation/controller/storage/DummyTransportationPostHandler.dart';
+import 'package:metuverse/new_transportation/controller/storage/TransportationPostHandler.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/new_transportation/widget/TransportationAppBar.dart';
 import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
 import 'package:metuverse/new_transportation/widget/TransportationCustomerContainer.dart';
 import 'package:metuverse/widgets/drawer.dart';
@@ -28,38 +29,32 @@ class NewTransportationPage extends StatefulWidget {
 
 class _NewTransportationPageState extends State<NewTransportationPage> {
   final _scrollController = ScrollController();
-  //BuySellPostList? newBuySellPostListX;
-  NewTransportationPostList? newTransportationPostListX;
-  //late BuySellPostHandler buySellPostHandler;
-  late DummyTransportationPostHandler transportationPostHandler;
+  NewTransportationPostList? transportationPostList;
+  late TransportationPostHandler transportationPostHandler;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    transportationPostHandler = DummyTransportationPostHandler();
+    transportationPostHandler = TransportationPostHandler();
     transportationPostHandler.init().then((_) {
-      setState(() {
-          newTransportationPostListX = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
-      });
-    });
-    /*buySellPostHandler = BuySellPostHandler();
-    buySellPostHandler.init().then((_) {
-      *//*if(widget.searchModeFlag){
-        buySellPostHandler.handleSearchPosts(widget.searchKey,*//**//* widget.filteredProductPrice, widget.filteredCurrency*//**//*widget.customerOrDriver).then((_) {
+      if(widget.searchModeFlag){
+        transportationPostHandler.handleSearchPosts(widget.searchKey, "", "", widget.customerOrDriver).then((_) {
           setState(() {
-            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.customerOrDriver);
+            transportationPostList = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
           });
         });
+
       }
       else{
-        buySellPostHandler.handlePostList(widget.customerOrDriver,true).then((_) {
+        transportationPostHandler.handlePostList(widget.customerOrDriver,true).then((_) {
           setState(() {
-            newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.customerOrDriver);
+            transportationPostList = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
           });
         });
-      }*//*
-    });*/
+
+      }
+    });
   }
   void _scrollListener() {
     if(!widget.searchModeFlag){
@@ -68,7 +63,7 @@ class _NewTransportationPageState extends State<NewTransportationPage> {
         setState(() {
           transportationPostHandler.handlePostList(widget.customerOrDriver,false).then((_) {
             setState(() {
-              newTransportationPostListX = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
+              transportationPostList = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
             });
           });
         });
@@ -80,7 +75,7 @@ class _NewTransportationPageState extends State<NewTransportationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(buyOrSell: widget.customerOrDriver,),
+      appBar: TransportationAppBar(customerOrDriver: widget.customerOrDriver,),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
@@ -94,21 +89,21 @@ class _NewTransportationPageState extends State<NewTransportationPage> {
             ],
           ), // set the background color to blue
         ),
-        child: newTransportationPostListX != null ?
+        child: transportationPostList != null ?
         widget.customerOrDriver == 's' ? ListView.builder(
           controller: _scrollController,
-          itemCount: newTransportationPostListX!.length(),
+          itemCount: transportationPostList!.length(),
           itemBuilder: (context, index) {
             return TransportationCustomerContainer(
                 //post: newTransportationPostListX!.posts![index]);
-              singlePostItem: newTransportationPostListX!.posts![index]);
+              singlePostItem: transportationPostList!.posts![index]);
           },
         ):ListView.builder(
           controller: _scrollController,
-          itemCount: newTransportationPostListX!.length(),
+          itemCount: transportationPostList!.length(),
           itemBuilder: (context, index) {
             return TransportationDriverContainer(
-              singlePostItem: newTransportationPostListX!.posts![index]);
+              singlePostItem: transportationPostList!.posts![index]);
           },
         )
             :Center(

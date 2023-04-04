@@ -9,7 +9,6 @@ class SellBuyTableValues{
   static const columnProfilePicture = 'profilePicture';
   static const columnBelongToUser = 'belongToUser';
   static const columnUpdateVersion = 'updateVersion';
-  static const columnMedia = 'media';
   static const columnDescription = 'description';
   static const columnProductPrice = 'productPrice';
   static const columnCurrency = 'currency';

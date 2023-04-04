@@ -35,7 +35,6 @@ class DatabaseHelperParent {
             ${SellBuyTableValues.columnProfilePicture} TEXT,
             ${SellBuyTableValues.columnBelongToUser} INTEGER NOT NULL,
             ${SellBuyTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
-            ${SellBuyTableValues.columnMedia} TEXT,
             ${SellBuyTableValues.columnDescription} TEXT,
             ${SellBuyTableValues.columnProductPrice} INTEGER UNSIGNED,
             ${SellBuyTableValues.columnCurrency} TEXT,
@@ -57,13 +56,12 @@ class DatabaseHelperParent {
             '''
           );
           await db.execute('''
-            CREATE TABLE ${TransportationPostTableValues.transportationPostTableName} (
+            CREATE TABLE ${TransportationPostTableValues.table} (
               ${TransportationPostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
               ${TransportationPostTableValues.columnFullName} TEXT NOT NULL,
               ${TransportationPostTableValues.columnProfilePicture} TEXT,
               ${TransportationPostTableValues.columnBelongToUser} INTEGER NOT NULL,
               ${TransportationPostTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
-              ${TransportationPostTableValues.columnMedia} TEXT,
               ${TransportationPostTableValues.columnDescription} TEXT,
               ${TransportationPostTableValues.columnProductPrice} INTEGER UNSIGNED,
               ${TransportationPostTableValues.columnCurrency} TEXT,
