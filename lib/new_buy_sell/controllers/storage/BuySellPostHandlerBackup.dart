@@ -112,7 +112,7 @@ class BuySellPostHandler{
       }
     }
     else{
-      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
@@ -125,7 +125,7 @@ class BuySellPostHandler{
       return newBuyPostListX;
     }
     else{
-      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }

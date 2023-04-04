@@ -1,4 +1,5 @@
 import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
+import 'package:metuverse/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
 import 'package:path_provider/path_provider.dart';
@@ -55,7 +56,33 @@ class DatabaseHelperParent {
             )
             '''
           );
-
-
+          await db.execute('''
+            CREATE TABLE ${TransportationPostTableValues.transportationPostTableName} (
+              ${TransportationPostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
+              ${TransportationPostTableValues.columnFullName} TEXT NOT NULL,
+              ${TransportationPostTableValues.columnProfilePicture} TEXT,
+              ${TransportationPostTableValues.columnBelongToUser} INTEGER NOT NULL,
+              ${TransportationPostTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
+              ${TransportationPostTableValues.columnMedia} TEXT,
+              ${TransportationPostTableValues.columnDescription} TEXT,
+              ${TransportationPostTableValues.columnProductPrice} INTEGER UNSIGNED,
+              ${TransportationPostTableValues.columnCurrency} TEXT,
+              ${TransportationPostTableValues.columnDepartureLocation} INTEGER,
+              ${TransportationPostTableValues.columnDestinationLocation} INTEGER,
+              ${TransportationPostTableValues.columnDepartureTime} DATE,
+              ${TransportationPostTableValues.columnPassengerCount} INTEGER UNSIGNED,
+              ${TransportationPostTableValues.columnTransportationStatus} INTEGER UNSIGNED,
+              FOREIGN KEY (${TransportationPostTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
+              ON DELETE CASCADE
+            )
+        ''');
   }
+/*  Future createBasePostTable(Database db){
+    return db.execute('''
+          CREATE TABLE ${BasePostTableValues.table} (
+            ${BasePostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY
+          )
+          ''');
+  } */
+  Future close() async => db.close();
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 class BuySellPostList extends BasePostList{
   List<BuySellPost>? newBuySellPostListX;
@@ -133,7 +134,7 @@ class BuySellPostList extends BasePostList{
   }
 }
 
-class BuySellPost extends BasePost{
+class BuySellPost extends BasePostWithMedia{
 
   int? productPrice;
   String? currency;
@@ -200,26 +201,5 @@ class BuySellPost extends BasePost{
       SellBuyTableValues.columnCurrency: currency,
       SellBuyTableValues.columnProductStatus: productStatus,
     };
-  }
-
-  bool doesMediaExist(){
-    if(mediaExist == true){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-/*  void addPhoto(Photo photo){
-    this.photoList.addPhoto(photo);
-  }*/
-  String getProfilePicture(){
-    if (this.profilePicture != null) {
-      return this.profilePicture!;
-    }
-    else{
-      //return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-      return "http://birikikoli.com/images/blank-profile-picture.jpg";
-    }
   }
 }

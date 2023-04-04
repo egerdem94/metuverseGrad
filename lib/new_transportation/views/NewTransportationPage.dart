@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
-import 'package:metuverse/new_transportation/controller/storage/TransportationPostHandler.dart';
+import 'package:metuverse/new_transportation/controller/storage/DummyTransportationPostHandler.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
 import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
@@ -31,13 +31,13 @@ class _NewTransportationPageState extends State<NewTransportationPage> {
   //BuySellPostList? newBuySellPostListX;
   NewTransportationPostList? newTransportationPostListX;
   //late BuySellPostHandler buySellPostHandler;
-  late TransportationPostHandler transportationPostHandler;
+  late DummyTransportationPostHandler transportationPostHandler;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    transportationPostHandler = TransportationPostHandler();
+    transportationPostHandler = DummyTransportationPostHandler();
     transportationPostHandler.init().then((_) {
       setState(() {
           newTransportationPostListX = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);

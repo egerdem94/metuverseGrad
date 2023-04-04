@@ -7,7 +7,7 @@ import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
-class TransportationPostHandler{
+class DummyTransportationPostHandler{
   final dbHelper = DatabaseHelperTransportation();
   final backendHelper = BackendHelperTransportation();
   final photoHelper = DatabaseHelperPhoto();
@@ -188,7 +188,7 @@ class TransportationPostHandler{
       }
     }
     else{
-      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }*/
     if(firstTime){
@@ -199,7 +199,7 @@ class TransportationPostHandler{
         driverPostList = NewTransportationPostList.dummy2();
       }
       else{
-        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+        print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
         return false;
       }
     }
@@ -213,7 +213,7 @@ class TransportationPostHandler{
         driverPostList.addAllXX(tempList);
       }
       else{
-        print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+        print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
         return false;
       }
 
@@ -229,7 +229,7 @@ class TransportationPostHandler{
       return driverPostList;
     }
     else{
-      print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
+      print('Error in DummyTransportationPostHandler.dart Unexpected buyOrSell value');
       return null;
     }
   }
