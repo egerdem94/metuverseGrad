@@ -39,6 +39,7 @@ class DatabaseHelperParent {
             ${SellBuyTableValues.columnProductPrice} INTEGER UNSIGNED,
             ${SellBuyTableValues.columnCurrency} TEXT,
             ${SellBuyTableValues.columnProductStatus} INTEGER UNSIGNED NOT NULL,
+            ${SellBuyTableValues.columnMediaExist} INTEGER UNSIGNED NOT NULL,
             FOREIGN KEY (${SellBuyTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
             ON DELETE CASCADE
           )

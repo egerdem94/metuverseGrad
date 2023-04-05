@@ -35,13 +35,6 @@ class _TransportationCreatePostPageState extends State<TransportationCreatePostP
   }
 
   void _submitForm() {
-    if (_descriptionController.text == "a") {
-      print("BASTI");
-    }
-    if (_currencyController.text == "₺") {
-      print("BASTI");
-    }
-    print("YAVUZ");
     //if (_formKey.currentState!.validate()) {
     CreatePostItem singlePostSendingItem = _createProduct();
 

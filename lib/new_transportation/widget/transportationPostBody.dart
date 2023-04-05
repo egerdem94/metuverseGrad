@@ -26,8 +26,8 @@ class TransportationPostBody extends StatefulWidget {
 }
 
 class _TransportationPostBodyState extends State<TransportationPostBody> {
-  String _driverOrPassenger = 'Passenger';
-  List<String> _who = ['Driver', 'Passenger'];
+  String _customerOrDriver = 'Customer';
+  List<String> _who = ['Customer', 'Driver'];
   String _selectedDeparture = 'Kalkanli';
   List<String> _locationList = [
     'Ercan',
@@ -53,16 +53,12 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
   bool _showPrice = true;
   bool isButtonClicked = false;
 
-  Future _sendPostToBackend() async {
-/*    //var img = await picker.pickImage(source: media);
-    //var uri = "http://www.birikikoli.com/mv_services/create223.php";
-
+  Future _sendPostToBackend() async {/*
     var url = "x";
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
-    //request.fields['userID'] = '€'.toString();
     request.fields['token'] = User.token;
-    request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
+    request.fields['customerOrDriver'] = _customerOrDriver.toLowerCase()[0];
     request.fields['description'] = description.text;
     request.fields['productPrice'] = productPrice.text;
     request.fields['currency'] = _selectedCurrency;
@@ -140,11 +136,11 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _driverOrPassenger == 'Passenger'
+                      color: _customerOrDriver == 'Passenger'
                           ? Colors.black
                           : Colors.white,
                     ),
-                    child: _driverOrPassenger == 'Passenger'
+                    child: _customerOrDriver == 'Passenger'
                         ? Container()
                         : TextFormField(
                             controller: widget._seatController,
@@ -169,11 +165,11 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _driverOrPassenger == 'Passenger'
+                      color: _customerOrDriver == 'Passenger'
                           ? Color.fromARGB(255, 255, 255, 255)
                           : Colors.white,
                     ),
-                    child: _driverOrPassenger == 'Passenger'
+                    child: _customerOrDriver == 'Passenger'
                         ? TextFormField(
                             controller: widget._personController,
                             validator: (value) {
@@ -307,7 +303,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                             decoration: InputDecoration(
                               labelText: 'Description',
                               labelStyle: TextStyle(color: Colors.blue),
-                              hintText: 'What are you selling?',
+                              hintText: 'Explain your trip?',
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(255, 111, 111, 111)),
                               enabledBorder: UnderlineInputBorder(
@@ -375,7 +371,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
               onTap: () {
                 setState(() {
                   _showPrice = false;
-                  _driverOrPassenger = 'Passenger';
+                  _customerOrDriver = 'Passenger';
                 });
               },
               child: Icon(
@@ -387,7 +383,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
               onTap: (() {
                 setState(() {
                   _showPrice = true;
-                  _driverOrPassenger = 'Driver';
+                  _customerOrDriver = 'Driver';
                 });
               }),
               child: new Icon(

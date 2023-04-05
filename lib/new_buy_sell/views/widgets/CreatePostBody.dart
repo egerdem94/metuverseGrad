@@ -69,9 +69,6 @@ class _CreatePostBodyState extends State<CreatePostBody> {
   }
 
   Future _sendPostToBackend() async {
-    //var img = await picker.pickImage(source: media);
-    //var uri = "http://www.birikikoli.com/mv_services/create223.php";
-
     var url = "http://www.birikikoli.com/mv_services/createSonDeneme333.php";
     var request = http.MultipartRequest('POST', Uri.parse(url));
 

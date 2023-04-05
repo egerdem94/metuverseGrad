@@ -5,34 +5,34 @@ import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 class BuySellPostList extends BasePostList{
-  List<BuySellPost>? newBuySellPostListX;
+  List<BuySellPost>? posts;
   int? total;
   bool nothingFound = false;
 
-  BuySellPostList({this.newBuySellPostListX, this.total});
+  BuySellPostList({this.posts, this.total});
   //constructor with default values
   BuySellPostList.defaults()
-      : newBuySellPostListX = [],
+      : posts = [],
         total = 0;
   //constructor with nothing found flag
   BuySellPostList.nothingFound()
-      : newBuySellPostListX = [],
+      : posts = [],
         total = 0,
         nothingFound = true;
   BuySellPostList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      newBuySellPostListX = <BuySellPost>[];
+      posts = <BuySellPost>[];
       json['items'].forEach((v) {
-        newBuySellPostListX!.add(new BuySellPost.fromJson(v));
+        posts!.add(new BuySellPost.fromJson(v));
       });
     }
     total = json['total'];
   }
   BuySellPostList.fromDbMap(List<Map<String, dynamic>> json) {
     if (json != null) {
-      newBuySellPostListX = <BuySellPost>[];
+      posts = <BuySellPost>[];
       json.forEach((v) {
-        newBuySellPostListX!.add(new BuySellPost.fromDbMap(v));
+        posts!.add(new BuySellPost.fromDbMap(v));
       });
     }
   }
@@ -48,13 +48,13 @@ class BuySellPostList extends BasePostList{
   }*/
   //function sorts the list by postID
   void sortListByPostID(){
-    newBuySellPostListX!.sort((b, a) => a.postID!.compareTo(b.postID!));
+    posts!.sort((b, a) => a.postID!.compareTo(b.postID!));
   }
   BuySellPost? getPostWithID(int id){
-    if(newBuySellPostListX == null){
+    if(posts == null){
       return null;
     }
-    for(var post in newBuySellPostListX!){
+    for(var post in posts!){
       if(id == post.postID){
         return post;
       }
@@ -62,7 +62,7 @@ class BuySellPostList extends BasePostList{
     return null;
   }
   bool isEmpty(){
-    if(newBuySellPostListX == null || newBuySellPostListX!.length == 0)
+    if(posts == null || posts!.length == 0)
       return true;
     else
       return false;
@@ -71,7 +71,7 @@ class BuySellPostList extends BasePostList{
   // if the postID is already in the list, it is not added
   // comparison is done by postID
   void addNewPosts(BuySellPostList newPosts){
-    newPosts.newBuySellPostListX!.forEach((element) {
+    newPosts.posts!.forEach((element) {
       addNewPost(element);
     });
     sortListByPostID();// IMPORTANT! This might be a bad idea. You might do ordering while inserting!
@@ -79,7 +79,7 @@ class BuySellPostList extends BasePostList{
   void addNewPost(BuySellPost newBuySellPostX){
     bool postIDAlreadyExists = false;
     bool postIDAlreadyExistsButUpdated = false;
-    newBuySellPostListX!.forEach((newElement) {
+    posts!.forEach((newElement) {
       if(newBuySellPostX.postID == newElement.postID){
         if(newElement.updateVersion! > newBuySellPostX.updateVersion!){
           postIDAlreadyExistsButUpdated = true;
@@ -90,13 +90,13 @@ class BuySellPostList extends BasePostList{
       }
     });
     if(!postIDAlreadyExists){
-      newBuySellPostListX!.add(newBuySellPostX);
+      posts!.add(newBuySellPostX);
     }
     else if(postIDAlreadyExistsButUpdated){
       //replace the old post with the new one
-      for(int i = 0; i < newBuySellPostListX!.length; i++){
-        if(newBuySellPostListX![i].postID == newBuySellPostX.postID){
-          newBuySellPostListX![i] = newBuySellPostX;
+      for(int i = 0; i < posts!.length; i++){
+        if(posts![i].postID == newBuySellPostX.postID){
+          posts![i] = newBuySellPostX;
         }
       }
     }
@@ -104,15 +104,15 @@ class BuySellPostList extends BasePostList{
 
   //function returns the deletes the post with the given postID
   void deletePost(int postID){
-    newBuySellPostListX!.removeWhere((element) => element.postID == postID);
+    posts!.removeWhere((element) => element.postID == postID);
   }
   void addPhotos(PhotoList photos){
-    if(newBuySellPostListX == null){
+    if(posts == null){
       debugPrint("Unexpected!");
       return;
     }
     for(var photo in photos.photos){
-      for(var post in newBuySellPostListX!){
+      for(var post in posts!){
         if(photo.postID == post.postID){
           post.addPhoto(photo);
           break;
@@ -123,14 +123,14 @@ class BuySellPostList extends BasePostList{
   //function returns the last postID in the list
   int getLastPostID(){
     sortListByPostID();
-    return newBuySellPostListX!.last.postID!;
+    return posts!.last.postID!;
   }
   int length(){
-    if(newBuySellPostListX == null){
+    if(posts == null){
       return 0;
     }
     else{
-      return newBuySellPostListX!.length;
+      return posts!.length;
     }
   }
 }
@@ -152,7 +152,8 @@ class BuySellPost extends BasePostWithMedia{
     productPrice = json['productPrice'];
     currency = json['currency'];
     productStatus = json['productStatus'];
-    mediaExist = true;
+    mediaExist = (mediaList != null && mediaList!.length > 0); //mediaExist is false if mediaList is null or length is 0 and true if mediaList is not empty
+    isPostFromNetwork = true;
   }
 
   BuySellPost.fromDbMap(Map<String, dynamic> json) {
@@ -170,7 +171,8 @@ class BuySellPost extends BasePostWithMedia{
     productPrice = json[SellBuyTableValues.columnProductPrice];
     currency = json[SellBuyTableValues.columnCurrency];
     productStatus = json[SellBuyTableValues.columnProductStatus];
-    mediaExist = true;
+    mediaExist = json[SellBuyTableValues.columnMediaExist] == 1 ? true : false;
+    isPostFromNetwork = false;
   }
 
   /*
@@ -202,6 +204,7 @@ class BuySellPost extends BasePostWithMedia{
       SellBuyTableValues.columnProductPrice: productPrice,
       SellBuyTableValues.columnCurrency: currency,
       SellBuyTableValues.columnProductStatus: productStatus,
+      SellBuyTableValues.columnMediaExist: mediaExist == true ? 1 : 0,
     };
   }
 }

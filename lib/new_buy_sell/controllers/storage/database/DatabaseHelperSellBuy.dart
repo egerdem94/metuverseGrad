@@ -13,7 +13,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost{
 
   Future<BasePostList?> getPostsFromLocalDB(postsToBeAskedToLocalDBAsIntList) async {
     var tempNewBuySellPostListX = await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
-    if(tempNewBuySellPostListX.newBuySellPostListX == null || tempNewBuySellPostListX.newBuySellPostListX!.length == 0){
+    if(tempNewBuySellPostListX.posts == null || tempNewBuySellPostListX.posts!.length == 0){
       debugPrint("Empty tempNewBuySellPostListX while string is not empty!!!");
       return null;
     }
@@ -50,10 +50,10 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost{
   });
   }
 
-  // Inserts a NewBuySellPostX object to the database
-  Future<int> insertNewBuySellPostX(BuySellPost newBuySellPostX) async {
+  // Inserts a BuySellPost object to the database
+  Future<int> insertBuySellPost(BuySellPost buySellPost) async {
     //return await _db.insert(table, newBuySellPostX.toDbMap());
-    return await insertOrUpdate(newBuySellPostX.toDbMap());
+    return await insertOrUpdate(buySellPost.toDbMap());
 
   }
 

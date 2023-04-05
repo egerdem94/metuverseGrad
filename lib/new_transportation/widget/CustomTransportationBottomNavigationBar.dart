@@ -8,7 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/new_transportation/views/NewTransportationPage.dart';
 import 'package:metuverse/new_transportation/views/transportationCarPage.dart';
 import 'package:metuverse/new_transportation/views/transportationPage.dart';
-import 'package:metuverse/new_transportation/views/transportationPostingPage.dart';
+import 'package:metuverse/new_transportation/views/TransportationCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/storage/User.dart';
 

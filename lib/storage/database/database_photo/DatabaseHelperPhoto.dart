@@ -48,6 +48,24 @@ class DatabaseHelperPhoto extends DatabaseHelperParent{
       return (photosData.length != 0) ? Photo.fromDbMap(photosData[0]) : null;
     });
   }
+//get photoUrls given postID
+  Future<List<String>?> getPhotoUrlsGivenPostID(int postID) async {
+    return await db.transaction<List<String>>((txn) async {
+      final photosData = await txn.query(
+        DatabasePhotoTableValues.table,
+        columns: [DatabasePhotoTableValues.columnPhotoSource],
+        where: '${DatabasePhotoTableValues.columnPostID} = ?',
+        whereArgs: [postID],
+      );
+
+      List<String>? photoUrls = photosData
+          .map((photoData) => photoData[DatabasePhotoTableValues.columnPhotoSource]).cast<String>()
+          .toList();
+
+      return photoUrls;
+    });
+  }
+
 /*  Future insertPseudoList(List<PseudoPhoto> pseudoPhotos) async {
     for(var pseudo in pseudoPhotos){
       await insertPhotoFromUrl(pseudo.postID,pseudo.photoUrl);

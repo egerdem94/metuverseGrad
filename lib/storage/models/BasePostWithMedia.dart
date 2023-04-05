@@ -5,6 +5,7 @@ class BasePostWithMedia extends BasePost{
   List<String>? mediaList;
   late bool mediaExist;
   PhotoList photoList = PhotoList();
+  late bool isPostFromNetwork; //this will be useful when we want to add photo to local database
 
   //TODO why not using?
   bool doesMediaExist(){

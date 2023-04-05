@@ -167,14 +167,14 @@ class _BuySellPageState extends State<BuySellPage> {
           itemCount: newBuySellPostListX!.length(),
           itemBuilder: (context, index) {
             return SellPostContainer(
-                post: newBuySellPostListX!.newBuySellPostListX![index]);
+                post: newBuySellPostListX!.posts![index]);
           },
         ):ListView.builder(
           controller: _scrollController,
           itemCount: newBuySellPostListX!.length(),
           itemBuilder: (context, index) {
             return BuyPostContainer(
-                post: newBuySellPostListX!.newBuySellPostListX![index]);
+                post: newBuySellPostListX!.posts![index]);
           },
         )
             :Center(
@@ -193,18 +193,6 @@ class _BuySellPageState extends State<BuySellPage> {
           ),
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          setState(() {
-            buySellPostHandler.handlePostList(widget.buyOrSell,false).then((_) {
-              setState(() {
-                newBuySellPostListX = buySellPostHandler.getBuySellPostList(widget.buyOrSell);
-              });
-            });
-          });
-        },
-      ),*/
       bottomNavigationBar: CustomBuySellBottomNavigationBar(buyOrSell: widget.buyOrSell,),
     );
   }
