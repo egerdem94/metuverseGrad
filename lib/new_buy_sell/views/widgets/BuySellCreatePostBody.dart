@@ -20,7 +20,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 
-class CreatePostBody extends StatefulWidget {
+class BuySellCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -30,7 +30,7 @@ class CreatePostBody extends StatefulWidget {
   final Function submitForm;
   final Function(File) onImageSelected;
 
-  CreatePostBody({
+  BuySellCreatePostBody({
     //this.imageUrls = const [],
     required this.updateImageUrls,
     required this.createProduct,
@@ -39,10 +39,10 @@ class CreatePostBody extends StatefulWidget {
   }) : super() ;
 
   @override
-  _CreatePostBodyState createState() => _CreatePostBodyState();
+  _BuySellCreatePostBodyState createState() => _BuySellCreatePostBodyState();
 }
 
-class _CreatePostBodyState extends State<CreatePostBody> {
+class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
   final TextEditingController description = TextEditingController();
   final TextEditingController productPrice = TextEditingController();
   final TextEditingController productCurrency = TextEditingController();

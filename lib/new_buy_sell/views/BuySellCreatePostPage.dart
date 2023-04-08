@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
-import 'package:metuverse/new_buy_sell/views/widgets/CreatePostBody.dart';
+import 'package:metuverse/new_buy_sell/views/widgets/BuySellCreatePostBody.dart';
 import 'package:metuverse/storage/models/CreatePostItem.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -55,7 +55,7 @@ class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
     return Scaffold(
       appBar: NewBuyAndSellAppBar(buyOrSell: widget.buyOrSell,),
       drawer: MetuverseDrawer(),
-      body: CreatePostBody(
+      body: BuySellCreatePostBody(
         updateImageUrls: updateImageUrls,
         createProduct: _createProduct,
         submitForm: _submitForm,

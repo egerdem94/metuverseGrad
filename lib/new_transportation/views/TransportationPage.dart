@@ -10,24 +10,24 @@ import 'package:metuverse/widgets/drawer.dart';
 
 
 
-class NewTransportationPage extends StatefulWidget {
+class TransportationPage extends StatefulWidget {
   final customerOrDriver;
   final searchModeFlag;
   final searchKey;/*
   final filteredProductPrice;
   final filteredCurrency;*/
 
-  const NewTransportationPage({
+  const TransportationPage({
     required this.customerOrDriver,
     required this.searchModeFlag,
     Key? key, this.searchKey/* this.filteredProductPrice, this.filteredCurrency,*/
   }) : super(key: key);
 
   @override
-  _NewTransportationPageState createState() => _NewTransportationPageState();
+  _TransportationPageState createState() => _TransportationPageState();
 }
 
-class _NewTransportationPageState extends State<NewTransportationPage> {
+class _TransportationPageState extends State<TransportationPage> {
   final _scrollController = ScrollController();
   NewTransportationPostList? transportationPostList;
   late TransportationPostHandler transportationPostHandler;
@@ -90,7 +90,7 @@ class _NewTransportationPageState extends State<NewTransportationPage> {
           ), // set the background color to blue
         ),
         child: transportationPostList != null ?
-        widget.customerOrDriver == 's' ? ListView.builder(
+        widget.customerOrDriver == 'c' ? ListView.builder(
           controller: _scrollController,
           itemCount: transportationPostList!.length(),
           itemBuilder: (context, index) {

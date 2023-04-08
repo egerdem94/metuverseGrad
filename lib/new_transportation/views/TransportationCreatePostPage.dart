@@ -7,7 +7,7 @@ import 'package:metuverse/storage/models/CreatePostItem.dart';
 //import 'package:metuverse/buyandsell/widgets/addProductBottomAppBar.dart';
 //import 'package:metuverse/buyandsell/widgets/add_product_body.dart';
 //import 'package:metuverse/buyandsell/widgets/deneme.dart';
-import 'package:metuverse/new_transportation/widget/transportationPostBody.dart';
+import 'package:metuverse/new_transportation/widget/TransportationCreatePostBody.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -48,7 +48,7 @@ class _TransportationCreatePostPageState extends State<TransportationCreatePostP
     return Scaffold(
       appBar: MetuverseAppBar(),
       drawer: MetuverseDrawer(),
-      body: TransportationPostBody(
+      body: TransportationCreatePostBody(
         createProduct: _createProduct,
         submitForm: _submitForm,
       ),

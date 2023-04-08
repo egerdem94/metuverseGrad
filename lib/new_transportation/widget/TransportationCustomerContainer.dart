@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/palette.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photo_grids/PhotoGridOnline.dart';
@@ -45,7 +46,8 @@ class TransportationCustomerContainer extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                  singlePostItem.getProfilePicture()
+                ),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
@@ -86,7 +88,7 @@ class TransportationCustomerContainer extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text("Location"),
+                        Text(TransportationLocations.getLocation(singlePostItem.departureID!)),
                       ],
                     ),
                   ),
@@ -110,7 +112,7 @@ class TransportationCustomerContainer extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text("Destination"),
+                        Text(TransportationLocations.getLocation(singlePostItem.destinationID!)),
                       ],
                     ),
                   ),

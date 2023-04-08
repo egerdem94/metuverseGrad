@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/new_transportation/views/NewTransportationPage.dart';
-import 'package:metuverse/new_transportation/views/transportationCarPage.dart';
-import 'package:metuverse/new_transportation/views/transportationPage.dart';
+import 'package:metuverse/new_transportation/views/TransportationPage.dart';
+import 'package:metuverse/ZNotUsing/transportationCarPage.dart';
+import 'package:metuverse/ZNotUsing/transportationPage.dart';
 import 'package:metuverse/new_transportation/views/TransportationCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/storage/User.dart';
@@ -58,7 +58,7 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
-                          builder: (context) => NewTransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
+                          builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
                       )
                   );
                 }),
@@ -105,7 +105,7 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
-                        builder: (context) => NewTransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
+                        builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
                     )
                 );
               },

@@ -1,35 +1,40 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:metuverse/new_transportation/model/TransportationLocations.dart';
+import 'package:metuverse/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/palette.dart';
 
 import '../../storage/User.dart';
 
-class TransportationPostBody extends StatefulWidget {
+class TransportationCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _personController = TextEditingController();
-  final TextEditingController _seatController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+
   final Function createProduct;
   final Function submitForm;
 
-  TransportationPostBody({
+  TransportationCreatePostBody({
     required this.createProduct,
     required this.submitForm,
   }) : super() {}
 
   @override
-  _TransportationPostBodyState createState() => _TransportationPostBodyState();
+  _TransportationCreatePostBodyState createState() => _TransportationCreatePostBodyState();
 }
 
-class _TransportationPostBodyState extends State<TransportationPostBody> {
+class _TransportationCreatePostBodyState extends State<TransportationCreatePostBody> {
+  final TextEditingController productPrice = TextEditingController();
+  final TextEditingController _personController = TextEditingController();
+  final TextEditingController _seatController = TextEditingController();
+  final TextEditingController description = TextEditingController();
   String _customerOrDriver = 'Customer';
   List<String> _who = ['Customer', 'Driver'];
-  String _selectedDeparture = 'Kalkanli';
-  List<String> _locationList = [
+  String _selectedDeparture = 'Campus';
+/*  List<String> _locationList = [
+    'Campus',
     'Ercan',
     'Girne',
     'Güzelyurt',
@@ -38,9 +43,10 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
     'Lefke',
     'Lefkoşa',
     'Mağusa'
-  ];
-  String _selectedDestination = 'Kalkanli';
-  List<String> _destinationList = [
+  ];*/
+  String _selectedDestination = 'Güzelyurt';
+/*  List<String> _destinationList = [
+    'Campus',
     'Ercan',
     'Girne',
     'Güzelyurt',
@@ -49,19 +55,26 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
     'Lefke',
     'Lefkoşa',
     'Mağusa'
-  ];
+  ];*/
   bool _showPrice = true;
   bool isButtonClicked = false;
+  bool isResponseReceived = false;
+  var generalResponseCreatePost;
 
-  Future _sendPostToBackend() async {/*
-    var url = "x";
+  Future _sendPostToBackend() async {
+    var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
     request.fields['token'] = User.token;
+    request.fields['departureID'] = TransportationLocations.getIndexOfLocation(_selectedDeparture).toString();
+    request.fields['destinationID'] = TransportationLocations.getIndexOfLocation(_selectedDestination).toString();
+    request.fields['departureDate'] = DateTime.now().toString(); //TODO
+    request.fields['availablePerson'] = getAvailablePerson(_customerOrDriver);
     request.fields['customerOrDriver'] = _customerOrDriver.toLowerCase()[0];
+    request.fields['transportationPrice'] = productPrice.text;
     request.fields['description'] = description.text;
-    request.fields['productPrice'] = productPrice.text;
-    request.fields['currency'] = _selectedCurrency;
+    request.fields['currency'] = '₺';
+
 
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {
@@ -75,12 +88,13 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         if (generalResponseCreatePost['processStatus'] == true) {
           //token = loginObject?.currentUserToken;
-          if (_buyerOrSeller == 'Selling') {
+          if (_customerOrDriver == 'Customer') {
             //Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
+                    //builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
+                  builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
                 )
             );
           } else {
@@ -88,7 +102,8 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
+                    //builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
+                  builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
                 )
             );
           }
@@ -102,8 +117,16 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
       });
     }).catchError((e) {
       print(e);
-    });*/
+    });
   }
+  String getAvailablePerson(String customerOrDriver){
+    if(customerOrDriver == 'Customer'){
+      return _personController.text;
+    }else{
+      return _seatController.text;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,14 +159,14 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _customerOrDriver == 'Passenger'
+                      color: _customerOrDriver == 'Customer'
                           ? Colors.black
                           : Colors.white,
                     ),
-                    child: _customerOrDriver == 'Passenger'
+                    child: _customerOrDriver == 'Customer'
                         ? Container()
                         : TextFormField(
-                            controller: widget._seatController,
+                            controller: _seatController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter seats';
@@ -165,13 +188,13 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
                       borderRadius: BorderRadius.circular(4.0),
-                      color: _customerOrDriver == 'Passenger'
+                      color: _customerOrDriver == 'Customer'
                           ? Color.fromARGB(255, 255, 255, 255)
                           : Colors.white,
                     ),
-                    child: _customerOrDriver == 'Passenger'
+                    child: _customerOrDriver == 'Customer'
                         ? TextFormField(
-                            controller: widget._personController,
+                            controller: _personController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter person';
@@ -186,7 +209,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                             keyboardType: TextInputType.number,
                           )
                         : TextFormField(
-                            controller: widget._priceController,
+                            controller: productPrice,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a price';
@@ -227,7 +250,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                 SizedBox(width: 10.0),
                                 Expanded(
                                   child: DropdownButton<String>(
-                                    items: _locationList.map<
+                                    items: TransportationLocations.locationList.map<
                                             DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -268,7 +291,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                                 SizedBox(width: 10.0),
                                 Expanded(
                                   child: DropdownButton<String>(
-                                    items: _destinationList.map<
+                                    items: TransportationLocations.locationList.map<
                                             DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -293,7 +316,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
                               top: 20, left: 16.0, right: 16.0, bottom: 8.0),
                           child: TextFormField(
                             style: kCreateText,
-                            controller: widget._descriptionController,
+                            controller: description,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a description';
@@ -371,7 +394,7 @@ class _TransportationPostBodyState extends State<TransportationPostBody> {
               onTap: () {
                 setState(() {
                   _showPrice = false;
-                  _customerOrDriver = 'Passenger';
+                  _customerOrDriver = 'Customer';
                 });
               },
               child: Icon(

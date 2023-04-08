@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
-import '../model/TransportationPost.dart';
-import '../widget/CustomTransportationBottomNavigationBar.dart';
+import '../new_transportation/model/TransportationPost.dart';
+import '../new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
 /*
 class TransportationCarPage extends StatefulWidget {
   @override
