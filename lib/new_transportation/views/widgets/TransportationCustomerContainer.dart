@@ -3,47 +3,28 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/palette.dart';
-import '../../widgets/full_screen_imagePage.dart';
-import '../../widgets/photo_grids/PhotoGridOnline.dart';
-import '../model/TransportationPost.dart';
 
-class TransportationDriverContainer extends StatefulWidget {
+class TransportationCustomerContainer extends StatelessWidget {
   final NewTransportationPost singlePostItem;
-  TransportationDriverContainer({required this.singlePostItem});
 
   final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];
+  TransportationCustomerContainer({required this.singlePostItem});
 
-  @override
-  _TransportationDriverContainerState createState() =>
-      _TransportationDriverContainerState();
-}
+  String currencySymbol = '';
 
-String currencySymbol = '';
+  String? currencyConverter(String? currencyText) {
+    if (currencyText == 'TL')
+      currencySymbol = '₺';
+    else if (currencyText == 'DOLLAR')
+      currencySymbol = '\$';
+    else if (currencyText == 'EURO')
+      currencySymbol = '€';
+    else if (currencyText == 'POUND') currencySymbol = '£';
 
-String? currencyConverter(String? currencyText) {
-  if (currencyText == 'TL')
-    currencySymbol = '₺';
-  else if (currencyText == 'DOLLAR')
-    currencySymbol = '\$';
-  else if (currencyText == 'EURO')
-    currencySymbol = '€';
-  else if (currencyText == 'POUND') currencySymbol = '£';
-
-  return currencySymbol;
-}
-
-class _TransportationDriverContainerState
-    extends State<TransportationDriverContainer> {
-  int seatsTaken = 0;
-  int totalSeats = 4;
-
-  void takeSeat() {
-    setState(() {
-      seatsTaken++;
-    });
+    return currencySymbol;
   }
 
   @override
@@ -62,17 +43,13 @@ class _TransportationDriverContainerState
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    widget.singlePostItem.getProfilePicture()
+                  singlePostItem.getProfilePicture()
                 ),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
-              Text(widget.singlePostItem.fullName ?? "", style: kUsersText),
+              Text(singlePostItem.fullName ?? "", style: kUsersText),
               Spacer(),
-              Text(
-                  '${widget.singlePostItem.transportationPrice ?? 0} ${currencyConverter(widget.singlePostItem.currency ?? "")}',
-                  style: kwhiteText),
-              SizedBox(width: 8.0),
               IconButton(
                 icon: Icon(
                   Icons.message,
@@ -85,7 +62,7 @@ class _TransportationDriverContainerState
             ],
           ),
           SizedBox(height: 8.0),
-          Text(widget.singlePostItem.description ?? "", style: kwhiteText),
+          Text(singlePostItem.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -108,7 +85,7 @@ class _TransportationDriverContainerState
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(widget.singlePostItem.departureID!)),
+                        Text(TransportationLocations.getLocation(singlePostItem.departureID!)),
                       ],
                     ),
                   ),
@@ -132,7 +109,7 @@ class _TransportationDriverContainerState
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(widget.singlePostItem.destinationID!)),
+                        Text(TransportationLocations.getLocation(singlePostItem.destinationID!)),
                       ],
                     ),
                   ),
@@ -198,9 +175,7 @@ class _TransportationDriverContainerState
                   onPressed: () {
 // Add product to favorites
                   },
-                  icon: Icon(
-                    MdiIcons.humanGreeting,
-                  ),
+                  icon: Icon(MdiIcons.carConnected),
                   color: Colors.blue,
                 ),
               IconButton(
@@ -218,17 +193,18 @@ class _TransportationDriverContainerState
                 color: Colors.blue,
               ),
               Spacer(),
-              IconButton(
-                icon: Icon(MdiIcons.seatPassenger,
-                    color:
-                        seatsTaken == totalSeats ? Colors.red : Colors.green),
-                onPressed: takeSeat,
-              ),
-              Text(
-                "$seatsTaken/$totalSeats",
-                style: TextStyle(
-                    color:
-                        seatsTaken == totalSeats ? Colors.red : Colors.green),
+              Chip(
+                label: Text(
+                  singlePostItem.transportationStatus! == 1 ? 'Looking' : 'Found',
+                  style: TextStyle(
+                    color: singlePostItem.transportationStatus! == 1
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
+                backgroundColor: singlePostItem.transportationStatus! == 1
+                    ? Colors.green
+                    : Colors.red,
               ),
             ],
           )
@@ -237,5 +213,3 @@ class _TransportationDriverContainerState
     );
   }
 }
-
-//total seat sayısı singlepostitemden gelecek

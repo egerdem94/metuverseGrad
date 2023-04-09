@@ -2,9 +2,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_transportation/model/TransportationPost.dart';
-import 'package:metuverse/new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
-import 'package:metuverse/new_transportation/widget/TransportationCustomerContainer.dart';
+import 'package:metuverse/new_transportation/views/widgets/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/new_transportation/views/widgets/TransportationCustomerContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 

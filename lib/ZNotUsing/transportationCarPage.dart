@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 //import 'package:metuverse/buyandsell/widgets/buySellBottom.dart';
 //import 'package:metuverse/buyandsell/widgets/BuyPostContainer.dart';
-import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
+import 'package:metuverse/new_transportation/views/widgets/TransportationDriverContainer.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
-import '../new_transportation/model/TransportationPost.dart';
-import '../new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
+import '../new_transportation/views/widgets/CustomTransportationBottomNavigationBar.dart';
 /*
 class TransportationCarPage extends StatefulWidget {
   @override

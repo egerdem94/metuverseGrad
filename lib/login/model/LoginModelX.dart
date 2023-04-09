@@ -1,16 +1,16 @@
-class login {
+class LoginModelX {
   bool? loginStatus;
   String? token;
   String? fullName;
   String? profilePicture;
 
-  login(
+  LoginModelX(
       {this.loginStatus,
         this.token,
         this.fullName,
         this.profilePicture});
 
-  login.fromJson(Map<String, dynamic> json) {
+  LoginModelX.fromJson(Map<String, dynamic> json) {
     loginStatus = json['loginStatus'];
     token = json['currentUserToken'];
     fullName = json['fullName'];

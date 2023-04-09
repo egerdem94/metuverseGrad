@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
-import '../../auth/screens/login-page.dart';
+import '../../login/view/LoginPage.dart';
 import '../../profile/screens/OtherUserProfilePage.dart';
 import '../../widgets/full_screen_imagePage.dart';
 import '../../widgets/photo_grids/PhotoGridOnline.dart';
