@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
 import 'package:metuverse/new_transportation/controller/storage/TransportationPostHandler.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/new_transportation/widget/CustomTransportationBottomNavigationBar.dart';
-import 'package:metuverse/new_transportation/widget/TransportationAppBar.dart';
-import 'package:metuverse/new_transportation/widget/TransportationDriverContainer.dart';
-import 'package:metuverse/new_transportation/widget/TransportationCustomerContainer.dart';
+import 'package:metuverse/new_transportation/views/widgets/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/new_transportation/views/widgets/TransportationAppBar.dart';
+import 'package:metuverse/new_transportation/views/widgets/TransportationDriverContainer.dart';
+import 'package:metuverse/new_transportation/views/widgets/TransportationCustomerContainer.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 

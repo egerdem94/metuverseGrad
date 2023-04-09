@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metuverse/auth/screens/Register-page.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/BuySellPostHandler.dart';
-import 'auth/screens/login-page.dart';
+import 'package:metuverse/logo_screen/view/LogoScreen.dart';
+import 'login/view/LoginPage.dart';
 import 'package:get/get.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
 }
-/*void main() {
-  Get.put<AuthProvider>(AuthProvider());
-  runApp(MyApp());
-}*/
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -26,7 +21,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      //home: LoginPage(),
+      home: LogoScreen(),//goes directly to logo screen
       getPages: [
         GetPage(
           name: '/register',

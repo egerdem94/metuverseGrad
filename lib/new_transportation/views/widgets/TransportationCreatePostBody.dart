@@ -8,7 +8,7 @@ import 'package:metuverse/new_transportation/model/TransportationLocations.dart'
 import 'package:metuverse/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/palette.dart';
 
-import '../../storage/User.dart';
+import '../../../storage/User.dart';
 
 class TransportationCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();

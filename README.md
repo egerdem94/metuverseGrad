@@ -1,4 +1,4 @@
-# deneme3
+# MetuVerse Campus App
 
 A new Flutter project.
 

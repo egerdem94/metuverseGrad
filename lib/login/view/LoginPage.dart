@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/auth/model/loginclass.dart';
 import 'package:flutter/material.dart';
+import 'package:metuverse/login/model/LoginModelX.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
-import '../../storage/User.dart';
+import 'package:metuverse/storage/User.dart';
 import '../../widgets/background-image.dart';
 import 'package:get/get.dart';
-
-import '../widgets/login-text-input.dart';
-import 'forgotPassword.dart';
+import '../../auth/widgets/login-text-input.dart';
+import '../../auth/screens/forgotPassword.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -26,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  login? loginObject;
+  LoginModelX? loginObject;
   bool passwordVisibilityBool = true;
 
 
@@ -43,13 +41,10 @@ class _LoginPageState extends State<LoginPage> {
       User.profilePicture = profilePicture;
     }
     else{
-      //User.profilePicture = "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-      // User.profilePicture = "https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg";
-      //User.profilePicture = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
       User.profilePicture = "http://birikikoli.com/images/blank-profile-picture.jpg";
     }
   }
-  void _user_login() async {
+  void userLogin() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/user_login.php';
     Uri serviceUri = Uri.parse(serviceAddress);
@@ -61,8 +56,10 @@ class _LoginPageState extends State<LoginPage> {
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
-    loginObject = login.fromJson(jsonObject);
-    //
+    loginObject = LoginModelX.fromJson(jsonObject);
+    debugPrint("Token: " + loginObject!.token!);
+    debugPrint("Full Name: " + loginObject!.fullName!);
+    debugPrint("Profile Picture: " + loginObject!.profilePicture!);
   }
 
   @override
@@ -103,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     Container(
+                        constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Column(
                           children: [
@@ -178,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   child: TextButton(
                                     onPressed: () {
-                                      _user_login();
+                                      userLogin();
                                       Timer(Duration(seconds: 2), () {
                                         if (loginObject?.loginStatus == true) {
                                           //token = loginObject?.token;

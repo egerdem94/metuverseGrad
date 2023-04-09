@@ -7,17 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/generalResponse.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
-import 'package:metuverse/palette.dart';
 import 'package:metuverse/storage/User.dart';
 
 import 'package:image/image.dart' as IMG;
-import 'dart:typed_data';
-
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 
 
 class BuySellCreatePostBody extends StatefulWidget {

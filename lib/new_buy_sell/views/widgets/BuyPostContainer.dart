@@ -11,10 +11,6 @@ import 'package:metuverse/widgets/full_screen_imagePage.dart';
 class BuyPostContainer extends StatelessWidget {
   final BuySellPost post;
 
-  /*final List<String> imagesUrls = [
-    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
-    'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
-  ];*/
   BuyPostContainer({required this.post});
 
   String currencySymbol = '';
