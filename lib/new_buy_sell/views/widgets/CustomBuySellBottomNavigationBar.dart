@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
-import 'package:metuverse/new_buy_sell/views/CreatePostPage.dart';
+import 'package:metuverse/new_buy_sell/views/BuySellCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/storage/User.dart';
 
 
 class CustomBuySellBottomNavigationBar extends StatelessWidget {
+  final buyOrSell;
+
+  const CustomBuySellBottomNavigationBar({super.key, required this.buyOrSell});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +71,7 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(CreatePostPage());
+                        Get.to(BuySellCreatePostPage(buyOrSell: buyOrSell,));
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors

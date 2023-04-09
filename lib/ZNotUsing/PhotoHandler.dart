@@ -1,5 +1,6 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:metuverse/storage/database/DatabaseHelperPhoto.dart';
+import 'package:metuverse/storage/database/database_photo/DatabaseHelperPhoto.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:http/http.dart' as http;
@@ -57,4 +58,4 @@ class PhotoHandler {
   PhotoList getPhotoList() {
     return this.photoList;
   }
-}
+}*/

@@ -5,7 +5,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:metuverse/auth/screens/login-page.dart';
+import 'package:metuverse/login/view/LoginPage.dart';
 
 import '../../home/screens/HomePage.dart';
 import '../../storage/User.dart';

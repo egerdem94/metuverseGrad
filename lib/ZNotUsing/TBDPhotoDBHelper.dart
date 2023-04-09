@@ -2,7 +2,7 @@
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'package:metuverse/storage/database/DatabaseHelper.dart';
+import 'package:metuverse/storage/database/DatabaseHelperParent.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
