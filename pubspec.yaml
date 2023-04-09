@@ -51,9 +51,11 @@ dependencies:
   #camera: ^0.8.1+7
   geolocator: ^9.0.2
   material_design_icons_flutter: ^6.0.7096
-  webview_flutter: ^4.0.1
+  webview_flutter: ^4.0.7
   table_calendar: ^3.0.9
   chat_gpt_sdk: ^1.0.2+1
+  carousel_slider: ^4.2.1
+  url_launcher: ^6.1.10
   #chat_gpt_sdk:
    # git:
      # url: https://github.com/iampawan/Flutter-ChatGPT.git

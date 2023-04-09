@@ -1,14 +1,13 @@
 /*
 import 'dart:async';
-
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:metuverse/storage/User.dart';
 import 'package:metuverse/widgets/app_bar.dart';
-
 import '../bottom_navigation_bar.dart';
 import 'chatmessage.dart';
 import 'threedots.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -21,10 +20,23 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<ChatMessage> _messages = [];
   ChatGPT? chatGPT;
-  bool _isImageSearch = false;
-
   StreamSubscription? _subscription;
   bool _isTyping = false;
+
+  void extractDate(String input) {
+    final dateRegex =
+        RegExp(r'(\b\d{1,2}\b)[/\.](\b\d{1,2}\b)[/\.](\b\d{2}|\b\d{4})\b');
+    final match = dateRegex.firstMatch(input);
+    if (match != null) {
+      final day = match.group(1);
+      final month = match.group(2);
+      final year = match.group(3)!.padLeft(4, '20');
+      final date =
+          DateTime(int.parse(year), int.parse(month!), int.parse(day!));
+      final formattedDate = DateFormat('dd/MM/yy').format(date);
+      insertNewData(formattedDate);
+    }
+  }
 
   @override
   void initState() {
@@ -36,21 +48,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-    chatGPT!.genImgClose();
+    chatGPT!.close();
     _subscription?.cancel();
     super.dispose();
   }
-
-  // Link for api - https://beta.openai.com/account/api-keys
 
   void _sendMessage() {
     if (_controller.text.isEmpty) return;
     ChatMessage message = ChatMessage(
       text: _controller.text,
-      sender: "user",
-      isImage: false,
+      sender: User.fullName,
     );
-
     setState(() {
       _messages.insert(0, message);
       _isTyping = true;
@@ -58,50 +66,26 @@ class _ChatScreenState extends State<ChatScreen> {
 
     _controller.clear();
 
-    /*_subscription = chatGPT!
-        .builder("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",
-            orgId: "")
+    _subscription?.cancel(); // Cancel any existing subscription
+
+    final request = CompleteReq(
+        prompt: message.text, model: kTranslateModelV3, max_tokens: 200);
+    _subscription = chatGPT!
         .onCompleteStream(request: request)
+        .asBroadcastStream()
         .listen((response) {
-      print(response.data!.last!.url!);
-      ChatMessage botMessage =
-          ChatMessage(text: response!.choices[0].text, sender: "bot");
-      setState(() {
-        _messages.insert(0, botMessage);
-      });
-    });*/
-
-    if (_isImageSearch) {
-      final request = GenerateImage(message.text, 1, size: "256x256");
-
-      _subscription = chatGPT!
-          .generateImageStream(request)
-          .asBroadcastStream()
-          .listen((response) {
-        print(response.data!.last!.url!);
-        insertNewData(response.data!.last!.url!, isImage: true);
-      });
-    } else {
-      final request = CompleteReq(
-          prompt: message.text, model: kTranslateModelV3, max_tokens: 200);
-
-      _subscription = chatGPT!
-          .onCompleteStream(request: request)
-          .asBroadcastStream()
-          .listen((response) {
-        print(response!.choices[0].text);
-        insertNewData(response.choices[0].text, isImage: false);
-      });
-    }
+      print(response!.choices[0].text);
+      insertNewData(response.choices[0].text);
+      _subscription
+          ?.cancel(); // Cancel the subscription after the response is received
+    });
   }
 
-  void insertNewData(String response, {bool isImage = false}) {
+  void insertNewData(String response) {
     ChatMessage botMessage = ChatMessage(
       text: response,
       sender: "bot",
-      isImage: isImage,
     );
-
     setState(() {
       _isTyping = false;
       _messages.insert(0, botMessage);
@@ -113,27 +97,29 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: TextField(
+            style: TextStyle(color: Colors.white70),
             controller: _controller,
-            onSubmitted: (value) => _sendMessage(),
+            onSubmitted: (value) {
+              _sendMessage();
+              extractDate(value);
+            },
             decoration: const InputDecoration.collapsed(
-                hintText: "Question/description"),
+                hintText: "Question/description",
+                hintStyle: TextStyle(color: Colors.white70)),
           ),
         ),
         ButtonBar(
           children: [
             IconButton(
-              icon: const Icon(Icons.send),
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white70,
+              ),
               onPressed: () {
-                _isImageSearch = false;
                 _sendMessage();
+                extractDate(_controller.text);
               },
             ),
-            TextButton(
-                onPressed: () {
-                  _isImageSearch = true;
-                  _sendMessage();
-                },
-                child: const Text("Generate Image"))
           ],
         ),
       ],
@@ -146,15 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: MetuverseAppBar(),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 208, 208, 208),
-              Color.fromARGB(255, 169, 169, 169),
-              Color.fromARGB(255, 204, 204, 204),
-            ],
-          ),
+          color: Colors.black,
         ),
         child: Column(
           children: [
@@ -172,7 +150,7 @@ class _ChatScreenState extends State<ChatScreen> {
               height: 1.0,
             ),
             Container(
-              decoration: BoxDecoration(color: Theme.of(context).cardColor),
+              decoration: BoxDecoration(color: Colors.black),
               child: _buildTextComposer(),
             )
           ],

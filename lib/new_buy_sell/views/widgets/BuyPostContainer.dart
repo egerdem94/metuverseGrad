@@ -7,7 +7,6 @@ import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 
-
 class BuyPostContainer extends StatelessWidget {
   final BuySellPost post;
 
@@ -33,7 +32,7 @@ class BuyPostContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
             bottom:
-            BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
+                BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -50,7 +49,7 @@ class BuyPostContainer extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(
-                    //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
+                      //"https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp"),
                       post.getProfilePicture()),
                   radius: 24.0,
                 ),
@@ -195,11 +194,11 @@ class BuyPostContainer extends StatelessWidget {
                   post.productStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
                     color:
-                    post.productStatus! == 1 ? Colors.white : Colors.black,
+                        post.productStatus! == 1 ? Colors.white : Colors.black,
                   ),
                 ),
                 backgroundColor:
-                post.productStatus! == 1 ? Colors.green : Colors.red,
+                    post.productStatus! == 1 ? Colors.green : Colors.red,
               ),
             ],
           )

@@ -1,4 +1,4 @@
-class SellBuyTableValues{
+class SellBuyTableValues {
   static const table = 'buy_sell_post';
 
   static const columnPostID = '_postID';

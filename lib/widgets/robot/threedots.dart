@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ThreeDots extends StatefulWidget {
   const ThreeDots({super.key});
-
   @override
   ThreeDotsState createState() => ThreeDotsState();
 }
@@ -11,7 +10,6 @@ class ThreeDotsState extends State<ThreeDots>
     with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
   int _currentIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -49,6 +47,7 @@ class ThreeDotsState extends State<ThreeDots>
               child: const Text(
                 '.',
                 textScaleFactor: 5,
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               ),
             );
           }),

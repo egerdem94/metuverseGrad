@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
+import 'package:get/get.dart';
+import 'package:metuverse/favorites/screen/favoritesPage.dart';
 
 class MetuverseDrawer extends StatelessWidget {
   @override
@@ -11,14 +13,14 @@ class MetuverseDrawer extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                "Menu item 1",
+                "FAV",
                 style: TextStyle(
                   color: Color.fromARGB(255, 255, 255, 255),
                   fontSize: 18.0,
                 ),
               ),
               onTap: () {
-                // navigate to the corresponding page
+                Get.to(FavoritesPage());
               },
             ),
             ListTile(

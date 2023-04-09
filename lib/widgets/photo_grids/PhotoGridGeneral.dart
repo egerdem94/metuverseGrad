@@ -24,7 +24,9 @@ class _PhotoGridGeneralState extends State<PhotoGridGeneral> {
   @override
   Widget build(BuildContext context) {
     return widget.photoList == null || widget.photoList!.photos.length == 0
-        ? PhotoGridOnline(imageUrls: widget.imageUrls, onImageClicked: widget.onImageClicked)
-        : PhotoGridOffline(photoList: widget.photoList, onImageClicked: widget.onImageClicked);
+        ? PhotoGridOnline(
+            imageUrls: widget.imageUrls, onImageClicked: widget.onImageClicked)
+        : PhotoGridOffline(
+            photoList: widget.photoList, onImageClicked: widget.onImageClicked);
   }
 }

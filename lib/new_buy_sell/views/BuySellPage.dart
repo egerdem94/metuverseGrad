@@ -124,8 +124,8 @@ class _BuySellPageState extends State<BuySellPage> {
           onRefresh: _handleRefresh,
           child: newBuySellPostListX != null
               ? widget.buyOrSell == 's'
-              ? buildSellPostListView()
-              : buildBuyPostListView()
+                  ? buildSellPostListView()
+                  : buildBuyPostListView()
               : NothingToDisplay(),
         ),
       ),
@@ -134,26 +134,27 @@ class _BuySellPageState extends State<BuySellPage> {
       ),
     );
   }
+
   ListView buildSellPostListView() {
     return ListView.builder(
       controller: _scrollController,
       itemCount: newBuySellPostListX!.length(),
       itemBuilder: (context, index) {
-        return SellPostContainer(
-            post: newBuySellPostListX!.posts![index]);
+        return SellPostContainer(post: newBuySellPostListX!.posts![index]);
       },
     );
   }
+
   ListView buildBuyPostListView() {
     return ListView.builder(
       controller: _scrollController,
       itemCount: newBuySellPostListX!.length(),
       itemBuilder: (context, index) {
-        return BuyPostContainer(
-            post: newBuySellPostListX!.posts![index]);
+        return BuyPostContainer(post: newBuySellPostListX!.posts![index]);
       },
     );
   }
+
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
       setState(() {
@@ -172,21 +173,23 @@ class NothingToDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //CircularProgressIndicator(),
-            SizedBox(height: 10),
-            Text("Nothing to display",style: TextStyle(color: Colors.white),),
-            SizedBox(height: 10),
-           /* ElevatedButton(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          //CircularProgressIndicator(),
+          SizedBox(height: 10),
+          Text(
+            "Nothing to display",
+            style: TextStyle(color: Colors.white),
+          ),
+          SizedBox(height: 10),
+          /* ElevatedButton(
               child: Text("Retry"),
               onPressed: () => buySellPostHandler.handlePostList(
                   widget.buyOrSell, true),
             )*/
-          ],
-        ),
-      );
+        ],
+      ),
+    );
   }
-
 }

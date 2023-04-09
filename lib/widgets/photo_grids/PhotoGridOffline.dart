@@ -42,7 +42,8 @@ class _PhotoGridOfflineState extends State<PhotoGridOffline> {
               controller: _pageController,
               itemCount: widget.photoList!.photos.length,
               itemBuilder: (context, index) {
-                Uint8List imageBytes = widget.photoList!.photos[index].photoData;
+                Uint8List imageBytes =
+                    widget.photoList!.photos[index].photoData;
                 return GestureDetector(
                   child: Image.memory(
                     imageBytes,
@@ -70,6 +71,5 @@ class _PhotoGridOfflineState extends State<PhotoGridOffline> {
         ],
       );
     }
-
   }
 }

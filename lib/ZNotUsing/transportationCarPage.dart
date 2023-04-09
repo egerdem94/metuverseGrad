@@ -47,6 +47,16 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       currency: "USD",
       transportationStatus: 1,
     ),
+    SinglePostItem(
+      belongToUser: true,
+      fullName: "Yavuz Erbaş",
+      profilePicture: null,
+      postID: 1,
+      description: "If anyone going to girne. I can join",
+      productPrice: 200,
+      currency: "USD",
+      productStatus: 1,
+    ),
   ];
 
   @override
@@ -106,7 +116,7 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
               Color.fromARGB(255, 0, 0, 0),
               Color.fromARGB(255, 0, 0, 0),
             ],
-          ), // set the background color to blue
+          ),
         ),
         child: ListView.builder(
           itemCount: transportationCarPostsListObject?.total,
@@ -120,19 +130,6 @@ class _TransportationCarPageState extends State<TransportationCarPage> {
       bottomNavigationBar: CustomTransportationBottomNavigationBar(),
     );
   }
-
-  /*void _loadProducts() async {
-    // Replace 'https://example.com/api/products' with the URL of your server's API endpoint
-    var response = await http.get('https://example.com/api/products');
-    if (response.statusCode == 200) {
-      List<Product> fetchedProducts = productsFromJson(response.body);
-      setState(() {
-        products = fetchedProducts;
-      });
-    } else {
-      // Handle error
-    }
-  }*/
 }
 
  */

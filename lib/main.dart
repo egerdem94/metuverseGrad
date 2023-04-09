@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 Future<void> main() async {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      //home: LoginPage(),
-      home: LogoScreen(),//goes directly to logo screen
+      home: LoginPage(),
+      // home: LogoScreen(),//goes directly to logo screen
       getPages: [
         GetPage(
           name: '/register',

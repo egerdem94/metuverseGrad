@@ -53,7 +53,9 @@ class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(buyOrSell: widget.buyOrSell,),
+      appBar: NewBuyAndSellAppBar(
+        buyOrSell: widget.buyOrSell,
+      ),
       drawer: MetuverseDrawer(),
       body: BuySellCreatePostBody(
         updateImageUrls: updateImageUrls,

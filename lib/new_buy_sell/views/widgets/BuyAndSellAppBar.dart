@@ -3,7 +3,8 @@ import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellSearchPage.dart';
 
-class NewBuyAndSellAppBar extends StatelessWidget implements PreferredSizeWidget {
+class NewBuyAndSellAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final buyOrSell;
 
   const NewBuyAndSellAppBar({super.key, required this.buyOrSell});
@@ -33,7 +34,9 @@ class NewBuyAndSellAppBar extends StatelessWidget implements PreferredSizeWidget
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-              Get.to((BuySellSearchPage(buyOrSell: buyOrSell,)));
+              Get.to((BuySellSearchPage(
+                buyOrSell: buyOrSell,
+              )));
             },
           ),
           IconButton(
