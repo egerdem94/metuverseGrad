@@ -23,10 +23,11 @@ class ProfileBottomBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            BackButton(
-              color: Colors.white,
+            Expanded(
+              child: BackButton(
+                color: Colors.white,
+              ),
             ),
-            SizedBox(width: 110.0),
             Expanded(
               child: IconButton(
                 icon: Icon(
@@ -38,32 +39,35 @@ class ProfileBottomBar extends StatelessWidget {
                 },
               ),
             ),
-            IconButton(
-              icon: Icon(
-                MdiIcons.robotHappy,
-                color: Colors.white,
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.robotHappy,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // Get.to(ChatScreen());
+                },
               ),
-              onPressed: () {
-                //Get.to(ChatScreen());
-              },
             ),
-            SizedBox(width: 25.0),
-            IconButton(
-              icon: Icon(
-                MdiIcons.logout,
-                color: Colors.white,
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.logout,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  User.logout();
+                  //Get.to(ProfilePage());
+                  //Get.to(LoginPage());
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return LoginPage();
+                  }), (r) {
+                    return false;
+                  });
+                },
               ),
-              onPressed: () {
-                User.logout();
-                //Get.to(ProfilePage());
-                //Get.to(LoginPage());
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return LoginPage();
-                }), (r) {
-                  return false;
-                });
-              },
             ),
           ],
         ),

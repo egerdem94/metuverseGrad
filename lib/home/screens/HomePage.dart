@@ -4,11 +4,12 @@ import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
+import 'package:metuverse/home/widgets/announcementSlides.dart';
 import 'package:metuverse/widgets/app_bar.dart';
+import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/widgets/rounded_square_button.dart';
-
 
 class HomePage extends StatelessWidget {
   @override
@@ -30,6 +31,10 @@ class HomePage extends StatelessWidget {
         ),
         child: Column(
           children: [
+            SizedBox(
+              height: 10,
+            ),
+            AnnouncementSlider(),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -37,14 +42,16 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(BuySellPage(buyOrSell: 's', searchModeFlag: false));
+                      Get.to(
+                          BuySellPage(buyOrSell: 's', searchModeFlag: false));
                     },
                     imageUrl: 'assets-images/13717.jpg',
                   ),
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(TransportationPage(customerOrDriver: 'c', searchModeFlag: false));
+                      Get.to(TransportationPage(
+                          customerOrDriver: 'c', searchModeFlag: false));
                     },
                     imageUrl: 'assets-images/carshare.PNG',
                   ),
@@ -81,7 +88,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: MainPageNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

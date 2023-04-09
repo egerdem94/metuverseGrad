@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mycompany.deneme3"
     xmlns:tools="http://schemas.android.com/tools">
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="deneme3" />
+        </intent>
+        </queries>
+
    <uses-permission android:name="android.permission.INTERNET"/>
-
-
+  
    <application
         android:label="deneme3"
         tools:replace="android:label"

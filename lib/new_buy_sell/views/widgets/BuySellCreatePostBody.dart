@@ -12,7 +12,6 @@ import 'package:metuverse/storage/User.dart';
 import 'package:image/image.dart' as IMG;
 import 'package:path_provider/path_provider.dart';
 
-
 class BuySellCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _priceController = TextEditingController();
@@ -29,7 +28,7 @@ class BuySellCreatePostBody extends StatefulWidget {
     required this.createProduct,
     required this.submitForm,
     required this.onImageSelected,
-  }) : super() ;
+  }) : super();
 
   @override
   _BuySellCreatePostBodyState createState() => _BuySellCreatePostBodyState();
@@ -55,10 +54,9 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
   var generalResponseCreatePost;
 
   List<int> getResizedDimensions(int desiredHeight, int width, int height) {
-    if(height <= desiredHeight) return [height, width];
+    if (height <= desiredHeight) return [height, width];
     double ratio = height / desiredHeight;
     return [(width / ratio).round(), desiredHeight];
-
   }
 
   Future _sendPostToBackend() async {
@@ -66,14 +64,17 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
     int i = 0;
-    for(var fL in fileList) {
-        if (fL != null) {
-        IMG.Image? img = IMG.decodeImage(await  fL.readAsBytes());
-        List<int> resizeDimList = getResizedDimensions(200, img!.width, img.height);
-        IMG.Image resized = IMG.copyResize(img, width: resizeDimList[0], height: resizeDimList[1]);
+    for (var fL in fileList) {
+      if (fL != null) {
+        IMG.Image? img = IMG.decodeImage(await fL.readAsBytes());
+        List<int> resizeDimList =
+            getResizedDimensions(200, img!.width, img.height);
+        IMG.Image resized = IMG.copyResize(img,
+            width: resizeDimList[0], height: resizeDimList[1]);
 
         final dir = await getTemporaryDirectory();
-        final path = "${dir.path}/test${User.username}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
+        final path =
+            "${dir.path}/test${User.username}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
         final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
 
         var pic = await http.MultipartFile.fromPath("image$i", newImg.path);
@@ -98,7 +99,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
 
         // show snackbar if input data successfully
         final snackBar =
-        SnackBar(content: Text(generalResponseCreatePost['message']));
+            SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         if (generalResponseCreatePost['processStatus'] == true) {
           //token = loginObject?.currentUserToken;
@@ -107,17 +108,19 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
-                )
-            );
+                    builder: (context) => BuySellPage(
+                          buyOrSell: 's',
+                          searchModeFlag: false,
+                        )));
           } else {
             //Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
-                )
-            );
+                    builder: (context) => BuySellPage(
+                          buyOrSell: 'b',
+                          searchModeFlag: false,
+                        )));
           }
         } else {
           isButtonClicked = false;
@@ -289,10 +292,11 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           margin: EdgeInsets.only(
-                              left: 16.0, right: 16.0, bottom: 8.0,top: 20),
+                              left: 16.0, right: 16.0, bottom: 8.0, top: 20),
                           child: TextFormField(
                             style: TextStyle(
-                              color: Colors.black, // Set the text color to black
+                              color:
+                                  Colors.black, // Set the text color to black
                               fontSize: 16.0,
                               fontWeight: FontWeight.normal,
                             ),
@@ -311,11 +315,11 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                                   color: Color.fromARGB(255, 111, 111, 111)),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
-                                BorderSide(color: Colors.transparent),
+                                    BorderSide(color: Colors.transparent),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide:
-                                BorderSide(color: Colors.transparent),
+                                    BorderSide(color: Colors.transparent),
                               ),
                             ),
                             maxLines: null,
@@ -327,8 +331,8 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                           child: GridView.builder(
                             itemCount: fileList.length,
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3),
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3),
                             itemBuilder: (BuildContext context, int i) {
                               return Container(
                                 padding: const EdgeInsets.all(10),

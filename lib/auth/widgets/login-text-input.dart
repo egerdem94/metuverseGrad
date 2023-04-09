@@ -20,7 +20,6 @@ class LoginTextInput extends StatelessWidget {
 
   final TextEditingController enterInfo;
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,12 +44,11 @@ class LoginTextInput extends StatelessWidget {
                 size: 30,
               ),
             ),
-
-
-            hintStyle: TextStyle(fontSize: 22,
-              color: Colors.white.withOpacity(0.5),),
+            hintStyle: TextStyle(
+              fontSize: 22,
+              color: Colors.white.withOpacity(0.5),
+            ),
           ),
-
           style: kBodyText,
           keyboardType: inputType,
           textInputAction: inputAction,

@@ -4,7 +4,8 @@ import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTable
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/storage/models/Photo.dart';
-class BuySellPostList extends BasePostList{
+
+class BuySellPostList extends BasePostList {
   List<BuySellPost>? posts;
   int? total;
   bool nothingFound = false;
@@ -47,55 +48,57 @@ class BuySellPostList extends BasePostList{
     return data;
   }*/
   //function sorts the list by postID
-  void sortListByPostID(){
+  void sortListByPostID() {
     posts!.sort((b, a) => a.postID!.compareTo(b.postID!));
   }
-  BuySellPost? getPostWithID(int id){
-    if(posts == null){
+
+  BuySellPost? getPostWithID(int id) {
+    if (posts == null) {
       return null;
     }
-    for(var post in posts!){
-      if(id == post.postID){
+    for (var post in posts!) {
+      if (id == post.postID) {
         return post;
       }
     }
     return null;
   }
-  bool isEmpty(){
-    if(posts == null || posts!.length == 0)
+
+  bool isEmpty() {
+    if (posts == null || posts!.length == 0)
       return true;
     else
       return false;
   }
+
   //function adds new posts to the list
   // if the postID is already in the list, it is not added
   // comparison is done by postID
-  void addNewPosts(BuySellPostList newPosts){
+  void addNewPosts(BuySellPostList newPosts) {
     newPosts.posts!.forEach((element) {
       addNewPost(element);
     });
-    sortListByPostID();// IMPORTANT! This might be a bad idea. You might do ordering while inserting!
+    sortListByPostID(); // IMPORTANT! This might be a bad idea. You might do ordering while inserting!
   }
-  void addNewPost(BuySellPost newBuySellPostX){
+
+  void addNewPost(BuySellPost newBuySellPostX) {
     bool postIDAlreadyExists = false;
     bool postIDAlreadyExistsButUpdated = false;
     posts!.forEach((newElement) {
-      if(newBuySellPostX.postID == newElement.postID){
-        if(newElement.updateVersion! > newBuySellPostX.updateVersion!){
+      if (newBuySellPostX.postID == newElement.postID) {
+        if (newElement.updateVersion! > newBuySellPostX.updateVersion!) {
           postIDAlreadyExistsButUpdated = true;
-        }
-        else{
+        } else {
           postIDAlreadyExists = true;
         }
       }
     });
-    if(!postIDAlreadyExists){
+    if (!postIDAlreadyExists) {
       posts!.add(newBuySellPostX);
-    }
-    else if(postIDAlreadyExistsButUpdated){
+    } else if (postIDAlreadyExistsButUpdated) {
       //replace the old post with the new one
-      for(int i = 0; i < posts!.length; i++){
-        if(posts![i].postID == newBuySellPostX.postID){
+      for (int i = 0; i < posts!.length; i++) {
+        if (posts![i].postID == newBuySellPostX.postID) {
           posts![i] = newBuySellPostX;
         }
       }
@@ -103,40 +106,41 @@ class BuySellPostList extends BasePostList{
   }
 
   //function returns the deletes the post with the given postID
-  void deletePost(int postID){
+  void deletePost(int postID) {
     posts!.removeWhere((element) => element.postID == postID);
   }
-  void addPhotos(PhotoList photos){
-    if(posts == null){
+
+  void addPhotos(PhotoList photos) {
+    if (posts == null) {
       debugPrint("Unexpected!");
       return;
     }
-    for(var photo in photos.photos){
-      for(var post in posts!){
-        if(photo.postID == post.postID){
+    for (var photo in photos.photos) {
+      for (var post in posts!) {
+        if (photo.postID == post.postID) {
           post.addPhoto(photo);
           break;
         }
       }
     }
   }
+
   //function returns the last postID in the list
-  int getLastPostID(){
+  int getLastPostID() {
     sortListByPostID();
     return posts!.last.postID!;
   }
-  int length(){
-    if(posts == null){
+
+  int length() {
+    if (posts == null) {
       return 0;
-    }
-    else{
+    } else {
       return posts!.length;
     }
   }
 }
 
-class BuySellPost extends BasePostWithMedia{
-
+class BuySellPost extends BasePostWithMedia {
   int? productPrice;
   String? currency;
   int? productStatus;
@@ -152,7 +156,9 @@ class BuySellPost extends BasePostWithMedia{
     productPrice = json['productPrice'];
     currency = json['currency'];
     productStatus = json['productStatus'];
-    mediaExist = (mediaList != null && mediaList!.length > 0); //mediaExist is false if mediaList is null or length is 0 and true if mediaList is not empty
+    mediaExist = (mediaList != null &&
+        mediaList!.length >
+            0); //mediaExist is false if mediaList is null or length is 0 and true if mediaList is not empty
     isPostFromNetwork = true;
   }
 

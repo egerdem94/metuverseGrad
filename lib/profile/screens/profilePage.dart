@@ -33,173 +33,134 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        body: NotificationListener<ScrollUpdateNotification>(
-          onNotification: (scrollNotification) {
-            final pixels = scrollNotification.metrics.pixels;
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          body: NotificationListener<ScrollUpdateNotification>(
+            onNotification: (scrollNotification) {
+              final pixels = scrollNotification.metrics.pixels;
 
-            // check if scroll is vertical ( left to right OR right to left)
-            final scrollTabs = (scrollNotification.metrics.axisDirection ==
-                AxisDirection.right ||
-                scrollNotification.metrics.axisDirection == AxisDirection.left);
+              // check if scroll is vertical ( left to right OR right to left)
+              final scrollTabs = (scrollNotification.metrics.axisDirection ==
+                      AxisDirection.right ||
+                  scrollNotification.metrics.axisDirection ==
+                      AxisDirection.left);
 
-            if (!scrollTabs) {
-              // and here prevents animation of avatar when you scroll tabs
-              if (expandedHeader - pixels <= kToolbarHeight) {
-                if (isExpanded) {
-                  translate = 0.0;
-                  setState(() {
-                    isExpanded = false;
-                  });
-                }
-              } else {
-                translate = -avatarMaximumRadius + pixels;
-                if (translate > 0) {
-                  translate = 0.0;
-                }
-                if (!isExpanded) {
-                  setState(() {
-                    isExpanded = true;
-                  });
-                }
-              }
-
-              offset = pixels * 0.4;
-
-              final newSize = (avatarMaximumRadius - offset);
-
-              setState(() {
-                if (newSize < avatarMinimumRadius) {
-                  avatarRadius = avatarMinimumRadius;
-                } else if (newSize > avatarMaximumRadius) {
-                  avatarRadius = avatarMaximumRadius;
+              if (!scrollTabs) {
+                // and here prevents animation of avatar when you scroll tabs
+                if (expandedHeader - pixels <= kToolbarHeight) {
+                  if (isExpanded) {
+                    translate = 0.0;
+                    setState(() {
+                      isExpanded = false;
+                    });
+                  }
                 } else {
-                  avatarRadius = newSize;
+                  translate = -avatarMaximumRadius + pixels;
+                  if (translate > 0) {
+                    translate = 0.0;
+                  }
+                  if (!isExpanded) {
+                    setState(() {
+                      isExpanded = true;
+                    });
+                  }
                 }
-              });
-            }
-            return false;
-          },
-          child: DefaultTabController(
-            length: 8,
-            child: CustomScrollView(
-              physics: ClampingScrollPhysics(),
-              slivers: <Widget>[
-                SliverAppBar(
-                  expandedHeight: expandedHeader,
-                  backgroundColor: Colors.grey,
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(Icons.menu),
+
+                offset = pixels * 0.4;
+
+                final newSize = (avatarMaximumRadius - offset);
+
+                setState(() {
+                  if (newSize < avatarMinimumRadius) {
+                    avatarRadius = avatarMinimumRadius;
+                  } else if (newSize > avatarMaximumRadius) {
+                    avatarRadius = avatarMaximumRadius;
+                  } else {
+                    avatarRadius = newSize;
+                  }
+                });
+              }
+              return false;
+            },
+            child: DefaultTabController(
+              length: 8,
+              child: CustomScrollView(
+                physics: ClampingScrollPhysics(),
+                slivers: <Widget>[
+                  SliverAppBar(
+                    expandedHeight: expandedHeader,
+                    backgroundColor: Colors.grey,
+                    leading: Builder(
+                      builder: (BuildContext context) {
+                        return IconButton(
+                          icon: const Icon(Icons.menu),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                          tooltip: MaterialLocalizations.of(context)
+                              .openAppDrawerTooltip,
+                        );
+                      },
+                    ),
+                    title: Text(
+                      "Metuverse",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    centerTitle: true,
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.search_rounded),
                         onPressed: () {
-                          Scaffold.of(context).openDrawer();
+                          Get.to(SearchPage());
                         },
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      );
-                    },
-                  ),
-                  title: Text(
-                    "Metuverse",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  centerTitle: true,
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.search_rounded),
-                      onPressed: () {
-                        Get.to(SearchPage());
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.notifications),
-                      onPressed: () {
-                        // handle notification button press
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.mail),
-                      onPressed: () {
-                        // handle direct message button press
-                      },
-                    ),
-                  ],
-                  pinned: true,
-                  elevation: 5.0,
-                  forceElevated: true,
-                  flexibleSpace: Container(
-                    decoration: BoxDecoration(
-                        color: isExpanded
-                            ? Colors.transparent
-                            : Color.fromARGB(255, 0, 0, 0),
-                        image: isExpanded
-                            ? DecorationImage(
-                          fit: BoxFit.cover,
-                          alignment: Alignment.bottomCenter,
-                          image: NetworkImage(
-                              'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-                        )
-                            : null),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: isExpanded
-                          ? Transform(
-                        transform: Matrix4.identity()
-                          ..translate(0.0, avatarMaximumRadius),
-                        child: MyAvatar(
-                          size: avatarRadius,
-                        ),
-                      )
-                          : SizedBox.shrink(),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            isExpanded
-                                ? SizedBox(
-                              height: avatarMinimumRadius * 2,
-                            )
-                                : MyAvatar(
-                              size: avatarMinimumRadius,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5.0, horizontal: 10.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.lightBlue,
-                                  borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.notifications),
+                        onPressed: () {
+                          // handle notification button press
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.mail),
+                        onPressed: () {
+                          // handle direct message button press
+                        },
+                      ),
+                    ],
+                    pinned: true,
+                    elevation: 5.0,
+                    forceElevated: true,
+                    flexibleSpace: Container(
+                      decoration: BoxDecoration(
+                          color: isExpanded
+                              ? Colors.transparent
+                              : Color.fromARGB(255, 0, 0, 0),
+                          image: isExpanded
+                              ? DecorationImage(
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.bottomCenter,
+                                  image: NetworkImage(
+                                      'https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                                )
+                              : null),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: isExpanded
+                            ? Transform(
+                                transform: Matrix4.identity()
+                                  ..translate(0.0, avatarMaximumRadius),
+                                child: MyAvatar(
+                                  size: avatarRadius,
                                 ),
-                                child: Text(
-                                  "Edit Profile",
-                                  style: TextStyle(
-                                      fontSize: 17.0, color: Colors.white),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        ProfileHeader(),
-                      ],
+                              )
+                            : SizedBox.shrink(),
+                      ),
                     ),
                   ),
-                ),
+                  /* ),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: ProfileTabs(50.0),
@@ -211,12 +172,81 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   ),
                 ),*/
-              ],
+              ], */
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              isExpanded
+                                  ? SizedBox(
+                                      height: avatarMinimumRadius * 2,
+                                    )
+                                  : MyAvatar(
+                                      size: avatarMinimumRadius,
+                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.0, horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.lightBlue,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // handle button press
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 6.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.lightBlue,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "Edit Profile",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          ProfileHeader(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: ProfileTabs(50.0),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        //return Post();
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        bottomNavigationBar: ProfileBottomBar()
-      ),
+          bottomNavigationBar: ProfileBottomBar()),
     );
   }
 }
@@ -341,16 +371,13 @@ class _PostState extends State<Post> {
 ////////////PROFİL FOTOSU BURDA
 class MyAvatar extends StatefulWidget {
   final double? size;
-  const MyAvatar({Key? key,  required this.size}) : super(key: key);
+  const MyAvatar({Key? key, required this.size}) : super(key: key);
 
   @override
   State<MyAvatar> createState() => _MyAvatarState();
 }
 
-
-
 class _MyAvatarState extends State<MyAvatar> {
-
   XFile? pickedImage;
   File? file;
   List<File?> fileList = [];
@@ -371,7 +398,6 @@ class _MyAvatarState extends State<MyAvatar> {
 
     request.fields['token'] = User.token;
 
-
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {
         var message = jsonDecode(response.body);
@@ -380,19 +406,22 @@ class _MyAvatarState extends State<MyAvatar> {
 
         // show snackbar if input data successfully
         final snackBar =
-        SnackBar(content: Text(generalResponseCreatePost['message']));
+            SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        developer.log("JSON: Status: " + generalResponseCreatePost['processStatus'].toString() + " Message: " + generalResponseCreatePost['message'] + "ProfilePicture: " + generalResponseCreatePost['profilePicture'], name: 'my.app.category');
+        developer.log(
+            "JSON: Status: " +
+                generalResponseCreatePost['processStatus'].toString() +
+                " Message: " +
+                generalResponseCreatePost['message'] +
+                "ProfilePicture: " +
+                generalResponseCreatePost['profilePicture'],
+            name: 'my.app.category');
 
         if (generalResponseCreatePost['processStatus'] == true) {
           //token = loginObject?.currentUserToken;
           User.profilePicture = generalResponseCreatePost['profilePicture'];
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage()));
-
-
+              context, MaterialPageRoute(builder: (context) => HomePage()));
         } else {
           //isButtonClicked = false;
           //isResponseReceived = false;
@@ -428,16 +457,13 @@ class _MyAvatarState extends State<MyAvatar> {
             shape: BoxShape.circle),
         child: Padding(
           padding: const EdgeInsets.all(2.0),
-          child:
-          GestureDetector(
+          child: GestureDetector(
             onTap: () {
               pickImageFromGallery();
             },
-            child:
-            CircleAvatar(
+            child: CircleAvatar(
               radius: widget.size,
-              backgroundImage:
-              NetworkImage(
+              backgroundImage: NetworkImage(
                 User.profilePicture,
               ),
             ),

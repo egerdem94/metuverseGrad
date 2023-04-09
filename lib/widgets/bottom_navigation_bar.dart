@@ -22,10 +22,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            BackButton(
-              color: Colors.white,
+            Expanded(
+              child: BackButton(
+                color: Colors.white,
+              ),
             ),
-            SizedBox(width: 110.0),
             Expanded(
               child: IconButton(
                 icon: Icon(
@@ -37,27 +38,30 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 },
               ),
             ),
-            IconButton(
-              icon: Icon(
-                MdiIcons.robotHappy,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                //Get.to(ChatScreen());
-              },
-            ),
-            SizedBox(width: 25.0),
-            IconButton(
-              icon: CircleAvatar(
-                radius: 18.0,
-                backgroundImage: NetworkImage(
-                  //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
-                  User.profilePicture,
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.robotHappy,
+                  color: Colors.white,
                 ),
+                onPressed: () {
+                  // Get.to(ChatScreen());
+                },
               ),
-              onPressed: () {
-                Get.to(ProfilePage());
-              },
+            ),
+            Expanded(
+              child: IconButton(
+                icon: CircleAvatar(
+                  radius: 18.0,
+                  backgroundImage: NetworkImage(
+                    //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
+                    User.profilePicture,
+                  ),
+                ),
+                onPressed: () {
+                  Get.to(ProfilePage());
+                },
+              ),
             ),
           ],
         ),

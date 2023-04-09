@@ -6,11 +6,25 @@ import 'package:metuverse/new_buy_sell/views/BuySellCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/storage/User.dart';
 
-
-class CustomBuySellBottomNavigationBar extends StatelessWidget {
+class CustomBuySellBottomNavigationBar extends StatefulWidget {
   final buyOrSell;
 
   const CustomBuySellBottomNavigationBar({super.key, required this.buyOrSell});
+  @override
+  _CustomBuySellBottomNavigationBarState createState() =>
+      _CustomBuySellBottomNavigationBarState();
+}
+
+class _CustomBuySellBottomNavigationBarState
+    extends State<CustomBuySellBottomNavigationBar> {
+  int _activeTab = 0;
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _activeTab = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,17 +55,19 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.sell,
-                color: Colors.white,
+                color: _activeTab == 1 ? Colors.white : Colors.white60,
               ),
               onPressed: () {
                 //Get.to(NewBuySellPageX(buyOrSell: 's'));
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
-                    )
-                );
+                        builder: (context) => BuySellPage(
+                              buyOrSell: 's',
+                              searchModeFlag: false,
+                            )));
                 // go back
+                _onTabSelected(1);
               },
             ),
             Expanded(
@@ -71,7 +87,9 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(BuySellCreatePostPage(buyOrSell: buyOrSell,));
+                        Get.to(BuySellCreatePostPage(
+                          buyOrSell: widget.buyOrSell,
+                        ));
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -89,16 +107,17 @@ class CustomBuySellBottomNavigationBar extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.shopping_bag,
-                color: Colors.white,
+                color: _activeTab == 2 ? Colors.white : Colors.white60,
               ),
               onPressed: () {
                 //Get.to(NewBuySellPageX(buyOrSell: 'b'));
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
-                    )
-                );
+                        builder: (context) => BuySellPage(
+                              buyOrSell: 'b',
+                              searchModeFlag: false,
+                            )));
                 // go back
               },
             ),

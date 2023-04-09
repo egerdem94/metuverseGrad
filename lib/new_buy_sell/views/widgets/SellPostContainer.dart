@@ -6,7 +6,7 @@ import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
-
+import 'package:metuverse/widgets/commentPage.dart';
 
 class SellPostContainer extends StatelessWidget {
   final BuySellPost post;
@@ -32,7 +32,7 @@ class SellPostContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
             bottom:
-            BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
+                BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -42,17 +42,16 @@ class SellPostContainer extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.to(OtherUserProfilePage(userFullName: post.fullName, profilePicture: post.getProfilePicture(),));
+                  Get.to(OtherUserProfilePage(
+                    userFullName: post.fullName,
+                    profilePicture: post.getProfilePicture(),
+                  ));
                 },
-                child:
-                CircleAvatar(
-
-                  backgroundImage: NetworkImage(
-                      post.getProfilePicture()),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(post.getProfilePicture()),
                   radius: 24.0,
                 ),
               ),
-
               SizedBox(width: 8.0),
               Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
@@ -171,7 +170,7 @@ class SellPostContainer extends StatelessWidget {
                 ),
               IconButton(
                 onPressed: () {
-                  // Leave a comment
+                  Get.to(CommentScreen());
                 },
                 icon: Icon(Icons.comment_rounded),
                 color: Colors.blue,
@@ -188,17 +187,30 @@ class SellPostContainer extends StatelessWidget {
                 label: Text(
                   post.productStatus! == 1 ? 'Available' : 'Sold',
                   style: TextStyle(
-                    color: post.productStatus! == 1
-                        ? Colors.white
-                        : Colors.black,
+                    color:
+                        post.productStatus! == 1 ? Colors.white : Colors.black,
                   ),
                 ),
-                backgroundColor: post.productStatus! == 1
-                    ? Colors.green
-                    : Colors.red,
+                backgroundColor:
+                    post.productStatus! == 1 ? Colors.green : Colors.red,
               ),
             ],
-          )
+          ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Get.to(CommentScreen());
+                },
+                child: Text(
+                  'Show all comments',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color.fromARGB(255, 174, 174, 174)),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -25,12 +25,17 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
     super.initState();
     buySellPostHandler = BuySellPostHandler();
     buySellPostHandler.init().then((_) {});
-
   }
+
   void _submitSearch() {
     // code to perform search with the text in _searchController
     //Get.to(SellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
-    Get.offAll(BuySellPage(buyOrSell: widget.buyOrSell,searchModeFlag: true,searchKey: searchController.text, filteredProductPrice: maxPriceController.text, filteredCurrency: currencyController.text));
+    Get.offAll(BuySellPage(
+        buyOrSell: widget.buyOrSell,
+        searchModeFlag: true,
+        searchKey: searchController.text,
+        filteredProductPrice: maxPriceController.text,
+        filteredCurrency: currencyController.text));
 /*    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -80,7 +85,9 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(buyOrSell: widget.buyOrSell,),
+      bottomNavigationBar: CustomBuySellBottomNavigationBar(
+        buyOrSell: widget.buyOrSell,
+      ),
     );
   }
 }
