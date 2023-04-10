@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 import 'package:metuverse/widgets/commentPage.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _launchWhatsApp(String phoneNumber, String message) async {
+  final Uri url = Uri.parse(
+      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}');
+  launchUrl(url, mode: LaunchMode.externalApplication);
+}
 
 class SellPostContainer extends StatelessWidget {
   final BuySellPost post;
@@ -61,11 +69,48 @@ class SellPostContainer extends StatelessWidget {
               SizedBox(width: 8.0),
               IconButton(
                 icon: Icon(
-                  Icons.message,
+                  MdiIcons.whatsapp,
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  // Navigate to the sellers message box
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Send Request'),
+                        content: Text(
+                            'Do you want to send a request to ${post.fullName}?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Replace the following line with the user's phone number
+                              final String phoneNumber =
+                                  '+905385288785'; // User's phone number
+                              final String message = 'Bu ürünle ilgileniyorum.';
+                              if (phoneNumber.isNotEmpty) {
+                                _launchWhatsApp(phoneNumber, message);
+                                Navigator.of(context).pop(); // Close the dialog
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Please enter a valid phone number'),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text('Send Request'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ],
@@ -172,7 +217,7 @@ class SellPostContainer extends StatelessWidget {
                 onPressed: () {
                   Get.to(CommentScreen());
                 },
-                icon: Icon(Icons.comment_rounded),
+                icon: Icon(MdiIcons.comment),
                 color: Colors.blue,
               ),
               IconButton(
