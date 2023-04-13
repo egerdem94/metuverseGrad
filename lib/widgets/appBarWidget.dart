@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../storage/User.dart';
+import '../user/User.dart';
 
 class CustomAppNavigationBar extends StatelessWidget {
   @override

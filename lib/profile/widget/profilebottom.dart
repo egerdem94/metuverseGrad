@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/login/view/LoginPage.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
-import 'package:metuverse/profile/screens/profilePage.dart';
-
-import '../../storage/User.dart';
-import '../../widgets/robot/robotPage.dart';
+import 'package:metuverse/user/User.dart';
 
 class ProfileBottomBar extends StatelessWidget {
   @override
@@ -57,7 +54,7 @@ class ProfileBottomBar extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  User.deleteUserCredentials();
+                  User.deleteUserCredentialsFromCache();
                   //Get.to(ProfilePage());
                   //Get.to(LoginPage());
                   Navigator.pushAndRemoveUntil(context,

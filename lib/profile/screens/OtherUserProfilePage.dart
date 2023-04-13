@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../storage/User.dart';
+import '../../user/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;

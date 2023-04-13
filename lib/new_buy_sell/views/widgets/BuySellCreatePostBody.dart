@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/generalResponse.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 
 import 'package:image/image.dart' as IMG;
 import 'package:path_provider/path_provider.dart';
@@ -74,7 +74,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
 
         final dir = await getTemporaryDirectory();
         final path =
-            "${dir.path}/test${User.username}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
+            "${dir.path}/test${User.userName}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
         final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
 
         var pic = await http.MultipartFile.fromPath("image$i", newImg.path);

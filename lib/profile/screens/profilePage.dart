@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:metuverse/login/view/LoginPage.dart';
 
 import '../../home/screens/HomePage.dart';
-import '../../storage/User.dart';
+import '../../user/User.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/search.dart/search.dart';
 import 'package:http/http.dart' as http;

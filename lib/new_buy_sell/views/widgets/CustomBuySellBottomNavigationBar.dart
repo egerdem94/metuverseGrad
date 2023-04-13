@@ -4,7 +4,7 @@ import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 
 class CustomBuySellBottomNavigationBar extends StatefulWidget {
   final buyOrSell;

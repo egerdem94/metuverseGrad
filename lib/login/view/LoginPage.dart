@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:metuverse/login/controller/storage/backend/LoginBackend.dart';
 import 'package:metuverse/login/model/LoginModelX.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 import '../../widgets/background-image.dart';
 import 'package:get/get.dart';
 import '../../auth/widgets/login-text-input.dart';
@@ -23,10 +24,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
-  LoginModelX? loginObject;
+  LoginBackend loginBackend = LoginBackend();
   bool passwordVisibilityBool = true;
-
+  bool isLoginClicked = false;
 
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -34,34 +34,6 @@ class _LoginPageState extends State<LoginPage> {
     password.dispose();
     super.dispose();
   }
-  void insertUserValues(String token, String fullName, String? profilePicture) {
-    User.token = token;
-    User.fullName = fullName;
-    if(profilePicture != null) {
-      User.profilePicture = profilePicture;
-    }
-    else{
-      User.profilePicture = "http://birikikoli.com/images/blank-profile-picture.jpg";
-    }
-  }
-  void userLogin() async {
-    String serviceAddress =
-        'http://www.birikikoli.com/mv_services/user_login.php';
-    Uri serviceUri = Uri.parse(serviceAddress);
-    final response = await http.post(serviceUri, body: {
-      "email": email.text,
-      "passwordHash": password.text,
-    });
-
-    String stringData = response.body;
-    Map<String, dynamic> jsonObject = jsonDecode(stringData);
-
-    loginObject = LoginModelX.fromJson(jsonObject);
-    debugPrint("Token: " + loginObject!.token!);
-    debugPrint("Full Name: " + loginObject!.fullName!);
-    debugPrint("Profile Picture: " + loginObject!.profilePicture!);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -134,18 +106,18 @@ class _LoginPageState extends State<LoginPage> {
                                           onPressed: () {
                                             setState(() {
                                               passwordVisibilityBool =
-                                                  !passwordVisibilityBool;
+                                              !passwordVisibilityBool;
                                             });
                                           },
                                           icon: passwordVisibilityBool
                                               ? Icon(
-                                                  Icons.visibility,
-                                                  color: Colors.green,
-                                                )
+                                            Icons.visibility,
+                                            color: Colors.green,
+                                          )
                                               : Icon(
-                                                  Icons.visibility_off,
-                                                  color: Colors.orange,
-                                                )),
+                                            Icons.visibility_off,
+                                            color: Colors.orange,
+                                          )),
                                     )
                                   ],
                                 ),
@@ -175,31 +147,41 @@ class _LoginPageState extends State<LoginPage> {
                                     borderRadius: BorderRadius.circular(32),
                                   ),
                                   child: TextButton(
-                                    onPressed: () {
-                                      userLogin();
-                                      Timer(Duration(seconds: 2), () {
-                                        if (loginObject?.loginStatus == true) {
+                                    onPressed: () async {
+                                      if(isLoginClicked == false){
+                                        isLoginClicked = true;
+                                        //userLogin();
+                                        LoginModelX loginObject = await loginBackend.login(email.text, password.text);
+                                        //Timer(Duration(seconds: 2), () {
+                                        if (loginObject.loginStatus == true) {
                                           //token = loginObject?.token;
-                                          insertUserValues(
+                                          /*insertUserValues(
                                               loginObject?.token ?? '',
                                               loginObject?.fullName ?? '',
-                                              loginObject?.profilePicture ?? null);
+                                              loginObject?.profilePicture ?? null);*/
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content:
-                                            Text("Welcome to Metuverse ${loginObject?.fullName}"),
+                                            Text("Welcome to Metuverse ${loginObject.fullName}"),
                                           ));
 
-                                          Get.to(HomePage());
+                                          //Get.to(HomePage());
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => HomePage(
+                                                  )));
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content:
-                                                Text("Incorrect login, please check your entries."),
+                                            Text("Incorrect login, please check your entries."),
                                           ));
                                         }
-                                      });
+                                        //});
+                                      }
+                                      isLoginClicked = false;
                                     },
                                     child: Text(
                                       'Login',

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 
 class ChatMessage extends StatelessWidget {
   const ChatMessage({

@@ -4,7 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 
-import '../storage/User.dart';
+import '../user/User.dart';
 import 'robot/robotPage.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {

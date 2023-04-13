@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 import 'package:metuverse/storage/backend/IBackendHelperPostPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/models/BasePost.dart';

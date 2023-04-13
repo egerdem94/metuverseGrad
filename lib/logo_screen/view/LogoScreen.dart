@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/login/view/LoginPage.dart';
-import 'package:metuverse/storage/User.dart';
+import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOffline.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOnline.dart';
 
@@ -27,7 +27,7 @@ class _LogoScreenState extends State<LogoScreen> {
     if (tokenIsValid) {
       User.fullName = "Yavuz Erbaş";
       User.profilePicture = "http://www.birikikoli.com/images/profileMedia/userID3.jpeg";
-      User.username = "mrerbas";
+      User.userName = "mrerbas";
       User.token = "EBQqnAwwP4qD4fRIXgwnZ7m70jvclzpZagpxQW3G";
       // Navigate to Home Screen
       Navigator.pushReplacement(
