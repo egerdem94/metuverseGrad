@@ -11,15 +11,18 @@ import 'package:metuverse/widgets/drawer.dart';
 
 class TransportationPage extends StatefulWidget {
   final customerOrDriver;
+  final departureLocation;
+  final destinationLocation;
   final searchModeFlag;
-  final searchKey;/*
-  final filteredProductPrice;
-  final filteredCurrency;*/
+  final searchKey;
 
   const TransportationPage({
     required this.customerOrDriver,
     required this.searchModeFlag,
-    Key? key, this.searchKey/* this.filteredProductPrice, this.filteredCurrency,*/
+    this.departureLocation,
+    this.destinationLocation,
+    this.searchKey,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -38,7 +41,7 @@ class _TransportationPageState extends State<TransportationPage> {
     transportationPostHandler = TransportationPostHandler();
     transportationPostHandler.init().then((_) {
       if(widget.searchModeFlag){
-        transportationPostHandler.handleSearchPosts(widget.searchKey, "", "", widget.customerOrDriver).then((_) {
+        transportationPostHandler.handleSearchPosts(widget.searchKey, widget.departureLocation, widget.destinationLocation, widget.customerOrDriver).then((_) {
           setState(() {
             transportationPostList = transportationPostHandler.getTransportationPostList(widget.customerOrDriver);
           });

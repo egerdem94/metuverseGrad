@@ -168,19 +168,17 @@ class TransportationPostHandler{
       return null;
     }
   }
-  Future handleSearchPosts(searchKey,filteredProductPrice,filteredCurrency,buyOrSell) async{
-    /*
-    debugPrint("here");
-    BuySellPostList? tempSearchedPostList = await backendHelper.requestSearchPosts(searchKey,filteredProductPrice,filteredCurrency,buyOrSell);
-    if(buyOrSell == 'c'){
+  Future handleSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
+    NewTransportationPostList? tempSearchedPostList = await backendHelper.requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver);
+    if(customerOrDriver == 'c'){
       customerPostList = tempSearchedPostList!;
     }
-    else if(buyOrSell == 'd'){
+    else if(customerOrDriver == 'd'){
       driverPostList = tempSearchedPostList!;
     }
     else{
       print('Error in TransportationPostHandler.dart Unexpected buyOrSell value');
     }
-    debugPrint("here2");*/ //TODO
+
   }
 }

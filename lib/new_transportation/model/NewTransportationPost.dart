@@ -4,6 +4,7 @@ import 'package:metuverse/storage/models/BasePost.dart';
 class NewTransportationPostList extends BasePostList{
   List<NewTransportationPost>? posts;
   int? total;
+  bool nothingFound = false;
   NewTransportationPostList({
     required this.posts,
     required this.total,
@@ -15,6 +16,10 @@ class NewTransportationPostList extends BasePostList{
     posts = List.from(json['items']).map((e)=>NewTransportationPost.fromJson(e)).toList();
     total = json['total'];
   }
+  NewTransportationPostList.nothingFound()
+      : posts = [],
+        total = 0,
+        nothingFound = true;
 
   Map<String, dynamic> toJson() {
     if(posts == null){
@@ -24,18 +29,6 @@ class NewTransportationPostList extends BasePostList{
     _data['items'] = posts!.map((e)=>e.toJson()).toList();
     _data['total'] = total;
     return _data;
-  }
-
-  void addAllXX(NewTransportationPostList tempList) {
-    if(posts == null){
-      posts = [];
-    }
-    if(tempList.posts == null){
-      return;
-    }
-    for(NewTransportationPost post in tempList.posts!){
-      posts!.add(post);
-    }
   }
 
   int length() {

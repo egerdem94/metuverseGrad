@@ -19,13 +19,13 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
   final searchController = TextEditingController();
   final maxPriceController = TextEditingController();
   final currencyController = TextEditingController();
-  late BuySellPostHandler buySellPostHandler;
+/*  late BuySellPostHandler buySellPostHandler;
   @override
   void initState() {
     super.initState();
     buySellPostHandler = BuySellPostHandler();
     buySellPostHandler.init().then((_) {});
-  }
+  }*/
 
   void _submitSearch() {
     // code to perform search with the text in _searchController

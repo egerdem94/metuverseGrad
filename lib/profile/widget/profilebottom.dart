@@ -57,7 +57,7 @@ class ProfileBottomBar extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  User.logout();
+                  User.deleteUserCredentials();
                   //Get.to(ProfilePage());
                   //Get.to(LoginPage());
                   Navigator.pushAndRemoveUntil(context,

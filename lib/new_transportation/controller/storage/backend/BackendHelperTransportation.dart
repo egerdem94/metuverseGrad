@@ -46,8 +46,25 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     return postsToDisplay;
   }
 
-  requestSearchPosts(searchKey, filteredProductPrice, filteredCurrency, buyOrSell) {
-    //TODO
+  Future<NewTransportationPostList?> requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
+    String serviceAddress =
+        "http://www.birikikoli.com/mv_services/postPage/transportation/transportation_searchandfilter_allList.php";
+    Uri serviceUri = Uri.parse(serviceAddress);
+    final response = await http.post(serviceUri, body: {
+      "token": User.token,
+      "customerOrDriver": customerOrDriver,
+      "searchKey": searchKey,
+      "filteredDepartureID": departureLocation,
+      "filteredDestinationID": destinationLocation,
+    });
+    String stringData = response.body;
+    Map<String, dynamic> jsonObject = jsonDecode(stringData);
+    //if no post exists in jsonObject, return BuySellPostList.nothingFound()
+    if (jsonObject['items'] == null) {
+      return NewTransportationPostList.nothingFound();
+    }
+    NewTransportationPostList transportationPostList = NewTransportationPostList.fromJson(jsonObject);
+    return transportationPostList;
   }
 
 }
