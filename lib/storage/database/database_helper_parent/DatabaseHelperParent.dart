@@ -28,6 +28,18 @@ class DatabaseHelperParent {
             ${BasePostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY
           )
           ''');
+    //TODO Batuhan 5 postla limitliyor 5 rastgele gormemiz icin
+    await db.execute(''' 
+    CREATE TRIGGER delete_oldest_post
+          AFTER INSERT ON ${BasePostTableValues.table}
+          WHEN (SELECT COUNT(*) FROM ${BasePostTableValues.table}) > 5
+          BEGIN
+            DELETE FROM ${BasePostTableValues.table}
+            WHERE ${BasePostTableValues.columnPostID} = (
+              SELECT MAX(${BasePostTableValues.columnPostID}) FROM ${BasePostTableValues.table}
+            );
+          END;
+        ''');
     await db.execute('''
           CREATE TABLE ${SellBuyTableValues.table} (
             ${SellBuyTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,

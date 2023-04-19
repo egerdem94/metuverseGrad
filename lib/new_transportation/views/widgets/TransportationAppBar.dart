@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellSearchPage.dart';
 import 'package:metuverse/new_transportation/views/TransportationPage.dart';
+import 'package:metuverse/new_transportation/views/TransportationSearchPage.dart';
 import 'package:metuverse/widgets/robot/robotPage.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
@@ -37,8 +38,8 @@ class TransportationAppBar extends StatelessWidget implements PreferredSizeWidge
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-              Get.to((TransportationPage(customerOrDriver: customerOrDriver, searchModeFlag: true, departureLocation: "1", destinationLocation: "2", searchKey: "",))); //TEST PURPOSE
-              //Get.to((TransportationSearchPage(customerOrDriver: customerOrDriver,))); //TODO Ege - TransportationSearchPage yapılacak.
+              //Get.to((TransportationPage(customerOrDriver: customerOrDriver, searchModeFlag: true, departureLocation: "1", destinationLocation: "2", searchKey: "",))); //TEST PURPOSE
+              Get.to((TransportationSearchPage(customerOrDriver: customerOrDriver,))); //TODO Ege - TransportationSearchPage yapılacak.
             },
           ),
           IconButton(

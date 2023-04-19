@@ -49,6 +49,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
   Future<NewTransportationPostList?> requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
     String serviceAddress =
         "http://www.birikikoli.com/mv_services/postPage/transportation/transportation_searchandfilter_allList.php";
+    //debugPrint("searchKey: $searchKey" + "departureLocation: $departureLocation" +"destinationLocation: $destinationLocation" +"customerOrDriver: $customerOrDriver");
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.token,
