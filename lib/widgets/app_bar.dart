@@ -3,6 +3,7 @@ import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/Chat/components/screens/chats/chats_screen.dart';
+import 'package:metuverse/widgets/buttons/message_requests/view/MessageRequestButton.dart';
 import 'package:metuverse/widgets/robot/robotPage.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
@@ -42,12 +43,13 @@ class MetuverseAppBar extends StatelessWidget implements PreferredSizeWidget {
               // handle notification button press
             },
           ),
-          IconButton(
+          /*IconButton(
             icon: Icon(Icons.mail),
             onPressed: () {
               Get.to(ChatsScreen());
             },
-          ),
+          )*/
+          MessageRequestButton(),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User{
@@ -15,7 +16,8 @@ class User{
     userName = '';
   }
   static void insertUserCredentialsFromCache(String token,String publicToken,String fullName, String? profilePicture) {
-   User.privateToken = token;
+    debugPrint("token: $token");
+    User.privateToken = token;
    User.publicToken = publicToken;
    User.fullName = fullName;
    if(profilePicture != null) {

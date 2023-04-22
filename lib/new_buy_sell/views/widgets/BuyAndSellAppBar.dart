@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/new_buy_sell/views/BuySellSearchPage.dart';
+import 'package:metuverse/widgets/buttons/message_requests/view/MessageRequestButton.dart';
 
 class NewBuyAndSellAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -45,12 +46,7 @@ class NewBuyAndSellAppBar extends StatelessWidget
               // handle notification button press
             },
           ),
-          IconButton(
-            icon: Icon(Icons.mail),
-            onPressed: () {
-              // handle direct message button press
-            },
-          ),
+          MessageRequestButton(),
         ],
       ),
     );
@@ -59,3 +55,5 @@ class NewBuyAndSellAppBar extends StatelessWidget
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
+
+
