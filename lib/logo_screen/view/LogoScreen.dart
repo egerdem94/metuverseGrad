@@ -28,7 +28,7 @@ class _LogoScreenState extends State<LogoScreen> {
       User.fullName = "Yavuz Erbaş";
       User.profilePicture = "http://www.birikikoli.com/images/profileMedia/userID3.jpeg";
       User.userName = "mrerbas";
-      User.token = "EBQqnAwwP4qD4fRIXgwnZ7m70jvclzpZagpxQW3G";
+      User.privateToken = "EBQqnAwwP4qD4fRIXgwnZ7m70jvclzpZagpxQW3G";
       // Navigate to Home Screen
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -44,7 +44,7 @@ class _LogoScreenState extends State<LogoScreen> {
     return Scaffold(
       body: Center(
         child:
-          PhotoGridOnline(
+          PhotoGridOnline( //TODO Ege bizim logo ile degisecek
             imageUrls: ["https://cdn.logo.com/hotlink-ok/logo-social.png"],
             onImageClicked: (index) {
               print('Image clicked: $index');

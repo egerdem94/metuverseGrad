@@ -65,7 +65,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
     var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
-    request.fields['token'] = User.token;
+    request.fields['token'] = User.privateToken;
     request.fields['departureID'] = TransportationLocations.getIndexOfLocation(_selectedDeparture).toString();
     request.fields['destinationID'] = TransportationLocations.getIndexOfLocation(_selectedDestination).toString();
     request.fields['departureDate'] = DateTime.now().toString(); //TODO

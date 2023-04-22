@@ -29,7 +29,10 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
 
   void _submitSearch() {
     // code to perform search with the text in _searchController
-    //Get.to(SellPage(searchKey: _searchController.text, filteredProductPrice: _maxPriceController.text, filteredCurrency: _currencyController.text));
+    if(searchController.text == '' && maxPriceController.text == '' && currencyController.text == ''){
+      Get.snackbar('error', 'Please enter at least one search parameter');
+      return;
+    }
     Get.offAll(BuySellPage(
         buyOrSell: widget.buyOrSell,
         searchModeFlag: true,

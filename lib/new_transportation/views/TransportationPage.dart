@@ -98,14 +98,14 @@ class _TransportationPageState extends State<TransportationPage> {
           itemBuilder: (context, index) {
             return TransportationCustomerContainer(
                 //post: newTransportationPostListX!.posts![index]);
-              singlePostItem: transportationPostList!.posts![index]);
+              post: transportationPostList!.posts![index]);
           },
         ):ListView.builder(
           controller: _scrollController,
           itemCount: transportationPostList!.length(),
           itemBuilder: (context, index) {
             return TransportationDriverContainer(
-              singlePostItem: transportationPostList!.posts![index]);
+              post: transportationPostList!.posts![index]);
           },
         )
             :Center(

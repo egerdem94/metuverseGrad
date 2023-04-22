@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
+import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
 import 'package:metuverse/widgets/full_screen_imagePage.dart';
 
@@ -57,7 +58,7 @@ class BuyPostContainer extends StatelessWidget {
               SizedBox(width: 8.0),
               Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
-              IconButton(
+              /*IconButton(
                 icon: Icon(
                   Icons.message,
                   color: Colors.white,
@@ -65,7 +66,8 @@ class BuyPostContainer extends StatelessWidget {
                 onPressed: () {
                   // Navigate to the sellers message box
                 },
-              ),
+              )*/
+              WhatsappButton(post: post),
             ],
           ),
           SizedBox(height: 8.0),

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:metuverse/login/model/LoginModelX.dart';
 import 'package:metuverse/user/User.dart';
@@ -19,6 +18,8 @@ class LoginBackend{
     if(loginObject.loginStatus == true){
       User.insertUserCredentialsFromCache(
           loginObject.token ?? '',
+          //loginObject.publicToken ?? '',
+          "publicToken",
           loginObject.fullName ?? '',
           loginObject.profilePicture);
     }

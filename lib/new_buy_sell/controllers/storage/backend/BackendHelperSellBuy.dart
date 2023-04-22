@@ -19,7 +19,7 @@ class BackendHelperSellBuy implements IBackendHelperPostPage {
         'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_updatedList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "postIDList": postIDList,
     });
 
@@ -35,7 +35,7 @@ class BackendHelperSellBuy implements IBackendHelperPostPage {
         "http://www.birikikoli.com/mv_services/postPage/buyandsell/searchandfilter_allList.php";
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "buyerOrSeller": buyOrSell,
       "searchKey": searchKey,
       "filteredProductPrice": filteredProductPrice,
@@ -57,7 +57,7 @@ class BackendHelperSellBuy implements IBackendHelperPostPage {
         'http://www.birikikoli.com/mv_services/postPage/buyandsell/dnm_buyandsell_latest.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "buyerOrSeller": buyerOrSeller, //seller
       "lastPostID": lastPostID,
     });

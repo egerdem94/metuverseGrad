@@ -85,7 +85,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
       }
     }
     //request.fields['userID'] = '€'.toString();
-    request.fields['token'] = User.token;
+    request.fields['token'] = User.privateToken;
     request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
     request.fields['description'] = description.text;
     request.fields['productPrice'] = productPrice.text;

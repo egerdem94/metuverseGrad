@@ -20,45 +20,50 @@ class WhatsappButton extends StatelessWidget {
         color: Colors.white,
       ),
       onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Send Request'),
-              content: Text(
-                  'Do you want to send a request to ${post.fullName}?'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Replace the following line with the user's phone number
-                    final String phoneNumber =
-                        '+905385288785'; // User's phone number
-                    final String message = 'Ege amk.';
-                    if (phoneNumber.isNotEmpty) {
-                      whatsappController.launchWhatsApp(phoneNumber, message);
-                      Navigator.of(context).pop(); // Close the dialog
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Please enter a valid phone number'),
-                        ),
-                      );
-                    }
-                  },
-                  child: Text('Send Request'),
-                ),
-              ],
-            );
-          },
-        );
+        //egeMessage(context);
+        whatsappController.phoneNumberProcedure(context,post);
       },
     );
+  }
+
+  Future<dynamic> egeMessage(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Send Request'),
+            content: Text(
+                'Do you want to send a request to ${post.fullName}?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Replace the following line with the user's phone number
+                  final String phoneNumber =
+                      '+905385288785'; // User's phone number
+                  final String message = 'Ege amk.';
+                  if (phoneNumber.isNotEmpty) {
+                    whatsappController.launchWhatsApp(phoneNumber, message);
+                    Navigator.of(context).pop(); // Close the dialog
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Please enter a valid phone number'),
+                      ),
+                    );
+                  }
+                },
+                child: Text('Send Request'),
+              ),
+            ],
+          );
+        },
+      );
   }
 }

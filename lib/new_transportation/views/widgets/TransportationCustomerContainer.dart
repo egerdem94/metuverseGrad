@@ -3,15 +3,16 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/palette.dart';
+import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
 
 class TransportationCustomerContainer extends StatelessWidget {
-  final NewTransportationPost singlePostItem;
+  final NewTransportationPost post;
 
   final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
     'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
   ];
-  TransportationCustomerContainer({required this.singlePostItem});
+  TransportationCustomerContainer({required this.post});
 
   String currencySymbol = '';
 
@@ -43,14 +44,14 @@ class TransportationCustomerContainer extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  singlePostItem.getProfilePicture()
+                  post.getProfilePicture()
                 ),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
-              Text(singlePostItem.fullName ?? "", style: kUsersText),
+              Text(post.fullName ?? "", style: kUsersText),
               Spacer(),
-              IconButton(
+              /*IconButton(
                 icon: Icon(
                   Icons.message,
                   color: Colors.white,
@@ -58,11 +59,12 @@ class TransportationCustomerContainer extends StatelessWidget {
                 onPressed: () {
                   // Navigate to the sellers message box
                 },
-              ),
+              )*/
+              WhatsappButton(post: post),
             ],
           ),
           SizedBox(height: 8.0),
-          Text(singlePostItem.description ?? "", style: kwhiteText),
+          Text(post.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -85,7 +87,7 @@ class TransportationCustomerContainer extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(singlePostItem.departureID!)),
+                        Text(TransportationLocations.getLocation(post.departureID!)),
                       ],
                     ),
                   ),
@@ -109,7 +111,7 @@ class TransportationCustomerContainer extends StatelessWidget {
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(singlePostItem.destinationID!)),
+                        Text(TransportationLocations.getLocation(post.destinationID!)),
                       ],
                     ),
                   ),
@@ -195,14 +197,14 @@ class TransportationCustomerContainer extends StatelessWidget {
               Spacer(),
               Chip(
                 label: Text(
-                  singlePostItem.transportationStatus! == 1 ? 'Looking' : 'Found',
+                  post.transportationStatus! == 1 ? 'Looking' : 'Found',
                   style: TextStyle(
-                    color: singlePostItem.transportationStatus! == 1
+                    color: post.transportationStatus! == 1
                         ? Colors.white
                         : Colors.black,
                   ),
                 ),
-                backgroundColor: singlePostItem.transportationStatus! == 1
+                backgroundColor: post.transportationStatus! == 1
                     ? Colors.green
                     : Colors.red,
               ),

@@ -396,7 +396,7 @@ class _MyAvatarState extends State<MyAvatar> {
       request.files.add(pic);
     }
 
-    request.fields['token'] = User.token;
+    request.fields['token'] = User.privateToken;
 
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {

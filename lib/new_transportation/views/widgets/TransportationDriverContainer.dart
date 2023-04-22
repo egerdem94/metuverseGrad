@@ -3,10 +3,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/palette.dart';
+import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
 
 class TransportationDriverContainer extends StatefulWidget {
-  final NewTransportationPost singlePostItem;
-  TransportationDriverContainer({required this.singlePostItem});
+  final NewTransportationPost post;
+  TransportationDriverContainer({required this.post});
 
   final List<String> imagesUrls = [
     "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
@@ -59,18 +60,18 @@ class _TransportationDriverContainerState
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    widget.singlePostItem.getProfilePicture()
+                    widget.post.getProfilePicture()
                 ),
                 radius: 24.0,
               ),
               SizedBox(width: 8.0),
-              Text(widget.singlePostItem.fullName ?? "", style: kUsersText),
+              Text(widget.post.fullName ?? "", style: kUsersText),
               Spacer(),
               Text(
-                  '${widget.singlePostItem.transportationPrice ?? 0} ${currencyConverter(widget.singlePostItem.currency ?? "")}',
+                  '${widget.post.transportationPrice ?? 0} ${currencyConverter(widget.post.currency ?? "")}',
                   style: kwhiteText),
               SizedBox(width: 8.0),
-              IconButton(
+              /*IconButton(
                 icon: Icon(
                   Icons.message,
                   color: Colors.white,
@@ -78,11 +79,12 @@ class _TransportationDriverContainerState
                 onPressed: () {
                   // Navigate to the sellers message box
                 },
-              ),
+              )*/
+              WhatsappButton(post: widget.post),
             ],
           ),
           SizedBox(height: 8.0),
-          Text(widget.singlePostItem.description ?? "", style: kwhiteText),
+          Text(widget.post.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -105,7 +107,7 @@ class _TransportationDriverContainerState
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(widget.singlePostItem.departureID!)),
+                        Text(TransportationLocations.getLocation(widget.post.departureID!)),
                       ],
                     ),
                   ),
@@ -129,7 +131,7 @@ class _TransportationDriverContainerState
                           color: Colors.blue,
                         ),
                         SizedBox(width: 10.0),
-                        Text(TransportationLocations.getLocation(widget.singlePostItem.destinationID!)),
+                        Text(TransportationLocations.getLocation(widget.post.destinationID!)),
                       ],
                     ),
                   ),

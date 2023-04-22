@@ -21,7 +21,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
         'http://www.birikikoli.com/mv_services/postPage/transportation/transportation_updatedList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "postIDList": postIDList,
     });
 
@@ -34,7 +34,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/transportation/transportation_latest.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "customerOrDriver": customerOrDriver, //seller
       "lastPostID": lastPostID,
     });
@@ -52,7 +52,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     //debugPrint("searchKey: $searchKey" + "departureLocation: $departureLocation" +"destinationLocation: $destinationLocation" +"customerOrDriver: $customerOrDriver");
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
-      "token": User.token,
+      "token": User.privateToken,
       "customerOrDriver": customerOrDriver,
       "searchKey": searchKey,
       "filteredDepartureID": departureLocation,
