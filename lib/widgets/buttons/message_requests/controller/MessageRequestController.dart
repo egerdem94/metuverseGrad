@@ -1,14 +1,27 @@
 import 'package:metuverse/widgets/buttons/message_requests/controller/MessageRequestBackendHelper.dart';
 import 'package:metuverse/widgets/buttons/message_requests/model/IncomingMessageRequest.dart';
+import 'package:metuverse/widgets/buttons/message_requests/model/OutgoingMessageRequest.dart';
 
 class MessageRequestController{
   MessageRequestBackendHelper messageRequestBackendHelper = MessageRequestBackendHelper();
   IncomingMessageRequestListX? incomingMessageRequestList;
+  OutgoingMessageRequestListX? outgoingMessageRequestsList;
 
   Future<void> handleMessageRequests(incomingOrOutgoing) async {
-    incomingMessageRequestList = await messageRequestBackendHelper.incomingMessageRequest();
+    if(incomingOrOutgoing == "o"){
+      outgoingMessageRequestsList = await messageRequestBackendHelper.outgoingMessageRequest();
+    }
+    else if(incomingOrOutgoing == "i"){
+      incomingMessageRequestList = await messageRequestBackendHelper.incomingMessageRequest();
+    }
   }
   IncomingMessageRequestListX? getIncomingMessageRequestList(){
     return incomingMessageRequestList;
   }
+  OutgoingMessageRequestListX? getOutgoingMessageRequestList(){
+    return outgoingMessageRequestsList;
+  }
+
+  void cancelOutgoingMessageRequest(String s) {}
+
 }
