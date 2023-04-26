@@ -16,12 +16,13 @@ class LoginBackend{
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
     LoginModelX? loginObject = LoginModelX.fromJson(jsonObject);
     if(loginObject.loginStatus == true){
-      User.insertUserCredentialsFromCache(
+      User.insertUserCredentialsToCache(
           loginObject.token ?? '',
           //loginObject.publicToken ?? '',
           "publicToken",
           loginObject.fullName ?? '',
           loginObject.profilePicture);
+      User.saveData();
     }
     return loginObject;
   }

@@ -6,16 +6,15 @@ class User{
  static late String privateToken;
  static late String publicToken;
  static late String profilePicture;
- static String userName = "userName";
+ //static String userName = "userName";
 
   static void deleteUserCredentialsFromCache() {
     fullName = '';
     privateToken = '';
     publicToken = '';
     profilePicture = '';
-    userName = '';
   }
-  static void insertUserCredentialsFromCache(String token,String publicToken,String fullName, String? profilePicture) {
+  static void insertUserCredentialsToCache(String token,String publicToken,String fullName, String? profilePicture) {
     debugPrint("token: $token");
     User.privateToken = token;
    User.publicToken = publicToken;
@@ -29,33 +28,30 @@ class User{
  }
  static void saveData() async {
    SharedPreferences prefs = await SharedPreferences.getInstance();
-   await prefs.setString('userToken', privateToken);
+   await prefs.setString('privateToken', privateToken);
    await prefs.setString('publicToken', publicToken);
    await prefs.setString('fullName', fullName);
    await prefs.setString('profilePicture',profilePicture);
-   await prefs.setString('userName', userName);
  }
  static Future<void> clearData() async {
    SharedPreferences prefs = await SharedPreferences.getInstance();
-   await prefs.remove('userToken');
+   await prefs.remove('privateToken');
    await prefs.remove('publicToken');
    await prefs.remove('fullName');
    await prefs.remove('profilePicture');
-   await prefs.remove('userName');
  }
- static Future<bool> checkLoginStatus() async {
+ static Future<bool> getPreviousLoginInformation() async {
    SharedPreferences prefs = await SharedPreferences.getInstance();
-   String? token = prefs.getString('userToken');
-   String? publicToken = prefs.getString('publicToken');
-   String? fullName = prefs.getString('fullName');
-   String? profilePicture = prefs.getString('profilePicture');
-   String? userName = prefs.getString('userName');
-
-   if (token != null && fullName != null && profilePicture != null && userName != null && publicToken != null) {
-     return true;
-   } else {
-     return false;
-   }
+   privateToken = prefs.getString('privateToken') ?? '';
+   publicToken = prefs.getString('publicToken') ?? '';
+   fullName = prefs.getString('fullName') ?? '';
+   profilePicture = prefs.getString('profilePicture') ?? '';
+    if(privateToken == '' || publicToken == '' || fullName == '' || profilePicture == ''){
+      return false;
+    }
+    else{
+      return true;
+    }
  }
 
 }

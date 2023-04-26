@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
-      // home: LogoScreen(),//goes directly to logo screen
+      //home: LoginPage(),
+       home: LogoScreen(),//goes directly to logo screen
       getPages: [
         GetPage(
           name: '/register',

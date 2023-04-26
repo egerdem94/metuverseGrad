@@ -74,7 +74,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
 
         final dir = await getTemporaryDirectory();
         final path =
-            "${dir.path}/test${User.userName}${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
+            "${dir.path}/test${User.fullName.removeAllWhitespace}${DateTime.now().toString().removeAllWhitespace}.png";
         final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
 
         var pic = await http.MultipartFile.fromPath("image$i", newImg.path);
