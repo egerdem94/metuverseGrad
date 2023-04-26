@@ -8,11 +8,12 @@ class User{
  static late String profilePicture;
  //static String userName = "userName";
 
-  static void deleteUserCredentialsFromCache() {
+  static Future<void> logout() async {
     fullName = '';
     privateToken = '';
     publicToken = '';
     profilePicture = '';
+    await(User.clearData());
   }
   static void insertUserCredentialsToCache(String token,String publicToken,String fullName, String? profilePicture) {
     debugPrint("token: $token");
