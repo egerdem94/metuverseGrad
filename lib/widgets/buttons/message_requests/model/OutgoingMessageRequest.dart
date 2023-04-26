@@ -42,7 +42,14 @@ class OutgoingMessageRequest {
     profilePicture = json['profilePicture'];
     requestAndResponseDate = json['requestAndResponseDate'];
   }
-
+  String get getProfilePicture{
+    if(profilePicture == null){
+      return "https://www.birikikoli.com/mv_services/user/user_default_profile_picture.png";
+    }
+    else{
+      return profilePicture!;
+    }
+  }
 /*  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['relatedUserPublicToken'] = this.relatedUserPublicToken;

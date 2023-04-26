@@ -22,7 +22,7 @@ class LoginBackend{
           "publicToken",
           loginObject.fullName ?? '',
           loginObject.profilePicture);
-      User.saveData();
+      User.saveData();// TODO Should we do this here?
     }
     return loginObject;
   }

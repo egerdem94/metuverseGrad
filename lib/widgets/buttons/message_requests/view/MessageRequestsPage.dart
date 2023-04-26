@@ -90,8 +90,7 @@ class _IncomingMessageRequestsState extends State<IncomingMessageRequests> {
             incomingMessageRequestList!.items![index];
         return MessageRequestItem(
           fullName: request.fullName!,
-          profilePicture: User.profilePicture,
-          //TODO resim null gelince patliyor
+          profilePicture: request.getProfilePicture,
           onAccept: () {
             messageRequestController.messageRequestBackendHelper
                 .sendAnswerToIncomingMessageRequest(
@@ -208,7 +207,7 @@ class _OutgoingMessageRequestsState extends State<OutgoingMessageRequests> {
             outgoingMessageRequestList!.items![index];
         return OutgoingMessageRequestItem(
           fullName: request.fullName!,
-          profilePicture: User.profilePicture,
+          profilePicture: request.getProfilePicture,
           onCancel: () {
             messageRequestController.cancelOutgoingMessageRequest(outgoingMessageRequestList!
                     .items![index].relatedUserPublicToken!);

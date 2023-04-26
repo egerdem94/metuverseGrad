@@ -4,7 +4,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/home/screens/HomePage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
-import 'package:metuverse/widgets/robot/robotPage.dart';
 
 class MainPageNavigationBar extends StatelessWidget {
   @override
@@ -36,7 +35,7 @@ class MainPageNavigationBar extends StatelessWidget {
                 },
               ),
             ),
-            IconButton(
+            /*IconButton(
               icon: Icon(
                 MdiIcons.robotHappy,
                 color: Colors.white,
@@ -44,13 +43,12 @@ class MainPageNavigationBar extends StatelessWidget {
               onPressed: () {
                 //Get.to(ChatScreen());
               },
-            ),
+            ),*/
             SizedBox(width: 25.0),
             IconButton(
               icon: CircleAvatar(
                 radius: 18.0,
                 backgroundImage: NetworkImage(
-                  //"https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg",
                   User.profilePicture,
                 ),
               ),

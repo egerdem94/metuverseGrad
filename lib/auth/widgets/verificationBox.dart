@@ -18,8 +18,8 @@ class VerificationBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40,
-      height: 50,
+      width: 42,//40
+      height: 50,//50
       child: TextField(
         keyboardType: TextInputType.text,
         controller: enterInfo,
