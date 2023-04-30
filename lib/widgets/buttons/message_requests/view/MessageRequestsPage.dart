@@ -43,21 +43,21 @@ class _MessageRequestsPageState extends State<MessageRequestsPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          IncomingMessageRequests(),
-          OutgoingMessageRequests(),
+          IncomingMessageRequestsTab(),
+          OutgoingMessageRequestsTab(),
         ],
       ),
     );
   }
 }
 
-class IncomingMessageRequests extends StatefulWidget {
+class IncomingMessageRequestsTab extends StatefulWidget {
   @override
-  _IncomingMessageRequestsState createState() =>
-      _IncomingMessageRequestsState();
+  _IncomingMessageRequestsTabState createState() =>
+      _IncomingMessageRequestsTabState();
 }
 
-class _IncomingMessageRequestsState extends State<IncomingMessageRequests> {
+class _IncomingMessageRequestsTabState extends State<IncomingMessageRequestsTab> {
   IncomingMessageRequestListX? incomingMessageRequestList;
   MessageRequestController messageRequestController =
       MessageRequestController();
@@ -168,13 +168,13 @@ class MessageRequestItem extends StatelessWidget {
   }
 }
 
-class OutgoingMessageRequests extends StatefulWidget {
+class OutgoingMessageRequestsTab extends StatefulWidget {
   @override
-  _OutgoingMessageRequestsState createState() =>
-      _OutgoingMessageRequestsState();
+  _OutgoingMessageRequestsTabState createState() =>
+      _OutgoingMessageRequestsTabState();
 }
 
-class _OutgoingMessageRequestsState extends State<OutgoingMessageRequests> {
+class _OutgoingMessageRequestsTabState extends State<OutgoingMessageRequestsTab> {
   OutgoingMessageRequestListX? outgoingMessageRequestList;
   MessageRequestController messageRequestController =
       MessageRequestController();
@@ -208,12 +208,21 @@ class _OutgoingMessageRequestsState extends State<OutgoingMessageRequests> {
         return OutgoingMessageRequestItem(
           fullName: request.fullName!,
           profilePicture: request.getProfilePicture,
-          onCancel: () {
-            messageRequestController.cancelOutgoingMessageRequest(outgoingMessageRequestList!
+          onCancel: () async {
+            var status = await messageRequestController.cancelOutgoingMessageRequest(outgoingMessageRequestList!
                     .items![index].relatedUserPublicToken!);
-            setState(() {
+            if(status == 1){
+              setState(() {
               outgoingMessageRequestList!.items!.removeAt(index);
-            });
+              });
+            }
+            else{
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Something went wrong"),
+                ),
+              );
+            }
           },
         );
       },

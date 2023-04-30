@@ -6,9 +6,9 @@ import 'package:metuverse/palette.dart';
 import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
 import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
-import 'package:metuverse/widgets/photo_grids/PhotoGridGeneral.dart';
-import 'package:metuverse/widgets/full_screen_imagePage.dart';
+import 'package:metuverse/widgets/photo_grids/FullScreenImageViewOffline.dart';
 import 'package:metuverse/widgets/commentPage.dart';
+import 'package:metuverse/widgets/photo_grids/PhotoGridOffline.dart';
 
 
 class SellPostContainer extends StatelessWidget {
@@ -71,16 +71,14 @@ class SellPostContainer extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 260.0,
-            child: PhotoGridGeneral(
+            child: PhotoGridOffline(
               photoList: post.photoList,
-              imageUrls: post.getMediaList(),
               onImageClicked: (index) {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => FullscreenImageView(
-                      imageUrl: post.getMediaList()[index],
-                      //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
+                    builder: (context) => FullScreenImageViewOffline(
+                      photo: post.photoList.photos[index],
                     ),
                   ),
                 );

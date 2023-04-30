@@ -4,7 +4,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import '../../login/view/LoginPage.dart';
 import '../../profile/screens/OtherUserProfilePage.dart';
-import '../../widgets/full_screen_imagePage.dart';
+import '../../widgets/photo_grids/FullScreenImageViewOnline.dart';
 import '../../widgets/photo_grids/PhotoGridOnline.dart';
 import '../models/whispersPostList.dart';
 import '../models/whispersPostList.dart';
@@ -66,7 +66,7 @@ class WhispersContainer extends StatelessWidget {
                 // Show fullscreen image view
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => FullscreenImageView(
+                    builder: (context) => FullScreenImageViewOnline(
                       imageUrl: post.mediaList()[index],
                       //imageUrl: index % 2 == 0 ? imagesUrls[0] : imagesUrls[1],
                     ),

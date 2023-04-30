@@ -22,6 +22,8 @@ class MessageRequestController{
     return outgoingMessageRequestsList;
   }
 
-  void cancelOutgoingMessageRequest(String s) {}
+  Future<int> cancelOutgoingMessageRequest(String s) async{
+    return await messageRequestBackendHelper.cancelOutgoingRequest(s);
+  }
 
 }

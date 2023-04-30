@@ -56,6 +56,26 @@ class MessageRequestBackendHelper{
     else{
       return false;
     }
-
+  }
+  Future<int> cancelOutgoingRequest(otherUserToken) async {
+    String serviceAddress =
+        'http://www.birikikoli.com/mv_services/user/phoneAccess/phoneAccess_CancelMessageRequest.php';
+    Uri serviceUri = Uri.parse(serviceAddress);
+    final response = await http.post(serviceUri, body: {
+      "token": User.privateToken,
+      "relatedUserPublicToken": otherUserToken
+    });
+    String stringData = response.body;
+    Map<String, dynamic> jsonObject = jsonDecode(stringData);
+    if(jsonObject['message'] == "255"){
+      //Go to login page
+      return 255;
+    }
+    else if(jsonObject['message'] == "1"){
+      return 1;
+    }
+    else{
+      return 0;
+    }
   }
 }
