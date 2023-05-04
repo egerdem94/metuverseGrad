@@ -3,6 +3,7 @@ import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/widgets/BuySellPostBottomWidget.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
+import 'package:metuverse/widgets/buttons/OverflowMenuButton.dart';
 import 'package:metuverse/widgets/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
@@ -31,7 +32,7 @@ class BuyPostContainer extends StatelessWidget {
               /*Text(
                   '${post.productPrice ?? 0} ${currencyConverter(post.currency ?? "")}',
                   style: kwhiteText),*/
-              Text("...",style: kwhiteText),
+              OverflowMenu(),
             ],
           ),
           SizedBox(height: 8.0),
@@ -46,6 +47,7 @@ class BuyPostContainer extends StatelessWidget {
     );
   }
 }
+
 /*
 //TODO To be deleted
 class BuyPostButtom extends StatelessWidget {
