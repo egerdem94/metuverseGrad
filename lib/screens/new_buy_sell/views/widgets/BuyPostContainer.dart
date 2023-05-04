@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
+import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
 import 'package:metuverse/widgets/photo_grids/FullScreenImageViewOffline.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOffline.dart';

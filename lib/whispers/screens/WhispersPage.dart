@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
-import 'package:metuverse/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
+import 'package:metuverse/screens/new_buy_sell/views/widgets/BuyAndSellAppBar.dart';
 import 'package:metuverse/whispers/widgets/whispersContainer.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import '../models/whispersPostList.dart';

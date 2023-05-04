@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/academiccalendar/academiccalendar.dart';
 import 'package:metuverse/home/widgets/MainPageNavigationBar.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/home/widgets/announcementSlides.dart';

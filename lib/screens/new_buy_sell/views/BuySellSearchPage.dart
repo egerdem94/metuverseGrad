@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
-import 'package:metuverse/new_buy_sell/views/widgets/CustomBuySellBottomNavigationBar.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/BuySellPostHandler.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/widgets/CustomBuySellBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_buy_sell/controllers/storage/BuySellPostHandler.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 

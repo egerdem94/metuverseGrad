@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/home/screens/HomePage.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellCreatePostPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellCreatePostPage.dart';
 import 'package:metuverse/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
 

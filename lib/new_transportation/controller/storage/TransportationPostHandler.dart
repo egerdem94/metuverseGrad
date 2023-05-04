@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/backend/BackendHelperSellBuy.dart';
 import 'package:metuverse/new_transportation/controller/storage/backend/BackendHelperTransportation.dart';
 import 'package:metuverse/new_transportation/controller/storage/database/DatabaseHelperTransportation.dart';
 import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/storage/database/database_photo/DatabaseHelperPhoto.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
-import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class TransportationPostHandler{

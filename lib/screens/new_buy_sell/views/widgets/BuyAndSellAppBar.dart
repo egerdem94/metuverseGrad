@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellSearchPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellSearchPage.dart';
 import 'package:metuverse/widgets/buttons/message_requests/view/MessageRequestButton.dart';
 
 class NewBuyAndSellAppBar extends StatelessWidget

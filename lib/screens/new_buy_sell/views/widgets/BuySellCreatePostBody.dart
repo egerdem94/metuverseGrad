@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/generalResponse.dart';
-import 'package:metuverse/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/user/User.dart';
 
 import 'package:image/image.dart' as IMG;

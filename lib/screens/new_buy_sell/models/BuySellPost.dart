@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
+import 'package:metuverse/screens/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/storage/models/Photo.dart';

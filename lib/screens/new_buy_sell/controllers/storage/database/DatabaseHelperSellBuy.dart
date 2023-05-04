@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
-import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
+import 'package:metuverse/screens/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/DatabaseHelperPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
+import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelperSellBuy extends DatabaseHelperPost {
   Future<BasePostList?> getPostsFromLocalDB(

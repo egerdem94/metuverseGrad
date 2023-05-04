@@ -39,17 +39,6 @@ class ProfileBottomBar extends StatelessWidget {
             Expanded(
               child: IconButton(
                 icon: Icon(
-                  MdiIcons.robotHappy,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // Get.to(ChatScreen());
-                },
-              ),
-            ),
-            Expanded(
-              child: IconButton(
-                icon: Icon(
                   MdiIcons.logout,
                   color: Colors.white,
                 ),

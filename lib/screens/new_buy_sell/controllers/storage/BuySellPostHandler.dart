@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/backend/BackendHelperSellBuy.dart';
+import 'package:metuverse/screens/new_buy_sell/controllers/storage/backend/BackendHelperSellBuy.dart';
 import 'package:metuverse/storage/database/database_photo/DatabaseHelperPhoto.dart';
-import 'package:metuverse/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
+import 'package:metuverse/screens/new_buy_sell/controllers/storage/database/DatabaseHelperSellBuy.dart';
+import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
@@ -21,7 +21,6 @@ class BuySellPostHandler {
     await photoHelper.init();
     initialized = true;
   }
-
   List<int> convertIdList(postIDListAsString) {
     List<int> convertedList = [];
     if (postIDListAsString == "") return convertedList;
@@ -32,7 +31,6 @@ class BuySellPostHandler {
     }
     return convertedList;
   }
-
   String getLastPostID(buyerOrSeller, firstTime) {
     var lastPostID = '';
     if (!firstTime) {
@@ -44,33 +42,7 @@ class BuySellPostHandler {
     }
     return lastPostID;
   }
-
-  bool isEmpty(buyOrSell) {
-    if (buyOrSell == 's') {
-      if (sellPostList.isEmpty()) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      if (buyPostList.isEmpty()) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-
-  int getLength(buyOrSell) {
-    if (buyOrSell == 's') {
-      return sellPostList.length();
-    } else {
-      return buyPostList.length();
-    }
-  }
-
   /// This method is used to prepare the posts that are going to be requested as string.
-  ///*/
   Future<List<String>> preparePostToRequestString(
       PostsToDisplay? postsToDisplay) async {
     var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
@@ -86,28 +58,6 @@ class BuySellPostHandler {
     }
     return [postsToBeAskedBackendIDList, postsToBeAskedLocalDB];
   }
-
-/*  Future handlePhoto (BuySellPost buySellPost) async{
-    if(!buySellPost.mediaExist){
-      return;
-    }
-    var photoUrls = buySellPost.getMediaList();
-    for(var photoUrl in photoUrls){
-      var isExistInDB = await photoHelper.doesPhotoExist(buySellPost.postID!,photoUrl);
-      if(!isExistInDB){
-        Photo? photo = await photoHelper.insertPhotoFromUrl(buySellPost.postID!, photoUrl);
-        if(photo != null){
-          buySellPost.addPhoto(photo);
-        }
-      }
-      else{
-        Photo? photo = await photoHelper.getPhotoGivenPostIDAndUrl(buySellPost.postID!,photoUrl);
-        if(photo != null){
-          buySellPost.addPhoto(photo);
-        }
-      }
-    }
-  }*/
   Future handlePhoto(BuySellPost buySellPost) async {
     if (!buySellPost.mediaExist) {
       return;
@@ -153,7 +103,6 @@ class BuySellPostHandler {
       }
     }
   }
-
   Future handlePhotos(BuySellPostList? postList) async {
     if (postList == null || postList.posts == null) {
       return;
@@ -162,7 +111,6 @@ class BuySellPostHandler {
       handlePhoto(post);
     }
   }
-
   Future<bool> handlePostList(buyOrSell, firstTime) async {
     PostsToDisplay? postsToDisplay;
     if (firstTime) {
@@ -173,70 +121,39 @@ class BuySellPostHandler {
         buyOrSell, getLastPostID(buyOrSell, firstTime));
     List<String> postsToBeAsked =
         await preparePostToRequestString(postsToDisplay);
-    if (buyOrSell == 's') {
-      BuySellPostList? tempPostList = (await backendHelper
-          .getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;
-      if (tempPostList != null) {
-        sellPostList.addNewPosts(tempPostList);
-        tempPostList.posts!.forEach((element) async {
-          final id = await dbHelper.insertBuySellPost(element);
-        });
-        handlePhotos(tempPostList);
-      }
-      BuySellPostList? tempPostList2 =
-          (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1])))
-              as BuySellPostList?;
-      //await injectPhotoUrls(tempPostList2);
-      handlePhotos(tempPostList2);
-      if (tempPostList2 != null) {
-        sellPostList.addNewPosts(tempPostList2);
-      }
-      if (sellPostList.isEmpty()) {
-        return false;
-      } else {
-        return true;
-      }
-    } else if (buyOrSell == 'b') {
-      BuySellPostList? tempPostList = (await backendHelper
-          .getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;
-      if (tempPostList != null) {
-        buyPostList.addNewPosts(tempPostList);
-        tempPostList.posts!.forEach((element) async {
-          final id = await dbHelper.insertBuySellPost(element);
-        });
-        handlePhotos(tempPostList);
-      }
-      BuySellPostList? tempPostList2 =
-          (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1])))
-              as BuySellPostList?;
-      handlePhotos(tempPostList2);
-      if (tempPostList2 != null) {
-        buyPostList.addNewPosts(tempPostList2);
-      }
-      if (buyPostList.isEmpty()) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
+    if (buyOrSell == 's' || buyOrSell == 'b') {
+      return await handlePostListHelper(postsToBeAsked, buyOrSell);
+    }
+    else {
       print(
           'Error in TransportationPostHandler.dart Unexpected buyOrSell value');
       return false;
     }
   }
+  Future<bool> handlePostListHelper(List<String> postsToBeAsked, String buyOrSell) async {
+    BuySellPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;
+    BuySellPostList? postList = buyOrSell == 's' ? sellPostList : buyPostList;
 
-  BuySellPostList? getBuySellPostList(buyOrSell) {
-    if (buyOrSell == 's') {
-      return sellPostList;
-    } else if (buyOrSell == 'b') {
-      return buyPostList;
+    if (tempPostList != null) {
+      postList.addNewPosts(tempPostList);
+      tempPostList.posts!.forEach((element) async {
+        final id = await dbHelper.insertBuySellPost(element);
+      });
+      handlePhotos(tempPostList);
+    }
+
+    BuySellPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as BuySellPostList?;
+    handlePhotos(tempPostList2);
+    if (tempPostList2 != null) {
+      postList.addNewPosts(tempPostList2);
+    }
+
+    if (postList.isEmpty()) {
+      return false;
     } else {
-      print(
-          'Error in TransportationPostHandler.dart Unexpected buyOrSell value');
-      return null;
+      return true;
     }
   }
-
   Future handleSearchPosts(
       searchKey, filteredProductPrice, filteredCurrency, buyOrSell) async {
     BuySellPostList? tempSearchedPostList =

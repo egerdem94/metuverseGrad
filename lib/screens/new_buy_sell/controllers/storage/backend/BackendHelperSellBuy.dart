@@ -5,7 +5,7 @@ import 'package:metuverse/user/User.dart';
 import 'package:metuverse/storage/backend/IBackendHelperPostPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:metuverse/storage/models/BasePost.dart';
-import 'package:metuverse/new_buy_sell/models/BuySellPost.dart';
+import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class BackendHelperSellBuy implements IBackendHelperPostPage {
