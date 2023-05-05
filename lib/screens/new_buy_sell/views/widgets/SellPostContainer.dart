@@ -4,8 +4,9 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
-import 'package:metuverse/widgets/BuySellPostBottomWidget.dart';
+import 'package:metuverse/screens/new_buy_sell/views/widgets/BuySellPostBottom.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
+import 'package:metuverse/widgets/Util.dart';
 import 'package:metuverse/widgets/buttons/OverflowMenuButton.dart';
 import 'package:metuverse/widgets/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/commentPage.dart';
@@ -33,11 +34,7 @@ class SellPostContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-            bottom:
-                BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
-      ),
+      decoration: Util.buildPostBoxDecoration(),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +58,7 @@ class SellPostContainer extends StatelessWidget {
           SizedBox(height: 8.0),
           PostMediasWidget(post: post),
           SizedBox(height: 8.0),
-          BuySellPostBottomWidget(post: post),
+          BuySellPostBottom(post: post),
           CommentButtonWidget(),
         ],
       ),

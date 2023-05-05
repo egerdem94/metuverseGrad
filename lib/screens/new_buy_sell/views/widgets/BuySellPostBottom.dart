@@ -1,50 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
-import 'package:metuverse/screens/new_buy_sell/views/widgets/BuySellPostBottom.dart';
-import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
-import 'package:metuverse/widgets/Util.dart';
-import 'package:metuverse/widgets/buttons/OverflowMenuButton.dart';
-import 'package:metuverse/widgets/buttons/comment_button/CommentButtonWidget.dart';
-import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
+import 'package:metuverse/widgets/commentPage.dart';
 
-class BuyPostContainer extends StatelessWidget {
-  final BuySellPost post;
-
-  BuyPostContainer({required this.post});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: Util.buildPostBoxDecoration(),
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              TopLeftCommercialPost(post: post),
-              Spacer(),
-              OverflowMenu(),
-            ],
-          ),
-          SizedBox(height: 8.0),
-          Text(post.description!, style: kwhiteText),
-          SizedBox(height: 8.0),
-          PostMediasWidget(post: post),
-          SizedBox(height: 8.0),
-          BuySellPostBottom(post: post),
-          CommentButtonWidget(),
-        ],
-      ),
-    );
-  }
-}
-
-/*
-//TODO To be deleted
-class BuyPostButtom extends StatelessWidget {
-  const BuyPostButtom({
+class BuySellPostBottom extends StatelessWidget {
+  const BuySellPostBottom({
     super.key,
     required this.post,
   });
@@ -108,11 +70,18 @@ class BuyPostButtom extends StatelessWidget {
         if (!false)
           IconButton(
             onPressed: () {
-              // Leave a comment
+// Add product to favorites
             },
-            icon: Icon(Icons.comment_rounded),
+            icon: Icon(Icons.add_circle_outline),
             color: Colors.blue,
           ),
+        IconButton(
+          onPressed: () {
+            Get.to(CommentScreen());
+          },
+          icon: Icon(MdiIcons.comment),
+          color: Colors.blue,
+        ),
         IconButton(
           onPressed: () {
             // Leave a comment
@@ -123,16 +92,16 @@ class BuyPostButtom extends StatelessWidget {
         Spacer(),
         Chip(
           label: Text(
-            post.productStatus! == 1 ? 'Looking' : 'Found',
+            post.productStatus! == 1 ? 'Available' : 'Sold',
             style: TextStyle(
               color:
-                  post.productStatus! == 1 ? Colors.white : Colors.black,
+              post.productStatus! == 1 ? Colors.white : Colors.black,
             ),
           ),
           backgroundColor:
-              post.productStatus! == 1 ? Colors.green : Colors.red,
+          post.productStatus! == 1 ? Colors.green : Colors.red,
         ),
       ],
     );
   }
-}*/
+}

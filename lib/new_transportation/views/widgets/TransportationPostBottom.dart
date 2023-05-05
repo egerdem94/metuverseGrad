@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
-import 'package:metuverse/widgets/commentPage.dart';
 
-class BuySellPostBottomWidget extends StatelessWidget {
-  const BuySellPostBottomWidget({
+class TransportationCustomerPostBottom extends StatelessWidget {
+  const TransportationCustomerPostBottom({
     super.key,
     required this.post,
   });
 
-  final BuySellPost post;
+  final NewTransportationPost post;
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +70,14 @@ class BuySellPostBottomWidget extends StatelessWidget {
             onPressed: () {
 // Add product to favorites
             },
-            icon: Icon(Icons.add_circle_outline),
+            icon: Icon(MdiIcons.carConnected),
             color: Colors.blue,
           ),
         IconButton(
           onPressed: () {
-            Get.to(CommentScreen());
+            // Leave a comment
           },
-          icon: Icon(MdiIcons.comment),
+          icon: Icon(Icons.comment_rounded),
           color: Colors.blue,
         ),
         IconButton(
@@ -92,14 +90,16 @@ class BuySellPostBottomWidget extends StatelessWidget {
         Spacer(),
         Chip(
           label: Text(
-            post.productStatus! == 1 ? 'Available' : 'Sold',
+            post.transportationStatus! == 1 ? 'Looking' : 'Found',
             style: TextStyle(
-              color:
-              post.productStatus! == 1 ? Colors.white : Colors.black,
+              color: post.transportationStatus! == 1
+                  ? Colors.white
+                  : Colors.black,
             ),
           ),
-          backgroundColor:
-          post.productStatus! == 1 ? Colors.green : Colors.red,
+          backgroundColor: post.transportationStatus! == 1
+              ? Colors.green
+              : Colors.red,
         ),
       ],
     );
