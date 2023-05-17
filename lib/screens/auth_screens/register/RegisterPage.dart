@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
+import 'package:metuverse/GeneralResponse.dart';
 import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metuverse/screens/auth_screens/login/view/LoginPage.dart';
-import 'package:metuverse/auth/screens/verification-page.dart';
+import 'package:metuverse/screens/auth_screens/verification/VerificationPage.dart';
 import 'package:get/get.dart';
-
-import '../../generalResponse.dart';
-import '../../widgets/background-image.dart';
-import '../widgets/login-text-input.dart';
+import 'package:metuverse/screens/auth_screens/widgets/AuthTextInput.dart';
+import 'package:metuverse/widgets/background-image.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -26,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController username = TextEditingController();
   TextEditingController mobileNumber = TextEditingController();
 
-  generalResponse? generalResponseObject;
+  GeneralResponse? generalResponseObject;
   bool passwordVisibilityBool = true;
 
   void dispose() {
@@ -49,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      generalResponseObject = generalResponse.fromJson(jsonObject);
+      generalResponseObject = GeneralResponse.fromJson(jsonObject);
     });
   }
 
@@ -96,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              LoginTextInput(
+                              AuthTextInput(
                                 icon: FontAwesomeIcons.user,
                                 hint: 'Name Surname',
                                 inputType: TextInputType.text,
@@ -107,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               SizedBox(
                                 height: 10,
                               ),
-                              LoginTextInput(
+                              AuthTextInput(
                                 icon: FontAwesomeIcons.solidEnvelope,
                                 hint: 'Email',
                                 inputType: TextInputType.emailAddress,
@@ -120,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               Stack(
                                 children: [
-                                  LoginTextInput(
+                                  AuthTextInput(
                                     icon: FontAwesomeIcons.lock,
                                     hint: 'Password',
                                     inputType: TextInputType.visiblePassword,

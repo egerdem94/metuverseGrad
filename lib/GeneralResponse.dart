@@ -1,10 +1,10 @@
-class generalResponse {
+class GeneralResponse {
   String? message;
   bool? processStatus;
 
-  generalResponse({this.message, this.processStatus});
+  GeneralResponse({this.message, this.processStatus});
 
-  generalResponse.fromJson(Map<String, dynamic> json) {
+  GeneralResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     processStatus = json['processStatus'];
   }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -8,9 +7,9 @@ import 'package:metuverse/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:metuverse/screens/auth_screens/widgets/AuthTextInput.dart';
+import 'package:metuverse/widgets/background-image.dart';
 
-import '../../widgets/background-image.dart';
-import '../widgets/login-text-input.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -109,7 +108,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              LoginTextInput(
+                              AuthTextInput(
                                 icon: FontAwesomeIcons.solidEnvelope,
                                 hint: 'Email',
                                 inputType: TextInputType.emailAddress,

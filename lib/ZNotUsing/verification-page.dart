@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:metuverse/auth/screens/forgotPassword.dart';
+import 'package:metuverse/screens/auth_screens/forgot_password/ForgotPasswordPage.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/widgets/background-image.dart';
 /*

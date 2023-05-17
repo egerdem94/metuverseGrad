@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/generalResponse.dart';
+import 'package:metuverse/GeneralResponse.dart';
 import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
 import 'package:metuverse/user/User.dart';
 
@@ -50,7 +50,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
   bool isButtonClicked = false; //to prevent multiple clicks
   bool isResponseReceived = false;
   List<File?> fileList = [];
-  generalResponse? generalResponseObject;
+  GeneralResponse? generalResponseObject;
   var generalResponseCreatePost;
 
   List<int> getResizedDimensions(int desiredHeight, int width, int height) {

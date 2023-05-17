@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/auth/screens/forgotPassword.dart';
-import 'package:metuverse/auth/widgets/login-text-input.dart';
+import 'package:metuverse/screens/auth_screens/forgot_password/ForgotPasswordPage.dart';
+import 'package:metuverse/screens/auth_screens/widgets/AuthTextInput.dart';
 import 'package:metuverse/screens/auth_screens/login/controller/storage/backend/LoginBackend.dart';
 import 'package:metuverse/screens/auth_screens/login/model/LoginModelX.dart';
 import 'package:metuverse/palette.dart';
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                LoginTextInput(
+                                AuthTextInput(
                                   icon: FontAwesomeIcons.solidEnvelope,
                                   hint: 'Email',
                                   inputType: TextInputType.emailAddress,
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 Stack(
                                   children: [
-                                    LoginTextInput(
+                                    AuthTextInput(
                                       icon: FontAwesomeIcons.lock,
                                       hint: 'Password',
                                       inputType: TextInputType.visiblePassword,

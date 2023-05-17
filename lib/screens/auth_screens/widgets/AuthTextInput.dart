@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 
-class LoginTextInput extends StatelessWidget {
-  const LoginTextInput({
+class AuthTextInput extends StatelessWidget {
+  const AuthTextInput({
     Key? key,
     required this.icon,
     required this.hint,

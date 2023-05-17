@@ -4,11 +4,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:metuverse/GeneralResponse.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/auth_screens/login/view/LoginPage.dart';
-import '../../generalResponse.dart';
-import '../../widgets/background-image.dart';
-import 'package:metuverse/auth/widgets/verificationBox.dart';
+import 'package:metuverse/screens/auth_screens/verification/VerificationBox.dart';
+import 'package:metuverse/widgets/background-image.dart';
 
 class VerificationPage extends StatefulWidget {
   //const VerificationPage({Key? key}) : super(key: key);
@@ -65,7 +65,7 @@ class _VerificationPageState extends State<VerificationPage> {
   final mobileVerificationCode6 = TextEditingController();
   final mobileVerificationCode6Focus = FocusNode();*/
 
-  generalResponse? generalResponseObject;
+  GeneralResponse? generalResponseObject;
 
   void _mail_verificationCode_check() async {
     String serviceAddress =
@@ -87,7 +87,7 @@ class _VerificationPageState extends State<VerificationPage> {
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
 
     setState(() {
-      generalResponseObject = generalResponse.fromJson(jsonObject);
+      generalResponseObject = GeneralResponse.fromJson(jsonObject);
     });
   }
 
