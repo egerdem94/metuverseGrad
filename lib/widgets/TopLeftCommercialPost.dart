@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
-import 'package:metuverse/widgets/buttons/whatsapp/view/WhatsappButton.dart';
+import 'package:metuverse/buttons/whatsapp/view/WhatsappButton.dart';
 import 'package:metuverse/widgets/photo_grids/ProfilePictureCircleAvatarWidget.dart';
 
 class TopLeftCommercialPost extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metuverse/auth/screens/Register-page.dart';
-import 'package:metuverse/logo_screen/view/LogoScreen.dart';
-import 'login/view/LoginPage.dart';
 import 'package:get/get.dart';
+import 'screens/auth_screens/login/view/LoginPage.dart';
+import 'screens/logo_screen/view/LogoScreen.dart';
 
 Future<void> main() async {
   runApp(const MyApp());

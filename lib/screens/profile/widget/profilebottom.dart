@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/profile/screens/profilePage.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/screens/auth_screens/login/view/LoginPage.dart';
+import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/user/User.dart';
 
-
-class CustomBottomNavigationBar extends StatelessWidget {
+class ProfileBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,12 +20,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            /*Expanded(
+            Expanded(
               child: BackButton(
                 color: Colors.white,
               ),
-            ),*/
-/*            Expanded(
+            ),
+            Expanded(
               child: IconButton(
                 icon: Icon(
                   MdiIcons.home,
@@ -34,17 +35,23 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   Get.to(HomePage());
                 },
               ),
-            ),*/
+            ),
             Expanded(
               child: IconButton(
-                icon: CircleAvatar(
-                  radius: 18.0,
-                  backgroundImage: NetworkImage(
-                    User.profilePicture,
-                  ),
+                icon: Icon(
+                  MdiIcons.logout,
+                  color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(ProfilePage());
+                  User.logout();
+                  //Get.to(ProfilePage());
+                  //Get.to(LoginPage());
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return LoginPage();
+                  }), (r) {
+                    return false;
+                  });
                 },
               ),
             ),

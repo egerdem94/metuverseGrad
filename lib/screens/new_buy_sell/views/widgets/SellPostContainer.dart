@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/models/BuySellPost.dart';
 import 'package:metuverse/screens/new_buy_sell/views/widgets/BuySellPostBottom.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/Util.dart';
-import 'package:metuverse/widgets/buttons/OverflowMenuButton.dart';
-import 'package:metuverse/widgets/buttons/comment_button/CommentButtonWidget.dart';
-import 'package:metuverse/widgets/commentPage.dart';
+import 'package:metuverse/buttons/OverflowMenuButton.dart';
+import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
 

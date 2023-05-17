@@ -1,5 +1,5 @@
 import 'package:metuverse/screens/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
-import 'package:metuverse/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
 import 'package:path_provider/path_provider.dart';

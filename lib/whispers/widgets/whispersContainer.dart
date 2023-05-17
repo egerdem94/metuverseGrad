@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/palette.dart';
-import '../../login/view/LoginPage.dart';
-import '../../profile/screens/OtherUserProfilePage.dart';
-import '../../widgets/photo_grids/FullScreenImageViewOnline.dart';
-import '../../widgets/photo_grids/PhotoGridOnline.dart';
-import '../models/whispersPostList.dart';
-import '../models/whispersPostList.dart';
+import 'package:metuverse/whispers/models/whispersPostList.dart';
+import 'package:metuverse/widgets/photo_grids/FullScreenImageViewOnline.dart';
+import 'package:metuverse/widgets/photo_grids/PhotoGridOnline.dart';
+
 
 class WhispersContainer extends StatelessWidget {
   final Post post;
-
-  /*final List<String> imagesUrls = [
-    "https://boxesonline.co.za/images/jch-optimize/ng/images_stories_virtuemart_product__new_stock5-close.webp",
-    'https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png'
-  ];*/
 
   WhispersContainer({required this.post});
 

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/new_buy_sell/views/BuySellSearchPage.dart';
+import 'package:metuverse/screens/new_transportation/views/TransportationSearchPage.dart';
 import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
 
-class NewBuyAndSellAppBar extends StatelessWidget
+class TransportationAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  final buyOrSell;
+  final customerOrDriver;
 
-  const NewBuyAndSellAppBar({super.key, required this.buyOrSell});
+  const TransportationAppBar({super.key, required this.customerOrDriver});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,8 +36,8 @@ class NewBuyAndSellAppBar extends StatelessWidget
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-              Get.to((BuySellSearchPage(
-                buyOrSell: buyOrSell,
+              Get.to((TransportationSearchPage(
+                customerOrDriver: customerOrDriver,
               )));
             },
           ),
@@ -55,5 +56,3 @@ class NewBuyAndSellAppBar extends StatelessWidget
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
-
-
