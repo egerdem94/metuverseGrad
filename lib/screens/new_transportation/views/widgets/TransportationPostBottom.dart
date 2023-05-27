@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
 import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
 import 'package:metuverse/palette.dart';
 
@@ -15,57 +16,8 @@ class TransportationCustomerPostBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (false)
-          TextButton(
-            onPressed: () {
-              // Change description
-            },
-            child: Text(
-              'Change Description',
-              style: kwhiteText,
-            ),
-          ),
-        if (false)
-          TextButton(
-            onPressed: () {
-              // Change price
-            },
-            child: Text(
-              'Change Price',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ),
-        if (false)
-          TextButton(
-            onPressed: () {
-              // Update availability
-            },
-            child: Text(
-              'Update Availability',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ),
-        if (false)
-          TextButton(
-            onPressed: () {
-              // Delete post
-            },
-            child: Text(
-              'Delete Post',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ),
-        if (false)
-          TextButton(
-            onPressed: () {
-// Leave a comment
-            },
-            child: Text(
-              'Comment',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ),
-        if (!false)
+        FavoriteButton(post: post),
+        /*if (!false)
           IconButton(
             onPressed: () {
 // Add product to favorites
@@ -79,7 +31,7 @@ class TransportationCustomerPostBottom extends StatelessWidget {
           },
           icon: Icon(Icons.comment_rounded),
           color: Colors.blue,
-        ),
+        ),*/
         IconButton(
           onPressed: () {
             // Leave a comment

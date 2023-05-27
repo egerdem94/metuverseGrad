@@ -1,4 +1,4 @@
-import 'package:metuverse/screens/new_buy_sell/controllers/storage/database/SellBuyTableValues.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/SellBuyTableValues.dart';
 import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
@@ -46,6 +46,7 @@ class DatabaseHelperParent {
             ${SellBuyTableValues.columnFullName} TEXT NOT NULL,
             ${SellBuyTableValues.columnProfilePicture} TEXT,
             ${SellBuyTableValues.columnBelongToUser} INTEGER NOT NULL,
+            ${SellBuyTableValues.columnIsFavorite} INTEGER NOT NULL,
             ${SellBuyTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
             ${SellBuyTableValues.columnDescription} TEXT,
             ${SellBuyTableValues.columnProductPrice} INTEGER UNSIGNED,
@@ -74,6 +75,7 @@ class DatabaseHelperParent {
               ${TransportationPostTableValues.columnFullName} TEXT NOT NULL,
               ${TransportationPostTableValues.columnProfilePicture} TEXT,
               ${TransportationPostTableValues.columnBelongToUser} INTEGER NOT NULL,
+              ${TransportationPostTableValues.columnIsFavorite} INTEGER NOT NULL,
               ${TransportationPostTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
               ${TransportationPostTableValues.columnDescription} TEXT,
               ${TransportationPostTableValues.columnProductPrice} INTEGER UNSIGNED,

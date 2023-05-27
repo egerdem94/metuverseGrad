@@ -131,6 +131,9 @@ class NewTransportationPost extends BasePost{
         belongToUser: json[TransportationPostTableValues.columnBelongToUser] == 1
             ? true
             : false,
+        isFavorite: json[TransportationPostTableValues.columnIsFavorite] == 1
+            ? true
+            : false,
         fullName: json[TransportationPostTableValues.columnFullName],
         profilePicture: json[TransportationPostTableValues.columnProfilePicture],
         postID: json[TransportationPostTableValues.columnPostID],
@@ -140,6 +143,7 @@ class NewTransportationPost extends BasePost{
   Map<String,dynamic> toDbMap(){
     final _data = <String, dynamic>{};
     _data[TransportationPostTableValues.columnBelongToUser] = belongToUser == true ? 1 : 0;
+    _data[TransportationPostTableValues.columnIsFavorite] = isFavorite == true ? 1 : 0;
     _data[TransportationPostTableValues.columnFullName] = fullName;
     _data[TransportationPostTableValues.columnProfilePicture] = profilePicture;
     _data[TransportationPostTableValues.columnPostID] = postID;
@@ -164,6 +168,7 @@ class NewTransportationPost extends BasePost{
         transportationStatus = json['transportationStatus'],
         super(
         belongToUser: json['belongToUser'],
+        isFavorite: false,
         fullName: json['fullName'],
         profilePicture: json['profilePicture'],
         postID: json['postID'],
@@ -173,6 +178,7 @@ class NewTransportationPost extends BasePost{
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['belongToUser'] = belongToUser;
+    _data['isFavorite'] = isFavorite;
     _data['fullName'] = fullName;
     _data['profilePicture'] = profilePicture;
     _data['postID'] = postID;

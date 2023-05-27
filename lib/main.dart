@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: LoginPage(),
        home: LogoScreen(),//goes directly to logo screen
-      getPages: [
+       getPages: [
         GetPage(
           name: '/register',
           page: () => RegisterPage(),

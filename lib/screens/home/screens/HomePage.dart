@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_buy_sell/views/BuySellPage.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/screens/home/widgets/announcementSlides.dart';
@@ -65,13 +65,13 @@ class HomePage extends StatelessWidget {
                     onPressed: () {},
                     imageUrl: 'assets-images/book.jpg',
                   ),
-                  /*RoundedSquareButton(
+                  RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(AcademicCalendar());
+                      //Get.to(AcademicCalendar());
                     },
-                    imageUrl: 'assets-images/academiccalendar.png',
-                  ),*/
+                    imageUrl: 'assets-images/sport.png',
+                  ),
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {

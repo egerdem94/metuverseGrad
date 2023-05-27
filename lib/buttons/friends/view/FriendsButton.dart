@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/buttons/friends/view/MessageRequestsPage.dart';
+import 'package:metuverse/buttons/friends/view/FriendsPage.dart';
 
 class FriendsButton extends StatelessWidget {
   const FriendsButton({

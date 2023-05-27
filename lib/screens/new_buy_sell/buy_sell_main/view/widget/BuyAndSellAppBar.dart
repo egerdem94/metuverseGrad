@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
-import 'package:metuverse/widgets/search.dart/search.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellSearchPage.dart';
+import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
 
-class MetuverseAppBar extends StatelessWidget implements PreferredSizeWidget {
+class NewBuyAndSellAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  final buyOrSell;
+
+  const NewBuyAndSellAppBar({super.key, required this.buyOrSell});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,16 +36,12 @@ class MetuverseAppBar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-              Get.to(SearchPage());
+              Get.to((BuySellSearchPage(
+                buyOrSell: buyOrSell,
+              )));
             },
           ),
           NotificationButton(),
-          /*IconButton(
-            icon: Icon(Icons.mail),
-            onPressed: () {
-              Get.to(ChatsScreen());
-            },
-          )*/
           FriendsButton(),
         ],
       ),

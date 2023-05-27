@@ -7,6 +7,7 @@ class BasePost{
   static const String defaultProfilePictureUrl =
       "http://birikikoli.com/images/blank-profile-picture.jpg"; //empty profile picture
   bool? belongToUser;
+  bool? isFavorite;
   String? fullName;
   String? profilePicture;
   int? postID;
@@ -15,6 +16,7 @@ class BasePost{
 
   BasePost({
     this.belongToUser,
+    this.isFavorite,
     this.fullName,
     this.profilePicture,
     this.postID,
