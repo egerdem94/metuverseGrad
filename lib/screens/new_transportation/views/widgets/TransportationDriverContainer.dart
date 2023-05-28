@@ -3,7 +3,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
 import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_button/view/CommercialOverflowMenuButton.dart';
 import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/screens/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_transportation/views/widgets/DepartureDestinationBox.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
@@ -11,7 +10,8 @@ import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 
 class TransportationDriverContainer extends StatefulWidget {
   final NewTransportationPost post;
-  TransportationDriverContainer({required this.post});
+  final Function onDeletePressedArgument;
+  TransportationDriverContainer({required this.post, required this.onDeletePressedArgument});
 
   @override
   _TransportationDriverContainerState createState() =>
@@ -45,7 +45,9 @@ class _TransportationDriverContainerState
                   '${widget.post.transportationPrice ?? 0} ${GeneralUtil.currencyConverter(widget.post.currency ?? "")} ₺',
                   style: kwhiteText),
               SizedBox(width: 8.0),
-              CommercialOverflowMenu(post: widget.post,),
+              CommercialOverflowMenu(post: widget.post,
+                onDeletePressedArgument: widget.onDeletePressedArgument,
+              ),
             ],
           ),
           SizedBox(height: 8.0),
@@ -56,15 +58,6 @@ class _TransportationDriverContainerState
           Row(
             children: [
               FavoriteButton(post: widget.post,),
-              /*if (!widget.post.belongToUser!)
-                IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(
-                    MdiIcons.humanGreeting,
-                  ),
-                  color: Colors.blue,
-                ),*/
               IconButton(
                 onPressed: () {
                   // Leave a comment

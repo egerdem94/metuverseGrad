@@ -53,44 +53,28 @@ class WhatsappController{
       );
     }
   }
-  Future phoneNumberProcedure2(BuildContext context,Friend friend) async {
-/*    PhoneNumberResponse phoneNumberResponse =
-    await phoneNumberRelatedBackendHelper.sendPhoneNumberRequest(post.postID.toString());
-    if (phoneNumberResponse.message == '1' ||
-        phoneNumberResponse.message == '2') {
-      launchWhatsApp(phoneNumberResponse.relatedPhoneNumber!,
-          "I'm interested in your post having description: " + post.description!);
+  Future phoneNumberProcedure2(BuildContext context, Friend friend) async {
+    if (friend.phoneNumber != null) {
+      var greeting = "Hey " + friend.fullName!.split(" ")[0] + "!";
+      launchWhatsApp(friend.phoneNumber!, greeting);
     } else {
-      // Display a dialog asking if the user wants to send a friendship request
       showDialog(
-        context: context, // Make sure to pass the BuildContext 'context' to this function
+        context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Send Friendship Request'),
-            content: Text(
-                'Do you want to send a friendship request to this user?'),
+            title: Text("No Phone Number"),
+            content: Text("${friend.fullName} doesn't have a phone number."),
             actions: [
               TextButton(
-                onPressed: () async {
-                  // Send friendship request if the user clicks "Yes"
-                  await phoneNumberRelatedBackendHelper
-                      .sendFriendshipRequest(
-                      phoneNumberResponse.relatedUserPublicToken);
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: Text('Yes'),
-              ),
-              TextButton(
                 onPressed: () {
-                  // Do nothing if the user clicks "No"
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
                 },
-                child: Text('No'),
+                child: Text("OK"),
               ),
             ],
           );
         },
       );
-    }*/
+    }
   }
 }

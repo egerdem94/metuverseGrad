@@ -25,13 +25,14 @@ class Friend {
   String? relatedUserPublicToken;
   String? fullName;
   String? profilePicture;
-
+  String? phoneNumber;
   Friend({this.relatedUserPublicToken, this.fullName, this.profilePicture});
 
   Friend.fromJson(Map<String, dynamic> json) {
     relatedUserPublicToken = json['relatedUserPublicToken'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
+    phoneNumber = json['phoneNumber'];
   }
 
 /*  Map<String, dynamic> toJson() {

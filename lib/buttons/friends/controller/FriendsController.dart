@@ -1,10 +1,10 @@
-import 'package:metuverse/buttons/friends/controller/MessageRequestBackendHelper.dart';
+import 'package:metuverse/buttons/friends/controller/FriendsBackendHelper.dart';
 import 'package:metuverse/buttons/friends/model/FriendList.dart';
 import 'package:metuverse/buttons/friends/model/IncomingMessageRequest.dart';
 import 'package:metuverse/buttons/friends/model/OutgoingMessageRequest.dart';
 
-class MessageRequestController{
-  MessageRequestBackendHelper messageRequestBackendHelper = MessageRequestBackendHelper();
+class FriendsController{
+  FriendsBackendHelper messageRequestBackendHelper = FriendsBackendHelper();
   IncomingMessageRequestListX? incomingMessageRequestList;
   OutgoingMessageRequestListX? outgoingMessageRequestsList;
 
@@ -29,5 +29,8 @@ class MessageRequestController{
 
   Future<FriendList?> getFriendsList() async {
     return await messageRequestBackendHelper.friendListRequest();
+  }
+  Future<bool> removeFriend(otherUserToken) async {
+    return await messageRequestBackendHelper.removeFriend(otherUserToken);
   }
 }

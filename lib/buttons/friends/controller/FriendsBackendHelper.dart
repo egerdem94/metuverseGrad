@@ -6,7 +6,7 @@ import 'package:metuverse/buttons/friends/model/IncomingMessageRequest.dart';
 import 'package:metuverse/buttons/friends/model/OutgoingMessageRequest.dart';
 import 'package:http/http.dart' as http;
 
-class MessageRequestBackendHelper{
+class FriendsBackendHelper{
   Future<IncomingMessageRequestListX?> incomingMessageRequest() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/user/phoneAccess/phoneAccess_IncomingMessageRequestList.php';
@@ -92,6 +92,24 @@ class MessageRequestBackendHelper{
     }
     else{
       return 0;
+    }
+  }
+
+  Future<bool> removeFriend(otherUserToken) async{
+    String serviceAddress =
+        'http://www.birikikoli.com/mv_services/user/phoneAccess/phoneAccess_RemoveFriend.php';
+    Uri serviceUri = Uri.parse(serviceAddress);
+    final response = await http.post(serviceUri, body: {
+      "token": User.privateToken,
+      "relatedUserPublicToken": otherUserToken,
+    });
+    String stringData = response.body;
+    Map<String, dynamic> jsonObject = jsonDecode(stringData);
+    if(jsonObject['message'] == "1"){
+      return true;
+    }
+    else{
+      return false;
     }
   }
 

@@ -10,8 +10,8 @@ import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
 class BuyPostContainer extends StatelessWidget {
   final BuySellPost post;
-
-  BuyPostContainer({required this.post});
+  final Function onDeletePressedArgument;
+  BuyPostContainer({required this.post, required this.onDeletePressedArgument});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BuyPostContainer extends StatelessWidget {
             children: [
               TopLeftCommercialPost(post: post),
               Spacer(),
-              CommercialOverflowMenu(post: post),
+              CommercialOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
             ],
           ),
           SizedBox(height: 8.0),

@@ -139,9 +139,19 @@ class _BuySellPageState extends State<BuySellPage> {
         return widget.buyOrSell == 's'
             ? SellPostContainer(
           post: buySellPostHandler.sellPostList.posts![index],
+          onDeletePressedArgument: () {
+            setState(() {
+              buySellPostHandler.sellPostList.posts!.removeAt(index);
+            });
+          },
         )
             : BuyPostContainer(
           post: buySellPostHandler.buyPostList.posts![index],
+          onDeletePressedArgument: () {
+            setState(() {
+              buySellPostHandler.buyPostList.posts!.removeAt(index);
+            });
+        },
         );
       },
     );

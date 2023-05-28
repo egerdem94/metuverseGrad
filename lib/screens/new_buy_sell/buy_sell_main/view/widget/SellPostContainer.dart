@@ -8,13 +8,24 @@ import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
-
-class SellPostContainer extends StatelessWidget {
+class SellPostContainer extends StatefulWidget {
   final BuySellPost post;
-  SellPostContainer({required this.post});
+  final Function onDeletePressedArgument;
+  SellPostContainer({required this.post, required this.onDeletePressedArgument});
 
   @override
+  _SellPostContainerState createState() => _SellPostContainerState();
+}
+
+class _SellPostContainerState extends State<SellPostContainer> {
+  bool isPostDeleted = false;
+  @override
   Widget build(BuildContext context) {
+    if (isPostDeleted) {
+      // If the post is deleted, return an empty container or any desired UI representation
+      return Container();
+    }
+
     return Container(
       decoration: GeneralUtil.buildPostBoxDecoration(),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -23,22 +34,22 @@ class SellPostContainer extends StatelessWidget {
         children: [
           Row(
             children: [
-              //post.belongToUser!?TopLeftOwnPost(post: post):TopLeftPost(post: post),
-              TopLeftCommercialPost(post: post),
+              TopLeftCommercialPost(post: widget.post),
               Spacer(),
               Text(
-                  '${post.productPrice ?? 0} ${GeneralUtil.currencyConverter(post.currency ?? "")}',
-                  style: kwhiteText),
+                '${widget.post.productPrice ?? 0} ${GeneralUtil.currencyConverter(widget.post.currency ?? "")}',
+                style: kwhiteText,
+              ),
               SizedBox(width: 8.0),
-              CommercialOverflowMenu(post: post,),
+              CommercialOverflowMenu(post: widget.post, onDeletePressedArgument: widget.onDeletePressedArgument),
             ],
           ),
           SizedBox(height: 8.0),
-          Text(post.description ?? "", style: kwhiteText),
+          Text(widget.post.description ?? "", style: kwhiteText),
           SizedBox(height: 8.0),
-          PostMediasWidget(post: post),
+          PostMediasWidget(post: widget.post),
           SizedBox(height: 8.0),
-          BuySellPostBottom(post: post),
+          BuySellPostBottom(post: widget.post),
           CommentButtonWidget(),
         ],
       ),
