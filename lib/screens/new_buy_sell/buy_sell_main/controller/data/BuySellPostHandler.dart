@@ -110,10 +110,14 @@ class BuySellPostHandler {
     }
     var postListLength = postList.posts!.length;
     var handledPostCount = 0;
+    var handledPostWithPhotoCount = 0;
     postList.posts!.forEach((post) {
       handlePhoto(post).then((_) {
         handledPostCount++;
-        if (handledPostCount == 3 || handledPostCount == postListLength) {
+        if (post.mediaExist) {
+          handledPostWithPhotoCount++;
+        }
+        if (handledPostWithPhotoCount == 3 || handledPostCount == postListLength) {
           ready = true;
         }
       });

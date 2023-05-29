@@ -11,7 +11,8 @@ import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 class BuyPostContainer extends StatelessWidget {
   final BuySellPost post;
   final Function onDeletePressedArgument;
-  BuyPostContainer({required this.post, required this.onDeletePressedArgument});
+  final String onlineOrOfflineImage;
+  BuyPostContainer({required this.post, required this.onDeletePressedArgument, required this.onlineOrOfflineImage});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class BuyPostContainer extends StatelessWidget {
           SizedBox(height: 8.0),
           Text(post.description!, style: kwhiteText),
           SizedBox(height: 8.0),
-          PostMediasWidget(post: post),
+          PostMediasWidget(post: post, onlineOrOffline: onlineOrOfflineImage,),
           SizedBox(height: 8.0),
           BuySellPostBottom(post: post),
           CommentButtonWidget(),

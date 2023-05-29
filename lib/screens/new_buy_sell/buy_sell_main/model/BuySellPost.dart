@@ -156,9 +156,15 @@ class BuySellPost extends BasePostWithMedia {
     productPrice = json['productPrice'];
     currency = json['currency'];
     productStatus = json['productStatus'];
-    mediaExist = (mediaList != null &&
+    if(mediaList == null || mediaList!.length == 0 || mediaList![0] == "http://www.birikikoli.com/images/nophoto.jpg"){
+      mediaExist = false;
+    }
+    else{
+      mediaExist = true;
+    }
+    /*mediaExist = (mediaList != null &&
         mediaList!.length >
-            0); //mediaExist is false if mediaList is null or length is 0 and true if mediaList is not empty
+            0); //mediaExist is false if mediaList is null or length is 0 and true if mediaList is not empty*/
     isPostFromNetwork = true;
   }
 

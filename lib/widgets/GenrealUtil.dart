@@ -26,8 +26,8 @@ class GeneralUtil{
       return url;
     }
   }
-  static String? currencyConverter(String? currencyText) {
-    String currencySymbol = '';
+  static String? currencyConverter(String? currencyText) {//TODO YAVUZ DELETE?
+    String currencySymbol = '';//
     if (currencyText == 'TL')
       currencySymbol = '₺';
     else if (currencyText == 'DOLLAR')
@@ -35,6 +35,18 @@ class GeneralUtil{
     else if (currencyText == 'EURO')
       currencySymbol = '€';
     else if (currencyText == 'POUND') currencySymbol = '£';
+
+    return currencySymbol;
+  }
+  static String? currencyConverter2(String? currencyText) {
+    String currencySymbol = '₺';
+    if (currencyText == 'TRY')
+      currencySymbol = '₺';
+    else if (currencyText == 'USD')
+      currencySymbol = '\$';
+    else if (currencyText == 'EUR')
+      currencySymbol = '€';
+    else if (currencyText == 'GBP') currencySymbol = '£';
 
     return currencySymbol;
   }

@@ -59,7 +59,16 @@ class _BuySellPageState extends State<BuySellPage> {
         });
       });*/
       // Start the delayed future to periodically check the condition
-      _startDelayedFuture();
+      if(widget.searchModeFlag){
+        Future.delayed(Duration(milliseconds: 1000), () {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      }
+      else{
+        _startDelayedFuture();
+      }
     });
   }
   void _startDelayedFuture() {
@@ -144,6 +153,7 @@ class _BuySellPageState extends State<BuySellPage> {
               buySellPostHandler.sellPostList.posts!.removeAt(index);
             });
           },
+          onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
         )
             : BuyPostContainer(
           post: buySellPostHandler.buyPostList.posts![index],
@@ -151,11 +161,13 @@ class _BuySellPageState extends State<BuySellPage> {
             setState(() {
               buySellPostHandler.buyPostList.posts!.removeAt(index);
             });
-        },
+          },
+          onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
         );
       },
     );
   }
+
 
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {

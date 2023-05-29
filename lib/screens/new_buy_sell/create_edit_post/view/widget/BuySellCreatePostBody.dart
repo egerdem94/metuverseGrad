@@ -18,27 +18,23 @@ import 'package:metuverse/widgets/create_post/ProfilePicture.dart';
 import 'package:path_provider/path_provider.dart';
 
 class BuySellCreatePostBody extends StatefulWidget {
-  final _formKey = GlobalKey<FormState>();
-  final Function updateImageUrls;
-  final Function createProduct;
-  final Function submitForm;
-  final Function(File) onImageSelected;
+  late final GlobalKey<FormState> _formKey;
+  final TextEditingController descriptionController;
+  final TextEditingController priceController;
+  final TextEditingController productCurrency;
 
-  BuySellCreatePostBody({
-    required this.updateImageUrls,
-    required this.createProduct,
-    required this.submitForm,
-    required this.onImageSelected,
-  }) : super();
+  BuySellCreatePostBody({required this.descriptionController, required this.priceController, required this.productCurrency}) : super();
 
   @override
   _BuySellCreatePostBodyState createState() => _BuySellCreatePostBodyState();
 }
 
 class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController productCurrency = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    widget._formKey = GlobalKey<FormState>();
+  }
   final picker = ImagePicker();
 
   String _selectedCurrency = '₺';
@@ -82,8 +78,8 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
     //request.fields['userID'] = '€'.toString();
     request.fields['token'] = User.privateToken;
     request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
-    request.fields['description'] = descriptionController.text;
-    request.fields['productPrice'] = priceController.text;
+    request.fields['description'] = widget.descriptionController.text;
+    request.fields['productPrice'] = widget.priceController.text;
     request.fields['currency'] = _selectedCurrency;
 
     await request.send().then((result) {
@@ -187,7 +183,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                   ),
                   Row(
                     children: [
-                      PriceInputBox(priceController: priceController,initialPrice: ""),
+                      PriceInputBox(priceController: widget.priceController,initialPrice: ""),
                       Container(
                         height: 35,
                         margin: EdgeInsets.only(top: 16.0, left: 10.0),
@@ -224,7 +220,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        DescriptionInputBox(descriptionController: descriptionController,initialValue: "",hint: "What are you selling"),
+                        DescriptionInputBox(descriptionController: widget.descriptionController,initialValue: "",hint: "What are you selling"),
                         Container(
                           height: 200,
                           child: GridView.builder(
