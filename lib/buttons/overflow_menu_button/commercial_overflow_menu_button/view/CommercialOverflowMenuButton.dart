@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_button/controller/CommercialOverflowController.dart';
 import 'package:metuverse/palette.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
 class CommercialOverflowMenu extends StatefulWidget {
@@ -39,13 +40,19 @@ class _CommercialOverflowMenuState extends State<CommercialOverflowMenu> {
       );
     }
   }
+  Future<void> selectAsFound() async{
+    if(widget.post is BuySellPost){
+      var isToggled = await CommercialOverflowController().selectAsFoundPressed(widget.post.postID);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
     final isOwnPost = widget.post.belongToUser!;
 
     return PopupMenuButton<String>(
-      onSelected: (String value) {
+      onSelected: (String value) async {
         if (value == 'Delete') {
           showDialog(
             context: context,
@@ -71,6 +78,9 @@ class _CommercialOverflowMenuState extends State<CommercialOverflowMenu> {
               );
             },
           );
+        }
+        else if(value == 'Select As Found'){
+          await selectAsFound();
         }
       },
       itemBuilder: (BuildContext context) {

@@ -7,4 +7,7 @@ class CommercialOverflowController{
     return await commercialOverflowBackend.deletePostRequest(postID.toString());
     //TODO also delete the post from local database
   }
+  Future<bool> selectAsFoundPressed(postID) async{
+    return await commercialOverflowBackend.selectAsFoundRequest(postID.toString());
+  }
 }
