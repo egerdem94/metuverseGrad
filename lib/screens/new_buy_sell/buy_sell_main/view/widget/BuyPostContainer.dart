@@ -4,7 +4,7 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.d
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellPostBottom.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
-import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_button/view/CommercialOverflowMenuButton.dart';
+import 'package:metuverse/screens/new_buy_sell/button/buysell_overflow_menu_button/view/BuySellOverflowMenuButton.dart';
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
@@ -26,7 +26,7 @@ class BuyPostContainer extends StatelessWidget {
             children: [
               TopLeftCommercialPost(post: post),
               Spacer(),
-              CommercialOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
+              BuySellOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument, buyOrSell: "b",),
             ],
           ),
           SizedBox(height: 8.0),

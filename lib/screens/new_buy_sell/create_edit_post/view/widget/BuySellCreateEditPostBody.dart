@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/GeneralResponse.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/controller/Util.dart';
+import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/user/User.dart';
 
 import 'package:image/image.dart' as IMG;
@@ -17,27 +18,42 @@ import 'package:metuverse/widgets/create_post/PriceInputBox.dart';
 import 'package:metuverse/widgets/create_post/ProfilePicture.dart';
 import 'package:path_provider/path_provider.dart';
 
-class BuySellCreatePostBody extends StatefulWidget {
+class BuySellCreateEditPostBody extends StatefulWidget {
   late final GlobalKey<FormState> _formKey;
   final TextEditingController descriptionController;
   final TextEditingController priceController;
   final TextEditingController productCurrency;
-
-  BuySellCreatePostBody({required this.descriptionController, required this.priceController, required this.productCurrency}) : super();
+  final  photoList;
+  final String selectedCurrency;// = '₺';
+  final String editOrCreate;
+  BuySellCreateEditPostBody({ required this.editOrCreate,required this.descriptionController, required this.priceController, required this.productCurrency, this.photoList, required this.selectedCurrency}) : super();
 
   @override
-  _BuySellCreatePostBodyState createState() => _BuySellCreatePostBodyState();
+  _BuySellCreateEditPostBodyState createState() => _BuySellCreateEditPostBodyState();
 }
 
-class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
+class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
   @override
   void initState() {
     super.initState();
     widget._formKey = GlobalKey<FormState>();
-  }
-  final picker = ImagePicker();
+    _selectedCurrency = widget.selectedCurrency;
+    // Check if the mode is "edit", and if so, populate fileList from photoList
+    if (widget.editOrCreate == "e" && widget.photoList != null && widget.photoList.photos.isNotEmpty) {
+      for (var photo in widget.photoList.photos) {
+        // Create a File from photoData
+        final tempDir = Directory.systemTemp;
+        final file = File('${tempDir.path}/${photo.photoID}.jpg');
+        file.writeAsBytesSync(photo.photoData);
 
-  String _selectedCurrency = '₺';
+        // Add file to fileList
+        fileList.add(file);
+      }
+    }
+  }
+
+  final picker = ImagePicker();
+  late String _selectedCurrency;// = widget.selectedCurrency;
   List<String> _currencies = ['₺', '\$', '€', '£'];
   String _buyerOrSeller = 'Selling';
   List<String> _who = ['Buying', 'Selling'];
@@ -51,7 +67,13 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
   var generalResponseCreatePost;
 
   Future _sendPostToBackend() async {
-    var url = "http://www.birikikoli.com/mv_services/postPage/buyandsell/buyandsell_createPost.php";
+    var url;
+    if(widget.editOrCreate == 'c'){
+      url = "http://www.birikikoli.com/mv_services/postPage/buyandsell/buyandsell_createPost.php";
+    }
+    else{
+      url = "http://www.birikikoli.com/mv_services/postPage/buyandsell/buyandsell_updatePost.php";
+    }
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
     int i = 0;
@@ -69,13 +91,11 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
         final newImg = await File(path).writeAsBytes(IMG.encodePng(resized));
 
         var pic = await http.MultipartFile.fromPath("image$i", newImg.path);
-        /* var pic = await http.MultipartFile.fromPath("image$i", fL!.path);*/
 
         request.files.add(pic);
         i++;
       }
     }
-    //request.fields['userID'] = '€'.toString();
     request.fields['token'] = User.privateToken;
     request.fields['buyerOrSeller'] = _buyerOrSeller.toLowerCase()[0];
     request.fields['description'] = widget.descriptionController.text;
@@ -93,9 +113,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
             SnackBar(content: Text(generalResponseCreatePost['message']));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         if (generalResponseCreatePost['processStatus'] == true) {
-          //token = loginObject?.currentUserToken;
           if (_buyerOrSeller == 'Selling') {
-            //Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -104,7 +122,6 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                           searchModeFlag: false,
                         )));
           } else {
-            //Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -183,7 +200,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                   ),
                   Row(
                     children: [
-                      PriceInputBox(priceController: widget.priceController,initialPrice: ""),
+                      PriceInputBox(priceController: widget.priceController/*,initialPrice: ""*/),
                       Container(
                         height: 35,
                         margin: EdgeInsets.only(top: 16.0, left: 10.0),
@@ -220,7 +237,7 @@ class _BuySellCreatePostBodyState extends State<BuySellCreatePostBody> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        DescriptionInputBox(descriptionController: widget.descriptionController,initialValue: "",hint: "What are you selling"),
+                        DescriptionInputBox(descriptionController: widget.descriptionController/*,initialValue: ""*/,hint: "What are you selling"),
                         Container(
                           height: 200,
                           child: GridView.builder(

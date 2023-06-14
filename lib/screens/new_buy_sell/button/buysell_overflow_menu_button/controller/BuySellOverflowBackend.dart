@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/buttons/whatsapp/model/GeneralResponse.dart';
 import 'package:metuverse/user/User.dart';
 
-class CommercialOverflowBackend{
+class BuySellOverflowBackend{
   Future<bool> deletePostRequest(postID) async{
     String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/all/all_deletePost.php';
     Uri serviceUri = Uri.parse(serviceAddress);

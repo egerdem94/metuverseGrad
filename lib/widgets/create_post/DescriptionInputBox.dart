@@ -4,19 +4,15 @@ class DescriptionInputBox extends StatelessWidget {
   const DescriptionInputBox({
     Key? key,
     required this.hint,
-    required this.initialValue,
     required this.descriptionController,
   }) : super(key: key);
 
   final String hint;
-  final String initialValue;
 
   final TextEditingController descriptionController;
 
   @override
   Widget build(BuildContext context) {
-    descriptionController.text = initialValue;
-
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,

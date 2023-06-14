@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_button/controller/CommercialOverflowController.dart';
+import 'package:metuverse/screens/new_buy_sell/button/buysell_overflow_menu_button/controller/BuySellOverflowController.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
-import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:get/get.dart';
+import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellEditPostPage.dart';
 
-class CommercialOverflowMenu extends StatefulWidget {
-  const CommercialOverflowMenu({
+class BuySellOverflowMenu extends StatefulWidget {
+  const BuySellOverflowMenu({
     Key? key,
     required this.post,
     required this.onDeletePressedArgument,
+    required this.buyOrSell,
   }) : super(key: key);
-
-  final BasePost post;
+  final buyOrSell;
+  final BuySellPost post;
   final Function onDeletePressedArgument;
   @override
-  _CommercialOverflowMenuState createState() => _CommercialOverflowMenuState();
+  _BuySellOverflowMenuState createState() => _BuySellOverflowMenuState();
 }
 
-class _CommercialOverflowMenuState extends State<CommercialOverflowMenu> {
+class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
   bool isPostDeleted = false;
 
   Future<void> deletePost() async {
-    var isDeleted = await CommercialOverflowController().deletePressed(widget.post.postID);
+    var isDeleted = await BuySellOverflowController().deletePressed(widget.post.postID);
     setState(() {
       isPostDeleted = isDeleted;
     });
@@ -41,10 +43,7 @@ class _CommercialOverflowMenuState extends State<CommercialOverflowMenu> {
     }
   }
   Future<void> selectAsFound() async{
-    if(widget.post is BuySellPost){
-      var isToggled = await CommercialOverflowController().selectAsFoundPressed(widget.post.postID);
-    }
-
+      var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
   }
 
   @override
@@ -81,6 +80,11 @@ class _CommercialOverflowMenuState extends State<CommercialOverflowMenu> {
         }
         else if(value == 'Select As Found'){
           await selectAsFound();
+        }
+        else if(value == "Modify"){
+          Get.to(BuySellEditPostPage(
+            buyOrSell: widget.buyOrSell, buySellPost: widget.post,
+          ));
         }
       },
       itemBuilder: (BuildContext context) {

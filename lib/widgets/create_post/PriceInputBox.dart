@@ -4,15 +4,12 @@ class PriceInputBox extends StatelessWidget {
   const PriceInputBox({
     super.key,
     required this.priceController,
-    required this.initialPrice,
   });
 
   final TextEditingController priceController;
-  final initialPrice;
 
   @override
   Widget build(BuildContext context) {
-    priceController.text = initialPrice;
     return Container(
       height: 45,
       margin: EdgeInsets.only(top: 16.0),

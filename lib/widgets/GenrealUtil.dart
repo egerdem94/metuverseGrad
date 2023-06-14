@@ -38,7 +38,7 @@ class GeneralUtil{
 
     return currencySymbol;
   }
-  static String? currencyConverter2(String? currencyText) {
+  static String currencyConverter2(String? currencyText) {
     String currencySymbol = '₺';
     if (currencyText == 'TRY')
       currencySymbol = '₺';

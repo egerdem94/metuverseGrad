@@ -4,7 +4,7 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.d
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellPostBottom.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
-import 'package:metuverse/buttons/overflow_menu_button/commercial_overflow_menu_button/view/CommercialOverflowMenuButton.dart';
+import 'package:metuverse/screens/new_buy_sell/button/buysell_overflow_menu_button/view/BuySellOverflowMenuButton.dart';
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 
@@ -26,7 +26,6 @@ class _SellPostContainerState extends State<SellPostContainer> {
       // If the post is deleted, return an empty container or any desired UI representation
       return Container();
     }
-
     return Container(
       decoration: GeneralUtil.buildPostBoxDecoration(),
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -42,7 +41,7 @@ class _SellPostContainerState extends State<SellPostContainer> {
                 style: kwhiteText,
               ),
               SizedBox(width: 8.0),
-              CommercialOverflowMenu(post: widget.post, onDeletePressedArgument: widget.onDeletePressedArgument),
+              BuySellOverflowMenu(post: widget.post, onDeletePressedArgument: widget.onDeletePressedArgument, buyOrSell: "s",),
             ],
           ),
           SizedBox(height: 8.0),

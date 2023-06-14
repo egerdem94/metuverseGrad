@@ -40,13 +40,7 @@ class Photo{
   late bool shouldBeInsertedToDB;
   Photo(this.photoID,this.postID,this.photoUrl,this.photoData);
   Photo.secondConstructor(this.postID,this.photoUrl,this.photoData, this.shouldBeInsertedToDB);
-  /*
-    static const columnPhotoID = '_photoID';
-  static const columnPostID = 'postID';
-  static const columnPhotoSource = 'photoSource';
-  static const columnPhotoData = 'photoData';
-  static const columnInsertionDate = 'insertionDate';
-   */
+
   Photo.fromDbMap(Map<String, dynamic> json){
     photoID = json['_photoID'];
     postID = json['postID'];

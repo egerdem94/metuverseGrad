@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
-import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/widget/BuySellCreatePostBody.dart';
+import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/widget/BuySellCreateEditPostBody.dart';
+import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 class BuySellCreatePostPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
         buyOrSell: widget.buyOrSell,
       ),
       drawer: MetuverseDrawer(),
-      body: BuySellCreatePostBody(descriptionController: descriptionController, priceController: priceController, productCurrency: productCurrency,),
+      body: BuySellCreateEditPostBody(editOrCreate: "c",descriptionController: descriptionController, priceController: priceController, productCurrency: productCurrency, photoList: PhotoList(), selectedCurrency: '₺',),
     );
   }
 }
