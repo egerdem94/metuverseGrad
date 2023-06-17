@@ -48,7 +48,7 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
   }
 
   // Inserts a NewBuySellPostX object to the database
-  Future<int> insertNewTransportationPost(NewTransportationPost newTransportationPost) async {
+  Future<int> insertNewTransportationPost(TransportationPost newTransportationPost) async {
     return await insertOrUpdate(newTransportationPost.toDbMap());
 
   }
@@ -107,12 +107,12 @@ class DatabaseHelperTransportation extends DatabaseHelperPost{
   }
   // Function gets postID list as input and calls queryRowWithPostID for each postID
   // and returns a list of NewBuySellPostX objects
-  Future<NewTransportationPostList> queryRowsWithPostIDList(List<int> postIDList) async {
-    NewTransportationPostList newTransportationPostList = NewTransportationPostList.defaults();
+  Future<TransportationPostList> queryRowsWithPostIDList(List<int> postIDList) async {
+    TransportationPostList newTransportationPostList = TransportationPostList.defaults();
     for (int postID in postIDList) {
       Map<String, dynamic>? result = await queryRowWithPostID(postID);
       if (result != null) {
-        var tempPost = NewTransportationPost.fromDbMap(result);
+        var tempPost = TransportationPost.fromDbMap(result);
         newTransportationPostList.addNewPost(tempPost);
       }
     }

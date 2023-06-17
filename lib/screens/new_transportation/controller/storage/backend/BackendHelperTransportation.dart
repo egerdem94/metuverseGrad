@@ -26,7 +26,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
 
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
-    var temp = NewTransportationPostList.fromJson(jsonObject);
+    var temp = TransportationPostList.fromJson(jsonObject);
     return temp;
   }
   Future<PostsToDisplay?> requestPostsToDisplay(customerOrDriver,lastPostID) async {
@@ -45,7 +45,7 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     return postsToDisplay;
   }
 
-  Future<NewTransportationPostList?> requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
+  Future<TransportationPostList?> requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
     String serviceAddress =
         "http://www.birikikoli.com/mv_services/postPage/transportation/transportation_searchandfilter_allList.php";
     //debugPrint("searchKey: $searchKey" + "departureLocation: $departureLocation" +"destinationLocation: $destinationLocation" +"customerOrDriver: $customerOrDriver");
@@ -61,9 +61,9 @@ class BackendHelperTransportation implements IBackendHelperPostPage{
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
     //if no post exists in jsonObject, return BuySellPostList.nothingFound()
     if (jsonObject['items'] == null) {
-      return NewTransportationPostList.nothingFound();
+      return TransportationPostList.nothingFound();
     }
-    NewTransportationPostList transportationPostList = NewTransportationPostList.fromJson(jsonObject);
+    TransportationPostList transportationPostList = TransportationPostList.fromJson(jsonObject);
     return transportationPostList;
   }
 

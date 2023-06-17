@@ -8,7 +8,6 @@ class TopLeftCommercialPost extends StatelessWidget {
   const TopLeftCommercialPost({
     required this.post,
   });
-
   final BasePost post;
 
   @override

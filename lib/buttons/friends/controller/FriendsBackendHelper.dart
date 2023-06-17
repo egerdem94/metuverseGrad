@@ -7,7 +7,7 @@ import 'package:metuverse/buttons/friends/model/OutgoingMessageRequest.dart';
 import 'package:http/http.dart' as http;
 
 class FriendsBackendHelper{
-  Future<IncomingMessageRequestListX?> incomingMessageRequest() async {
+  Future<IncomingMessageRequestList?> incomingMessageRequest() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/user/phoneAccess/phoneAccess_IncomingMessageRequestList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
@@ -20,10 +20,10 @@ class FriendsBackendHelper{
     if(jsonObject['total'] == '0'){
       return null;
     }
-    IncomingMessageRequestListX incomingMessageRequestList = IncomingMessageRequestListX.fromJson(jsonObject);
+    IncomingMessageRequestList incomingMessageRequestList = IncomingMessageRequestList.fromJson(jsonObject);
     return incomingMessageRequestList;
   }
-  Future<OutgoingMessageRequestListX?> outgoingMessageRequest() async {
+  Future<OutgoingMessageRequestList?> outgoingMessageRequest() async {
     String serviceAddress =
         'http://www.birikikoli.com/mv_services/user/phoneAccess/phoneAccess_OutgoingMessageRequestList.php';
     Uri serviceUri = Uri.parse(serviceAddress);
@@ -36,7 +36,7 @@ class FriendsBackendHelper{
     if(jsonObject['total'] == '0'){
       return null;
     }
-    OutgoingMessageRequestListX outgoingMessageRequestList = OutgoingMessageRequestListX.fromJson(jsonObject);
+    OutgoingMessageRequestList outgoingMessageRequestList = OutgoingMessageRequestList.fromJson(jsonObject);
     return outgoingMessageRequestList;
   }
   Future<FriendList?> friendListRequest() async {

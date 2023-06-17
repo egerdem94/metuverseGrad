@@ -5,8 +5,8 @@ import 'package:metuverse/buttons/friends/model/OutgoingMessageRequest.dart';
 
 class FriendsController{
   FriendsBackendHelper messageRequestBackendHelper = FriendsBackendHelper();
-  IncomingMessageRequestListX? incomingMessageRequestList;
-  OutgoingMessageRequestListX? outgoingMessageRequestsList;
+  IncomingMessageRequestList? incomingMessageRequestList;
+  OutgoingMessageRequestList? outgoingMessageRequestsList;
 
   Future<void> handleMessageRequests(incomingOrOutgoing) async {
     if(incomingOrOutgoing == "o"){
@@ -16,10 +16,10 @@ class FriendsController{
       incomingMessageRequestList = await messageRequestBackendHelper.incomingMessageRequest();
     }
   }
-  IncomingMessageRequestListX? getIncomingMessageRequestList(){
+  IncomingMessageRequestList? getIncomingMessageRequestList(){
     return incomingMessageRequestList;
   }
-  OutgoingMessageRequestListX? getOutgoingMessageRequestList(){
+  OutgoingMessageRequestList? getOutgoingMessageRequestList(){
     return outgoingMessageRequestsList;
   }
 

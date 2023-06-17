@@ -19,7 +19,7 @@ class FavoriteButtonDbHelper extends DatabaseHelperParent{
         return rowsAffected > 0;
       });
     }
-    else if(post is NewTransportationPost){
+    else if(post is TransportationPost){
       isSuccess = await db.transaction<bool>((txn) async {
         final rowsAffected = await txn.update(
           TransportationPostTableValues.table,

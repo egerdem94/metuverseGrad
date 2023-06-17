@@ -9,7 +9,7 @@ class IncomingMessageRequestsTab extends StatefulWidget {
 }
 
 class _IncomingMessageRequestsTabState extends State<IncomingMessageRequestsTab> {
-  IncomingMessageRequestListX? incomingMessageRequestList;
+  IncomingMessageRequestList? incomingMessageRequestList;
   FriendsController messageRequestController =
   FriendsController();
 

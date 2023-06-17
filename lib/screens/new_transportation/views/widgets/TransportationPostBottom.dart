@@ -10,7 +10,7 @@ class TransportationCustomerPostBottom extends StatelessWidget {
     required this.post,
   });
 
-  final NewTransportationPost post;
+  final TransportationPost post;
 
   @override
   Widget build(BuildContext context) {

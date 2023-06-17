@@ -124,16 +124,21 @@ class BuySellPostHandler {
     });
 
   }
-  Future<bool> handlePostList(buyOrSell, firstTime) async {
+  Future<bool> handlePostList(buyOrSell, firstTime, notificationModeFlag,notificationID) async {
     PostsToDisplay? postsToDisplay;
     if (firstTime) {
       sellPostList = BuySellPostList.defaults();
       buyPostList = BuySellPostList.defaults();
     }
     postsToDisplay = await backendHelper.requestPostsToDisplay(
-        buyOrSell, getLastPostID(buyOrSell, firstTime));
+        buyOrSell,
+        getLastPostID(buyOrSell, firstTime)
+    );
     List<String> postsToBeAsked =
         await preparePostToRequestString(postsToDisplay);
+    if(notificationModeFlag){
+      postsToBeAsked.insert(0, notificationID);
+    }
     if (buyOrSell == 's' || buyOrSell == 'b') {
       return await handlePostListHelper(postsToBeAsked, buyOrSell);
     }

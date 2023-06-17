@@ -1,94 +1,38 @@
 import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
-class NewTransportationPostList extends BasePostList{
-  List<NewTransportationPost>? posts;
-  int? total;
+class TransportationPostList extends BasePostList<TransportationPost>{
   bool nothingFound = false;
-  NewTransportationPostList({
-    required this.posts,
-    required this.total,
-  });
-  NewTransportationPostList.defaults()
-      : posts = [],
-        total = 0;
-  NewTransportationPostList.fromJson(Map<String, dynamic> json){
-    posts = List.from(json['items']).map((e)=>NewTransportationPost.fromJson(e)).toList();
-    total = json['total'];
-  }
-  NewTransportationPostList.nothingFound()
-      : posts = [],
-        total = 0,
-        nothingFound = true;
 
-  Map<String, dynamic> toJson() {
-    if(posts == null){
-      return <String, dynamic>{};
+  TransportationPostList.nothingFound()
+      : super.defaults() {
+    this.nothingFound = true;
+  }
+
+  TransportationPostList.defaults(): super.defaults();
+
+  TransportationPostList.fromJson(Map<String, dynamic> json)
+      : super.defaults() {
+    if (json['items'] != null) {
+      this.posts = <TransportationPost>[];
+      json['items'].forEach((v) {
+        this.posts!.add(new TransportationPost.fromJson(v));
+      });
     }
-    final _data = <String, dynamic>{};
-    _data['items'] = posts!.map((e)=>e.toJson()).toList();
-    _data['total'] = total;
-    return _data;
+    this.total = json['total'];
   }
 
-  int length() {
-    if(posts == null){
-      return 0;
-    }
-    return posts!.length;
-  }
-
-  void sortListByPostID(){
-    posts!.sort((b, a) => a.postID!.compareTo(b.postID!));
-  }
-
-  int getLastPostID(){
-    sortListByPostID();
-    return posts!.last.postID!;
-  }
-
-  bool isEmpty(){
-    if(posts == null || posts!.length == 0)
-      return true;
-    else
-      return false;
-  }
-
-  void addNewPosts(NewTransportationPostList newPosts){
-    newPosts.posts!.forEach((element) {
-      addNewPost(element);
-    });
-    sortListByPostID();// IMPORTANT! This might be a bad idea. You might do ordering while inserting!
-  }
-
-  void addNewPost(NewTransportationPost newPost){
-    bool postIDAlreadyExists = false;
-    bool postIDAlreadyExistsButUpdated = false;
-    posts!.forEach((newElement) {
-      if(newPost.postID == newElement.postID){
-        if(newElement.updateVersion! > newPost.updateVersion!){
-          postIDAlreadyExistsButUpdated = true;
-        }
-        else{
-          postIDAlreadyExists = true;
-        }
-      }
-    });
-    if(!postIDAlreadyExists){
-      posts!.add(newPost);
-    }
-    else if(postIDAlreadyExistsButUpdated){
-      //replace the old post with the new one
-      for(int i = 0; i < posts!.length; i++){
-        if(posts![i].postID == newPost.postID){
-          posts![i] = newPost;
-        }
-      }
+  TransportationPostList.fromDbMap(List<Map<String, dynamic>> json)
+      : super.defaults() {
+    if (json != null) {
+      this.posts = <TransportationPost>[];
+      json.forEach((v) {
+        this.posts!.add(new TransportationPost.fromDbMap(v));
+      });
     }
   }
 }
-
-class NewTransportationPost extends BasePost{
+class TransportationPost extends BasePost{
   int? departureID;
   int? destinationID;
   String? departureDate;
@@ -97,7 +41,7 @@ class NewTransportationPost extends BasePost{
   String? currency;
   int? transportationStatus;
   
-  NewTransportationPost({
+  TransportationPost({
     bool? belongToUser,
     String? fullName,
     String? profilePicture,
@@ -119,7 +63,7 @@ class NewTransportationPost extends BasePost{
     updateVersion: updateVersion,
     description: description,
   );
-  NewTransportationPost.fromDbMap(Map<String, dynamic> json)
+  TransportationPost.fromDbMap(Map<String, dynamic> json)
       : departureID = json[TransportationPostTableValues.columnDepartureLocation],
         destinationID = json[TransportationPostTableValues.columnDestinationLocation],
         departureDate = json[TransportationPostTableValues.columnDepartureTime],
@@ -158,7 +102,7 @@ class NewTransportationPost extends BasePost{
     _data[TransportationPostTableValues.columnTransportationStatus] = transportationStatus;
     return _data;
   }
-  NewTransportationPost.fromJson(Map<String, dynamic> json)
+  TransportationPost.fromJson(Map<String, dynamic> json)
       : departureID = json['departureID'],
         destinationID = json['destinationID'],
         departureDate = json['departureDate'],

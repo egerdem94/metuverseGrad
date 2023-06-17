@@ -6,17 +6,16 @@ import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellCrea
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
 
-class CustomBuySellBottomNavigationBar extends StatefulWidget {
-  final buyOrSell;
+class CustomSportNavigationBar extends StatefulWidget {
 
-  const CustomBuySellBottomNavigationBar({super.key, required this.buyOrSell});
+  const CustomSportNavigationBar({super.key});
   @override
-  _CustomBuySellBottomNavigationBarState createState() =>
-      _CustomBuySellBottomNavigationBarState();
+  _CustomSportNavigationBarState createState() =>
+      _CustomSportNavigationBarState();
 }
 
-class _CustomBuySellBottomNavigationBarState
-    extends State<CustomBuySellBottomNavigationBar> {
+class _CustomSportNavigationBarState
+    extends State<CustomSportNavigationBar> {
   int _activeTab = 0;
 
   void _onTabSelected(int index) {
@@ -52,7 +51,7 @@ class _CustomBuySellBottomNavigationBarState
             SizedBox(
               width: 25,
             ),
-            IconButton(
+/*            IconButton(
               icon: Icon(
                 Icons.sell,
                 color: _activeTab == 1 ? Colors.white : Colors.white60,
@@ -63,14 +62,14 @@ class _CustomBuySellBottomNavigationBarState
                     context,
                     MaterialPageRoute(
                         builder: (context) => BuySellPage(
-                              buyOrSell: 's',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
+                          buyOrSell: 's',
+                          searchModeFlag: false,
+                          notificationMode: false,
+                        )));
                 // go back
                 _onTabSelected(1);
               },
-            ),
+            ),*/
             Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
@@ -88,9 +87,9 @@ class _CustomBuySellBottomNavigationBarState
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(BuySellCreatePostPage(
+/*                        Get.to(BuySellCreatePostPage(
                           buyOrSell: widget.buyOrSell,
-                        ));
+                        ));*/
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -105,7 +104,7 @@ class _CustomBuySellBottomNavigationBarState
                 ),
               ),
             ),
-            IconButton(
+/*            IconButton(
               icon: Icon(
                 Icons.shopping_bag,
                 color: _activeTab == 2 ? Colors.white : Colors.white60,
@@ -116,13 +115,13 @@ class _CustomBuySellBottomNavigationBarState
                     context,
                     MaterialPageRoute(
                         builder: (context) => BuySellPage(
-                              buyOrSell: 'b',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
+                          buyOrSell: 'b',
+                          searchModeFlag: false,
+                          notificationMode: false,
+                        )));
                 // go back
               },
-            ),
+            ),*/
             SizedBox(
               width: 25,
             ),

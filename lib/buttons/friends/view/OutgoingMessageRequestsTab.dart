@@ -9,7 +9,7 @@ class OutgoingMessageRequestsTab extends StatefulWidget {
 }
 
 class _OutgoingMessageRequestsTabState extends State<OutgoingMessageRequestsTab> {
-  OutgoingMessageRequestListX? outgoingMessageRequestList;
+  OutgoingMessageRequestList? outgoingMessageRequestList;
   FriendsController messageRequestController =
   FriendsController();
 

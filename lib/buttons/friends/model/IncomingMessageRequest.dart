@@ -1,10 +1,10 @@
-class IncomingMessageRequestListX {
+class IncomingMessageRequestList {
   List<IncomingMessageRequest>? items;
   int? total;
 
-  IncomingMessageRequestListX({this.items, this.total});
+  IncomingMessageRequestList({this.items, this.total});
 
-  IncomingMessageRequestListX.fromJson(Map<String, dynamic> json) {
+  IncomingMessageRequestList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
       items = <IncomingMessageRequest>[];
       json['items'].forEach((v) {

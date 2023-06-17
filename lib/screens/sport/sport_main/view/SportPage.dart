@@ -4,47 +4,45 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPost
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/CustomBuySellBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
+import 'package:metuverse/screens/sport/sport_main/controller/SportPostHandler.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/CustomSportBottomNavigationBar.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/SportAppBar.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostContainer.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-class BuySellPage extends StatefulWidget {
-  final buyOrSell;
+class SportPage extends StatefulWidget {
   final searchModeFlag;
   final notificationMode;
   final notificationPostID;
   final searchKey;
-  final filteredProductPrice;
-  final filteredCurrency;
 
-  const BuySellPage({
-    required this.buyOrSell,
+  const SportPage({
     required this.searchModeFlag,
     Key? key,
     this.searchKey,
-    this.filteredProductPrice,
-    this.filteredCurrency,
     required this.notificationMode,
     this.notificationPostID,
   }) : super(key: key);
 
   @override
-  _BuySellPageState createState() => _BuySellPageState();
+  _SportPageState createState() => _SportPageState();
 }
 
-class _BuySellPageState extends State<BuySellPage> {
+class _SportPageState extends State<SportPage> {
   final _scrollController = ScrollController();
-  late BuySellPostHandler buySellPostHandler;
-  bool _isLoading = true;
+  late SportPostHandler sportPostHandler;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    buySellPostHandler = BuySellPostHandler();
-    buySellPostHandler.init().then((_) {
+    sportPostHandler = SportPostHandler();
+    /*sportPostHandler.init().then((_) {
       if (widget.searchModeFlag) {
-        buySellPostHandler
+        sportPostHandler
             .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
             widget.filteredCurrency, widget.buyOrSell)
             .then((_) {
@@ -52,7 +50,7 @@ class _BuySellPageState extends State<BuySellPage> {
         });
       }
       else {
-        buySellPostHandler.handlePostList(
+        sportPostHandler.handlePostList(
             widget.buyOrSell,
             true,
             widget.notificationMode,
@@ -61,14 +59,6 @@ class _BuySellPageState extends State<BuySellPage> {
           setState(() {});
         });
       }
-
-      // Set the _isLoading flag to false after 0.5 seconds
-      /*Future.delayed(Duration(milliseconds: 1000), () {
-        setState(() {
-          _isLoading = false;
-        });
-      });*/
-      // Start the delayed future to periodically check the condition
       if(widget.searchModeFlag){
         Future.delayed(Duration(milliseconds: 1000), () {
           setState(() {
@@ -79,13 +69,14 @@ class _BuySellPageState extends State<BuySellPage> {
       else{
         _startDelayedFuture();
       }
-    });
+    });*/
+
   }
-  void _startDelayedFuture() {
+/*  void _startDelayedFuture() {
     Future.delayed(Duration(milliseconds: 100), () {
       if (!mounted) return; // Check if the widget is still mounted
 
-      if (!buySellPostHandler.ready) {
+      if (!sportPostHandler.ready) {
         _startDelayedFuture(); // Call the method again to continue checking
       } else {
         setState(() {
@@ -93,7 +84,7 @@ class _BuySellPageState extends State<BuySellPage> {
         });
       }
     });
-  }
+  }*/
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
@@ -101,9 +92,9 @@ class _BuySellPageState extends State<BuySellPage> {
           !_scrollController.position.outOfRange) {
         // Load more data
         setState(() {
-          buySellPostHandler.handlePostList(widget.buyOrSell, false,false,0).then((_) {
-            setState(() {});
-          });
+          //sportPostHandler.handlePostList(widget.buyOrSell, false,false,0).then((_) {
+            //setState(() {});
+         // });
         });
       }
     }
@@ -112,9 +103,7 @@ class _BuySellPageState extends State<BuySellPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(
-        buyOrSell: widget.buyOrSell,
-      ),
+      appBar: SportAppBar(),
       drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: metuverseBoxDecoration(),
@@ -122,57 +111,42 @@ class _BuySellPageState extends State<BuySellPage> {
             ? LoadingIndicator()
             : RefreshIndicator(
           onRefresh: _handleRefresh,
-          child: !buySellPostHandler.sellPostList.isEmpty() ||
-              !buySellPostHandler.buyPostList.isEmpty()
+          child: !sportPostHandler.sportPostList.isEmpty()
               ? buildPostListView()
               : NothingToDisplay(),
         ),
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(
-        buyOrSell: widget.buyOrSell,
-      ),
+      bottomNavigationBar: CustomSportNavigationBar(),
     );
   }
 
   BoxDecoration metuverseBoxDecoration() {
     return BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 0, 0, 0),
-          ],
-        ), // set the background color to blue
-      );
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 0, 0, 0),
+        ],
+      ), // set the background color to blue
+    );
   }
 
   ListView buildPostListView() {
     return ListView.builder(
       controller: _scrollController,
-      itemCount: widget.buyOrSell == 's'
-          ? buySellPostHandler.sellPostList.length()
-          : buySellPostHandler.buyPostList.length(),
+      itemCount: sportPostHandler.sportPostList.length(),
       itemBuilder: (context, index) {
-        return widget.buyOrSell == 's'
-            ? SellPostContainer(
-          post: buySellPostHandler.sellPostList.posts![index],
+        return  SportPostContainer(
+          post: sportPostHandler.sportPostList.posts![index],
           onDeletePressedArgument: () {
             setState(() {
-              buySellPostHandler.sellPostList.posts!.removeAt(index);
+              sportPostHandler.sportPostList.posts!.removeAt(index);
             });
           },
-          onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
-        )
-            : BuyPostContainer(
-          post: buySellPostHandler.buyPostList.posts![index],
-          onDeletePressedArgument: () {
-            setState(() {
-              buySellPostHandler.buyPostList.posts!.removeAt(index);
-            });
-          },
-          onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
+          //onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
         );
       },
     );

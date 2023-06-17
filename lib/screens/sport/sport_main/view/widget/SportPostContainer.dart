@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/DepartureDestinationBox.dart';
+
 import 'package:metuverse/screens/new_transportation/views/widgets/TransportationPostBottom.dart';
 import 'package:metuverse/palette.dart';
+import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/SportPic.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 
-class TransportationCustomerContainer extends StatelessWidget {
-  final TransportationPost post;
+class SportPostContainer extends StatelessWidget {
+  final SportPost post;
   final Function onDeletePressedArgument;
-  TransportationCustomerContainer({required this.post, required this.onDeletePressedArgument});
+  SportPostContainer({required this.post, required this.onDeletePressedArgument});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,9 @@ class TransportationCustomerContainer extends StatelessWidget {
           SizedBox(height: 8.0),
           Text(post.description!, style: kwhiteText),
           SizedBox(height: 8.0),
-          DepartureDestinationBoxes(post: post),
-          SizedBox(height: 8.0),
-          TransportationCustomerPostBottom(post: post),
+          SportImageWidget(sportID: post.sportID!,),
+/*          SizedBox(height: 8.0),
+          TransportationCustomerPostBottom(post: post),*/
           CommentButtonWidget(),
         ],
       ),

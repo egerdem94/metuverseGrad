@@ -9,8 +9,8 @@ class TransportationPostHandler{
   final backendHelper = BackendHelperTransportation();
   bool initialized = false;
 
-  NewTransportationPostList customerPostList = NewTransportationPostList.defaults();
-  NewTransportationPostList driverPostList = NewTransportationPostList.defaults();
+  TransportationPostList customerPostList = TransportationPostList.defaults();
+  TransportationPostList driverPostList = TransportationPostList.defaults();
 
   Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -92,8 +92,8 @@ class TransportationPostHandler{
   Future<bool> handlePostList(customerOrDriver,firstTime) async{
     PostsToDisplay? postsToDisplay;
     if(firstTime){
-      customerPostList = NewTransportationPostList.defaults();
-      driverPostList = NewTransportationPostList.defaults();
+      customerPostList = TransportationPostList.defaults();
+      driverPostList = TransportationPostList.defaults();
     }
     //postsToDisplay = await _request_posts_to_diplay(buyOrSell,firstTime);
     postsToDisplay = await backendHelper.requestPostsToDisplay(customerOrDriver,getLastPostID(customerOrDriver, firstTime));
@@ -102,7 +102,7 @@ class TransportationPostHandler{
     //await _requestPostsFromBackend(postsToBeAsked[0],buyOrSell);
     //await _request_buy_sell_posts_from_localdb(postsToBeAsked[1],buyOrSell);
     if(customerOrDriver == 'c'){
-      NewTransportationPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewTransportationPostList?;
+      TransportationPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as TransportationPostList?;
       if(tempPostList != null){
         customerPostList.addNewPosts(tempPostList);
         tempPostList.posts!.forEach((element) async {
@@ -111,7 +111,7 @@ class TransportationPostHandler{
         });
 
       }
-      NewTransportationPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewTransportationPostList?;
+      TransportationPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as TransportationPostList?;
 
       if(tempPostList2 != null){
         customerPostList.addNewPosts(tempPostList2);
@@ -125,7 +125,7 @@ class TransportationPostHandler{
       }
     }
     else if(customerOrDriver == 'd'){
-      NewTransportationPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as NewTransportationPostList?;
+      TransportationPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as TransportationPostList?;
       if(tempPostList != null){
         driverPostList.addNewPosts(tempPostList);
         tempPostList.posts!.forEach((element) async {
@@ -134,7 +134,7 @@ class TransportationPostHandler{
         });
 
       }
-      NewTransportationPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as NewTransportationPostList?;
+      TransportationPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as TransportationPostList?;
 
       if(tempPostList2 != null){
         driverPostList.addNewPosts(tempPostList2);
@@ -151,7 +151,7 @@ class TransportationPostHandler{
       return false;
     }
   }
-  NewTransportationPostList? getTransportationPostList(customerOrDriver){
+  TransportationPostList? getTransportationPostList(customerOrDriver){
     if(customerOrDriver == 'c'){
       return customerPostList;
     }
@@ -164,7 +164,7 @@ class TransportationPostHandler{
     }
   }
   Future handleSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver) async{
-    NewTransportationPostList? tempSearchedPostList = await backendHelper.requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver);
+    TransportationPostList? tempSearchedPostList = await backendHelper.requestSearchPosts(searchKey,departureLocation,destinationLocation,customerOrDriver);
     if(customerOrDriver == 'c'){
       customerPostList = tempSearchedPostList!;
     }

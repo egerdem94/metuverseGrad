@@ -9,7 +9,7 @@ import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 
 class TransportationDriverContainer extends StatefulWidget {
-  final NewTransportationPost post;
+  final TransportationPost post;
   final Function onDeletePressedArgument;
   TransportationDriverContainer({required this.post, required this.onDeletePressedArgument});
 

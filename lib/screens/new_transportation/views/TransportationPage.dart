@@ -31,7 +31,7 @@ class TransportationPage extends StatefulWidget {
 
 class _TransportationPageState extends State<TransportationPage> {
   final _scrollController = ScrollController();
-  NewTransportationPostList? transportationPostList;
+  TransportationPostList? transportationPostList;
   late TransportationPostHandler transportationPostHandler;
 
   @override
@@ -71,7 +71,6 @@ class _TransportationPageState extends State<TransportationPage> {
         });
       }
     }
-
   }
 
   @override
@@ -139,5 +138,4 @@ class _TransportationPageState extends State<TransportationPage> {
       bottomNavigationBar: CustomTransportationBottomNavigationBar(customerOrDriver: widget.customerOrDriver,),
     );
   }
-
 }

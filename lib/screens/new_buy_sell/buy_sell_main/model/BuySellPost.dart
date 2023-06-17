@@ -4,137 +4,48 @@ import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/storage/models/Photo.dart';
 
-class BuySellPostList extends BasePostList {
-  List<BuySellPost>? posts;
-  int? total;
+class BuySellPostList extends BasePostList<BuySellPost> {
   bool nothingFound = false;
 
-  BuySellPostList({this.posts, this.total});
-  //constructor with default values
-  BuySellPostList.defaults()
-      : posts = [],
-        total = 0;
-  //constructor with nothing found flag
   BuySellPostList.nothingFound()
-      : posts = [],
-        total = 0,
-        nothingFound = true;
-  BuySellPostList.fromJson(Map<String, dynamic> json) {
+      : super.defaults() {
+    this.nothingFound = true;
+  }
+  BuySellPostList.defaults(): super.defaults();
+
+  BuySellPostList.fromJson(Map<String, dynamic> json)
+      : super.defaults() {
     if (json['items'] != null) {
-      posts = <BuySellPost>[];
+      this.posts = <BuySellPost>[];
       json['items'].forEach((v) {
-        posts!.add(new BuySellPost.fromJson(v));
+        this.posts!.add(new BuySellPost.fromJson(v));
       });
     }
-    total = json['total'];
+    this.total = json['total'];
   }
-  BuySellPostList.fromDbMap(List<Map<String, dynamic>> json) {
+
+  BuySellPostList.fromDbMap(List<Map<String, dynamic>> json)
+      : super.defaults() {
     if (json != null) {
-      posts = <BuySellPost>[];
+      this.posts = <BuySellPost>[];
       json.forEach((v) {
-        posts!.add(new BuySellPost.fromDbMap(v));
+        this.posts!.add(new BuySellPost.fromDbMap(v));
       });
     }
-  }
-
-  /*
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.newBuySellPostListX != null) {
-      data['items'] = this.newBuySellPostListX!.map((v) => v.toJson()).toList();
-    }
-    data['total'] = this.total;
-    return data;
-  }*/
-  //function sorts the list by postID
-  void sortListByPostID() {
-    posts!.sort((b, a) => a.postID!.compareTo(b.postID!));
-  }
-
-  BuySellPost? getPostWithID(int id) {
-    if (posts == null) {
-      return null;
-    }
-    for (var post in posts!) {
-      if (id == post.postID) {
-        return post;
-      }
-    }
-    return null;
-  }
-
-  bool isEmpty() {
-    if (posts == null || posts!.length == 0)
-      return true;
-    else
-      return false;
-  }
-
-  //function adds new posts to the list
-  // if the postID is already in the list, it is not added
-  // comparison is done by postID
-  void addNewPosts(BuySellPostList newPosts) {
-    newPosts.posts!.forEach((element) {
-      addNewPost(element);
-    });
-    sortListByPostID(); // IMPORTANT! This might be a bad idea. You might do ordering while inserting!
-  }
-
-  void addNewPost(BuySellPost newBuySellPostX) {
-    bool postIDAlreadyExists = false;
-    bool postIDAlreadyExistsButUpdated = false;
-    posts!.forEach((newElement) {
-      if (newBuySellPostX.postID == newElement.postID) {
-        if (newElement.updateVersion! > newBuySellPostX.updateVersion!) {
-          postIDAlreadyExistsButUpdated = true;
-        } else {
-          postIDAlreadyExists = true;
-        }
-      }
-    });
-    if (!postIDAlreadyExists) {
-      posts!.add(newBuySellPostX);
-    } else if (postIDAlreadyExistsButUpdated) {
-      //replace the old post with the new one
-      for (int i = 0; i < posts!.length; i++) {
-        if (posts![i].postID == newBuySellPostX.postID) {
-          posts![i] = newBuySellPostX;
-        }
-      }
-    }
-  }
-
-  //function returns the deletes the post with the given postID
-  void deletePost(int postID) {
-    posts!.removeWhere((element) => element.postID == postID);
   }
 
   void addPhotos(PhotoList photos) {
-    if (posts == null) {
+    if (this.posts == null) {
       debugPrint("Unexpected!");
       return;
     }
     for (var photo in photos.photos) {
-      for (var post in posts!) {
+      for (var post in this.posts!) {
         if (photo.postID == post.postID) {
           post.addPhoto(photo);
           break;
         }
       }
-    }
-  }
-
-  //function returns the last postID in the list
-  int getLastPostID() {
-    sortListByPostID();
-    return posts!.last.postID!;
-  }
-
-  int length() {
-    if (posts == null) {
-      return 0;
-    } else {
-      return posts!.length;
     }
   }
 }

@@ -6,6 +6,7 @@ class User{
  static late String privateToken;
  static late String publicToken;
  static late String profilePicture;
+ static late String userRole;
  //static String userName = "userName";
 
   static Future<void> logout() async {
