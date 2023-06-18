@@ -121,7 +121,9 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                           buyOrSell: 's',
                           searchModeFlag: false,
                           notificationMode: false,
-                        )));
+                        )
+                )
+            );
           } else {
             Navigator.pushReplacement(
                 context,
@@ -130,7 +132,9 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                           buyOrSell: 'b',
                           searchModeFlag: false,
                           notificationMode: false,
-                        )));
+                        )
+                )
+            );
           }
         } else {
           isButtonClicked = false;
@@ -296,7 +300,7 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('Post'), // <-- Text
+                                Text(widget.editOrCreate == 'c'? 'Post': 'Update'), // <-- Text
                                 SizedBox(
                                   width: 5,
                                 ),

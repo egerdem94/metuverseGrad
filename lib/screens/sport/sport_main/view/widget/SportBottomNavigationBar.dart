@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
+import 'package:metuverse/screens/sport/create_edit_post/view/SportCreatePost.dart';
 import 'package:metuverse/user/User.dart';
 
 class SportNavigationBar extends StatefulWidget {
@@ -14,14 +14,6 @@ class SportNavigationBar extends StatefulWidget {
 
 class _SportNavigationBarState
     extends State<SportNavigationBar> {
-  int _activeTab = 0;
-
-  void _onTabSelected(int index) {
-    setState(() {
-      _activeTab = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,25 +41,6 @@ class _SportNavigationBarState
             SizedBox(
               width: 25,
             ),
-/*            IconButton(
-              icon: Icon(
-                Icons.sell,
-                color: _activeTab == 1 ? Colors.white : Colors.white60,
-              ),
-              onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 's'));
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                          buyOrSell: 's',
-                          searchModeFlag: false,
-                          notificationMode: false,
-                        )));
-                // go back
-                _onTabSelected(1);
-              },
-            ),*/
             Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
@@ -85,9 +58,8 @@ class _SportNavigationBarState
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-/*                        Get.to(BuySellCreatePostPage(
-                          buyOrSell: widget.buyOrSell,
-                        ));*/
+                        Get.to(SportCreatePostPage(
+                        ));
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -102,24 +74,6 @@ class _SportNavigationBarState
                 ),
               ),
             ),
-/*            IconButton(
-              icon: Icon(
-                Icons.shopping_bag,
-                color: _activeTab == 2 ? Colors.white : Colors.white60,
-              ),
-              onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 'b'));
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                          buyOrSell: 'b',
-                          searchModeFlag: false,
-                          notificationMode: false,
-                        )));
-                // go back
-              },
-            ),*/
             SizedBox(
               width: 25,
             ),

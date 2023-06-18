@@ -29,7 +29,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
   final TextEditingController _seatController = TextEditingController();
   final TextEditingController description = TextEditingController();
   String _customerOrDriver = 'Customer';
-  List<String> _who = ['Customer', 'Driver'];
+  //List<String> _who = ['Customer', 'Driver'];
   String _selectedDeparture = 'Campus';
   String _selectedDestination = 'Güzelyurt';
   bool _showPrice = true;
@@ -69,16 +69,13 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    //builder: (context) => BuySellPage(buyOrSell: 's', searchModeFlag: false,)
                   builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
                 )
             );
           } else {
-            //Get.to(BuyPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    //builder: (context) => BuySellPage(buyOrSell: 'b', searchModeFlag: false,)
                   builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
                 )
             );

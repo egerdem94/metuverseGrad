@@ -90,9 +90,11 @@ class BuySellPostHandler extends PostHandlerWithMedia {
             searchKey, filteredProductPrice, filteredCurrency, buyOrSell);
     if (buyOrSell == 's') {
       sellPostList = tempSearchedPostList!;
-    } else if (buyOrSell == 'b') {
+    }
+    else if (buyOrSell == 'b') {
       buyPostList = tempSearchedPostList!;
-    } else {
+    }
+    else {
       print(
           'Error in TransportationPostHandler.dart Unexpected buyOrSell value');
     }
