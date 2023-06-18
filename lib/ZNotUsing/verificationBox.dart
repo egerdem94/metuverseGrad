@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:metuverse/palette.dart';
 
-class VerificationBox extends StatelessWidget {
+/*class VerificationBox extends StatelessWidget {
   final TextEditingController enterInfo;
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
@@ -51,4 +51,4 @@ class VerificationBox extends StatelessWidget {
       ),
     );
   }
-}
+}*/

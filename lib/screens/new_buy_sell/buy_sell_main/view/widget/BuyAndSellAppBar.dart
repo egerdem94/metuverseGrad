@@ -4,26 +4,20 @@ import 'package:get/get.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellSearchPage.dart';
 import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 
-class NewBuyAndSellAppBar extends StatelessWidget
+class BuySellAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final buyOrSell;
 
-  const NewBuyAndSellAppBar({super.key, required this.buyOrSell});
+  const BuySellAppBar({super.key, required this.buyOrSell});
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromARGB(255, 79, 79, 79),
-            width: 0.3,
-          ),
-        ),
-      ),
+      decoration: GeneralUtil.buildPostBoxDecoration(),
       child: AppBar(
         title: Text(
-          "Metuverse",
+          buyOrSell == 's' ? "Sell": "Buy",
           style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,

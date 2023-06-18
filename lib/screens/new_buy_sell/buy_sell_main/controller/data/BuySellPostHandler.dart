@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/backend/BackendHelperSellBuy.dart';
+import 'package:metuverse/storage/PostHandlerWithMedia.dart';
 import 'package:metuverse/storage/database/database_photo/DatabaseHelperPhoto.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/DatabaseHelperSellBuy.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
-import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
-class BuySellPostHandler {
+class BuySellPostHandler extends PostHandlerWithMedia {
   final dbHelper = DatabaseHelperSellBuy();
   final backendHelper = BackendHelperSellBuy();
   final photoHelper = DatabaseHelperPhoto();
@@ -22,88 +22,6 @@ class BuySellPostHandler {
     await photoHelper.init();
     initialized = true;
   }
-  List<int> convertIdList(postIDListAsString) {
-    List<int> convertedList = [];
-    if (postIDListAsString == "") return convertedList;
-    var stringList = postIDListAsString.split(',');
-    stringList.removeAt(0); //removing empty element located in first index
-    for (var str in stringList) {
-      convertedList.add(int.parse(str));
-    }
-    return convertedList;
-  }
-  String getLastPostID(buyerOrSeller, firstTime) {
-    var lastPostID = '';
-    if (!firstTime) {
-      if (buyerOrSeller == 's') {
-        lastPostID = sellPostList.getLastPostID().toString();
-      } else {
-        lastPostID = buyPostList.getLastPostID().toString();
-      }
-    }
-    return lastPostID;
-  }
-  /// This method is used to prepare the posts that are going to be requested as string.
-  Future<List<String>> preparePostToRequestString(
-      PostsToDisplay? postsToDisplay) async {
-    var postsToBeAsked = await dbHelper.getNeededPostIdList(postsToDisplay);
-    String postsToBeAskedBackendIDList = '';
-    for (int i = 0; i < postsToBeAsked[0].length; i++) {
-      postsToBeAskedBackendIDList += ','; //add comma before each postID
-      postsToBeAskedBackendIDList += postsToBeAsked[0][i].toString();
-    }
-    String postsToBeAskedLocalDB = '';
-    for (int i = 0; i < postsToBeAsked[1].length; i++) {
-      postsToBeAskedLocalDB += ','; //add comma before each postID
-      postsToBeAskedLocalDB += postsToBeAsked[1][i].toString();
-    }
-    return [postsToBeAskedBackendIDList, postsToBeAskedLocalDB];
-  }
-  Future handlePhoto(BuySellPost buySellPost) async {
-    if (!buySellPost.mediaExist) {
-      return;
-    }
-    if (buySellPost.isPostFromNetwork) {
-      for (var photoUrl in buySellPost.getMediaList()) {
-        var isExistInDB =
-            await photoHelper.doesPhotoExist(buySellPost.postID!, photoUrl);
-        if (!isExistInDB) {
-          //should never exist
-          Photo? photo = await photoHelper.insertPhotoFromUrl(
-              buySellPost.postID!, photoUrl);
-          if (photo != null) {
-            buySellPost.addPhoto(photo);
-          }
-        }
-      }
-    } else {
-      // post is obtained from local db
-      //var photoUrls = buySellPost.getMediaList();
-      List<String>? photoUrls =
-          await photoHelper.getPhotoUrlsGivenPostID(buySellPost.postID!);
-      if (photoUrls == null) {
-        return; //should never happen
-      }
-      for (var photoUrl in photoUrls) {
-        var isExistInDB =
-            await photoHelper.doesPhotoExist(buySellPost.postID!, photoUrl);
-        if (!isExistInDB) {
-          //?condition should never happen, always should be proceeded to else? I am not super sure though!
-          Photo? photo = await photoHelper.insertPhotoFromUrl(
-              buySellPost.postID!, photoUrl);
-          if (photo != null) {
-            buySellPost.addPhoto(photo);
-          }
-        } else {
-          Photo? photo = await photoHelper.getPhotoGivenPostIDAndUrl(
-              buySellPost.postID!, photoUrl);
-          if (photo != null) {
-            buySellPost.addPhoto(photo);
-          }
-        }
-      }
-    }
-  }
   Future<void> handlePhotos(BuySellPostList? postList) async {
     if (postList == null || postList.posts == null) {
       return;
@@ -112,7 +30,7 @@ class BuySellPostHandler {
     var handledPostCount = 0;
     var handledPostWithPhotoCount = 0;
     postList.posts!.forEach((post) {
-      handlePhoto(post).then((_) {
+      handlePhoto(photoHelper,post).then((_) {
         handledPostCount++;
         if (post.mediaExist) {
           handledPostWithPhotoCount++;
@@ -132,21 +50,14 @@ class BuySellPostHandler {
     }
     postsToDisplay = await backendHelper.requestPostsToDisplay(
         buyOrSell,
-        getLastPostID(buyOrSell, firstTime)
+        getLastPostID(buyOrSell == 's' ? sellPostList : buyPostList, firstTime)
     );
     List<String> postsToBeAsked =
-        await preparePostToRequestString(postsToDisplay);
+        await preparePostToRequestString(postsToDisplay,dbHelper);
     if(notificationModeFlag){
       postsToBeAsked.insert(0, notificationID);
     }
-    if (buyOrSell == 's' || buyOrSell == 'b') {
-      return await handlePostListHelper(postsToBeAsked, buyOrSell);
-    }
-    else {
-      print(
-          'Error in TransportationPostHandler.dart Unexpected buyOrSell value');
-      return false;
-    }
+    return await handlePostListHelper(postsToBeAsked, buyOrSell);
   }
   Future<bool> handlePostListHelper(List<String> postsToBeAsked, String buyOrSell) async {
     BuySellPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as BuySellPostList?;

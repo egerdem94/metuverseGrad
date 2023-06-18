@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/screens/new_transportation/model/TransportationLocations.dart';
 import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_transportation/views/widgets/TransportationBottomNavigationBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -75,7 +75,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -132,7 +132,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomTransportationBottomNavigationBar(
+      bottomNavigationBar: TransportationBottomNavigationBar(
         customerOrDriver: widget.customerOrDriver,
       ),
     );

@@ -2,6 +2,8 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
 import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/sport/sport_main/controller/db/SportTableValues.dart';
+import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
@@ -25,6 +27,17 @@ class FavoriteButtonDbHelper extends DatabaseHelperParent{
           TransportationPostTableValues.table,
           post.toDbMap(),
           where: '${TransportationPostTableValues.columnPostID} = ?',
+          whereArgs: [post.postID],
+        );
+        return rowsAffected > 0;
+      });
+    }
+    else if(post is SportPost){
+      isSuccess = await db.transaction<bool>((txn) async {
+        final rowsAffected = await txn.update(
+          SportTableValues.table,
+          post.toDbMap(),
+          where: '${SportTableValues.columnPostID} = ?',
           whereArgs: [post.postID],
         );
         return rowsAffected > 0;

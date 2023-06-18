@@ -8,14 +8,14 @@ import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/widgets/rounded_square_button.dart';
+import 'package:metuverse/widgets/RoundedSquareButton.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

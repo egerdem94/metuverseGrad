@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
 import 'package:metuverse/screens/new_transportation/views/TransportationSearchPage.dart';
 import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 
 class TransportationAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -14,17 +15,10 @@ class TransportationAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromARGB(255, 79, 79, 79),
-            width: 0.3,
-          ),
-        ),
-      ),
+      decoration: GeneralUtil.buildPostBoxDecoration(),
       child: AppBar(
         title: Text(
-          "Metuverse",
+          customerOrDriver == 'd'? "Driver":"Passenger",
           style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,

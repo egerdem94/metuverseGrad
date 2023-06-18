@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/CustomBuySellBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
@@ -50,7 +50,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -89,7 +89,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(
+      bottomNavigationBar: BuySellBottomNavigationBar(
         buyOrSell: widget.buyOrSell,
       ),
     );

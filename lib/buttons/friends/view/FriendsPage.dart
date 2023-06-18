@@ -39,7 +39,7 @@ class _FriendsPageState extends State<FriendsPage>
           ],
         ),
       ),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: TabBarView(
         controller: _tabController,
         children: [

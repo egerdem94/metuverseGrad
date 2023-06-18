@@ -1,5 +1,6 @@
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/SellBuyTableValues.dart';
 import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/screens/sport/sport_main/controller/db/SportTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
 import 'package:path_provider/path_provider.dart';
@@ -86,6 +87,23 @@ class DatabaseHelperParent {
               ${TransportationPostTableValues.columnPassengerCount} INTEGER UNSIGNED,
               ${TransportationPostTableValues.columnTransportationStatus} INTEGER UNSIGNED,
               FOREIGN KEY (${TransportationPostTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
+              ON DELETE CASCADE
+            )
+        ''');
+          await db.execute('''
+            CREATE TABLE ${SportTableValues.table} (
+              ${SportTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
+              ${SportTableValues.columnFullName} TEXT NOT NULL,
+              ${SportTableValues.columnProfilePicture} TEXT,
+              ${SportTableValues.columnBelongToUser} INTEGER NOT NULL,
+              ${SportTableValues.columnIsFavorite} INTEGER NOT NULL,
+              ${SportTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
+              ${SportTableValues.columnDescription} TEXT,
+              ${SportTableValues.columnPublicToken} TEXT,
+              ${SportTableValues.columnSportID} INTEGER UNSIGNED NOT NULL,
+              ${SportTableValues.columnSportmateStatus} INTEGER UNSIGNED,
+              ${SportTableValues.columnCreateDate} TEXT,
+              FOREIGN KEY (${SportTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
               ON DELETE CASCADE
             )
         ''');

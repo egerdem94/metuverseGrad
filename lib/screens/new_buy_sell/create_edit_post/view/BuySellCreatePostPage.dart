@@ -18,10 +18,10 @@ class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(
+      appBar: BuySellAppBar(
         buyOrSell: widget.buyOrSell,
       ),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: BuySellCreateEditPostBody(editOrCreate: "c",descriptionController: descriptionController, priceController: priceController, productCurrency: productCurrency, photoList: PhotoList(), selectedCurrency: '₺',),
     );
   }

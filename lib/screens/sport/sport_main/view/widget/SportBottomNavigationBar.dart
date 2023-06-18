@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationCreatePostPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
-//searching
 
-class CustomTransportationBottomNavigationBar extends StatelessWidget {
-  final customerOrDriver;
+class SportNavigationBar extends StatefulWidget {
 
-  const CustomTransportationBottomNavigationBar({super.key, required this.customerOrDriver});
+  const SportNavigationBar({super.key});
+  @override
+  _SportNavigationBarState createState() =>
+      _SportNavigationBarState();
+}
+
+class _SportNavigationBarState
+    extends State<SportNavigationBar> {
+  int _activeTab = 0;
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _activeTab = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +36,7 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            IconButton(
+/*            IconButton(
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -35,25 +45,29 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                 Get.to(HomePage());
                 // go back
               },
-            ),
+            ),*/
             SizedBox(
               width: 25,
             ),
-            IconButton(
-                icon: new Icon(
-                  MdiIcons.humanGreeting,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  //Get.to(TransportationPage());
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
-                          builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
-                      )
-                  );
-                }),
+/*            IconButton(
+              icon: Icon(
+                Icons.sell,
+                color: _activeTab == 1 ? Colors.white : Colors.white60,
+              ),
+              onPressed: () {
+                //Get.to(NewBuySellPageX(buyOrSell: 's'));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BuySellPage(
+                          buyOrSell: 's',
+                          searchModeFlag: false,
+                          notificationMode: false,
+                        )));
+                // go back
+                _onTabSelected(1);
+              },
+            ),*/
             Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
@@ -71,7 +85,9 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(TransportationCreatePostPage());
+/*                        Get.to(BuySellCreatePostPage(
+                          buyOrSell: widget.buyOrSell,
+                        ));*/
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -86,22 +102,24 @@ class CustomTransportationBottomNavigationBar extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
+/*            IconButton(
               icon: Icon(
-                MdiIcons.carConnected,
-                color: Colors.white,
+                Icons.shopping_bag,
+                color: _activeTab == 2 ? Colors.white : Colors.white60,
               ),
               onPressed: () {
-                //Get.to(TransportationCarPage());
+                //Get.to(NewBuySellPageX(buyOrSell: 'b'));
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
-                        builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
-                    )
-                );
+                        builder: (context) => BuySellPage(
+                          buyOrSell: 'b',
+                          searchModeFlag: false,
+                          notificationMode: false,
+                        )));
+                // go back
               },
-            ),
+            ),*/
             SizedBox(
               width: 25,
             ),

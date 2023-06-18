@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/CustomBuySellBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
@@ -112,10 +112,10 @@ class _BuySellPageState extends State<BuySellPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(
+      appBar: BuySellAppBar(
         buyOrSell: widget.buyOrSell,
       ),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: metuverseBoxDecoration(),
         child: _isLoading
@@ -128,7 +128,7 @@ class _BuySellPageState extends State<BuySellPage> {
               : NothingToDisplay(),
         ),
       ),
-      bottomNavigationBar: CustomBuySellBottomNavigationBar(
+      bottomNavigationBar: BuySellBottomNavigationBar(
         buyOrSell: widget.buyOrSell,
       ),
     );

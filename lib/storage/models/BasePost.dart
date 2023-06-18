@@ -98,7 +98,7 @@ class BasePost{
   int? updateVersion;
   String? description;
   String? publicToken;
-
+  String? createDate;
   BasePost({
     this.belongToUser,
     this.isFavorite,
@@ -108,6 +108,7 @@ class BasePost{
     this.updateVersion,
     this.description,
     this.publicToken,
+    this.createDate
   });
   String getProfilePicture() {
     return this.profilePicture ?? defaultProfilePictureUrl;

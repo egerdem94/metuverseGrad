@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
+import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 
-class BuySellPostBottom extends StatelessWidget {
-  const BuySellPostBottom({
+class SportPostBottom extends StatelessWidget {
+  const SportPostBottom({
     super.key,
     required this.post,
   });
 
-  final BuySellPost post;
+  final SportPost post;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,14 @@ class BuySellPostBottom extends StatelessWidget {
         Spacer(),
         Chip(
           label: Text(
-            post.productStatus! == 1 ? 'Available' : 'Sold',
+            post.sportmateStatus! == 1 ? 'Active' : 'Deactive',
             style: TextStyle(
               color:
-              post.productStatus! == 1 ? Colors.white : Colors.black,
+              post.sportmateStatus! == 1 ? Colors.white : Colors.black,
             ),
           ),
           backgroundColor:
-          post.productStatus! == 1 ? Colors.green : Colors.red,
+          post.sportmateStatus! == 1 ? Colors.green : Colors.red,
         ),
       ],
     );

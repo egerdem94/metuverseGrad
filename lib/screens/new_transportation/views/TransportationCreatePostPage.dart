@@ -40,7 +40,7 @@ class _TransportationCreatePostPageState extends State<TransportationCreatePostP
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: TransportationCreatePostBody(
         createProduct: _createProduct,
         submitForm: _submitForm,

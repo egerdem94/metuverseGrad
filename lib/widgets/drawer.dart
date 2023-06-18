@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/favorites/screen/favoritesPage.dart';
-
+/*
 class MetuverseDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,4 +40,4 @@ class MetuverseDrawer extends StatelessWidget {
       ),
     );
   }
-}
+}*/

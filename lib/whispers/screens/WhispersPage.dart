@@ -98,8 +98,8 @@ class _WhispersPageState extends State<WhispersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(buyOrSell: 's',), //dummy
-      drawer: MetuverseDrawer(),
+      appBar: BuySellAppBar(buyOrSell: 's',), //dummy
+      //drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(

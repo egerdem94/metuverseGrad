@@ -34,7 +34,7 @@ class TransportationCustomerContainer extends StatelessWidget {
           DepartureDestinationBoxes(post: post),
           SizedBox(height: 8.0),
           TransportationCustomerPostBottom(post: post),
-          CommentButtonWidget(),
+          //CommentButtonWidget(),
         ],
       ),
     );

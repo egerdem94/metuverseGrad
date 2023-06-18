@@ -50,7 +50,7 @@ class _SellPostContainerState extends State<SellPostContainer> {
           PostMediasWidget(post: widget.post, onlineOrOffline: widget.onlineOrOfflineImage,),
           SizedBox(height: 8.0),
           BuySellPostBottom(post: widget.post),
-          CommentButtonWidget(),
+          //CommentButtonWidget(),
         ],
       ),
     );

@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(

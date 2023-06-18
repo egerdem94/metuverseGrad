@@ -5,6 +5,7 @@ import 'package:metuverse/screens/new_transportation/views/widgets/Transportatio
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPic.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostBottom.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
@@ -33,9 +34,8 @@ class SportPostContainer extends StatelessWidget {
           Text(post.description!, style: kwhiteText),
           SizedBox(height: 8.0),
           SportImageWidget(sportID: post.sportID!,),
-/*          SizedBox(height: 8.0),
-          TransportationCustomerPostBottom(post: post),*/
-          CommentButtonWidget(),
+          SizedBox(height: 8.0),
+          SportPostBottom(post: post)
         ],
       ),
     );

@@ -58,13 +58,6 @@ class _TransportationDriverContainerState
           Row(
             children: [
               FavoriteButton(post: widget.post,),
-              IconButton(
-                onPressed: () {
-                  // Leave a comment
-                },
-                icon: Icon(Icons.send_rounded),
-                color: Colors.blue,
-              ),
               Spacer(),
               IconButton(
                 icon: Icon(MdiIcons.seatPassenger,

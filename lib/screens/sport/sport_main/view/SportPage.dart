@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/CustomBuySellBottomNavigationBar.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
 import 'package:metuverse/screens/sport/sport_main/controller/SportPostHandler.dart';
-import 'package:metuverse/screens/sport/sport_main/view/widget/CustomSportBottomNavigationBar.dart';
+import 'package:metuverse/screens/sport/sport_main/view/widget/SportBottomNavigationBar.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportAppBar.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostContainer.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
@@ -33,25 +28,24 @@ class SportPage extends StatefulWidget {
 class _SportPageState extends State<SportPage> {
   final _scrollController = ScrollController();
   late SportPostHandler sportPostHandler;
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
     sportPostHandler = SportPostHandler();
-    /*sportPostHandler.init().then((_) {
+    sportPostHandler.init().then((_) {
       if (widget.searchModeFlag) {
-        sportPostHandler
+/*        sportPostHandler
             .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
             widget.filteredCurrency, widget.buyOrSell)
             .then((_) {
           setState(() {});
-        });
+        });*/
       }
       else {
         sportPostHandler.handlePostList(
-            widget.buyOrSell,
             true,
             widget.notificationMode,
             widget.notificationPostID
@@ -69,10 +63,10 @@ class _SportPageState extends State<SportPage> {
       else{
         _startDelayedFuture();
       }
-    });*/
+    });
 
   }
-/*  void _startDelayedFuture() {
+  void _startDelayedFuture() {
     Future.delayed(Duration(milliseconds: 100), () {
       if (!mounted) return; // Check if the widget is still mounted
 
@@ -84,7 +78,7 @@ class _SportPageState extends State<SportPage> {
         });
       }
     });
-  }*/
+  }
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
@@ -104,7 +98,7 @@ class _SportPageState extends State<SportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SportAppBar(),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: metuverseBoxDecoration(),
         child: _isLoading
@@ -116,7 +110,7 @@ class _SportPageState extends State<SportPage> {
               : NothingToDisplay(),
         ),
       ),
-      bottomNavigationBar: CustomSportNavigationBar(),
+      bottomNavigationBar: SportNavigationBar(),
     );
   }
 

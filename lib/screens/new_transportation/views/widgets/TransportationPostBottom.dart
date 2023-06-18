@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
 import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/palette.dart';
 
 class TransportationCustomerPostBottom extends StatelessWidget {
   const TransportationCustomerPostBottom({
@@ -17,28 +15,6 @@ class TransportationCustomerPostBottom extends StatelessWidget {
     return Row(
       children: [
         FavoriteButton(post: post),
-        /*if (!false)
-          IconButton(
-            onPressed: () {
-// Add product to favorites
-            },
-            icon: Icon(MdiIcons.carConnected),
-            color: Colors.blue,
-          ),
-        IconButton(
-          onPressed: () {
-            // Leave a comment
-          },
-          icon: Icon(Icons.comment_rounded),
-          color: Colors.blue,
-        ),*/
-        IconButton(
-          onPressed: () {
-            // Leave a comment
-          },
-          icon: Icon(Icons.send_rounded),
-          color: Colors.blue,
-        ),
         Spacer(),
         Chip(
           label: Text(

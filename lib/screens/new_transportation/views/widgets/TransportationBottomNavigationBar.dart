@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
-import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellCreatePostPage.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
+import 'package:metuverse/screens/new_transportation/views/TransportationCreatePostPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
+//searching
 
-class CustomBuySellBottomNavigationBar extends StatefulWidget {
-  final buyOrSell;
+class TransportationBottomNavigationBar extends StatelessWidget {
+  final customerOrDriver;
 
-  const CustomBuySellBottomNavigationBar({super.key, required this.buyOrSell});
-  @override
-  _CustomBuySellBottomNavigationBarState createState() =>
-      _CustomBuySellBottomNavigationBarState();
-}
-
-class _CustomBuySellBottomNavigationBarState
-    extends State<CustomBuySellBottomNavigationBar> {
-  int _activeTab = 0;
-
-  void _onTabSelected(int index) {
-    setState(() {
-      _activeTab = index;
-    });
-  }
-
+  const TransportationBottomNavigationBar({super.key, required this.customerOrDriver});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +26,7 @@ class _CustomBuySellBottomNavigationBarState
       child: BottomAppBar(
         child: Row(
           children: [
-            IconButton(
+/*            IconButton(
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -48,29 +35,25 @@ class _CustomBuySellBottomNavigationBarState
                 Get.to(HomePage());
                 // go back
               },
-            ),
+            ),*/
             SizedBox(
               width: 25,
             ),
             IconButton(
-              icon: Icon(
-                Icons.sell,
-                color: _activeTab == 1 ? Colors.white : Colors.white60,
-              ),
-              onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 's'));
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                              buyOrSell: 's',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
-                // go back
-                _onTabSelected(1);
-              },
-            ),
+                icon: new Icon(
+                  MdiIcons.humanGreeting,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  //Get.to(TransportationPage());
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
+                          builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
+                      )
+                  );
+                }),
             Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
@@ -88,9 +71,7 @@ class _CustomBuySellBottomNavigationBarState
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(BuySellCreatePostPage(
-                          buyOrSell: widget.buyOrSell,
-                        ));
+                        Get.to(TransportationCreatePostPage());
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -107,20 +88,18 @@ class _CustomBuySellBottomNavigationBarState
             ),
             IconButton(
               icon: Icon(
-                Icons.shopping_bag,
-                color: _activeTab == 2 ? Colors.white : Colors.white60,
+                MdiIcons.carConnected,
+                color: Colors.white,
               ),
               onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 'b'));
+                //Get.to(TransportationCarPage());
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                              buyOrSell: 'b',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
-                // go back
+                        //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
+                        builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
+                    )
+                );
               },
             ),
             SizedBox(

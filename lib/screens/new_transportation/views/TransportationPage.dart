@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_transportation/controller/storage/TransportationPostHandler.dart';
 import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/CustomTransportationBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_transportation/views/widgets/TransportationBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_transportation/views/widgets/TransportationAppBar.dart';
 import 'package:metuverse/screens/new_transportation/views/widgets/TransportationDriverContainer.dart';
 import 'package:metuverse/screens/new_transportation/views/widgets/TransportationCustomerContainer.dart';
@@ -77,7 +77,7 @@ class _TransportationPageState extends State<TransportationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TransportationAppBar(customerOrDriver: widget.customerOrDriver,),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -135,7 +135,7 @@ class _TransportationPageState extends State<TransportationPage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomTransportationBottomNavigationBar(customerOrDriver: widget.customerOrDriver,),
+      bottomNavigationBar: TransportationBottomNavigationBar(customerOrDriver: widget.customerOrDriver,),
     );
   }
 }

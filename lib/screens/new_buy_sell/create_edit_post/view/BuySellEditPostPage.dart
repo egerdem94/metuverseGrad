@@ -37,10 +37,10 @@ class _BuySellEditPostPageState extends State<BuySellEditPostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewBuyAndSellAppBar(
+      appBar: BuySellAppBar(
         buyOrSell: widget.buyOrSell,
       ),
-      drawer: MetuverseDrawer(),
+      //drawer: MetuverseDrawer(),
       body: BuySellCreateEditPostBody(editOrCreate:"e",
         descriptionController: descriptionController,
         priceController: priceController,
