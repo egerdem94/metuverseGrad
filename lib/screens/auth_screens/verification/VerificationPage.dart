@@ -18,15 +18,20 @@ class VerificationPage extends StatefulWidget {
     required this.email,
     required this.username,
     required this.password,
+    required this.mobileNumber,
   }) : super(key: key);
 
   final String email;
   final String username;
   final String password;
+  final String mobileNumber;
 
   @override
   State<VerificationPage> createState() => _VerificationPageState(
-      email: email, username: username, password: password);
+      email: email,
+      username: username,
+      password: password,
+      mobileNumber: mobileNumber);
 }
 
 class _VerificationPageState extends State<VerificationPage> {
@@ -34,11 +39,13 @@ class _VerificationPageState extends State<VerificationPage> {
     required this.email,
     required this.username,
     required this.password,
+    required this.mobileNumber,
   });
 
   final String email;
   final String username;
   final String password;
+  final String mobileNumber;
 
   final emailVerificationCode1 = TextEditingController();
   final emailVerificationCode1Focus = FocusNode();

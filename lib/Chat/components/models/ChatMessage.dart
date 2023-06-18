@@ -1,4 +1,4 @@
-enum ChatMessageType { text, audio, image, video }
+/**enum ChatMessageType { text, audio, image, video }
 
 enum MessageStatus { not_sent, not_view, viewed }
 
@@ -59,4 +59,4 @@ List demeChatMessages = [
     messageStatus: MessageStatus.not_view,
     isSender: true,
   ),
-];
+];**/

@@ -5,10 +5,7 @@ class LoginModelX {
   String? profilePicture;
 
   LoginModelX(
-      {this.loginStatus,
-        this.token,
-        this.fullName,
-        this.profilePicture});
+      {this.loginStatus, this.token, this.fullName, this.profilePicture});
 
   LoginModelX.fromJson(Map<String, dynamic> json) {
     loginStatus = json['loginStatus'];

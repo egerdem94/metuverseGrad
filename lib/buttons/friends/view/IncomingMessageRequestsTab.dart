@@ -8,10 +8,10 @@ class IncomingMessageRequestsTab extends StatefulWidget {
       _IncomingMessageRequestsTabState();
 }
 
-class _IncomingMessageRequestsTabState extends State<IncomingMessageRequestsTab> {
+class _IncomingMessageRequestsTabState
+    extends State<IncomingMessageRequestsTab> {
   IncomingMessageRequestList? incomingMessageRequestList;
-  FriendsController messageRequestController =
-  FriendsController();
+  FriendsController messageRequestController = FriendsController();
 
   @override
   initState() {
@@ -38,17 +38,16 @@ class _IncomingMessageRequestsTabState extends State<IncomingMessageRequestsTab>
       itemCount: incomingMessageRequestList!.items!.length,
       itemBuilder: (context, index) {
         IncomingMessageRequest request =
-        incomingMessageRequestList!.items![index];
+            incomingMessageRequestList!.items![index];
         return MessageRequestItem(
           fullName: request.fullName!,
           profilePicture: request.getProfilePicture,
           onAccept: () {
             messageRequestController.messageRequestBackendHelper
                 .sendAnswerToIncomingMessageRequest(
-                "y",
-                incomingMessageRequestList!
-                    .items![index].relatedUserPublicToken!
-            );
+                    "y",
+                    incomingMessageRequestList!
+                        .items![index].relatedUserPublicToken!);
             setState(() {
               incomingMessageRequestList!.items!.removeAt(index);
             });
@@ -56,9 +55,9 @@ class _IncomingMessageRequestsTabState extends State<IncomingMessageRequestsTab>
           onDecline: () {
             messageRequestController.messageRequestBackendHelper
                 .sendAnswerToIncomingMessageRequest(
-                "n",
-                incomingMessageRequestList!
-                    .items![index].relatedUserPublicToken!);
+                    "n",
+                    incomingMessageRequestList!
+                        .items![index].relatedUserPublicToken!);
             setState(() {
               incomingMessageRequestList!.items!.removeAt(index);
             });
@@ -89,7 +88,7 @@ class MessageRequestItem extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom:
-          BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5),
+              BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5),
         ),
       ),
       child: Row(
@@ -101,7 +100,7 @@ class MessageRequestItem extends StatelessWidget {
           SizedBox(width: 8.0),
           Expanded(
             child: Text(fullName,
-                style: TextStyle(color: Colors.black, fontSize: 16)),
+                style: TextStyle(color: Colors.white, fontSize: 16)),
           ),
           TextButton(
             onPressed: onAccept,
@@ -112,7 +111,7 @@ class MessageRequestItem extends StatelessWidget {
           TextButton(
             onPressed: onDecline,
             child:
-            Text('Decline', style: TextStyle(color: Colors.redAccent[700])),
+                Text('Decline', style: TextStyle(color: Colors.redAccent[700])),
           ),
         ],
       ),

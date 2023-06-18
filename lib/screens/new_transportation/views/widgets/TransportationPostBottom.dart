@@ -20,14 +20,12 @@ class TransportationCustomerPostBottom extends StatelessWidget {
           label: Text(
             post.transportationStatus! == 1 ? 'Looking' : 'Found',
             style: TextStyle(
-              color: post.transportationStatus! == 1
-                  ? Colors.white
-                  : Colors.black,
+              color:
+                  post.transportationStatus! == 1 ? Colors.white : Colors.black,
             ),
           ),
-          backgroundColor: post.transportationStatus! == 1
-              ? Colors.green
-              : Colors.red,
+          backgroundColor:
+              post.transportationStatus! == 1 ? Colors.green : Colors.red,
         ),
       ],
     );

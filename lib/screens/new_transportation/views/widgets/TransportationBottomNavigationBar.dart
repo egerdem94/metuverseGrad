@@ -11,7 +11,8 @@ import 'package:metuverse/user/User.dart';
 class TransportationBottomNavigationBar extends StatelessWidget {
   final customerOrDriver;
 
-  const TransportationBottomNavigationBar({super.key, required this.customerOrDriver});
+  const TransportationBottomNavigationBar(
+      {super.key, required this.customerOrDriver});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,35 +27,38 @@ class TransportationBottomNavigationBar extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-/*            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Get.to(HomePage());
-                // go back
-              },
-            ),*/
-            SizedBox(
-              width: 25,
-            ),
-            IconButton(
-                icon: new Icon(
-                  MdiIcons.humanGreeting,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  //Get.to(TransportationPage());
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
-                          builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
-                      )
-                  );
-                }),
             Expanded(
+              child: IconButton(
+                  icon: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Icon(
+                        MdiIcons.humanGreeting,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'PASSENGER',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    //Get.to(TransportationPage());
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            //builder: (context) => TransportationPage(driverOrPassenger: 'p', searchModeFlag: false,)
+                            builder: (context) => TransportationPage(
+                                  customerOrDriver: 'c',
+                                  searchModeFlag: false,
+                                )));
+                  }),
+            ),
+
+            /* Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
                 child: Center(
@@ -85,36 +89,37 @@ class TransportationBottomNavigationBar extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            IconButton(
-              icon: Icon(
-                MdiIcons.carConnected,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                //Get.to(TransportationCarPage());
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
-                        builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
-                    )
-                );
-              },
-            ),
-            SizedBox(
-              width: 25,
-            ),
-            IconButton(
-              icon: CircleAvatar(
-                radius: 18.0,
-                backgroundImage: NetworkImage(
-                  User.profilePicture,
+            ),*/
+            Expanded(
+              child: IconButton(
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      MdiIcons.carConnected,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'DRIVER',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
+                onPressed: () {
+                  //Get.to(TransportationCarPage());
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          //builder: (context) => TransportationPage(driverOrPassenger: 'd', searchModeFlag: false,)
+                          builder: (context) => TransportationPage(
+                                customerOrDriver: 'd',
+                                searchModeFlag: false,
+                              )));
+                },
               ),
-              onPressed: () {
-                Get.to(ProfilePage());
-              },
             ),
           ],
         ),

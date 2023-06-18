@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
 import 'package:metuverse/screens/sport/sport_main/view/SportPage.dart';
-import 'package:metuverse/whispers/screens/WhispersPage.dart';
 import 'package:metuverse/screens/home/widgets/announcementSlides.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
@@ -41,8 +40,11 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(
-                          BuySellPage(buyOrSell: 's', searchModeFlag: false, notificationMode: false,));
+                      Get.to(BuySellPage(
+                        buyOrSell: 's',
+                        searchModeFlag: false,
+                        notificationMode: false,
+                      ));
                     },
                     imageUrl: 'assets-images/13717.jpg',
                   ),
@@ -56,9 +58,7 @@ class HomePage extends StatelessWidget {
                   ),
                   RoundedSquareButton(
                     text: "",
-                    onPressed: () {
-                      Get.to(WhispersPage());
-                    },
+                    onPressed: () {},
                     imageUrl: 'assets-images/istockphoto-910098436-612x612.jpg',
                   ),
 /*                  RoundedSquareButton(
@@ -69,7 +69,10 @@ class HomePage extends StatelessWidget {
                   RoundedSquareButton(
                     text: "",
                     onPressed: () {
-                      Get.to(SportPage(searchModeFlag: false, notificationMode: false,));
+                      Get.to(SportPage(
+                        searchModeFlag: false,
+                        notificationMode: false,
+                      ));
                     },
                     imageUrl: 'assets-images/sport.png',
                   ),

@@ -119,4 +119,12 @@ class BuySellPost extends BasePostWithMedia {
       SellBuyTableValues.columnMediaExist: mediaExist == true ? 1 : 0,
     };
   }
+
+  static create(
+      {required int postID,
+      required String title,
+      required String content,
+      required int price,
+      required String currency,
+      required List mediaList}) {}
 }

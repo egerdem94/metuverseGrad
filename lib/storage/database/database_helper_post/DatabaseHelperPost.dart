@@ -3,7 +3,7 @@ import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelper
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelperPost extends DatabaseHelperParent{
+class DatabaseHelperPost extends DatabaseHelperParent {
 /*  // this opens the database (and creates it if it doesn't exist)
   Future<void> baseInit() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
@@ -22,7 +22,7 @@ class DatabaseHelperPost extends DatabaseHelperParent{
           )
           ''');
   }*/
-  Future baseInsertPost(int postID) async{
+  Future baseInsertPost(int postID) async {
     //following code in the style
     //int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM ${BasePostTableValues.table} WHERE ${BasePostTableValues.columnPostID} = ?', [postID]));
     /*    if (count == 0) {
@@ -41,7 +41,7 @@ class DatabaseHelperPost extends DatabaseHelperParent{
         whereArgs: [postID],
       );
 
-      int count = Sqflite.firstIntValue(result);
+      int? count = Sqflite.firstIntValue(result);
 
       if (count == 0) {
         debugPrint('inserted to base table with row id: $postID');
@@ -50,13 +50,14 @@ class DatabaseHelperPost extends DatabaseHelperParent{
           BasePostTableValues.columnPostID: postID,
         };
         return await txn.insert(BasePostTableValues.table, row);
-      }
-      else{
-        debugPrint('postID $postID already exists in base the table $BasePostTableValues.table ');
+      } else {
+        debugPrint(
+            'postID $postID already exists in base the table $BasePostTableValues.table ');
         return 0;
       }
     });
   }
+
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> baseDelete(int id) async {
@@ -66,5 +67,4 @@ class DatabaseHelperPost extends DatabaseHelperParent{
       whereArgs: [id],
     );
   }
-
 }

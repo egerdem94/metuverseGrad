@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/buttons/notification/controller/NotificationController.dart';
 import 'package:metuverse/buttons/notification/model/MyNotification.dart';
+import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+
+import '../../friends/view/FriendsButton.dart';
 
 class NotificationPage extends StatefulWidget {
   final NotificationList notificationList;
@@ -23,13 +26,27 @@ class _NotificationPageState extends State<NotificationPage> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     //final List<MyNotification>? notifications = widget.notificationList.items;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notifications"),
+        // leading: NotificationButton(),
+        title: Text(
+          "Notifications",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        centerTitle: true,
+        actions: [
+          FriendsButton(),
+        ],
       ),
       body: ListView.builder(
         itemCount: notifications?.length ?? 0,
@@ -48,6 +65,7 @@ class _NotificationPageState extends State<NotificationPage> {
           );
         },
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
@@ -73,11 +91,19 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(profilePicture ?? "https://www.birikikoli.com/mv_services/user/user_default_profile_picture.png"),
+        backgroundImage: NetworkImage(profilePicture ??
+            "https://www.birikikoli.com/mv_services/user/user_default_profile_picture.png"),
       ),
-      title: Text(fullName),
-      subtitle: Text(description),
+      title: Text(
+        fullName,
+        style: TextStyle(color: Colors.white),
+      ),
+      subtitle: Text(
+        description,
+        style: TextStyle(color: Colors.white),
+      ),
       onTap: onTap,
+      tileColor: Colors.black,
       // Add any necessary UI elements to display the notification item
     );
   }

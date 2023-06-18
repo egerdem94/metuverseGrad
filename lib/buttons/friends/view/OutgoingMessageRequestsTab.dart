@@ -8,10 +8,10 @@ class OutgoingMessageRequestsTab extends StatefulWidget {
       _OutgoingMessageRequestsTabState();
 }
 
-class _OutgoingMessageRequestsTabState extends State<OutgoingMessageRequestsTab> {
+class _OutgoingMessageRequestsTabState
+    extends State<OutgoingMessageRequestsTab> {
   OutgoingMessageRequestList? outgoingMessageRequestList;
-  FriendsController messageRequestController =
-  FriendsController();
+  FriendsController messageRequestController = FriendsController();
 
   @override
   initState() {
@@ -38,19 +38,19 @@ class _OutgoingMessageRequestsTabState extends State<OutgoingMessageRequestsTab>
       itemCount: outgoingMessageRequestList!.items!.length,
       itemBuilder: (context, index) {
         OutgoingMessageRequest request =
-        outgoingMessageRequestList!.items![index];
+            outgoingMessageRequestList!.items![index];
         return OutgoingMessageRequestItem(
           fullName: request.fullName!,
           profilePicture: request.getProfilePicture,
           onCancel: () async {
-            var status = await messageRequestController.cancelOutgoingMessageRequest(outgoingMessageRequestList!
-                .items![index].relatedUserPublicToken!);
-            if(status == 1){
+            var status = await messageRequestController
+                .cancelOutgoingMessageRequest(outgoingMessageRequestList!
+                    .items![index].relatedUserPublicToken!);
+            if (status == 1) {
               setState(() {
                 outgoingMessageRequestList!.items!.removeAt(index);
               });
-            }
-            else{
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("Something went wrong"),
@@ -82,7 +82,7 @@ class OutgoingMessageRequestItem extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom:
-          BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5),
+              BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5),
         ),
       ),
       child: Row(
@@ -94,12 +94,12 @@ class OutgoingMessageRequestItem extends StatelessWidget {
           SizedBox(width: 8.0),
           Expanded(
             child: Text(fullName,
-                style: TextStyle(color: Colors.black, fontSize: 16)),
+                style: TextStyle(color: Colors.white, fontSize: 16)),
           ),
           TextButton(
             onPressed: onCancel,
             child:
-            Text('Cancel', style: TextStyle(color: Colors.redAccent[700])),
+                Text('Cancel', style: TextStyle(color: Colors.redAccent[700])),
           ),
         ],
       ),

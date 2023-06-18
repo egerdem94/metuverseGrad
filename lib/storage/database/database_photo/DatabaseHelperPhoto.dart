@@ -10,18 +10,21 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 
-class DatabaseHelperPhoto extends DatabaseHelperParent{
+class DatabaseHelperPhoto extends DatabaseHelperParent {
   /// check if photo exists in database
   Future<bool> doesPhotoExist(int postID, String url) async {
     return await db.transaction<bool>((txn) async {
-      int count = Sqflite.firstIntValue(await txn.rawQuery('SELECT COUNT(*) FROM ${DatabasePhotoTableValues.table} WHERE ${DatabasePhotoTableValues.columnPostID} = ? AND ${DatabasePhotoTableValues.columnPhotoSource} = ?', [postID, url]));
+      int? count = Sqflite.firstIntValue(await txn.rawQuery(
+          'SELECT COUNT(*) FROM ${DatabasePhotoTableValues.table} WHERE ${DatabasePhotoTableValues.columnPostID} = ? AND ${DatabasePhotoTableValues.columnPhotoSource} = ?',
+          [postID, url]));
 
-      return (count > 0) ? true : false;
+      return (count! > 0) ? true : false;
     });
   }
+
   ///Inserts photo from url to database, also returns the photo object
-  Future<Photo?> insertPhotoFromUrl(int postID,String url) async {
-    if(await doesPhotoExist(postID, url)) {
+  Future<Photo?> insertPhotoFromUrl(int postID, String url) async {
+    if (await doesPhotoExist(postID, url)) {
       debugPrint("Photo already exist!");
       return null;
     }
@@ -31,23 +34,27 @@ class DatabaseHelperPhoto extends DatabaseHelperParent{
       DatabasePhotoTableValues.columnPostID: postID,
       DatabasePhotoTableValues.columnPhotoSource: url,
       DatabasePhotoTableValues.columnPhotoData: photoData,
-      DatabasePhotoTableValues.columnInsertionDate: DateTime.now().toIso8601String(),
+      DatabasePhotoTableValues.columnInsertionDate:
+          DateTime.now().toIso8601String(),
     };
     //return await db.insert('$table', {'$columnPostID':postID,'$columnPhotoData': photoData});
     await db.transaction((txn) async {
       await txn.insert(DatabasePhotoTableValues.table, row); //Can be checked
     });
-    return Photo(0,postID,url,photoData);
+    return Photo(0, postID, url, photoData);
   }
-  Future<Photo?> getPhotoGivenPostIDAndUrl(int postID, String url) async{
+
+  Future<Photo?> getPhotoGivenPostIDAndUrl(int postID, String url) async {
     return await db.transaction<Photo?>((txn) async {
       final photosData = await txn.query(DatabasePhotoTableValues.table,
-          where: '${DatabasePhotoTableValues.columnPostID} = ? AND ${DatabasePhotoTableValues.columnPhotoSource} = ?',
+          where:
+              '${DatabasePhotoTableValues.columnPostID} = ? AND ${DatabasePhotoTableValues.columnPhotoSource} = ?',
           whereArgs: [postID, url]);
 
       return (photosData.length != 0) ? Photo.fromDbMap(photosData[0]) : null;
     });
   }
+
 //get photoUrls given postID
   Future<List<String>?> getPhotoUrlsGivenPostID(int postID) async {
     return await db.transaction<List<String>>((txn) async {
@@ -59,7 +66,9 @@ class DatabaseHelperPhoto extends DatabaseHelperParent{
       );
 
       List<String>? photoUrls = photosData
-          .map((photoData) => photoData[DatabasePhotoTableValues.columnPhotoSource]).cast<String>()
+          .map((photoData) =>
+              photoData[DatabasePhotoTableValues.columnPhotoSource])
+          .cast<String>()
           .toList();
 
       return photoUrls;
@@ -87,13 +96,13 @@ class DatabaseHelperPhoto extends DatabaseHelperParent{
       };
       return await db.insert(DatabasePhotoTableValues.table, row);
     });
-*//*    final row = {
+*/ /*    final row = {
       DatabasePhotoTableValues.columnPostID: photo.postID,
       DatabasePhotoTableValues.columnPhotoSource: photo.photoUrl,
       DatabasePhotoTableValues.columnPhotoData: photo.photoData,
       DatabasePhotoTableValues.columnInsertionDate: DateTime.now().toIso8601String(),
     };
-    return await db.insert(DatabasePhotoTableValues.table, row);*//*
+    return await db.insert(DatabasePhotoTableValues.table, row);*/ /*
   }*/
 /*
   Future insertNewPhotos(PhotoList photoList) async{

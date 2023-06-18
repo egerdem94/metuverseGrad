@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/**import 'package:flutter/material.dart';
 import '../../../../constants.dart';
 import '../../../models/ChatMessage.dart';
 import 'text_message.dart';
@@ -77,4 +77,4 @@ class MessageStatusDot extends StatelessWidget {
       ),
     );
   }
-}
+}**/

@@ -7,7 +7,6 @@ import 'package:metuverse/screens/new_transportation/views/widgets/Transportatio
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-
 class TransportationSearchPage extends StatefulWidget {
   final customerOrDriver;
 
@@ -42,25 +41,28 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
 
   void _submitSearch() {
     int count = 0;
-    if(destination == null || destination == 'Not Selected' || destination == ''){
+    if (destination == null ||
+        destination == 'Not Selected' ||
+        destination == '') {
       destination = '';
       count++;
+    } else {
+      destination =
+          TransportationLocations.getIndexOfLocation(destination!).toString();
     }
-    else{
-      destination = TransportationLocations.getIndexOfLocation(destination!).toString();
-    }
-    if(departure == null || departure == 'Not Selected' || departure == ''){
+    if (departure == null || departure == 'Not Selected' || departure == '') {
       departure = '';
       count++;
+    } else {
+      departure =
+          TransportationLocations.getIndexOfLocation(departure!).toString();
     }
-    else{
-      departure = TransportationLocations.getIndexOfLocation(departure!).toString();
-    }
-    if(searchController.text == ''){
+    if (searchController.text == '') {
       count++;
     }
-    if(count == 3){
-      Get.snackbar('Error', 'Please fill at least one field'); //TODO Ege - Change this snack bar with more readable one
+    if (count == 3) {
+      Get.snackbar('Error',
+          'Please fill at least one field'); //TODO Ege - Change this snack bar with more readable one
       return;
     }
     Get.offAll(TransportationPage(
@@ -81,6 +83,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
         child: Column(
           children: <Widget>[
             TextField(
+              key: ValueKey('searchField'),
               controller: searchController,
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -90,6 +93,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
             ),
             SizedBox(height: 16),
             DropdownButton<String>(
+              key: ValueKey('departureDropdown'),
               isExpanded: true,
               value: departure,
               hint: Text('Select Departure'),
@@ -108,6 +112,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
             ),
             SizedBox(height: 16),
             DropdownButton<String>(
+              key: ValueKey('destinationDropdown'),
               isExpanded: true,
               value: destination,
               hint: Text('Select Destination'),
@@ -126,6 +131,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+              key: ValueKey('searchButton'),
               child: Text('Search'),
               onPressed: _submitSearch,
             ),

@@ -17,6 +17,7 @@ class MetuverseAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: AppBar(
+        // leading: NotificationButton(),
         title: Text(
           "Metuverse",
           style: TextStyle(
@@ -28,12 +29,12 @@ class MetuverseAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         centerTitle: true,
         actions: [
-          IconButton(
+          /*IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
               Get.to(SearchPage());
             },
-          ),
+          ),*/
           NotificationButton(),
           /*IconButton(
             icon: Icon(Icons.mail),

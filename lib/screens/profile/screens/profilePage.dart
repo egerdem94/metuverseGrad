@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/screens/profile/widget/profilebottom.dart';
 import 'package:metuverse/user/User.dart';
+import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
+import '../../auth_screens/login/view/LoginPage.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -89,12 +92,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     leading: Builder(
                       builder: (BuildContext context) {
                         return IconButton(
-                          icon: const Icon(Icons.menu),
+                          icon: Icon(
+                            MdiIcons.logout,
+                            color: Colors.white,
+                          ),
                           onPressed: () {
-                            Scaffold.of(context).openDrawer();
+                            User.logout();
+                            //Get.to(ProfilePage());
+                            //Get.to(LoginPage());
+                            Navigator.pushAndRemoveUntil(context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                              return LoginPage();
+                            }), (r) {
+                              return false;
+                            });
                           },
-                          tooltip: MaterialLocalizations.of(context)
-                              .openAppDrawerTooltip,
                         );
                       },
                     ),
@@ -108,12 +121,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     centerTitle: true,
                     actions: [
-                      IconButton(
+                      /*IconButton(
                         icon: Icon(Icons.search_rounded),
                         onPressed: () {
                           Get.to(SearchPage());
                         },
-                      ),
+                      ),*/
                       IconButton(
                         icon: Icon(Icons.notifications),
                         onPressed: () {
@@ -243,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          bottomNavigationBar: ProfileBottomBar()),
+          bottomNavigationBar: CustomBottomNavigationBar()),
     );
   }
 }

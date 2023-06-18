@@ -5,15 +5,12 @@ import 'package:metuverse/screens/sport/create_edit_post/view/SportCreatePost.da
 import 'package:metuverse/user/User.dart';
 
 class SportNavigationBar extends StatefulWidget {
-
   const SportNavigationBar({super.key});
   @override
-  _SportNavigationBarState createState() =>
-      _SportNavigationBarState();
+  _SportNavigationBarState createState() => _SportNavigationBarState();
 }
 
-class _SportNavigationBarState
-    extends State<SportNavigationBar> {
+class _SportNavigationBarState extends State<SportNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +55,7 @@ class _SportNavigationBarState
                     ),
                     child: FloatingActionButton(
                       onPressed: () {
-                        Get.to(SportCreatePostPage(
-                        ));
+                        Get.to(SportCreatePostPage());
                       },
                       shape: CircleBorder(), // set the shape to a circle
                       backgroundColor: Colors
@@ -73,20 +69,6 @@ class _SportNavigationBarState
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 25,
-            ),
-            IconButton(
-              icon: CircleAvatar(
-                radius: 18.0,
-                backgroundImage: NetworkImage(
-                  User.profilePicture,
-                ),
-              ),
-              onPressed: () {
-                Get.to(ProfilePage());
-              },
             ),
           ],
         ),

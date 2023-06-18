@@ -10,17 +10,16 @@ class DatabaseHelperSport extends DatabaseHelperPost {
   // Helper methods
   Future<BasePostList?> getPostsFromLocalDB(
       postsToBeAskedToLocalDBAsIntList) async {
-      var tempPostList =
-      await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
-      if (tempPostList.posts == null ||
-          tempPostList.posts!.length == 0) {
-        debugPrint("Empty tempPostList while string is not empty!!!");
-        return null;
-      }
-      else {
-        return tempPostList;
-      }
+    var tempPostList =
+        await queryRowsWithPostIDList(postsToBeAskedToLocalDBAsIntList);
+    if (tempPostList.posts == null || tempPostList.posts!.length == 0) {
+      debugPrint("Empty tempPostList while string is not empty!!!");
+      return null;
+    } else {
+      return tempPostList;
+    }
   }
+
   Future<int> insertOrUpdate(Map<String, dynamic> row) async {
     int postID = row['${SportTableValues.columnPostID}'];
     int count = await db.transaction<int>((txn) async {
@@ -30,8 +29,8 @@ class DatabaseHelperSport extends DatabaseHelperPost {
         where: '${SportTableValues.columnPostID} = ?',
         whereArgs: [postID],
       );
-
-      return Sqflite.firstIntValue(result);
+      return Sqflite.firstIntValue(result)!;
+      //return Future.value(Sqflite.firstIntValue(result) ?? 0);
     });
     if (count == 0) {
       await baseInsertPost(postID);
@@ -43,8 +42,7 @@ class DatabaseHelperSport extends DatabaseHelperPost {
       } else {
         debugPrint('updated row id: $postID');
         return await txn.update(SportTableValues.table, row,
-            where: '${SportTableValues.columnPostID} = ?',
-            whereArgs: [postID]);
+            where: '${SportTableValues.columnPostID} = ?', whereArgs: [postID]);
       }
     });
   }
@@ -65,7 +63,7 @@ class DatabaseHelperSport extends DatabaseHelperPost {
   // a key-value list of columns.
   Future<bool> isPostNeededToBeAskedBackend(
       int postID, int updateVersion) async {
-    int count = Sqflite.firstIntValue(await db.rawQuery(
+    int? count = Sqflite.firstIntValue(await db.rawQuery(
         'SELECT COUNT(*) FROM ${SportTableValues.table} WHERE ${SportTableValues.columnPostID} = ? AND ${SportTableValues.columnUpdateVersion} = ?',
         [postID, updateVersion]));
     if (count == 1) {
@@ -77,7 +75,6 @@ class DatabaseHelperSport extends DatabaseHelperPost {
 
   Future<List<List<int>>> getNeededPostIdList(
       PostsToDisplay? postsToDisplay) async {
-
     List<int> postIDsToBeAskedBackend = [];
     List<int> postIDsExistInLocalDB = [];
     if (postsToDisplay == null) {

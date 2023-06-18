@@ -49,29 +49,43 @@ class _BuySellBottomNavigationBarState
                 // go back
               },
             ),*/
-            SizedBox(
-              width: 25,
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.sell,
-                color: _activeTab == 1 ? Colors.white : Colors.white60,
-              ),
-              onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 's'));
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                              buyOrSell: 's',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
-                // go back
-                _onTabSelected(1);
-              },
-            ),
             Expanded(
+              child: IconButton(
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.sell,
+                      color: _activeTab == 1 ? Colors.white : Colors.white60,
+                    ),
+                    SizedBox(
+                        width:
+                            8), // to give some space between the icon and text
+                    Text(
+                      'SELL',
+                      style: TextStyle(
+                        color: _activeTab == 1 ? Colors.white : Colors.white60,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  //Get.to(NewBuySellPageX(buyOrSell: 's'));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BuySellPage(
+                                buyOrSell: 's',
+                                searchModeFlag: false,
+                                notificationMode: false,
+                              )));
+                  // go back
+                  _onTabSelected(1);
+                },
+              ),
+            ),
+
+            /* Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
                 child: Center(
@@ -104,26 +118,40 @@ class _BuySellBottomNavigationBarState
                   ),
                 ),
               ),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.shopping_bag,
-                color: _activeTab == 2 ? Colors.white : Colors.white60,
+            ),*/
+            Expanded(
+              child: IconButton(
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.shopping_bag,
+                      color: _activeTab == 2 ? Colors.white : Colors.white60,
+                    ),
+                    Text(
+                      'BUY',
+                      style: TextStyle(
+                        color: _activeTab == 1 ? Colors.white : Colors.white60,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  //Get.to(NewBuySellPageX(buyOrSell: 'b'));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BuySellPage(
+                                buyOrSell: 'b',
+                                searchModeFlag: false,
+                                notificationMode: false,
+                              )));
+                  // go back
+                },
               ),
-              onPressed: () {
-                //Get.to(NewBuySellPageX(buyOrSell: 'b'));
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellPage(
-                              buyOrSell: 'b',
-                              searchModeFlag: false,
-                              notificationMode: false,
-                            )));
-                // go back
-              },
             ),
-            SizedBox(
+
+            /* SizedBox(
               width: 25,
             ),
             IconButton(
@@ -132,11 +160,15 @@ class _BuySellBottomNavigationBarState
                 backgroundImage: NetworkImage(
                   User.profilePicture,
                 ),
+
+                //backgroundImage: AssetImage(
+                // 'assets-images/book.jpg'
+                //),
               ),
               onPressed: () {
                 Get.to(ProfilePage());
               },
-            ),
+            ),*/
           ],
         ),
         color: Color.fromARGB(255, 0, 0, 0),

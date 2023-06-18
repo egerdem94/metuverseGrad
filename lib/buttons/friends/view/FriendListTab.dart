@@ -45,7 +45,10 @@ class _FriendListTabState extends State<FriendListTab> {
             backgroundImage: NetworkImage(friend.profilePicture ??
                 "https://www.birikikoli.com/mv_services/user/user_default_profile_picture.png"),
           ),
-          title: Text(friend.fullName!),
+          title: Text(
+            friend.fullName!,
+            style: TextStyle(color: Colors.white),
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -53,7 +56,7 @@ class _FriendListTabState extends State<FriendListTab> {
               SizedBox(width: 8.0),
               ElevatedButton(
                 onPressed: () {
-                  _showRemoveFriendDialog(friend, index,() {
+                  _showRemoveFriendDialog(friend, index, () {
                     setState(() {
                       friendList!.items!.removeAt(index);
                     });
@@ -74,7 +77,7 @@ class _FriendListTabState extends State<FriendListTab> {
     );
   }
 
-  void _showRemoveFriendDialog(Friend friend, int index,Function function) {
+  void _showRemoveFriendDialog(Friend friend, int index, Function function) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -106,6 +109,7 @@ class _FriendListTabState extends State<FriendListTab> {
   }
 
   Future<bool> _removeFriend(Friend friend) async {
-    return await messageRequestController.removeFriend(friend.relatedUserPublicToken);
+    return await messageRequestController
+        .removeFriend(friend.relatedUserPublicToken);
   }
 }

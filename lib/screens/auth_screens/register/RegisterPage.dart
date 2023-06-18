@@ -172,9 +172,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   ?.processStatus ==
                                               true)
                                             Get.to(VerificationPage(
-                                                email: email.text,
-                                                username: username.text,
-                                                password: password.text));
+                                              email: email.text,
+                                              username: username.text,
+                                              password: password.text,
+                                              mobileNumber: '',
+                                            ));
                                         });
 
                                         //_loginService();

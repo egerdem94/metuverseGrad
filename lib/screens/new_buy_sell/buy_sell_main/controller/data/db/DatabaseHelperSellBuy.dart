@@ -32,7 +32,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost {
         whereArgs: [postID],
       );
 
-      return Sqflite.firstIntValue(result);
+      return Sqflite.firstIntValue(result) ?? 0;
     });
     if (count == 0) {
       await baseInsertPost(postID);
@@ -66,7 +66,7 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost {
   // a key-value list of columns.
   Future<bool> isPostNeededToBeAskedBackend(
       int postID, int updateVersion) async {
-    int count = Sqflite.firstIntValue(await db.rawQuery(
+    int? count = Sqflite.firstIntValue(await db.rawQuery(
         'SELECT COUNT(*) FROM ${SellBuyTableValues.table} WHERE ${SellBuyTableValues.columnPostID} = ? AND ${SellBuyTableValues.columnUpdateVersion} = ?',
         [postID, updateVersion]));
     if (count == 1) {

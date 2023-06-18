@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/**import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 import '../../../models/ChatMessage.dart';
@@ -24,4 +24,4 @@ class MessageBody extends StatelessWidget {
       ],
     );
   }
-}
+}**/
