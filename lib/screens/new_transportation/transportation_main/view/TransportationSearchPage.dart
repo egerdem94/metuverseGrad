@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:metuverse/screens/new_transportation/model/TransportationLocations.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationLocations.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationBottomNavigationBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 

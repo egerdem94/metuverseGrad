@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/new_transportation/controller/storage/TransportationPostHandler.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationBottomNavigationBar.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationAppBar.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationDriverContainer.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationCustomerContainer.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/TransportationPostHandler.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationBottomNavigationBar.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationAppBar.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationDriverContainer.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationCustomerContainer.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import 'TransportationCreatePostPage.dart';
+import '../../create_edit_post/view/TransportationCreatePostPage.dart';
 
 class TransportationPage extends StatefulWidget {
   final customerOrDriver;

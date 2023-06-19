@@ -4,8 +4,11 @@ import 'package:metuverse/screens/auth_screens/register/RegisterPage.dart';
 import 'package:get/get.dart';
 import 'screens/auth_screens/login/view/LoginPage.dart';
 import 'screens/logo_screen/view/LogoScreen.dart';
+import 'package:flutter/services.dart'; // <- Import this
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // <- Add this
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]); // <- Add this
   runApp(const MyApp());
 }
 

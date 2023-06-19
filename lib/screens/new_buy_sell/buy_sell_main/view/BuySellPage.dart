@@ -192,6 +192,11 @@ class _BuySellPageState extends State<BuySellPage> {
                     buySellPostHandler.sellPostList.posts!.removeAt(index);
                   });
                 },
+                onUpdateArgument:(){
+                  setState(() {
+                    //todo rebuild widget
+                  });
+                },
                 onlineOrOfflineImage: widget.searchModeFlag
                     ? 'online'
                     : 'offline', // onlineOrOffline value here
@@ -205,7 +210,11 @@ class _BuySellPageState extends State<BuySellPage> {
                 },
                 onlineOrOfflineImage: widget.searchModeFlag
                     ? 'online'
-                    : 'offline', // onlineOrOffline value here
+                    : 'offline', onUpdateArgument:(){
+                        setState(() {
+                          //todo rebuild widget
+                        });
+                    }, // onlineOrOffline value here
               );
       },
     );

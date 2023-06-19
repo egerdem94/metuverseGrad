@@ -40,7 +40,7 @@ class _SportPageState extends State<SportPage> {
     _scrollController.addListener(_scrollListener);
     sportPostHandler = SportPostHandler();
     sportPostHandler.init().then((_) {
-      if (widget.searchModeFlag) {
+      if (widget.searchModeFlag != null && widget.searchModeFlag) {
 /*        sportPostHandler
             .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
             widget.filteredCurrency, widget.buyOrSell)

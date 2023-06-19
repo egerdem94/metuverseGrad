@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
 import 'package:metuverse/storage/database/database_helper_post/DatabaseHelperPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';

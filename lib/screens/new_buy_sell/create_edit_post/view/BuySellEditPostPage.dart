@@ -46,7 +46,8 @@ class _BuySellEditPostPageState extends State<BuySellEditPostPage> {
         priceController: priceController,
         productCurrency: productCurrency,
         photoList: photoList,
-        selectedCurrency: GeneralUtil.currencyConverter2(widget.buySellPost.currency),),
+        selectedCurrency: GeneralUtil.currencyConverter2(widget.buySellPost.currency),
+        postID: widget.buySellPost.postID.toString(),),
     );
   }
 }

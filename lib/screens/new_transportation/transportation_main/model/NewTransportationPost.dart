@@ -1,4 +1,4 @@
-import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
 class TransportationPostList extends BasePostList<TransportationPost>{

@@ -40,7 +40,7 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
       );
     }
   }
-  Future<void> selectAsFound() async{
+  Future<void> toggleStatus() async{
     if(widget.post is BuySellPost){
       var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
     }
@@ -79,8 +79,8 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
             },
           );
         }
-        else if(value == 'Select As Found'){
-          await selectAsFound();
+        else if(value == 'Toggle Post Status'){
+          await toggleStatus();
         }
         else if(value == "Modify"){
 
@@ -98,8 +98,8 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
               child: Text('Delete'),
             ),
             PopupMenuItem<String>(
-              value: 'Select As Found',
-              child: Text('Select As Found'),
+              value: 'Toggle Post Status',
+              child: Text('Toggle Post Status'),
             ),
           ];
         } else {

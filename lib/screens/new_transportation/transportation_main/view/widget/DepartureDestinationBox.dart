@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
-import 'package:metuverse/screens/new_transportation/model/TransportationLocations.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationLocations.dart';
 
 class DepartureDestinationBox extends StatelessWidget {
   const DepartureDestinationBox({

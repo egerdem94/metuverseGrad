@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
 
 class TransportationCustomerPostBottom extends StatelessWidget {
   const TransportationCustomerPostBottom({

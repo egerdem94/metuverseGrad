@@ -22,7 +22,14 @@ class _BuySellCreatePostPageState extends State<BuySellCreatePostPage> {
         buyOrSell: widget.buyOrSell,
       ),
       //drawer: MetuverseDrawer(),
-      body: BuySellCreateEditPostBody(editOrCreate: "c",descriptionController: descriptionController, priceController: priceController, productCurrency: productCurrency, photoList: PhotoList(), selectedCurrency: '₺',),
+      body: BuySellCreateEditPostBody(
+        editOrCreate: "c",
+        descriptionController: descriptionController,
+        priceController: priceController,
+        productCurrency: productCurrency,
+        photoList: PhotoList(),
+        selectedCurrency: '₺',
+      ),
     );
   }
 }

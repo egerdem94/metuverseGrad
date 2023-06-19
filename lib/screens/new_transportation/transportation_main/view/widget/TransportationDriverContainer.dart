@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
 import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/screens/new_transportation/views/widgets/DepartureDestinationBox.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/DepartureDestinationBox.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 

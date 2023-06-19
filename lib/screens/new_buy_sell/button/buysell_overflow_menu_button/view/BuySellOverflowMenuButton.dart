@@ -10,11 +10,13 @@ class BuySellOverflowMenu extends StatefulWidget {
     Key? key,
     required this.post,
     required this.onDeletePressedArgument,
+    required this.onUpdateArgument,
     required this.buyOrSell,
   }) : super(key: key);
   final buyOrSell;
   final BuySellPost post;
   final Function onDeletePressedArgument;
+  final Function onUpdateArgument;
   @override
   _BuySellOverflowMenuState createState() => _BuySellOverflowMenuState();
 }
@@ -42,8 +44,18 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
       );
     }
   }
-  Future<void> selectAsFound() async{
+  Future<void> toggleStatus() async{
       var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
+      if(isToggled){
+        widget.onUpdateArgument();
+        if(widget.post.productStatus == 2){
+          widget.post.productStatus = 1;
+        }
+        else{
+          widget.post.productStatus = 2;
+        }
+
+      }
   }
 
   @override
@@ -78,8 +90,8 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
             },
           );
         }
-        else if(value == 'Select As Found'){
-          await selectAsFound();
+        else if(value == 'Toggle Post Status'){
+          await toggleStatus();
         }
         else if(value == "Modify"){
           Get.to(BuySellEditPostPage(
@@ -99,8 +111,8 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
               child: Text('Delete'),
             ),
             PopupMenuItem<String>(
-              value: 'Select As Found',
-              child: Text('Select As Found'),
+              value: 'Toggle Post Status',
+              child: Text('Toggle Post Status'),
             ),
           ];
         } else {

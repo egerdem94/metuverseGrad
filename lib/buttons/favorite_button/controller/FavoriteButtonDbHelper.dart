@@ -1,7 +1,7 @@
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/SellBuyTableValues.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
-import 'package:metuverse/screens/new_transportation/controller/storage/database/TransportationPostTableValues.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/database/TransportationPostTableValues.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
 import 'package:metuverse/screens/sport/sport_main/controller/db/SportTableValues.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';

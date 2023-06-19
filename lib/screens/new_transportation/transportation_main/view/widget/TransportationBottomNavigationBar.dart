@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationCreatePostPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
+import 'package:metuverse/screens/new_transportation/create_edit_post/view/TransportationCreatePostPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
 //searching

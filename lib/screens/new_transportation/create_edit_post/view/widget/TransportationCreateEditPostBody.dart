@@ -2,32 +2,38 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:metuverse/screens/new_transportation/model/TransportationLocations.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationLocations.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/user/User.dart';
+import 'package:metuverse/widgets/create_post/DescriptionInputBox.dart';
 
 
-class TransportationCreatePostBody extends StatefulWidget {
+class TransportationCreateEditPostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
-
   final Function createProduct;
   final Function submitForm;
-
-  TransportationCreatePostBody({
+  final createOrEdit;
+  final TextEditingController productPrice;// = TextEditingController();
+  final TextEditingController personController;// = TextEditingController();
+  final TextEditingController seatController;// = TextEditingController();
+  final TextEditingController descriptionController;// = TextEditingController();
+  TransportationCreateEditPostBody({
     required this.createProduct,
     required this.submitForm,
-  }) : super() {}
+    required this.createOrEdit,
+    required this.productPrice,
+    required this.personController,
+    required this.seatController,
+    required this.descriptionController,
+  }) : super();
 
   @override
-  _TransportationCreatePostBodyState createState() => _TransportationCreatePostBodyState();
+  _TransportationCreateEditPostBodyState createState() => _TransportationCreateEditPostBodyState();
 }
 
-class _TransportationCreatePostBodyState extends State<TransportationCreatePostBody> {
-  final TextEditingController productPrice = TextEditingController();
-  final TextEditingController _personController = TextEditingController();
-  final TextEditingController _seatController = TextEditingController();
-  final TextEditingController description = TextEditingController();
+class _TransportationCreateEditPostBodyState extends State<TransportationCreateEditPostBody> {
+
   String _customerOrDriver = 'Customer';
   //List<String> _who = ['Customer', 'Driver'];
   String _selectedDeparture = 'Campus';
@@ -47,8 +53,8 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
     request.fields['departureDate'] = DateTime.now().toString(); //TODO
     request.fields['availablePerson'] = getAvailablePerson(_customerOrDriver);
     request.fields['customerOrDriver'] = _customerOrDriver.toLowerCase()[0];
-    request.fields['transportationPrice'] = productPrice.text;
-    request.fields['description'] = description.text;
+    request.fields['transportationPrice'] = widget.productPrice.text;
+    request.fields['description'] = widget.descriptionController.text;
     request.fields['currency'] = '₺';
 
 
@@ -94,9 +100,9 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
   }
   String getAvailablePerson(String customerOrDriver){
     if(customerOrDriver == 'Customer'){
-      return _personController.text;
+      return widget.personController.text;
     }else{
-      return _seatController.text;
+      return widget.seatController.text;
     }
   }
 
@@ -139,7 +145,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                     child: _customerOrDriver == 'Customer'
                         ? Container()
                         : TextFormField(
-                            controller: _seatController,
+                            controller: widget.seatController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter seats';
@@ -167,7 +173,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                     ),
                     child: _customerOrDriver == 'Customer'
                         ? TextFormField(
-                            controller: _personController,
+                            controller: widget.personController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter person';
@@ -182,7 +188,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                             keyboardType: TextInputType.number,
                           )
                         : TextFormField(
-                            controller: productPrice,
+                            controller: widget.productPrice,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a price';
@@ -284,37 +290,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 20, left: 16.0, right: 16.0, bottom: 8.0),
-                          child: TextFormField(
-                            style: kCreateText,
-                            controller: description,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a description';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Description',
-                              labelStyle: TextStyle(color: Colors.blue),
-                              hintText: 'Explain your trip?',
-                              hintStyle: TextStyle(
-                                  color: Color.fromARGB(255, 111, 111, 111)),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                            ),
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                          ),
-                        ),
+                        DescriptionInputBox(descriptionController: widget.descriptionController,hint: "Describe your trip..."),
                         Container(
                           height: 35,
                           alignment: Alignment.bottomRight,

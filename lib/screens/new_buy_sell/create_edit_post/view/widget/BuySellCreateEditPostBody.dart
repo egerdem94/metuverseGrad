@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:metuverse/GeneralResponse.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/controller/Util.dart';
-import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/user/User.dart';
 
 import 'package:image/image.dart' as IMG;
@@ -26,7 +25,14 @@ class BuySellCreateEditPostBody extends StatefulWidget {
   final  photoList;
   final String selectedCurrency;// = '₺';
   final String editOrCreate;
-  BuySellCreateEditPostBody({ required this.editOrCreate,required this.descriptionController, required this.priceController, required this.productCurrency, this.photoList, required this.selectedCurrency}) : super();
+  final postID;
+  BuySellCreateEditPostBody({ required this.editOrCreate,
+    required this.descriptionController,
+    required this.priceController,
+    required this.productCurrency,
+    this.photoList,
+    required this.selectedCurrency,
+    this.postID}) : super();
 
   @override
   _BuySellCreateEditPostBodyState createState() => _BuySellCreateEditPostBodyState();
@@ -101,6 +107,9 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
     request.fields['description'] = widget.descriptionController.text;
     request.fields['productPrice'] = widget.priceController.text;
     request.fields['currency'] = _selectedCurrency;
+    if(widget.editOrCreate == 'e'){
+      request.fields['postID'] = widget.postID;
+    }
 
     await request.send().then((result) {
       http.Response.fromStream(result).then((response) {
@@ -140,7 +149,7 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
           isButtonClicked = false;
           isResponseReceived = false;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Post create failed."),
+            content: Text(widget.editOrCreate == 'c' ? "Post create failed." : "Post Update failed."),
           ));
         }
       });
@@ -243,7 +252,7 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        DescriptionInputBox(descriptionController: widget.descriptionController/*,initialValue: ""*/,hint: "What are you selling"),
+                        DescriptionInputBox(descriptionController: widget.descriptionController,hint: "What are you selling"),
                         Container(
                           height: 200,
                           child: GridView.builder(

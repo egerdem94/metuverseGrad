@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
 
-import 'package:metuverse/screens/new_transportation/views/widgets/TransportationPostBottom.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationPostBottom.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPic.dart';

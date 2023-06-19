@@ -11,8 +11,9 @@ import 'package:metuverse/widgets/photo_grids/PostMediasWidget.dart';
 class SellPostContainer extends StatefulWidget {
   final BuySellPost post;
   final Function onDeletePressedArgument;
+  final Function onUpdateArgument;
   final String onlineOrOfflineImage;
-  SellPostContainer({required this.post, required this.onDeletePressedArgument, required this.onlineOrOfflineImage});
+  SellPostContainer({required this.post, required this.onDeletePressedArgument, required this.onlineOrOfflineImage, required this.onUpdateArgument});
 
   @override
   _SellPostContainerState createState() => _SellPostContainerState();
@@ -41,7 +42,7 @@ class _SellPostContainerState extends State<SellPostContainer> {
                 style: kwhiteText,
               ),
               SizedBox(width: 8.0),
-              BuySellOverflowMenu(post: widget.post, onDeletePressedArgument: widget.onDeletePressedArgument, buyOrSell: "s",),
+              BuySellOverflowMenu(post: widget.post, onDeletePressedArgument: widget.onDeletePressedArgument, buyOrSell: "s", onUpdateArgument: widget.onUpdateArgument,),
             ],
           ),
           SizedBox(height: 8.0),

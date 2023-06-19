@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationSearchPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationSearchPage.dart';
 import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 

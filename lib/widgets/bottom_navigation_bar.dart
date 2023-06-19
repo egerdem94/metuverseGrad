@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
-import 'package:metuverse/screens/new_transportation/views/TransportationPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/screens/sport/sport_main/view/SportPage.dart';
 import 'package:metuverse/user/User.dart';

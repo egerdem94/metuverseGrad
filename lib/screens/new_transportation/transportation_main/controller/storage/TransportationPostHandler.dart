@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_transportation/controller/storage/backend/BackendHelperTransportation.dart';
-import 'package:metuverse/screens/new_transportation/controller/storage/database/DatabaseHelperTransportation.dart';
-import 'package:metuverse/screens/new_transportation/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/backend/BackendHelperTransportation.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/database/DatabaseHelperTransportation.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
 
 class TransportationPostHandler {
