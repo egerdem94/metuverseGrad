@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/button/buysell_overflow_menu_button/controller/BuySellOverflowController.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
+import 'package:metuverse/screens/new_transportation/create_edit_post/view/TransportationEditPostPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
 class TransportationOverflowMenu extends StatefulWidget {
@@ -11,7 +13,7 @@ class TransportationOverflowMenu extends StatefulWidget {
     required this.onDeletePressedArgument,
   }) : super(key: key);
 
-  final BasePost post;
+  final TransportationPost post;
   final Function onDeletePressedArgument;
   @override
   _TransportationOverflowMenuState createState() => _TransportationOverflowMenuState();
@@ -44,7 +46,9 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
     if(widget.post is BuySellPost){
       var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
     }
-
+    else{
+      //snack bar showing unable to change status
+    }
   }
 
   @override
@@ -83,7 +87,14 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
           await toggleStatus();
         }
         else if(value == "Modify"){
-
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TransportationEditPostPage(
+                    transportationPost: widget.post,
+                  )
+              )
+          );
         }
       },
       itemBuilder: (BuildContext context) {

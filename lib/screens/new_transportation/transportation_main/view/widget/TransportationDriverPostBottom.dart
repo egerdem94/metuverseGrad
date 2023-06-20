@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+/*
 class TransportationDriverPostBottom extends StatelessWidget {
   final int seatsTaken;
   final int totalSeats;
@@ -108,3 +109,4 @@ class TransportationDriverPostBottom extends StatelessWidget {
     );
   }
 }
+*/

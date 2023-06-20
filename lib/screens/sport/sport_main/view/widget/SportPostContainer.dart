@@ -27,7 +27,7 @@ class SportPostContainer extends StatelessWidget {
             children: [
               TopLeftCommercialPost(post: post),
               Spacer(),
-              TransportationOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
+              //TransportationOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
             ],
           ),
           SizedBox(height: 8.0),

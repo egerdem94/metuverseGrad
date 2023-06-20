@@ -6,24 +6,18 @@ import 'package:metuverse/screens/new_transportation/transportation_main/view/Tr
 import 'package:metuverse/screens/new_transportation/create_edit_post/view/TransportationCreatePostPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/user/User.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 //searching
 
-class TransportationBottomNavigationBar extends StatelessWidget {
+class TransportationSubpageNavigation extends StatelessWidget {
   final customerOrDriver;
 
-  const TransportationBottomNavigationBar(
+  const TransportationSubpageNavigation(
       {super.key, required this.customerOrDriver});
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Color.fromARGB(255, 79, 79, 79),
-            width: 0.3,
-          ),
-        ),
-      ),
+      decoration: GeneralUtil.createPostBottomNavigationDecoration(),
       child: BottomAppBar(
         child: Row(
           children: [

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:metuverse/screens/new_transportation/create_edit_post/controller/CreateEditPostBackend.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationLocations.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/palette.dart';
@@ -9,30 +10,31 @@ import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/create_post/DescriptionInputBox.dart';
 
 
-class TransportationCreateEditPostBody extends StatefulWidget {
+class TransportationCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final Function createProduct;
   final Function submitForm;
-  final createOrEdit;
+  final String editOrCreate;
   final TextEditingController productPrice;// = TextEditingController();
-  final TextEditingController personController;// = TextEditingController();
+  final TextEditingController totalPersonController;// = TextEditingController();
+  final TextEditingController availablePersonController;// = TextEditingController();
   final TextEditingController seatController;// = TextEditingController();
   final TextEditingController descriptionController;// = TextEditingController();
-  TransportationCreateEditPostBody({
+  TransportationCreatePostBody({
     required this.createProduct,
-    required this.submitForm,
-    required this.createOrEdit,
-    required this.productPrice,
-    required this.personController,
-    required this.seatController,
     required this.descriptionController,
+    required this.submitForm,
+    required this.productPrice,
+    required this.totalPersonController,
+    required this.availablePersonController,
+    required this.seatController, required this.editOrCreate,
   }) : super();
 
   @override
-  _TransportationCreateEditPostBodyState createState() => _TransportationCreateEditPostBodyState();
+  _TransportationCreatePostBodyState createState() => _TransportationCreatePostBodyState();
 }
 
-class _TransportationCreateEditPostBodyState extends State<TransportationCreateEditPostBody> {
+class _TransportationCreatePostBodyState extends State<TransportationCreatePostBody> {
 
   String _customerOrDriver = 'Customer';
   //List<String> _who = ['Customer', 'Driver'];
@@ -42,65 +44,45 @@ class _TransportationCreateEditPostBodyState extends State<TransportationCreateE
   bool isButtonClicked = false;
   bool isResponseReceived = false;
   var generalResponseCreatePost;
-
+  CreateEditPostBackEnd createEditPostBackEnd = CreateEditPostBackEnd();
   Future _sendPostToBackend() async {
-    var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-
-    request.fields['token'] = User.privateToken;
-    request.fields['departureID'] = TransportationLocations.getIndexOfLocation(_selectedDeparture).toString();
-    request.fields['destinationID'] = TransportationLocations.getIndexOfLocation(_selectedDestination).toString();
-    request.fields['departureDate'] = DateTime.now().toString(); //TODO
-    request.fields['availablePerson'] = getAvailablePerson(_customerOrDriver);
-    request.fields['customerOrDriver'] = _customerOrDriver.toLowerCase()[0];
-    request.fields['transportationPrice'] = widget.productPrice.text;
-    request.fields['description'] = widget.descriptionController.text;
-    request.fields['currency'] = '₺';
-
-
-    await request.send().then((result) {
-      http.Response.fromStream(result).then((response) {
-        var message = jsonDecode(response.body);
-        isResponseReceived = true;
-        generalResponseCreatePost = message;
-
-        // show snackbar if input data successfully
-        final snackBar =
-        SnackBar(content: Text(generalResponseCreatePost['message']));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        if (generalResponseCreatePost['processStatus'] == true) {
-          //token = loginObject?.currentUserToken;
-          if (_customerOrDriver == 'Customer') {
-            //Get.to(SellPage(searchKey: "", filteredProductPrice: "", filteredCurrency: ""));
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
-                )
-            );
-          } else {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
-                )
-            );
-          }
-        } else {
-          isButtonClicked = false;
-          isResponseReceived = false;
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(widget.createOrEdit == 'c' ? "Post create failed." : "Post update failed" ),
-          ));
-        }
-      });
-    }).catchError((e) {
-      print(e);
-    });
+    var booleanRequestResponse = await createEditPostBackEnd.sendPostToBackend(
+        selectedDeparture: TransportationLocations.getIndexOfLocation(_selectedDeparture).toString(),
+        selectedDestination: TransportationLocations.getIndexOfLocation(_selectedDestination).toString(),
+        availablePerson: getAvailablePerson(_customerOrDriver),
+        totalPerson: "4",
+        customerOrDriver: _customerOrDriver.toLowerCase()[0],
+        productPrice: widget.productPrice.text,
+        description: widget.descriptionController.text
+    );
+    if(booleanRequestResponse == true){
+      if (_customerOrDriver == 'Customer') {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
+            )
+        );
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
+            )
+        );
+      }
+    }
+    else {
+      isButtonClicked = false;
+      isResponseReceived = false;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(widget.editOrCreate == 'c' ?"Post create failed." : "Post update failed."),
+      ));
+    }
   }
   String getAvailablePerson(String customerOrDriver){
     if(customerOrDriver == 'Customer'){
-      return widget.personController.text;
+      return widget.totalPersonController.text;
     }else{
       return widget.seatController.text;
     }
@@ -173,7 +155,7 @@ class _TransportationCreateEditPostBodyState extends State<TransportationCreateE
                     ),
                     child: _customerOrDriver == 'Customer'
                         ? TextFormField(
-                            controller: widget.personController,
+                            controller: widget.totalPersonController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter person';
@@ -369,3 +351,57 @@ class _TransportationCreateEditPostBodyState extends State<TransportationCreateE
     );
   }
 }
+/*
+  Future _sendPostToBackend2() async {
+    var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+
+    request.fields['token'] = User.privateToken;
+    request.fields['departureID'] = TransportationLocations.getIndexOfLocation(_selectedDeparture).toString();
+    request.fields['destinationID'] = TransportationLocations.getIndexOfLocation(_selectedDestination).toString();
+    request.fields['departureDate'] = DateTime.now().toString(); //TODO
+    request.fields['availablePerson'] = getAvailablePerson(_customerOrDriver);
+    request.fields['customerOrDriver'] = _customerOrDriver.toLowerCase()[0];
+    request.fields['transportationPrice'] = widget.productPrice.text;
+    request.fields['description'] = widget.descriptionController.text;
+    //request.fields['currency'] = '₺';
+
+    await request.send().then((result) {
+      http.Response.fromStream(result).then((response) {
+        var message = jsonDecode(response.body);
+        isResponseReceived = true;
+        generalResponseCreatePost = message;
+
+        // show snackbar if input data successfully
+        final snackBar =
+        SnackBar(content: Text(generalResponseCreatePost['message']));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        if (generalResponseCreatePost['processStatus'] == true) {
+          if (_customerOrDriver == 'Customer') {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
+                )
+            );
+          } else {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
+                )
+            );
+          }
+        } else {
+          isButtonClicked = false;
+          isResponseReceived = false;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Post create failed."),
+          ));
+        }
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+ */

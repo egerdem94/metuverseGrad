@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/TransportationPostHandler.dart';
-import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationAppBar.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationDriverContainer.dart';
@@ -54,12 +54,11 @@ class _TransportationPageState extends State<TransportationPage> {
         });
       } else {
         transportationPostHandler
-            .handlePostList(widget.customerOrDriver, true)
-            .then((_) {
-          setState(() {
-            transportationPostList = transportationPostHandler
-                .getTransportationPostList(widget.customerOrDriver);
-          });
+            .handlePostList(widget.customerOrDriver, true).then((_) {
+              setState(() {
+                transportationPostList = transportationPostHandler
+                    .getTransportationPostList(widget.customerOrDriver);
+              });
         });
       }
     });
@@ -94,7 +93,7 @@ class _TransportationPageState extends State<TransportationPage> {
       //drawer: MetuverseDrawer(),
       body: Column(
         children: [
-          TransportationBottomNavigationBar(
+          TransportationSubpageNavigation(
               customerOrDriver: widget.customerOrDriver),
           Expanded(
             child: DecoratedBox(
@@ -149,12 +148,12 @@ class _TransportationPageState extends State<TransportationPage> {
                           CircularProgressIndicator(),
                           SizedBox(height: 10),
                           Text("Loading..."),
-                          SizedBox(height: 10),
+                          /*SizedBox(height: 10),
                           ElevatedButton(
                             child: Text("Retry"),
                             onPressed: () => transportationPostHandler
                                 .handlePostList(widget.customerOrDriver, true),
-                          )
+                          )*/
                         ],
                       ),
                     ),

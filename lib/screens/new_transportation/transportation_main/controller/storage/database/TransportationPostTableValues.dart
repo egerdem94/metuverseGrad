@@ -14,6 +14,7 @@ class TransportationPostTableValues{
   static const String columnDepartureLocation = 'departureLocation';
   static const String columnDestinationLocation = 'destinationLocation';
   static const String columnDepartureTime = 'departureTime';
-  static const String columnPassengerCount = 'passengerCount';
+  static const String columnAvailablePerson = 'availablePerson';
+  static const String columnTotalPerson = 'totalPerson';
   static const String columnTransportationStatus = 'transportationStatus';
 }

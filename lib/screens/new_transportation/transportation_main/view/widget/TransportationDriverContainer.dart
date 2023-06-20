@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/buttons/favorite_button/view/FavoriteButton.dart';
 import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
-import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/DepartureDestinationBox.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
@@ -19,15 +19,21 @@ class TransportationDriverContainer extends StatefulWidget {
 }
 class _TransportationDriverContainerState
     extends State<TransportationDriverContainer> {
-  int seatsTaken = 0;
-  int totalSeats = 4;
-
-  void takeSeat() {
-    setState(() {
-      seatsTaken++;
-    });
+  late Color color;
+  late int totalSeats;
+  late int seatsTaken;
+  @override
+  void initState() {
+    super.initState();
+    totalSeats = widget.post.totalPerson!;
+    seatsTaken = widget.post.availablePerson!;
+    if(seatsTaken == 0)
+      color = Colors.green;
+    else if(seatsTaken < totalSeats)
+      color = Colors.yellow;
+    else
+      color = Colors.red;
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,17 +65,22 @@ class _TransportationDriverContainerState
             children: [
               FavoriteButton(post: widget.post,),
               Spacer(),
-              IconButton(
-                icon: Icon(MdiIcons.seatPassenger,
-                    color:
-                        seatsTaken == totalSeats ? Colors.red : Colors.green),
-                onPressed: takeSeat,
-              ),
+              Icon(MdiIcons.seatPassenger, color:color,),
               Text(
                 "$seatsTaken/$totalSeats",
-                style: TextStyle(
+                style: TextStyle(color:color)
+              ),
+              SizedBox(width: 8.0,),
+              Chip(
+                label: Text(
+                  widget.post.transportationStatus! == 1 ? 'Looking' : 'Found',
+                  style: TextStyle(
                     color:
-                        seatsTaken == totalSeats ? Colors.red : Colors.green),
+                    widget.post.transportationStatus! == 1 ? Colors.white : Colors.black,
+                  ),
+                ),
+                backgroundColor:
+                widget.post.transportationStatus! == 1 ? Colors.green : Colors.red,
               ),
             ],
           )

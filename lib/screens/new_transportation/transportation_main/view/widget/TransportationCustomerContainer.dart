@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
-import 'package:metuverse/screens/new_transportation/transportation_main/model/NewTransportationPost.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/DepartureDestinationBox.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationPostBottom.dart';
 import 'package:metuverse/palette.dart';

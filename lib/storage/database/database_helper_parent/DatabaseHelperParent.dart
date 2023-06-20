@@ -84,7 +84,8 @@ class DatabaseHelperParent {
               ${TransportationPostTableValues.columnDepartureLocation} INTEGER,
               ${TransportationPostTableValues.columnDestinationLocation} INTEGER,
               ${TransportationPostTableValues.columnDepartureTime} DATE,
-              ${TransportationPostTableValues.columnPassengerCount} INTEGER UNSIGNED,
+              ${TransportationPostTableValues.columnAvailablePerson} INTEGER UNSIGNED,
+              ${TransportationPostTableValues.columnTotalPerson} INTEGER UNSIGNED,
               ${TransportationPostTableValues.columnTransportationStatus} INTEGER UNSIGNED,
               FOREIGN KEY (${TransportationPostTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
               ON DELETE CASCADE

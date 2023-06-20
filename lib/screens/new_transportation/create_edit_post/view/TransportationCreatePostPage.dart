@@ -14,7 +14,8 @@ class _TransportationCreatePostPageState extends State<TransportationCreatePostP
   final _formKey = GlobalKey<FormState>();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController personController = TextEditingController();
+  final TextEditingController totalPersonController = TextEditingController();
+  final TextEditingController availablePersonController = TextEditingController();
   final TextEditingController seatController = TextEditingController();
 
   CreatePostItem _createProduct() {
@@ -37,14 +38,15 @@ class _TransportationCreatePostPageState extends State<TransportationCreatePostP
     return Scaffold(
       appBar: MetuverseAppBar(),
       //drawer: MetuverseDrawer(),
-      body: TransportationCreateEditPostBody(
+      body: TransportationCreatePostBody(
         createProduct: _createProduct,
         submitForm: _submitForm,
-        createOrEdit: 'c',
+        editOrCreate: 'c',
         productPrice: priceController,
-        personController: personController,
+        totalPersonController: totalPersonController,
         seatController: seatController,
         descriptionController: descriptionController,
+        availablePersonController: availablePersonController,
       ),
       /* bottomNavigationBar:
             const bottom() CustomAddProductBottomNavigationBar(

@@ -37,6 +37,7 @@ class TransportationPost extends BasePost{
   int? destinationID;
   String? departureDate;
   int? availablePerson;
+  int? totalPerson;
   int? transportationPrice;
   String? currency;
   int? transportationStatus;
@@ -67,7 +68,8 @@ class TransportationPost extends BasePost{
       : departureID = json[TransportationPostTableValues.columnDepartureLocation],
         destinationID = json[TransportationPostTableValues.columnDestinationLocation],
         departureDate = json[TransportationPostTableValues.columnDepartureTime],
-        availablePerson = json[TransportationPostTableValues.columnPassengerCount],
+        availablePerson = json[TransportationPostTableValues.columnAvailablePerson],
+        totalPerson = json[TransportationPostTableValues.columnTotalPerson],
         transportationPrice = json[TransportationPostTableValues.columnProductPrice],
         currency = json[TransportationPostTableValues.columnCurrency],
         transportationStatus = json[TransportationPostTableValues.columnTransportationStatus],
@@ -96,7 +98,8 @@ class TransportationPost extends BasePost{
     _data[TransportationPostTableValues.columnDepartureLocation] = departureID;
     _data[TransportationPostTableValues.columnDestinationLocation] = destinationID;
     _data[TransportationPostTableValues.columnDepartureTime] = departureDate;
-    _data[TransportationPostTableValues.columnPassengerCount] = availablePerson;
+    _data[TransportationPostTableValues.columnAvailablePerson] = availablePerson;
+    _data[TransportationPostTableValues.columnTotalPerson] = totalPerson;
     _data[TransportationPostTableValues.columnProductPrice] = transportationPrice;
     _data[TransportationPostTableValues.columnCurrency] = currency;
     _data[TransportationPostTableValues.columnTransportationStatus] = transportationStatus;
@@ -107,6 +110,7 @@ class TransportationPost extends BasePost{
         destinationID = json['destinationID'],
         departureDate = json['departureDate'],
         availablePerson = json['availablePerson'],
+        totalPerson = json['totalPerson'],
         transportationPrice = json['transportationPrice'],
         currency = json['currency'],
         transportationStatus = json['transportationStatus'],
@@ -119,7 +123,7 @@ class TransportationPost extends BasePost{
         updateVersion: json['updateVersion'],
         description: json['description'],
       );
-  Map<String, dynamic> toJson() {
+/*  Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['belongToUser'] = belongToUser;
     _data['isFavorite'] = isFavorite;
@@ -136,5 +140,5 @@ class TransportationPost extends BasePost{
     _data['currency'] = currency;
     _data['transportationStatus'] = transportationStatus;
     return _data;
-  }
+  }*/
 }

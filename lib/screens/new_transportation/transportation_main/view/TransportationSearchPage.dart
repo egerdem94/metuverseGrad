@@ -138,7 +138,7 @@ class _TransportationSearchPageState extends State<TransportationSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: TransportationBottomNavigationBar(
+      bottomNavigationBar: TransportationSubpageNavigation(
         customerOrDriver: widget.customerOrDriver,
       ),
     );
