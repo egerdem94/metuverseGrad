@@ -77,7 +77,6 @@ class _BuySellBottomNavigationBarState
                           builder: (context) => BuySellPage(
                                 buyOrSell: 's',
                                 searchModeFlag: false,
-                                notificationMode: false,
                               )));
                   // go back
                   _onTabSelected(1);
@@ -144,7 +143,6 @@ class _BuySellBottomNavigationBarState
                           builder: (context) => BuySellPage(
                                 buyOrSell: 'b',
                                 searchModeFlag: false,
-                                notificationMode: false,
                               )));
                   // go back
                 },

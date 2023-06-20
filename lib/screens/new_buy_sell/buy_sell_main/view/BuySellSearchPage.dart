@@ -39,7 +39,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
         searchKey: searchController.text,
         filteredProductPrice: maxPriceController.text,
         filteredCurrency: currencyController.text,
-        notificationMode: false,));
+        ));
 /*    Navigator.pushReplacement(
         context,
         MaterialPageRoute(

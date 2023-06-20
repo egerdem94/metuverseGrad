@@ -9,7 +9,7 @@ import 'package:metuverse/user/User.dart';
 
 import '../screens/home/screens/HomePage.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class BuySellSubpageNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +50,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   Get.to((BuySellPage(
                     buyOrSell: 's',
                     searchModeFlag: false,
-                    notificationMode: false,
                   )));
                 },
               ),

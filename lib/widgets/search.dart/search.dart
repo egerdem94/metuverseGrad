@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
     );
   }
 }

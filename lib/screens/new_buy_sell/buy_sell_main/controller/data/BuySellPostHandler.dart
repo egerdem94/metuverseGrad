@@ -44,18 +44,21 @@ class BuySellPostHandler extends PostHandlerWithMedia {
   }
   Future<bool> handlePostList(buyOrSell, firstTime, notificationModeFlag,notificationID) async {
     PostsToDisplay? postsToDisplay;
+    List<String> postsToBeAsked;
     if (firstTime) {
       sellPostList = BuySellPostList.defaults();
       buyPostList = BuySellPostList.defaults();
     }
-    postsToDisplay = await backendHelper.requestPostsToDisplay(
-        buyOrSell,
-        getLastPostID(buyOrSell == 's' ? sellPostList : buyPostList, firstTime)
-    );
-    List<String> postsToBeAsked =
-        await preparePostToRequestString(postsToDisplay,dbHelper);
     if(notificationModeFlag){
-      postsToBeAsked.insert(0, notificationID);
+      postsToBeAsked = ["",""];
+      postsToBeAsked[0] = ',' + notificationID.toString();
+    }
+    else{
+      postsToDisplay = await backendHelper.requestPostsToDisplay(
+          buyOrSell,
+          getLastPostID(buyOrSell == 's' ? sellPostList : buyPostList, firstTime)
+      );
+      postsToBeAsked = await preparePostToRequestString(postsToDisplay,dbHelper);
     }
     return await handlePostListHelper(postsToBeAsked, buyOrSell);
   }

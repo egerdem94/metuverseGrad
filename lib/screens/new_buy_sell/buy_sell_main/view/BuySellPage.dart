@@ -5,6 +5,7 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPost
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
@@ -15,8 +16,6 @@ import '../../create_edit_post/view/BuySellCreatePostPage.dart';
 class BuySellPage extends StatefulWidget {
   final buyOrSell;
   final searchModeFlag;
-  final notificationMode;
-  final notificationPostID;
   final searchKey;
   final filteredProductPrice;
   final filteredCurrency;
@@ -28,8 +27,6 @@ class BuySellPage extends StatefulWidget {
     this.searchKey,
     this.filteredProductPrice,
     this.filteredCurrency,
-    required this.notificationMode,
-    this.notificationPostID,
   }) : super(key: key);
 
   @override
@@ -56,19 +53,11 @@ class _BuySellPageState extends State<BuySellPage> {
         });
       } else {
         buySellPostHandler
-            .handlePostList(widget.buyOrSell, true, widget.notificationMode,
-                widget.notificationPostID)
+            .handlePostList(widget.buyOrSell, true,false,0)
             .then((_) {
           setState(() {});
         });
       }
-
-      // Set the _isLoading flag to false after 0.5 seconds
-      /*Future.delayed(Duration(milliseconds: 1000), () {
-        setState(() {
-          _isLoading = false;
-        });
-      });*/
       // Start the delayed future to periodically check the condition
       if (widget.searchModeFlag) {
         Future.delayed(Duration(milliseconds: 1000), () {
@@ -104,7 +93,7 @@ class _BuySellPageState extends State<BuySellPage> {
         // Load more data
         setState(() {
           buySellPostHandler
-              .handlePostList(widget.buyOrSell, false, false, 0)
+              .handlePostList(widget.buyOrSell, false,false,0)
               .then((_) {
             setState(() {});
           });
@@ -128,7 +117,7 @@ class _BuySellPageState extends State<BuySellPage> {
           ),
           Expanded(
             child: DecoratedBox(
-              decoration: metuverseBoxDecoration(),
+              decoration: GeneralUtil.sellBuyBoxDecoration(),
               child: _isLoading
                   ? LoadingIndicator()
                   : RefreshIndicator(
@@ -142,7 +131,7 @@ class _BuySellPageState extends State<BuySellPage> {
           )
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(BuySellCreatePostPage(
@@ -163,20 +152,6 @@ class _BuySellPageState extends State<BuySellPage> {
     );
   }
 
-  BoxDecoration metuverseBoxDecoration() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 0, 0, 0),
-        ],
-      ), // set the background color to blue
-    );
-  }
-
   ListView buildPostListView() {
     return ListView.builder(
       controller: _scrollController,
@@ -192,9 +167,9 @@ class _BuySellPageState extends State<BuySellPage> {
                     buySellPostHandler.sellPostList.posts!.removeAt(index);
                   });
                 },
-                onUpdateArgument:(){
+                onToggleArgument:(){
                   setState(() {
-                    //todo rebuild widget
+                    //rebuild widget
                   });
                 },
                 onlineOrOfflineImage: widget.searchModeFlag
@@ -212,14 +187,13 @@ class _BuySellPageState extends State<BuySellPage> {
                     ? 'online'
                     : 'offline', onUpdateArgument:(){
                         setState(() {
-                          //todo rebuild widget
+                          //rebuild widget
                         });
                     }, // onlineOrOffline value here
               );
       },
     );
   }
-
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
       setState(() {});

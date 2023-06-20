@@ -83,7 +83,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
     );
   }
 }

@@ -256,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          bottomNavigationBar: CustomBottomNavigationBar()),
+          bottomNavigationBar: BuySellSubpageNavigator()),
     );
   }
 }

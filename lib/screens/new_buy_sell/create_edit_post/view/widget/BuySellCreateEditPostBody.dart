@@ -129,7 +129,6 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                     builder: (context) => BuySellPage(
                           buyOrSell: 's',
                           searchModeFlag: false,
-                          notificationMode: false,
                         )
                 )
             );
@@ -140,7 +139,6 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                     builder: (context) => BuySellPage(
                           buyOrSell: 'b',
                           searchModeFlag: false,
-                          notificationMode: false,
                         )
                 )
             );

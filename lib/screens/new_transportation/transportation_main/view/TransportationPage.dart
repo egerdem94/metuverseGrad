@@ -162,7 +162,7 @@ class _TransportationPageState extends State<TransportationPage> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(TransportationCreatePostPage());

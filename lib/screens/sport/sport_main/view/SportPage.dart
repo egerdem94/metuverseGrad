@@ -112,7 +112,7 @@ class _SportPageState extends State<SportPage> {
                     : NothingToDisplay(),
               ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(SportCreatePostPage());

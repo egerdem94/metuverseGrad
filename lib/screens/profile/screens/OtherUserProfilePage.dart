@@ -211,7 +211,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
             ),
           ),
         ),
-        bottomNavigationBar: CustomBottomNavigationBar(),
+        bottomNavigationBar: BuySellSubpageNavigator(),
       ),
     );
   }

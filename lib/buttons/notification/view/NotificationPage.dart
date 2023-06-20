@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/buttons/notification/controller/NotificationController.dart';
 import 'package:metuverse/buttons/notification/model/MyNotification.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellNotificationPage.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 
 import '../../friends/view/FriendsButton.dart';
@@ -59,13 +60,22 @@ class _NotificationPageState extends State<NotificationPage> {
             description: notification?.description ?? '',
             pageID: 1,
             onTap: () {
+              if(notification.pageID == 201 || notification.pageID == 202){
+                var buyOrSell = notification.pageID == 201?'s':'b';
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!,
+                        )));
+              }
+
               // Handle notification item tap
               // Navigate to the corresponding post screen or perform any desired action
             },
           );
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
     );
   }
 }

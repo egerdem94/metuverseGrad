@@ -68,7 +68,7 @@ class _FriendsPageState extends State<FriendsPage>
         ),
       ),
 
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
     );
   }
 }

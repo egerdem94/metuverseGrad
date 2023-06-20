@@ -18,6 +18,19 @@ class GeneralUtil{
       ),
     );
   }
+  static BoxDecoration sellBuyBoxDecoration() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 0, 0, 0),
+        ],
+      ), // set the background color to blue
+    );
+  }
   static String getProfilePictureUrl(String? url){
     if(url == null){
       return "http://birikikoli.com/images/blank-profile-picture.jpg";

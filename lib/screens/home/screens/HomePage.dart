@@ -43,7 +43,6 @@ class HomePage extends StatelessWidget {
                       Get.to(BuySellPage(
                         buyOrSell: 's',
                         searchModeFlag: false,
-                        notificationMode: false,
                       ));
                     },
                     imageUrl: 'assets-images/13717.jpg',
@@ -90,7 +89,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: BuySellSubpageNavigator(),
     );
   }
 }
