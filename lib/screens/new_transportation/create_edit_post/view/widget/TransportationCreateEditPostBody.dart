@@ -90,7 +90,7 @@ class _TransportationCreateEditPostBodyState extends State<TransportationCreateE
           isButtonClicked = false;
           isResponseReceived = false;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Post create failed."),
+            content: Text(widget.createOrEdit == 'c' ? "Post create failed." : "Post update failed" ),
           ));
         }
       });

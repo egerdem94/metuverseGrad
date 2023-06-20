@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/SellBuyTableValues.dart';
+import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/DatabaseHelperPost.dart';
+import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
 import 'package:metuverse/storage/models/PostsToDisplay.dart';
@@ -43,6 +45,13 @@ class DatabaseHelperSellBuy extends DatabaseHelperPost {
         return await txn.insert(SellBuyTableValues.table, row);
       } else {
         debugPrint('updated row id: $postID');
+/*        await txn.delete(BasePostTableValues.table,
+            where: '${BasePostTableValues.columnPostID} = ?',
+            whereArgs: [postID]);
+        return await txn.insert(SellBuyTableValues.table, row);*/
+        await txn.delete(DatabasePhotoTableValues.table,
+            where: '${DatabasePhotoTableValues.columnPostID} = ?',
+            whereArgs: [postID]);
         return await txn.update(SellBuyTableValues.table, row,
             where: '${SellBuyTableValues.columnPostID} = ?',
             whereArgs: [postID]);
