@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:metuverse/navigation/Navigate.dart';
 import 'package:metuverse/screens/new_transportation/create_edit_post/controller/CreateEditPostBackend.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationLocations.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/palette.dart';
 import 'package:metuverse/user/User.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/create_post/DescriptionInputBox.dart';
 
 
@@ -35,9 +37,7 @@ class TransportationCreatePostBody extends StatefulWidget {
 }
 
 class _TransportationCreatePostBodyState extends State<TransportationCreatePostBody> {
-
   String _customerOrDriver = 'Customer';
-  //List<String> _who = ['Customer', 'Driver'];
   String _selectedDeparture = 'Campus';
   String _selectedDestination = 'Güzelyurt';
   bool _showPrice = true;
@@ -57,19 +57,10 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
     );
     if(booleanRequestResponse == true){
       if (_customerOrDriver == 'Customer') {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TransportationPage(customerOrDriver: 'c', searchModeFlag: false,)
-            )
-        );
-      } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TransportationPage(customerOrDriver: 'd', searchModeFlag: false,)
-            )
-        );
+        MyNavigation.navigateToTransportation(context, 'c', false);
+      }
+      else {
+        MyNavigation.navigateToTransportation(context, 'd', false);
       }
     }
     else {
@@ -102,16 +93,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 16.0),
-                    padding: EdgeInsets.only(left: 16.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        //'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
-                        User.profilePicture,
-                      ),
-                    ),
-                  ),
+                  ProfilePicture(),
                   Spacer(),
                   Container(
                     height: 50,
@@ -154,36 +136,8 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                           : Colors.white,
                     ),
                     child: _customerOrDriver == 'Customer'
-                        ? TextFormField(
-                            controller: widget.totalPersonController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter person';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Person',
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(left: 8.0),
-                            ),
-                            keyboardType: TextInputType.number,
-                          )
-                        : TextFormField(
-                            controller: widget.productPrice,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Price',
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(left: 8.0),
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
+                        ? PersonTextFormField(widget: widget)
+                        : PriceTextFormField(widget: widget),
                   ),
                 ],
               ),
@@ -196,10 +150,7 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
                         Container(
                           width: double.infinity,
                           height: 50.0,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
+                          decoration: GeneralUtil.transportationCreateBoxDecoration(),
                           child: Padding(
                             padding: EdgeInsets.only(left: 20.0),
                             child: Row(
@@ -349,6 +300,82 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
         ),
       ),
     );
+  }
+}
+
+class ProfilePicture extends StatelessWidget {
+  const ProfilePicture({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 16.0),
+      padding: EdgeInsets.only(left: 16.0),
+      child: CircleAvatar(
+        backgroundImage: NetworkImage(
+          //'https://i.hbrcdn.com/haber/2022/03/03/kolpacino-ekrem-abi-kimdir-abidin-yerebakan-14770711_6916_amp.jpg',
+          User.profilePicture,
+        ),
+      ),
+    );
+  }
+}
+
+class PriceTextFormField extends StatelessWidget {
+  const PriceTextFormField({
+    super.key,
+    required this.widget,
+  });
+
+  final TransportationCreatePostBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        controller: widget.productPrice,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter a price';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: 'Price',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(left: 8.0),
+        ),
+        keyboardType: TextInputType.number,
+      );
+  }
+}
+
+class PersonTextFormField extends StatelessWidget {
+  const PersonTextFormField({
+    super.key,
+    required this.widget,
+  });
+
+  final TransportationCreatePostBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        controller: widget.totalPersonController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter person';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: 'Person',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(left: 8.0),
+        ),
+        keyboardType: TextInputType.number,
+      );
   }
 }
 /*

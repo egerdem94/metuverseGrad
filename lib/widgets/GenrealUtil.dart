@@ -31,6 +31,12 @@ class GeneralUtil{
       ), // set the background color to blue
     );
   }
+  static BoxDecoration transportationCreateBoxDecoration() {
+    return BoxDecoration(
+      color: Color.fromARGB(255, 255, 255, 255),
+      borderRadius: BorderRadius.circular(10.0),
+    );
+  }
   static String getProfilePictureUrl(String? url){
     if(url == null){
       return "http://birikikoli.com/images/blank-profile-picture.jpg";
