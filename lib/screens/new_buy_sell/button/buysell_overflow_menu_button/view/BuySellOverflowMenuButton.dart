@@ -4,6 +4,7 @@ import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellEditPostPage.dart';
+import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 
 class BuySellOverflowMenu extends StatefulWidget {
@@ -63,7 +64,7 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final isOwnPost = widget.post.belongToUser!;
+    final isOwnPost = widget.post.belongToUser! || User.userRoleID == 0;
 
     return PopupMenuButton<String>(
       onSelected: (String value) async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/profile/screens/profilePage.dart';
+import 'package:metuverse/screens/profile/screens/ProfilePage.dart';
 import 'package:metuverse/screens/sport/create_edit_post/view/SportCreatePost.dart';
 import 'package:metuverse/user/User.dart';
 

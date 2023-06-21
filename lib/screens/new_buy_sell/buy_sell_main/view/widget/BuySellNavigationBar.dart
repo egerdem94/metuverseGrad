@@ -12,13 +12,6 @@ class BuySellNavigationBar extends StatefulWidget {
 
 class _BuySellNavigationBarState
     extends State<BuySellNavigationBar> {
-  int _activeTab = 0;
-
-  void _onTabSelected(int index) {
-    setState(() {
-      _activeTab = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +44,7 @@ class _BuySellNavigationBarState
                   children: [
                     Icon(
                       Icons.sell,
-                      color: _activeTab == 1 ? Colors.white : Colors.white60,
+                      color: widget.buyOrSell == 's' ? Colors.white : Colors.white60,
                     ),
                     SizedBox(
                         width:
@@ -59,7 +52,7 @@ class _BuySellNavigationBarState
                     Text(
                       'SELL',
                       style: TextStyle(
-                        color: _activeTab == 1 ? Colors.white : Colors.white60,
+                        color: widget.buyOrSell == 's' ? Colors.white : Colors.white60,
                       ),
                     ),
                   ],
@@ -73,12 +66,9 @@ class _BuySellNavigationBarState
                                 buyOrSell: 's',
                                 searchModeFlag: false,
                               )));
-                  // go back
-                  _onTabSelected(1);
                 },
               ),
             ),
-
             /* Expanded(
               child: Container(
                 height: 40.0, // set the height of the home icon
@@ -120,12 +110,12 @@ class _BuySellNavigationBarState
                   children: [
                     Icon(
                       Icons.shopping_bag,
-                      color: _activeTab == 2 ? Colors.white : Colors.white60,
+                      color: widget.buyOrSell == 'b' ? Colors.white : Colors.white60,
                     ),
                     Text(
                       'BUY',
                       style: TextStyle(
-                        color: _activeTab == 1 ? Colors.white : Colors.white60,
+                        color: widget.buyOrSell == 'b' ? Colors.white : Colors.white60,
                       ),
                     ),
                   ],

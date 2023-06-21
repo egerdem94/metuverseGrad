@@ -52,7 +52,7 @@ class WhisperPostList extends BasePostList<WhisperPost> {
 }
 
 class WhisperPost extends BasePostWithMedia {
-
+  WhisperPost.dummy();
   WhisperPost.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
     isFavorite = json['isFavorite'];

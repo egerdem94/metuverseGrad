@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/palette.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellEditPostPage.dart';
+import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/screens/whisper/button/whisper_overflow_menu_button/controller/WhisperOverflowController.dart';
 import 'package:metuverse/screens/whisper/whisper_create_edit_post/view/WhisperEditPostPage.dart';
 import 'package:metuverse/screens/whisper/whisper_main/controller/storage/database/DatabaseHelperWhisper.dart';
@@ -9,29 +10,29 @@ import 'package:metuverse/screens/whisper/whisper_main/model/WhisperPost.dart';
 import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 
-class WhisperOverflowMenu extends StatefulWidget {
-  const WhisperOverflowMenu({
+class SportOverflowMenu extends StatefulWidget {
+  const SportOverflowMenu({
     Key? key,
     required this.post,
     required this.onDeletePressedArgument,
     required this.onUpdateArgument,
-    required this.dbHelper,
+    //required this.dbHelper,TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
   }) : super(key: key);
-  final WhisperPost post;
-  final DatabaseHelperWhisper dbHelper;
+  final SportPost post;
+  //final DatabaseHelperWhisper dbHelper;
   final Function onDeletePressedArgument;
   final Function onUpdateArgument;
 
   @override
-  _WhisperOverflowMenuState createState() => _WhisperOverflowMenuState();
+  _SportOverflowMenuState createState() => _SportOverflowMenuState();
 }
 
-class _WhisperOverflowMenuState extends State<WhisperOverflowMenu> {
+class _SportOverflowMenuState extends State<SportOverflowMenu> {
   bool isPostDeleted = false;
 
   Future<void> deletePost() async {
-    var isDeleted =
-    await WhisperOverflowController().deletePressed(widget.post.postID,widget.dbHelper);
+    /*var isDeleted =
+    //await WhisperOverflowController().deletePressed(widget.post.postID,widget.dbHelper);
     setState(() {
       isPostDeleted = isDeleted;
     });
@@ -48,7 +49,7 @@ class _WhisperOverflowMenuState extends State<WhisperOverflowMenu> {
           content: Text('Post could not be deleted'),
         ),
       );
-    }
+    }*/
   }
   @override
   Widget build(BuildContext context) {
@@ -83,9 +84,9 @@ class _WhisperOverflowMenuState extends State<WhisperOverflowMenu> {
           );
         }
         else if (value == "Modify") {
-          Get.to(WhisperEditPostPage(
+          /*Get.to(WhisperEditPostPage(
             whisperPost: widget.post,
-          ));
+          ));*/
         }
         else if (value == "Report") {
           String? reportReason;

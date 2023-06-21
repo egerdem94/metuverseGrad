@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/profile/screens/OtherUserProfilePage.dart';
-import 'package:metuverse/screens/profile/screens/profilePage.dart';
+import 'package:metuverse/screens/profile/screens/ProfilePage.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
 class ProfilePictureCircleAvatarWidget extends StatelessWidget {

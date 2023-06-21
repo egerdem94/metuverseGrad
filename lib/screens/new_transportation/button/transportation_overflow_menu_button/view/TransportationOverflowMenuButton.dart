@@ -5,6 +5,7 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.d
 import 'package:metuverse/screens/new_transportation/create_edit_post/view/TransportationEditPostPage.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:metuverse/user/User.dart';
 
 class TransportationOverflowMenu extends StatefulWidget {
   const TransportationOverflowMenu({
@@ -53,7 +54,7 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
 
   @override
   Widget build(BuildContext context) {
-    final isOwnPost = widget.post.belongToUser!;
+    final isOwnPost = widget.post.belongToUser! || User.userRoleID == 0;
 
     return PopupMenuButton<String>(
       onSelected: (String value) async {

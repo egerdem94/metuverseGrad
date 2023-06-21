@@ -37,7 +37,7 @@ class TransportationCreatePostBody extends StatefulWidget {
 }
 
 class _TransportationCreatePostBodyState extends State<TransportationCreatePostBody> {
-  String _customerOrDriver = 'Customer';
+  String _customerOrDriver = 'Driver';
   String _selectedDeparture = 'Campus';
   String _selectedDestination = 'Güzelyurt';
   bool _showPrice = true;
@@ -57,10 +57,10 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
     );
     if(booleanRequestResponse == true){
       if (_customerOrDriver == 'Customer') {
-        MyNavigation.navigateToTransportation(context, 'c', false);
+        MyNavigation.navigateToTransportation(context, 'c');
       }
       else {
-        MyNavigation.navigateToTransportation(context, 'd', false);
+        MyNavigation.navigateToTransportation(context, 'd');
       }
     }
     else {
@@ -273,18 +273,6 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
-              onTap: () {
-                setState(() {
-                  _showPrice = false;
-                  _customerOrDriver = 'Customer';
-                });
-              },
-              child: Icon(
-                MdiIcons.humanGreeting,
-                color: _showPrice ? Colors.white : Colors.blue,
-              ),
-            ),
-            InkWell(
               onTap: (() {
                 setState(() {
                   _showPrice = true;
@@ -294,6 +282,18 @@ class _TransportationCreatePostBodyState extends State<TransportationCreatePostB
               child: new Icon(
                 MdiIcons.carConnected,
                 color: _showPrice ? Colors.blue : Colors.white,
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _showPrice = false;
+                  _customerOrDriver = 'Customer';
+                });
+              },
+              child: Icon(
+                MdiIcons.humanGreeting,
+                color: _showPrice ? Colors.white : Colors.blue,
               ),
             ),
           ],

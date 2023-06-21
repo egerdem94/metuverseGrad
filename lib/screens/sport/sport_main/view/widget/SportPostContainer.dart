@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/view/TransportationOverflowMenuButton.dart';
-
-import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationPostBottom.dart';
 import 'package:metuverse/palette.dart';
+import 'package:metuverse/screens/sport/button/sport_overflow_menu_button/view/SportOverflowMenu.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPic.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostBottom.dart';
+import 'package:metuverse/screens/whisper/whisper_main/model/WhisperPost.dart';
 import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
@@ -27,7 +26,7 @@ class SportPostContainer extends StatelessWidget {
             children: [
               TopLeftCommercialPost(post: post),
               Spacer(),
-              //TransportationOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
+              SportOverflowMenu( onDeletePressedArgument: onDeletePressedArgument, onUpdateArgument: (){}, post: post,),
             ],
           ),
           SizedBox(height: 8.0),

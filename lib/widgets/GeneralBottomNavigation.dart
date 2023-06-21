@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:metuverse/navigation/Navigate.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
-import 'package:metuverse/screens/profile/screens/profilePage.dart';
+import 'package:metuverse/screens/profile/screens/ProfilePage.dart';
 import 'package:metuverse/screens/sport/sport_main/view/SportPage.dart';
 import 'package:metuverse/screens/whisper/whisper_main/view/WhisperPage.dart';
 import 'package:metuverse/user/User.dart';
@@ -48,8 +49,9 @@ class GeneralBottomNavigation extends StatelessWidget {
                   color: pageIndex == 3 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
-                  Get.to((TransportationPage(
-                      customerOrDriver: 'c', searchModeFlag: false)));
+                  /*Get.to((TransportationPage(
+                      customerOrDriver: 'c', searchModeFlag: false)));*/
+                  MyNavigation.navigateToTransportation(context, 'd');
                 },
               ),
             ),
@@ -60,7 +62,8 @@ class GeneralBottomNavigation extends StatelessWidget {
                   color: pageIndex == 10 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(HomePage());
+                  //Get.to(HomePage());
+                  MyNavigation.navigateToHomePage(context);
                 },
               ),
             ),
@@ -71,8 +74,9 @@ class GeneralBottomNavigation extends StatelessWidget {
                   color: pageIndex == 1 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
-                   Get.to((WhisperPage(
-                      searchModeFlag: false)));
+                   /*Get.to((WhisperPage(
+                      searchModeFlag: false)));*/
+                  MyNavigation.navigateToWhisperPage(context);
                 },
               ),
             ),
@@ -83,10 +87,11 @@ class GeneralBottomNavigation extends StatelessWidget {
                   color: pageIndex == 4 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
-                  Get.to((SportPage(
+                  /*Get.to((SportPage(
                     notificationMode: null,
                     searchModeFlag: null,
-                  )));
+                  )));*/
+                  MyNavigation.navigateToSport(context);
                 },
               ),
             ),

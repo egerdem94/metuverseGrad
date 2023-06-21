@@ -277,7 +277,7 @@ class ProfileTabs extends SliverPersistentHeaderDelegate {
         isScrollable: true,
         tabs: <Widget>[
           Tab(
-            text: "Social",
+            text: "Whisper",
           ),
           Tab(
             text: "Buy and Sell",
@@ -286,13 +286,7 @@ class ProfileTabs extends SliverPersistentHeaderDelegate {
             text: "Transportation",
           ),
           Tab(
-            text: "Likes",
-          ),
-          Tab(
-            text: "Favorites",
-          ),
-          Tab(
-            text: "Lectures",
+            text: "Sport",
           ),
         ],
       ),

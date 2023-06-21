@@ -6,7 +6,6 @@ import 'package:metuverse/screens/home/widgets/announcementSlides.dart';
 import 'package:metuverse/screens/whisper/whisper_main/view/WhisperPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/drawer.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/widgets/RoundedSquareButton.dart';
 
@@ -15,7 +14,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MetuverseAppBar(),
-      //drawer: MetuverseDrawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
