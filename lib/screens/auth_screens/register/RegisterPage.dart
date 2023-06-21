@@ -116,6 +116,17 @@ class _RegisterPageState extends State<RegisterPage> {
                               SizedBox(
                                 height: 10,
                               ),
+                              AuthTextInput(
+                                icon: FontAwesomeIcons.phone,
+                                hint: '+905555555555',
+                                inputType: TextInputType.phone,
+                                inputAction: TextInputAction.next,
+                                passwordObscured: false,
+                                enterInfo: mobileNumber,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Stack(
                                 children: [
                                   AuthTextInput(
@@ -175,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               email: email.text,
                                               username: username.text,
                                               password: password.text,
-                                              mobileNumber: '',
+                                              mobileNumber: mobileNumber.text,
                                             ));
                                         });
 

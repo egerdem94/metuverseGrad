@@ -76,12 +76,13 @@ class _VerificationPageState extends State<VerificationPage> {
 
   void _mail_verificationCode_check() async {
     String serviceAddress =
-        'http://www.birikikoli.com/mv_services/mail_verificationCode_check.php';
+        'http://www.birikikoli.com/mv_services/user/register/register_mail_verificationCode_check.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "email": email,
       "fullName": username,
       "passwordHash": password,
+      "mobileNumber" : mobileNumber,
       "verificationCode": emailVerificationCode1.text +
           emailVerificationCode2.text +
           emailVerificationCode3.text +
