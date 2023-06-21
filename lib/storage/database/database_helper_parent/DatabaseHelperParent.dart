@@ -1,6 +1,7 @@
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/db/SellBuyTableValues.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/controller/storage/database/TransportationPostTableValues.dart';
 import 'package:metuverse/screens/sport/sport_main/controller/db/SportTableValues.dart';
+import 'package:metuverse/screens/whisper/whisper_main/controller/storage/database/WhisperPostTableValues.dart';
 import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/database/database_photo/DatabasePhotoTableValues.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,8 +12,9 @@ class DatabaseHelperParent {
   final databaseName = "Metuverse.db";
   int databaseVersion = 1;
   late Database db;
+
   // this opens the database (and creates it if it doesn't exist)
-  Future<void> init() async{
+  Future<void> init() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, databaseName);
     db = await openDatabase(
@@ -21,6 +23,7 @@ class DatabaseHelperParent {
       onCreate: _onCreate,
     );
   }
+
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('PRAGMA foreign_keys = ON;');
@@ -58,7 +61,25 @@ class DatabaseHelperParent {
             ON DELETE CASCADE
           )
           ''');
-          await db.execute('''
+
+    await db.execute('''
+          CREATE TABLE ${WhisperPostTableValues.table} (
+            ${WhisperPostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
+            ${WhisperPostTableValues.columnFullName} TEXT NOT NULL,
+            ${WhisperPostTableValues.columnProfilePicture} TEXT,
+            ${WhisperPostTableValues.columnBelongToUser} INTEGER NOT NULL,
+            ${WhisperPostTableValues.columnIsFavorite} INTEGER NOT NULL,
+            ${WhisperPostTableValues.columnUpdateVersion} INTEGER UNSIGNED NOT NULL,
+            ${WhisperPostTableValues.columnDescription} TEXT,
+            ${WhisperPostTableValues.columnPublicToken} TEXT,
+            ${WhisperPostTableValues.columnCreateDate} DATE,
+            ${WhisperPostTableValues.columnMediaExist} INTEGER UNSIGNED NOT NULL,
+            FOREIGN KEY (${WhisperPostTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
+            ON DELETE CASCADE
+          )
+          ''');
+
+    await db.execute('''
             CREATE TABLE IF NOT EXISTS ${DatabasePhotoTableValues.table} (
               ${DatabasePhotoTableValues.columnPhotoID} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${DatabasePhotoTableValues.columnPostID} INTEGER UNSIGNED,
@@ -68,9 +89,8 @@ class DatabaseHelperParent {
               FOREIGN KEY (${DatabasePhotoTableValues.columnPostID}) REFERENCES ${BasePostTableValues.table}(${BasePostTableValues.columnPostID})
               ON DELETE CASCADE
             )
-            '''
-          );
-          await db.execute('''
+            ''');
+    await db.execute('''
             CREATE TABLE ${TransportationPostTableValues.table} (
               ${TransportationPostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
               ${TransportationPostTableValues.columnFullName} TEXT NOT NULL,
@@ -91,7 +111,7 @@ class DatabaseHelperParent {
               ON DELETE CASCADE
             )
         ''');
-          await db.execute('''
+    await db.execute('''
             CREATE TABLE ${SportTableValues.table} (
               ${SportTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY,
               ${SportTableValues.columnFullName} TEXT NOT NULL,
@@ -109,6 +129,7 @@ class DatabaseHelperParent {
             )
         ''');
   }
+
 /*  Future createBasePostTable(Database db){
     return db.execute('''
           CREATE TABLE ${BasePostTableValues.table} (

@@ -5,7 +5,7 @@ import 'package:metuverse/buttons/notification/model/MyNotification.dart';
 import 'package:metuverse/buttons/notification/view/ReportPage.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellNotificationPage.dart';
 import 'package:metuverse/user/User.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 
 import '../../friends/view/FriendsButton.dart';
 
@@ -34,6 +34,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black12,
       appBar: AppBar(
         title: Text(
           "Notifications",
@@ -84,7 +85,7 @@ class _NotificationPageState extends State<NotificationPage> {
           );
         },
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
     );
   }
 }

@@ -6,8 +6,7 @@ import 'package:metuverse/screens/new_transportation/transportation_main/view/wi
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationAppBar.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationDriverContainer.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationCustomerContainer.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
-import 'package:metuverse/widgets/drawer.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 
 import '../../create_edit_post/view/TransportationCreatePostPage.dart';
 
@@ -161,7 +160,7 @@ class _TransportationPageState extends State<TransportationPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 3,),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(TransportationCreatePostPage());

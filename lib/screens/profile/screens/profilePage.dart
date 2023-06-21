@@ -10,7 +10,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/screens/profile/widget/profilebottom.dart';
 import 'package:metuverse/user/User.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
 import '../../auth_screens/login/view/LoginPage.dart';
@@ -127,18 +127,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           Get.to(SearchPage());
                         },
                       ),*/
-                      IconButton(
+                      /*IconButton(
                         icon: Icon(Icons.notifications),
                         onPressed: () {
                           // handle notification button press
                         },
-                      ),
-                      IconButton(
+                      ),*/
+                      /*IconButton(
                         icon: Icon(Icons.mail),
                         onPressed: () {
                           // handle direct message button press
                         },
-                      ),
+                      ),*/
                     ],
                     pinned: true,
                     elevation: 5.0,
@@ -256,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          bottomNavigationBar: BuySellSubpageNavigator()),
+          bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,)),
     );
   }
 }

@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellBottomNavigationBar.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
-import 'package:metuverse/widgets/drawer.dart';
-
-import '../../create_edit_post/view/BuySellCreatePostPage.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 
 class BuySellNotificationPage extends StatefulWidget {
   final buyOrSell;
@@ -84,7 +80,7 @@ class _BuySellNotificationPageState extends State<BuySellNotificationPage> {
           )
         ],
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
     );
   }
 

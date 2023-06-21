@@ -25,9 +25,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     return IconButton(
       onPressed: () async {
         // Perform the API call here
-        bool newButtonClicked = await favoriteButtonController.onFavoriteButtonPressed(widget.post);
+        bool status = await favoriteButtonController.onFavoriteButtonPressed(widget.post);
         setState(() {
-          isButtonClicked = newButtonClicked;
+
+          isButtonClicked = status;
         });
       },
       icon: Icon(Icons.add_circle_outline),

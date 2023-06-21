@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/search.dart/search.dart';
 
 class OtherUserProfilePage extends StatefulWidget {
@@ -86,7 +86,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                 SliverAppBar(
                   expandedHeight: expandedHeader,
                   backgroundColor: Colors.grey,
-                  leading: Builder(
+                  /*leading: Builder(
                     builder: (BuildContext context) {
                       return IconButton(
                         icon: const Icon(Icons.menu),
@@ -97,7 +97,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                             .openAppDrawerTooltip,
                       );
                     },
-                  ),
+                  ),*/
                   title: Text(
                     "Metuverse",
                     style: TextStyle(
@@ -108,24 +108,24 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                   ),
                   centerTitle: true,
                   actions: [
-                    IconButton(
+                    /*IconButton(
                       icon: Icon(Icons.search_rounded),
                       onPressed: () {
                         Get.to(SearchPage());
                       },
-                    ),
-                    IconButton(
+                    ),*/
+                    /*IconButton(
                       icon: Icon(Icons.notifications),
                       onPressed: () {
                         // handle notification button press
                       },
-                    ),
-                    IconButton(
+                    ),*/
+                    /*IconButton(
                       icon: Icon(Icons.mail),
                       onPressed: () {
                         // handle direct message button press
                       },
-                    ),
+                    ),*/
                   ],
                   pinned: true,
                   elevation: 5.0,
@@ -211,7 +211,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
             ),
           ),
         ),
-        bottomNavigationBar: BuySellSubpageNavigator(),
+        bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
       ),
     );
   }

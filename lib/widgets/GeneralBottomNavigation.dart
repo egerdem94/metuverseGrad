@@ -5,11 +5,14 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.da
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/screens/profile/screens/profilePage.dart';
 import 'package:metuverse/screens/sport/sport_main/view/SportPage.dart';
+import 'package:metuverse/screens/whisper/whisper_main/view/WhisperPage.dart';
 import 'package:metuverse/user/User.dart';
 
 import '../screens/home/screens/HomePage.dart';
 
-class BuySellSubpageNavigator extends StatelessWidget {
+class GeneralBottomNavigation extends StatelessWidget {
+  final int pageIndex;
+  const GeneralBottomNavigation({super.key, required this.pageIndex});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,27 +27,11 @@ class BuySellSubpageNavigator extends StatelessWidget {
       child: BottomAppBar(
         child: Row(
           children: [
-            /*Expanded(
-              child: BackButton(
-                color: Colors.white,
-              ),
-            ),*/
-            Expanded(
-              child: IconButton(
-                icon: Icon(
-                  MdiIcons.home,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Get.to(HomePage());
-                },
-              ),
-            ),
             Expanded(
               child: IconButton(
                 icon: Icon(
                   MdiIcons.shopping,
-                  color: Colors.white,
+                  color: pageIndex == 2 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
                   Get.to((BuySellPage(
@@ -58,7 +45,7 @@ class BuySellSubpageNavigator extends StatelessWidget {
               child: IconButton(
                 icon: Icon(
                   MdiIcons.carConnected,
-                  color: Colors.white,
+                  color: pageIndex == 3 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
                   Get.to((TransportationPage(
@@ -69,12 +56,23 @@ class BuySellSubpageNavigator extends StatelessWidget {
             Expanded(
               child: IconButton(
                 icon: Icon(
-                  MdiIcons.accountGroup,
-                  color: Colors.white,
+                  MdiIcons.home,
+                  color: pageIndex == 10 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
-                  // Get.to((TransportationPage(
-                  //     customerOrDriver: 'c', searchModeFlag: false)));
+                  Get.to(HomePage());
+                },
+              ),
+            ),
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                  MdiIcons.accountGroup,
+                  color: pageIndex == 1 ? Colors.lightBlue : Colors.white,
+                ),
+                onPressed: () {
+                   Get.to((WhisperPage(
+                      searchModeFlag: false)));
                 },
               ),
             ),
@@ -82,7 +80,7 @@ class BuySellSubpageNavigator extends StatelessWidget {
               child: IconButton(
                 icon: Icon(
                   MdiIcons.baseball,
-                  color: Colors.white,
+                  color: pageIndex == 4 ? Colors.lightBlue : Colors.white,
                 ),
                 onPressed: () {
                   Get.to((SportPage(

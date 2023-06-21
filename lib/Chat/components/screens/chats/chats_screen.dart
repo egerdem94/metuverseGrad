@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/Chat/components/widgets/chat_appbar.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -83,7 +83,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
     );
   }
 }

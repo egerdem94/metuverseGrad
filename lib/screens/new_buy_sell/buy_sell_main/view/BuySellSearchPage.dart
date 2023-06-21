@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellBottomNavigationBar.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
+import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellNavigationBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
@@ -19,13 +18,6 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
   final searchController = TextEditingController();
   final maxPriceController = TextEditingController();
   final currencyController = TextEditingController();
-/*  late BuySellPostHandler buySellPostHandler;
-  @override
-  void initState() {
-    super.initState();
-    buySellPostHandler = BuySellPostHandler();
-    buySellPostHandler.init().then((_) {});
-  }*/
 
   void _submitSearch() {
     // code to perform search with the text in _searchController
@@ -40,10 +32,6 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
         filteredProductPrice: maxPriceController.text,
         filteredCurrency: currencyController.text,
         ));
-/*    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => BuySellPage(buyOrSell: 's',searchModeFlag: true,)));*/
   }
 
   @override
@@ -89,7 +77,7 @@ class _BuySellSearchPageState extends State<BuySellSearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BuySellBottomNavigationBar(
+      bottomNavigationBar: BuySellNavigationBar(
         buyOrSell: widget.buyOrSell,
       ),
     );

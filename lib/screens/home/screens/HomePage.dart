@@ -3,8 +3,9 @@ import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.da
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/screens/sport/sport_main/view/SportPage.dart';
 import 'package:metuverse/screens/home/widgets/announcementSlides.dart';
+import 'package:metuverse/screens/whisper/whisper_main/view/WhisperPage.dart';
 import 'package:metuverse/widgets/app_bar.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/drawer.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/widgets/RoundedSquareButton.dart';
@@ -57,7 +58,12 @@ class HomePage extends StatelessWidget {
                   ),
                   RoundedSquareButton(
                     text: "",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(WhisperPage(
+                        searchModeFlag: false,
+                      ));
+                      //WhisperPage
+                    },
                     imageUrl: 'assets-images/istockphoto-910098436-612x612.jpg',
                   ),
 /*                  RoundedSquareButton(
@@ -89,7 +95,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 10,),
     );
   }
 }

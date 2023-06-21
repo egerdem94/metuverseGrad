@@ -4,6 +4,8 @@ import 'package:metuverse/screens/new_transportation/transportation_main/control
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/screens/sport/sport_main/controller/db/SportTableValues.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
+import 'package:metuverse/screens/whisper/whisper_main/controller/storage/database/WhisperPostTableValues.dart';
+import 'package:metuverse/screens/whisper/whisper_main/model/WhisperPost.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 
@@ -38,6 +40,17 @@ class FavoriteButtonDbHelper extends DatabaseHelperParent{
           SportTableValues.table,
           post.toDbMap(),
           where: '${SportTableValues.columnPostID} = ?',
+          whereArgs: [post.postID],
+        );
+        return rowsAffected > 0;
+      });
+    }
+    else if (post is WhisperPost) {
+      isSuccess = await db.transaction<bool>((txn) async {
+        final rowsAffected = await txn.update(
+          WhisperPostTableValues.table,
+          post.toDbMap(),
+          where: '${WhisperPostTableValues.columnPostID} = ?',
           whereArgs: [post.postID],
         );
         return rowsAffected > 0;

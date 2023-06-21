@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
-import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellCreatePostPage.dart';
-import 'package:metuverse/screens/profile/screens/profilePage.dart';
-import 'package:metuverse/user/User.dart';
 
-class BuySellBottomNavigationBar extends StatefulWidget {
+class BuySellNavigationBar extends StatefulWidget {
   final buyOrSell;
 
-  const BuySellBottomNavigationBar({super.key, required this.buyOrSell});
+  const BuySellNavigationBar({super.key, required this.buyOrSell});
   @override
-  _BuySellBottomNavigationBarState createState() =>
-      _BuySellBottomNavigationBarState();
+  _BuySellNavigationBarState createState() =>
+      _BuySellNavigationBarState();
 }
 
-class _BuySellBottomNavigationBarState
-    extends State<BuySellBottomNavigationBar> {
+class _BuySellNavigationBarState
+    extends State<BuySellNavigationBar> {
   int _activeTab = 0;
 
   void _onTabSelected(int index) {

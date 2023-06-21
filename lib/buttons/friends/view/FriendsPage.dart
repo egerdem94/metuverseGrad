@@ -3,7 +3,7 @@ import 'package:metuverse/buttons/friends/view/FriendListTab.dart';
 import 'package:metuverse/buttons/friends/view/IncomingMessageRequestsTab.dart';
 import 'package:metuverse/buttons/friends/view/OutgoingMessageRequestsTab.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -68,7 +68,7 @@ class _FriendsPageState extends State<FriendsPage>
         ),
       ),
 
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
     );
   }
 }

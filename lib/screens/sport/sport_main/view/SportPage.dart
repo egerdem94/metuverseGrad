@@ -6,7 +6,7 @@ import 'package:metuverse/screens/sport/sport_main/view/widget/SportAppBar.dart'
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostContainer.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
-import 'package:metuverse/widgets/bottom_navigation_bar.dart';
+import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
 import '../../create_edit_post/view/SportCreatePost.dart';
@@ -112,7 +112,7 @@ class _SportPageState extends State<SportPage> {
                     : NothingToDisplay(),
               ),
       ),
-      bottomNavigationBar: BuySellSubpageNavigator(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 4,),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(SportCreatePostPage());

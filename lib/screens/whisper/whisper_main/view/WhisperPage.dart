@@ -1,59 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuySellNavigationBar.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/SellPostContainer.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/controller/data/BuySellPostHandler.dart';
+import 'package:metuverse/screens/whisper/whisper_create_edit_post/view/WhisperCreatePostPage.dart';
+import 'package:metuverse/screens/whisper/whisper_main/controller/storage/WhisperPostHandler.dart';
+import 'package:metuverse/screens/whisper/whisper_main/view/widget/WhisperAppBar.dart';
+import 'package:metuverse/screens/whisper/whisper_main/view/widget/WhisperPostContainer.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../create_edit_post/view/BuySellCreatePostPage.dart';
 
-class BuySellPage extends StatefulWidget {
-  final buyOrSell;
-  final searchModeFlag;
+class WhisperPage extends StatefulWidget {
+
+  final bool searchModeFlag;
   final searchKey;
-  final filteredProductPrice;
-  final filteredCurrency;
 
-  const BuySellPage({
-    required this.buyOrSell,
+  const WhisperPage({
     required this.searchModeFlag,
     Key? key,
     this.searchKey,
-    this.filteredProductPrice,
-    this.filteredCurrency,
   }) : super(key: key);
 
   @override
-  _BuySellPageState createState() => _BuySellPageState();
+  _WhisperPageState createState() => _WhisperPageState();
 }
 
-class _BuySellPageState extends State<BuySellPage> {
+class _WhisperPageState extends State<WhisperPage> {
   final _scrollController = ScrollController();
-  late BuySellPostHandler buySellPostHandler;
+  late WhisperPostHandler whisperPostHandler;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    buySellPostHandler = BuySellPostHandler();
-    buySellPostHandler.init().then((_) {
+    whisperPostHandler = WhisperPostHandler();
+    whisperPostHandler.init().then((_) {
       if (widget.searchModeFlag) {
-        buySellPostHandler
-            .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
-                widget.filteredCurrency, widget.buyOrSell)
+        whisperPostHandler
+            .handleSearchPosts(widget.searchKey)
             .then((_) {
           setState(() {});
         });
       } else {
-        buySellPostHandler
-            .handlePostList(widget.buyOrSell, true,false,0)
+        whisperPostHandler
+            .handlePostList(true,false,0)
             .then((_) {
           setState(() {});
         });
@@ -75,7 +67,7 @@ class _BuySellPageState extends State<BuySellPage> {
     Future.delayed(Duration(milliseconds: 100), () {
       if (!mounted) return; // Check if the widget is still mounted
 
-      if (!buySellPostHandler.ready) {
+      if (!whisperPostHandler.ready) {
         _startDelayedFuture(); // Call the method again to continue checking
       } else {
         setState(() {
@@ -92,8 +84,8 @@ class _BuySellPageState extends State<BuySellPage> {
           !_scrollController.position.outOfRange) {
         // Load more data
         setState(() {
-          buySellPostHandler
-              .handlePostList(widget.buyOrSell, false,false,0)
+          whisperPostHandler
+              .handlePostList(false,false,0)
               .then((_) {
             setState(() {});
           });
@@ -105,16 +97,11 @@ class _BuySellPageState extends State<BuySellPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BuySellAppBar(
-        buyOrSell: widget.buyOrSell,
-      ),
+      appBar: WhisperAppBar(),
       //drawer: MetuverseDrawer(),
 
       body: Column(
         children: [
-          BuySellNavigationBar(
-            buyOrSell: widget.buyOrSell,
-          ),
           Expanded(
             child: DecoratedBox(
               decoration: GeneralUtil.sellBuyBoxDecoration(),
@@ -122,8 +109,7 @@ class _BuySellPageState extends State<BuySellPage> {
                   ? LoadingIndicator()
                   : RefreshIndicator(
                       onRefresh: _handleRefresh,
-                      child: !buySellPostHandler.sellPostList.isEmpty() ||
-                              !buySellPostHandler.buyPostList.isEmpty()
+                      child: !whisperPostHandler.whisperPostList.isEmpty()
                           ? buildPostListView()
                           : NothingToDisplay(),
                     ),
@@ -131,12 +117,11 @@ class _BuySellPageState extends State<BuySellPage> {
           )
         ],
       ),
-      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 2,),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 1,),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(BuySellCreatePostPage(
-            buyOrSell: widget.buyOrSell,
-          ));
+          Get.to(WhisperCreatePostPage()
+          );
         },
         shape: CircleBorder(), // set the shape to a circle
         backgroundColor: Colors
@@ -152,19 +137,19 @@ class _BuySellPageState extends State<BuySellPage> {
     );
   }
 
-  ListView buildPostListView() {
+  /*ListView buildPostListView() {
     return ListView.builder(
       controller: _scrollController,
       itemCount: widget.buyOrSell == 's'
-          ? buySellPostHandler.sellPostList.length()
-          : buySellPostHandler.buyPostList.length(),
+          ? whisperPostHandler.sellPostList.length()
+          : whisperPostHandler.whisperPostList.length(),
       itemBuilder: (context, index) {
         return widget.buyOrSell == 's'
             ? SellPostContainer(
-                post: buySellPostHandler.sellPostList.posts![index],
+                post: whisperPostHandler.sellPostList.posts![index],
                 onDeletePressedArgument: () {
                   setState(() {
-                    buySellPostHandler.sellPostList.posts!.removeAt(index);
+                    whisperPostHandler.sellPostList.posts!.removeAt(index);
                   });
                 },
                 onToggleArgument:(){
@@ -177,10 +162,10 @@ class _BuySellPageState extends State<BuySellPage> {
                     : 'offline', // onlineOrOffline value here
               )
             : BuyPostContainer(
-                post: buySellPostHandler.buyPostList.posts![index],
+                post: whisperPostHandler.whisperPostList.posts![index],
                 onDeletePressedArgument: () {
                   setState(() {
-                    buySellPostHandler.buyPostList.posts!.removeAt(index);
+                    whisperPostHandler.whisperPostList.posts!.removeAt(index);
                   });
                 },
                 onlineOrOfflineImage: widget.searchModeFlag
@@ -193,7 +178,28 @@ class _BuySellPageState extends State<BuySellPage> {
               );
       },
     );
+  }*/
+  ListView buildPostListView() {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: whisperPostHandler.whisperPostList.length(),
+      itemBuilder: (context, index) {
+        return WhisperPostContainer(
+          post: whisperPostHandler.whisperPostList.posts![index],
+          onDeletePressedArgument: () {
+            setState(() {
+              whisperPostHandler.whisperPostList.posts!.removeAt(index);
+            });
+          },
+          onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline',
+          onUpdateArgument: () {
+            setState(() {});
+        }, dbHelper: whisperPostHandler.dbHelper,
+        );
+      },
+    );
   }
+
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
       setState(() {});
