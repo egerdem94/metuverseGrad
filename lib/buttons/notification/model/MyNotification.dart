@@ -15,28 +15,6 @@ class NotificationList {
     total = json['total'];
     message = json['message'];
   }
-  factory NotificationList.fromDummy() {
-    return NotificationList(
-      items: [
-        MyNotification(
-          fullName: 'John Doe',
-          profilePicture: 'profile.jpg',
-          postID: 1,
-          description: 'New post available',
-          pageID: 123,
-        ),
-        MyNotification(
-          fullName: 'Jane Smith',
-          profilePicture: 'profile.jpg',
-          postID: 2,
-          description: 'New comment received',
-          pageID: 456,
-        ),
-      ],
-      total: 2,
-      message: 'Dummy notifications',
-    );
-  }
 }
 
 class MyNotification {

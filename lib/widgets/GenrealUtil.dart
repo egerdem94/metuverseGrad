@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class GeneralUtil{
+class GeneralUtil {
   static BoxDecoration buildPostBoxDecoration() {
     return BoxDecoration(
       border: Border(
           bottom:
-          BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
+              BorderSide(color: Color.fromARGB(255, 57, 57, 57), width: 0.5)),
     );
   }
+
   static BoxDecoration createPostBottomNavigationDecoration() {
     return const BoxDecoration(
       border: Border(
@@ -18,6 +19,7 @@ class GeneralUtil{
       ),
     );
   }
+
   static BoxDecoration sellBuyBoxDecoration() {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -31,22 +33,25 @@ class GeneralUtil{
       ), // set the background color to blue
     );
   }
+
   static BoxDecoration transportationCreateBoxDecoration() {
     return BoxDecoration(
       color: Color.fromARGB(255, 255, 255, 255),
       borderRadius: BorderRadius.circular(10.0),
     );
   }
-  static String getProfilePictureUrl(String? url){
-    if(url == null){
+
+  static String getProfilePictureUrl(String? url) {
+    if (url == null) {
       return "http://birikikoli.com/images/blank-profile-picture.jpg";
-    }
-    else{
+    } else {
       return url;
     }
   }
-  static String? currencyConverter(String? currencyText) {//TODO YAVUZ DELETE?
-    String currencySymbol = '';//
+
+  static String? currencyConverter(String? currencyText) {
+    //TODO YAVUZ DELETE?
+    String currencySymbol = ''; //
     if (currencyText == 'TL')
       currencySymbol = '₺';
     else if (currencyText == 'DOLLAR')
@@ -57,6 +62,7 @@ class GeneralUtil{
 
     return currencySymbol;
   }
+
   static String currencyConverter2(String? currencyText) {
     String currencySymbol = '₺';
     if (currencyText == 'TRY')
@@ -68,5 +74,10 @@ class GeneralUtil{
     else if (currencyText == 'GBP') currencySymbol = '£';
 
     return currencySymbol;
+  }
+
+  static int getReportReasonIndex(String reason) {
+    List<String> reportReasons = ['Spam', 'Bad word', 'Sexual content', 'Racism'];
+    return reportReasons.indexOf(reason);
   }
 }

@@ -4,6 +4,7 @@ import 'package:metuverse/palette.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellEditPostPage.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 
 class BuySellOverflowMenu extends StatefulWidget {
   const BuySellOverflowMenu({
@@ -17,6 +18,7 @@ class BuySellOverflowMenu extends StatefulWidget {
   final BuySellPost post;
   final Function onDeletePressedArgument;
   final Function onUpdateArgument;
+
   @override
   _BuySellOverflowMenuState createState() => _BuySellOverflowMenuState();
 }
@@ -25,7 +27,8 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
   bool isPostDeleted = false;
 
   Future<void> deletePost() async {
-    var isDeleted = await BuySellOverflowController().deletePressed(widget.post.postID);
+    var isDeleted =
+        await BuySellOverflowController().deletePressed(widget.post.postID);
     setState(() {
       isPostDeleted = isDeleted;
     });
@@ -44,18 +47,18 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
       );
     }
   }
-  Future<void> toggleStatus() async{
-      var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
-      if(isToggled){
-        widget.onUpdateArgument();
-        if(widget.post.productStatus == 2){
-          widget.post.productStatus = 1;
-        }
-        else{
-          widget.post.productStatus = 2;
-        }
 
+  Future<void> toggleStatus() async {
+    var isToggled = await BuySellOverflowController()
+        .selectAsFoundPressed(widget.post.postID);
+    if (isToggled) {
+      widget.onUpdateArgument();
+      if (widget.post.productStatus == 2) {
+        widget.post.productStatus = 1;
+      } else {
+        widget.post.productStatus = 2;
       }
+    }
   }
 
   @override
@@ -89,14 +92,116 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
               );
             },
           );
-        }
-        else if(value == 'Toggle Post Status'){
+        } else if (value == 'Toggle Post Status') {
           await toggleStatus();
-        }
-        else if(value == "Modify"){
+        } else if (value == "Modify") {
           Get.to(BuySellEditPostPage(
-            buyOrSell: widget.buyOrSell, buySellPost: widget.post,
+            buyOrSell: widget.buyOrSell,
+            buySellPost: widget.post,
           ));
+        } else if (value == "Report") {
+          String? reportReason;
+
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                // Required to update the state of the dialog
+                builder: (BuildContext context, StateSetter setState) {
+                  return AlertDialog(
+                    title: Text('Report Post'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: const Text('Spam'),
+                          leading: Radio<String>(
+                            value: 'Spam',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Bad word'),
+                          leading: Radio<String>(
+                            value: 'Bad word',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Sexual content'),
+                          leading: Radio<String>(
+                            value: 'Sexual content',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Racism'),
+                          leading: Radio<String>(
+                            value: 'Racism',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          if (reportReason != null) {
+                            String? message = await BuySellOverflowController()
+                                .reportPostRequest(
+                                    widget.post.postID,
+                                    GeneralUtil.getReportReasonIndex(
+                                        reportReason!));
+                            if (message != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(message),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error occurred!'),
+                                ),
+                              );
+                            }
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: Text('Report'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          );
         }
       },
       itemBuilder: (BuildContext context) {

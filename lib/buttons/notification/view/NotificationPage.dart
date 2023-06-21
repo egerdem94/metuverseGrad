@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metuverse/buttons/notification/controller/NotificationController.dart';
 import 'package:metuverse/buttons/notification/model/MyNotification.dart';
+import 'package:metuverse/buttons/notification/view/ReportPage.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellNotificationPage.dart';
+import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/bottom_navigation_bar.dart';
 
 import '../../friends/view/FriendsButton.dart';
 
 class NotificationPage extends StatefulWidget {
-  final NotificationList notificationList;
 
-  const NotificationPage({required this.notificationList});
+  const NotificationPage();
 
   @override
   _NotificationPageState createState() => _NotificationPageState();
@@ -18,6 +20,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   NotificationController notificationController = NotificationController();
   List<MyNotification>? notifications;
+
   @override
   void initState() {
     super.initState();
@@ -30,11 +33,8 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final List<MyNotification>? notifications = widget.notificationList.items;
-
     return Scaffold(
       appBar: AppBar(
-        // leading: NotificationButton(),
         title: Text(
           "Notifications",
           style: TextStyle(
@@ -46,6 +46,18 @@ class _NotificationPageState extends State<NotificationPage> {
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         centerTitle: true,
         actions: [
+          if (User.userRoleID == 0)
+            TextButton(
+              onPressed: () {
+                Get.to(ReportPage());
+              },
+              child: Text(
+                "Admin Panel",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           FriendsButton(),
         ],
       ),
@@ -68,9 +80,6 @@ class _NotificationPageState extends State<NotificationPage> {
                         builder: (context) => BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!,
                         )));
               }
-
-              // Handle notification item tap
-              // Navigate to the corresponding post screen or perform any desired action
             },
           );
         },
@@ -114,7 +123,6 @@ class NotificationItem extends StatelessWidget {
       ),
       onTap: onTap,
       tileColor: Colors.black,
-      // Add any necessary UI elements to display the notification item
     );
   }
 }

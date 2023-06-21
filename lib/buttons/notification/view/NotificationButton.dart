@@ -14,7 +14,7 @@ class NotificationButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.notifications),
       onPressed: () {
-        Get.to(NotificationPage(notificationList: NotificationList.fromDummy(),));
+        Get.to(NotificationPage());
       },
     );
   }
