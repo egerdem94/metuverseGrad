@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -42,6 +43,11 @@ class TransportationCreatePostBody extends StatefulWidget {
 
 class _TransportationCreatePostBodyState
     extends State<TransportationCreatePostBody> {
+  /////ADDED FOR PLUS MINUS
+  int seatCount = 0;
+  int availableCount = 0;
+  int totalPersonCount = 0;
+
   String _customerOrDriver = 'Driver';
   String _selectedDeparture = 'Campus';
   String _selectedDestination = 'Güzelyurt';
@@ -104,7 +110,7 @@ class _TransportationCreatePostBodyState
                 children: [
                   ProfilePicture(),
                   Spacer(),
-                  Container(
+                  /* Container(
                     height: 50,
                     margin: EdgeInsets.only(top: 16.0, right: 16),
                     width: 80,
@@ -133,20 +139,21 @@ class _TransportationCreatePostBodyState
                             keyboardType: TextInputType.number,
                           ),
                   ),
-                  Container(
-                    height: 50,
-                    margin: EdgeInsets.only(top: 16.0, right: 16),
-                    width: 80,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: _customerOrDriver == 'Customer'
-                          ? Color.fromARGB(255, 255, 255, 255)
-                          : Colors.white,
+                  */
+                  ////////////////BURDA PERSON KALKIYOR DRİVER İÇİN PRİCE VAR
+                  Visibility(
+                    visible: _customerOrDriver == 'Driver' ? true : false,
+                    child: Container(
+                      height: 50,
+                      margin: EdgeInsets.only(top: 16.0, right: 16),
+                      width: 80,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color.fromARGB(255, 0, 0, 0)),
+                        borderRadius: BorderRadius.circular(4.0),
+                        color: Colors.white,
+                      ),
+                      child: PriceTextFormField(widget: widget),
                     ),
-                    child: _customerOrDriver == 'Customer'
-                        ? PersonTextFormField(widget: widget)
-                        : PriceTextFormField(widget: widget),
                   ),
                 ],
               ),
@@ -231,6 +238,187 @@ class _TransportationCreatePostBodyState
                                 ),
                               ],
                             ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: _customerOrDriver == 'Driver' ? true : false,
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 50,
+                                margin: EdgeInsets.only(
+                                    top: 16.0,
+                                    right: 8), // Adjusted right margin
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  color: _customerOrDriver == 'Customer'
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller: widget.seatController
+                                    ..text = seatCount.toString(),
+                                  decoration: InputDecoration(
+                                    labelText: ' Available Seats',
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                      left: 10.0,
+                                      top: 5,
+                                    ),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.remove, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    if (seatCount > 0) seatCount--;
+                                    widget.seatController.text =
+                                        seatCount.toString();
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.add, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    seatCount++;
+                                    widget.seatController.text =
+                                        seatCount.toString();
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                  width: 5), // Added SizedBox to create a space
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: _customerOrDriver == 'Driver' ? true : false,
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Added SizedBox to create a space
+
+                              Container(
+                                height: 50,
+                                margin: EdgeInsets.only(
+                                    top: 16.0,
+                                    right: 8), // Adjusted right margin
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  color: _customerOrDriver == 'Customer'
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller: widget.availablePersonController
+                                    ..text = availableCount.toString(),
+                                  decoration: InputDecoration(
+                                    labelText: 'Seats Taken',
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                      left: 12.0,
+                                      top: 5,
+                                    ),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.remove, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    if (availableCount > 0) availableCount--;
+                                    widget.availablePersonController.text =
+                                        availableCount.toString();
+                                  });
+                                },
+                              ),
+
+                              IconButton(
+                                icon: Icon(Icons.add, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    availableCount++;
+                                    widget.availablePersonController.text =
+                                        availableCount.toString();
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible:
+                              _customerOrDriver == 'Customer' ? true : false,
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Added SizedBox to create a space
+
+                              Container(
+                                height: 50,
+                                margin: EdgeInsets.only(
+                                    top: 16.0,
+                                    right: 8), // Adjusted right margin
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  color: _customerOrDriver == 'Driver'
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller: widget.totalPersonController
+                                    ..text = totalPersonCount.toString(),
+                                  decoration: InputDecoration(
+                                    labelText: 'Person',
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                      left: 12.0,
+                                      top: 5,
+                                    ),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.remove, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    if (totalPersonCount > 0)
+                                      totalPersonCount--;
+                                    widget.totalPersonController.text =
+                                        totalPersonCount.toString();
+                                  });
+                                },
+                              ),
+
+                              IconButton(
+                                icon: Icon(Icons.add, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    totalPersonCount++;
+                                    widget.totalPersonController.text =
+                                        totalPersonCount.toString();
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
                         DescriptionInputBox(
@@ -361,7 +549,8 @@ class PriceTextFormField extends StatelessWidget {
     );
   }
 }
-
+/////////////////////////YUKARDA GÖZÜKEN PERSON
+/*
 class PersonTextFormField extends StatelessWidget {
   const PersonTextFormField({
     super.key,
@@ -388,7 +577,7 @@ class PersonTextFormField extends StatelessWidget {
       keyboardType: TextInputType.number,
     );
   }
-}
+}*/
 /*
   Future _sendPostToBackend2() async {
     var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";
@@ -442,4 +631,4 @@ class PersonTextFormField extends StatelessWidget {
       print(e);
     });
   }
- */
+*/
