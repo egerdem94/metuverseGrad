@@ -75,11 +75,12 @@ class _NotificationPageState extends State<NotificationPage> {
             onTap: () {
               if(notification.pageID == 201 || notification.pageID == 202){
                 var buyOrSell = notification.pageID == 201?'s':'b';
-                Navigator.pushReplacement(
+                /*Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!,
-                        )));
+                        )));*/
+                Get.to(BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!));
               }
             },
           );
