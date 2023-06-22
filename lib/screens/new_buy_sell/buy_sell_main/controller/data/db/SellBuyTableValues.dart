@@ -6,6 +6,7 @@ class SellBuyTableValues {
   static const columnProfilePicture = 'profilePicture';
   static const columnBelongToUser = 'belongToUser';
   static const columnIsFavorite = 'isFavorite';
+  static const columnPublicToken = 'publicToken';
   static const columnUpdateVersion = 'updateVersion';
   static const columnDescription = 'description';
   static const columnProductPrice = 'productPrice';

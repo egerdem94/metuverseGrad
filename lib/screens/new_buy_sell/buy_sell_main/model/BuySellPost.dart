@@ -57,7 +57,8 @@ class BuySellPost extends BasePostWithMedia {
 
   BuySellPost.fromJson(Map<String, dynamic> json) {
     belongToUser = json['belongToUser'];
-    isFavorite = false;//json['isFavorite'];
+    isFavorite = json['isFavorite'];
+    publicToken = json['publicToken'];
     fullName = json['fullName'];
     profilePicture = json['profilePicture'];
     postID = json['postID'];
@@ -91,6 +92,7 @@ class BuySellPost extends BasePostWithMedia {
     fullName = json[SellBuyTableValues.columnFullName];
     profilePicture = json[SellBuyTableValues.columnProfilePicture];
     postID = json[SellBuyTableValues.columnPostID];
+    publicToken = json[SellBuyTableValues.columnPublicToken];
     updateVersion = json[SellBuyTableValues.columnUpdateVersion];
     //media = json[SellBuyTableValues.columnMedia];
     description = json[SellBuyTableValues.columnDescription];
@@ -110,6 +112,7 @@ class BuySellPost extends BasePostWithMedia {
       SellBuyTableValues.columnProfilePicture: profilePicture,
       SellBuyTableValues.columnBelongToUser: belongToUserAsInt,
       SellBuyTableValues.columnIsFavorite: isFavoriteAsInt,
+      SellBuyTableValues.columnPublicToken: publicToken,
       SellBuyTableValues.columnUpdateVersion: updateVersion,
       //SellBuyTableValues.columnMedia: media,
       SellBuyTableValues.columnDescription: description,

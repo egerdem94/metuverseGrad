@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metuverse/screens/sport/sport_main/controller/SportPostHandler.dart';
-import 'package:metuverse/screens/sport/sport_main/view/widget/SportBottomNavigationBar.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportAppBar.dart';
 import 'package:metuverse/screens/sport/sport_main/view/widget/SportPostContainer.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/drawer.dart';
 
 import '../../create_edit_post/view/SportCreatePostPage.dart';
 
@@ -40,29 +38,30 @@ class _SportPageState extends State<SportPage> {
     _scrollController.addListener(_scrollListener);
     sportPostHandler = SportPostHandler();
     sportPostHandler.init().then((_) {
-      if (widget.searchModeFlag != null && widget.searchModeFlag) {
-/*        sportPostHandler
-            .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
-            widget.filteredCurrency, widget.buyOrSell)
-            .then((_) {
-          setState(() {});
-        });*/
-      } else {
-        sportPostHandler
-            .handlePostList(
-                true, widget.notificationMode, widget.notificationPostID)
-            .then((_) {
-          setState(() {});
-        });
-      }
-      if (widget.searchModeFlag) {
-        Future.delayed(Duration(milliseconds: 1000), () {
-          setState(() {
-            _isLoading = false;
+      if (mounted) { // Added mounted check
+        if (widget.searchModeFlag != null && widget.searchModeFlag) {
+          // Handle search posts here
+        } else {
+          sportPostHandler
+              .handlePostList(
+              true, widget.notificationMode, widget.notificationPostID)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
           });
-        });
-      } else {
-        _startDelayedFuture();
+        }
+        if (widget.searchModeFlag) {
+          Future.delayed(Duration(milliseconds: 1000), () {
+            if (mounted) { // Added mounted check
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          });
+        } else {
+          _startDelayedFuture();
+        }
       }
     });
   }
@@ -74,9 +73,11 @@ class _SportPageState extends State<SportPage> {
       if (!sportPostHandler.ready) {
         _startDelayedFuture(); // Call the method again to continue checking
       } else {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) { // Added mounted check
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     });
   }
@@ -84,14 +85,12 @@ class _SportPageState extends State<SportPage> {
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
-              _scrollController.position.maxScrollExtent &&
+          _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange) {
         // Load more data
-        setState(() {
-          //sportPostHandler.handlePostList(widget.buyOrSell, false,false,0).then((_) {
-          //setState(() {});
-          // });
-        });
+        if (mounted) { // Added mounted check
+          setState(() {});
+        }
       }
     }
   }
@@ -100,19 +99,18 @@ class _SportPageState extends State<SportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SportAppBar(),
-      //drawer: MetuverseDrawer(),
       body: DecoratedBox(
         decoration: metuverseBoxDecoration(),
         child: _isLoading
             ? LoadingIndicator()
             : RefreshIndicator(
-                onRefresh: _handleRefresh,
-                child: !sportPostHandler.sportPostList.isEmpty()
-                    ? buildPostListView()
-                    : NothingToDisplay(),
-              ),
+          onRefresh: _handleRefresh,
+          child: !sportPostHandler.sportPostList.isEmpty()
+              ? buildPostListView()
+              : NothingToDisplay(),
+        ),
       ),
-      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 4,),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 4),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(SportCreatePostPage());
@@ -152,16 +150,18 @@ class _SportPageState extends State<SportPage> {
         return SportPostContainer(
           post: sportPostHandler.sportPostList.posts![index],
           onDeletePressedArgument: () {
-            setState(() {
-              sportPostHandler.sportPostList.posts!.removeAt(index);
-            });
-          }, dbHelper: sportPostHandler.dbHelper,
-          onUpdateArgument:(){
-            setState(() {
-              //rebuild widget
-            });
+            if (mounted) { // Added mounted check
+              setState(() {
+                sportPostHandler.sportPostList.posts!.removeAt(index);
+              });
+            }
           },
-          //onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
+          dbHelper: sportPostHandler.dbHelper,
+          onUpdateArgument:(){
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
+          },
         );
       },
     );
@@ -169,7 +169,9 @@ class _SportPageState extends State<SportPage> {
 
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
-      setState(() {});
+      if(mounted){ // Added mounted check
+        setState(() {});
+      }
     });
   }
 }

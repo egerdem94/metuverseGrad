@@ -7,7 +7,6 @@ class DepartureDestinationBox extends StatelessWidget {
     super.key,
     required this.location,
   });
-
   final String location;
 
   @override
@@ -50,9 +49,9 @@ class DepartureDestinationBoxes extends StatelessWidget {
       height: 130.0,
       child: Column(
         children: <Widget>[
-          DepartureDestinationBox(location: TransportationLocations.getLocation(post.departureID!)),
+          DepartureDestinationBox(location: ("From: "+TransportationLocations.getLocation(post.departureID!))),
           SizedBox(height: 10.0),
-          DepartureDestinationBox(location: TransportationLocations.getLocation(post.destinationID!)),
+          DepartureDestinationBox(location: ("To: "+TransportationLocations.getLocation(post.destinationID!))),
         ],
       ),
     );

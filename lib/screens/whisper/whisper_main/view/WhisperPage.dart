@@ -8,11 +8,8 @@ import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/drawer.dart';
-
 
 class WhisperPage extends StatefulWidget {
-
   final bool searchModeFlag;
   final searchKey;
 
@@ -37,28 +34,35 @@ class _WhisperPageState extends State<WhisperPage> {
     _scrollController.addListener(_scrollListener);
     whisperPostHandler = WhisperPostHandler();
     whisperPostHandler.init().then((_) {
-      if (widget.searchModeFlag) {
-        whisperPostHandler
-            .handleSearchPosts(widget.searchKey)
-            .then((_) {
-          setState(() {});
-        });
-      } else {
-        whisperPostHandler
-            .handlePostList(true,false,0)
-            .then((_) {
-          setState(() {});
-        });
-      }
-      // Start the delayed future to periodically check the condition
-      if (widget.searchModeFlag) {
-        Future.delayed(Duration(milliseconds: 1000), () {
-          setState(() {
-            _isLoading = false;
+      if (mounted) { // Added mounted check
+        if (widget.searchModeFlag) {
+          whisperPostHandler
+              .handleSearchPosts(widget.searchKey)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
           });
-        });
-      } else {
-        _startDelayedFuture();
+        } else {
+          whisperPostHandler
+              .handlePostList(true,false,0)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
+          });
+        }
+        if (widget.searchModeFlag) {
+          Future.delayed(Duration(milliseconds: 1000), () {
+            if (mounted) { // Added mounted check
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          });
+        } else {
+          _startDelayedFuture();
+        }
       }
     });
   }
@@ -70,9 +74,11 @@ class _WhisperPageState extends State<WhisperPage> {
       if (!whisperPostHandler.ready) {
         _startDelayedFuture(); // Call the method again to continue checking
       } else {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) { // Added mounted check
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     });
   }
@@ -80,16 +86,20 @@ class _WhisperPageState extends State<WhisperPage> {
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
-              _scrollController.position.maxScrollExtent &&
+          _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange) {
         // Load more data
-        setState(() {
-          whisperPostHandler
-              .handlePostList(false,false,0)
-              .then((_) {
-            setState(() {});
+        if (mounted) { // Added mounted check
+          setState(() {
+            whisperPostHandler
+                .handlePostList(false,false,0)
+                .then((_) {
+              if (mounted) { // Added mounted check
+                setState(() {});
+              }
+            });
           });
-        });
+        }
       }
     }
   }
@@ -108,11 +118,11 @@ class _WhisperPageState extends State<WhisperPage> {
               child: _isLoading
                   ? LoadingIndicator()
                   : RefreshIndicator(
-                      onRefresh: _handleRefresh,
-                      child: !whisperPostHandler.whisperPostList.isEmpty()
-                          ? buildPostListView()
-                          : NothingToDisplay(),
-                    ),
+                onRefresh: _handleRefresh,
+                child: !whisperPostHandler.whisperPostList.isEmpty()
+                    ? buildPostListView()
+                    : NothingToDisplay(),
+              ),
             ),
           )
         ],
@@ -137,48 +147,6 @@ class _WhisperPageState extends State<WhisperPage> {
     );
   }
 
-  /*ListView buildPostListView() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: widget.buyOrSell == 's'
-          ? whisperPostHandler.sellPostList.length()
-          : whisperPostHandler.whisperPostList.length(),
-      itemBuilder: (context, index) {
-        return widget.buyOrSell == 's'
-            ? SellPostContainer(
-                post: whisperPostHandler.sellPostList.posts![index],
-                onDeletePressedArgument: () {
-                  setState(() {
-                    whisperPostHandler.sellPostList.posts!.removeAt(index);
-                  });
-                },
-                onToggleArgument:(){
-                  setState(() {
-                    //rebuild widget
-                  });
-                },
-                onlineOrOfflineImage: widget.searchModeFlag
-                    ? 'online'
-                    : 'offline', // onlineOrOffline value here
-              )
-            : BuyPostContainer(
-                post: whisperPostHandler.whisperPostList.posts![index],
-                onDeletePressedArgument: () {
-                  setState(() {
-                    whisperPostHandler.whisperPostList.posts!.removeAt(index);
-                  });
-                },
-                onlineOrOfflineImage: widget.searchModeFlag
-                    ? 'online'
-                    : 'offline', onUpdateArgument:(){
-                        setState(() {
-                          //rebuild widget
-                        });
-                    }, // onlineOrOffline value here
-              );
-      },
-    );
-  }*/
   ListView buildPostListView() {
     return ListView.builder(
       controller: _scrollController,
@@ -187,14 +155,18 @@ class _WhisperPageState extends State<WhisperPage> {
         return WhisperPostContainer(
           post: whisperPostHandler.whisperPostList.posts![index],
           onDeletePressedArgument: () {
-            setState(() {
-              whisperPostHandler.whisperPostList.posts!.removeAt(index);
-            });
+            if (mounted) { // Added mounted check
+              setState(() {
+                whisperPostHandler.whisperPostList.posts!.removeAt(index);
+              });
+            }
           },
           onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline',
           onUpdateArgument: () {
-            setState(() {});
-        }, dbHelper: whisperPostHandler.dbHelper,
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
+          }, dbHelper: whisperPostHandler.dbHelper,
         );
       },
     );
@@ -202,7 +174,9 @@ class _WhisperPageState extends State<WhisperPage> {
 
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
-      setState(() {});
+      if(mounted){ // Added mounted check
+        setState(() {});
+      }
     });
   }
 }

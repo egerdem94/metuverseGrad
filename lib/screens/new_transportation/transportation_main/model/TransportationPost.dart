@@ -24,12 +24,10 @@ class TransportationPostList extends BasePostList<TransportationPost>{
 
   TransportationPostList.fromDbMap(List<Map<String, dynamic>> json)
       : super.defaults() {
-    if (json != null) {
-      this.posts = <TransportationPost>[];
-      json.forEach((v) {
-        this.posts!.add(new TransportationPost.fromDbMap(v));
-      });
-    }
+    this.posts = <TransportationPost>[];
+    json.forEach((v) {
+      this.posts!.add(new TransportationPost.fromDbMap(v));
+    });
   }
 }
 class TransportationPost extends BasePost{
@@ -116,29 +114,12 @@ class TransportationPost extends BasePost{
         transportationStatus = json['transportationStatus'],
         super(
         belongToUser: json['belongToUser'],
-        isFavorite: false,
+        isFavorite: json['isFavorite'],
+        publicToken: json['publicToken'],
         fullName: json['fullName'],
         profilePicture: json['profilePicture'],
         postID: json['postID'],
         updateVersion: json['updateVersion'],
         description: json['description'],
       );
-/*  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['belongToUser'] = belongToUser;
-    _data['isFavorite'] = isFavorite;
-    _data['fullName'] = fullName;
-    _data['profilePicture'] = profilePicture;
-    _data['postID'] = postID;
-    _data['updateVersion'] = updateVersion;
-    _data['description'] = description;
-    _data['departureID'] = departureID;
-    _data['destinationID'] = destinationID;
-    _data['departureDate'] = departureDate;
-    _data['availablePerson'] = availablePerson;
-    _data['transportationPrice'] = transportationPrice;
-    _data['currency'] = currency;
-    _data['transportationStatus'] = transportationStatus;
-    return _data;
-  }*/
 }

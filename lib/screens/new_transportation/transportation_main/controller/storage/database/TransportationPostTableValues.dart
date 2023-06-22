@@ -7,6 +7,7 @@ class TransportationPostTableValues{
   static const String columnProfilePicture = 'profilePicture';
   static const String columnBelongToUser = 'belongToUser';
   static const String columnIsFavorite = 'isFavorite';
+  static const String columnPublicToken = 'publicToken';
   static const String columnUpdateVersion = 'updateVersion';
   static const String columnDescription = 'description';
   static const String columnProductPrice = 'productPrice';

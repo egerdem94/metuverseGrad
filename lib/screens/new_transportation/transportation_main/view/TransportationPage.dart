@@ -41,25 +41,31 @@ class _TransportationPageState extends State<TransportationPage> {
     _scrollController.addListener(_scrollListener);
     transportationPostHandler = TransportationPostHandler();
     transportationPostHandler.init().then((_) {
-      if (widget.searchModeFlag) {
-        transportationPostHandler
-            .handleSearchPosts(widget.searchKey, widget.departureLocation,
-                widget.destinationLocation, widget.customerOrDriver)
-            .then((_) {
-          setState(() {
-            transportationPostList = transportationPostHandler
-                .getTransportationPostList(widget.customerOrDriver);
+      if (mounted) { // Added mounted check
+        if (widget.searchModeFlag) {
+          transportationPostHandler
+              .handleSearchPosts(widget.searchKey, widget.departureLocation,
+              widget.destinationLocation, widget.customerOrDriver)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {
+                transportationPostList = transportationPostHandler
+                    .getTransportationPostList(widget.customerOrDriver);
+              });
+            }
           });
-        });
-      } else {
-        transportationPostHandler
-            .handlePostList(widget.customerOrDriver, true)
-            .then((_) {
-          setState(() {
-            transportationPostList = transportationPostHandler
-                .getTransportationPostList(widget.customerOrDriver);
+        } else {
+          transportationPostHandler
+              .handlePostList(widget.customerOrDriver, true)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {
+                transportationPostList = transportationPostHandler
+                    .getTransportationPostList(widget.customerOrDriver);
+              });
+            }
           });
-        });
+        }
       }
     });
   }
@@ -67,19 +73,23 @@ class _TransportationPageState extends State<TransportationPage> {
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
-              _scrollController.position.maxScrollExtent &&
+          _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange) {
         // Load more data
-        setState(() {
-          transportationPostHandler
-              .handlePostList(widget.customerOrDriver, false)
-              .then((_) {
-            setState(() {
-              transportationPostList = transportationPostHandler
-                  .getTransportationPostList(widget.customerOrDriver);
+        if (mounted) { // Added mounted check
+          setState(() {
+            transportationPostHandler
+                .handlePostList(widget.customerOrDriver, false)
+                .then((_) {
+              if (mounted) { // Added mounted check
+                setState(() {
+                  transportationPostList = transportationPostHandler
+                      .getTransportationPostList(widget.customerOrDriver);
+                });
+              }
             });
           });
-        });
+        }
       }
     }
   }
@@ -110,63 +120,71 @@ class _TransportationPageState extends State<TransportationPage> {
               ),
               child: transportationPostList != null
                   ? widget.customerOrDriver == 'c'
-                      ? ListView.builder(
-                          controller: _scrollController,
-                          itemCount: transportationPostList!.length(),
-                          itemBuilder: (context, index) {
-                            return TransportationCustomerContainer(
-                              //post: newTransportationPostListX!.posts![index]);
-                              post: transportationPostList!.posts![index],
-                              onDeletePressedArgument: () {
-                                setState(() {
-                                  transportationPostList!.posts!
-                                      .removeAt(index);
-                                });
-                              },
-                              onUpdateArgument: () {
-                                setState(() {
-                                  //rebuild widget
-                                });
-                              },
-                            );
-                          },
-                        )
-                      : ListView.builder(
-                          controller: _scrollController,
-                          itemCount: transportationPostList!.length(),
-                          itemBuilder: (context, index) {
-                            return TransportationDriverContainer(
-                              post: transportationPostList!.posts![index],
-                              onDeletePressedArgument: () {
-                                setState(() {
-                                  transportationPostList!.posts!
-                                      .removeAt(index);
-                                });
-                              },
-                              onUpdateArgument: () {
-                                setState(() {
-                                  //rebuild widget
-                                });
-                              },
-                            );
-                          },
-                        )
+                  ? ListView.builder(
+                controller: _scrollController,
+                itemCount: transportationPostList!.length(),
+                itemBuilder: (context, index) {
+                  return TransportationCustomerContainer(
+                    //post: newTransportationPostListX!.posts![index]);
+                    post: transportationPostList!.posts![index],
+                    onDeletePressedArgument: () {
+                      if (mounted) { // Added mounted check
+                        setState(() {
+                          transportationPostList!.posts!
+                              .removeAt(index);
+                        });
+                      }
+                    },
+                    onUpdateArgument: () {
+                      if (mounted) { // Added mounted check
+                        setState(() {
+                          //rebuild widget
+                        });
+                      }
+                    },
+                  );
+                },
+              )
+                  : ListView.builder(
+                controller: _scrollController,
+                itemCount: transportationPostList!.length(),
+                itemBuilder: (context, index) {
+                  return TransportationDriverContainer(
+                    post: transportationPostList!.posts![index],
+                    onDeletePressedArgument: () {
+                      if (mounted) { // Added mounted check
+                        setState(() {
+                          transportationPostList!.posts!
+                              .removeAt(index);
+                        });
+                      }
+                    },
+                    onUpdateArgument: () {
+                      if (mounted) { // Added mounted check
+                        setState(() {
+                          //rebuild widget
+                        });
+                      }
+                    },
+                  );
+                },
+              )
                   : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 10),
-                          Text("Loading..."),
-                          /*SizedBox(height: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 10),
+                    Text("Loading..."),
+                    /*SizedBox(height: 10),
                           ElevatedButton(
                             child: Text("Retry"),
                             onPressed: () => transportationPostHandler
                                 .handlePostList(widget.customerOrDriver, true),
                           )*/
-                        ],
-                      ),
-                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

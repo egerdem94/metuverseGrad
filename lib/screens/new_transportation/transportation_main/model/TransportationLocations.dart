@@ -8,7 +8,8 @@ class TransportationLocations{
     'Karpaz',
     'Lefke',
     'Lefkoşa',
-    'Mağusa'
+    'Mağusa',
+    'Other'
   ];
   static int getIndexOfLocation(String location){
     for(var str in locationList){
