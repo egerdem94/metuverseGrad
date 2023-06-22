@@ -3,15 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
-import 'package:metuverse/screens/profile/widget/profilebottom.dart';
 import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/search.dart/search.dart';
 
 import '../../auth_screens/login/view/LoginPage.dart';
 
@@ -98,8 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           onPressed: () {
                             User.logout();
-                            //Get.to(ProfilePage());
-                            //Get.to(LoginPage());
                             Navigator.pushAndRemoveUntil(context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) {
@@ -121,24 +116,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     centerTitle: true,
                     actions: [
-                      /*IconButton(
-                        icon: Icon(Icons.search_rounded),
-                        onPressed: () {
-                          Get.to(SearchPage());
-                        },
-                      ),*/
-                      /*IconButton(
-                        icon: Icon(Icons.notifications),
-                        onPressed: () {
-                          // handle notification button press
-                        },
-                      ),*/
-                      /*IconButton(
-                        icon: Icon(Icons.mail),
-                        onPressed: () {
-                          // handle direct message button press
-                        },
-                      ),*/
                     ],
                     pinned: true,
                     elevation: 5.0,
@@ -170,19 +147,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  /* ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: ProfileTabs(50.0),
-                ),
-                /*SliverList( //TODO
-                  delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                      return Post();
-                    },
-                  ),
-                ),*/
-              ], */
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0),
@@ -266,7 +230,6 @@ class ProfileTabs extends SliverPersistentHeaderDelegate {
   final double size;
 
   ProfileTabs(this.size);
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -330,48 +293,11 @@ class ProfileHeader extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          /*Text(
-            "Department maybe ?",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15.0,
-            ),
-          )*/
         ],
       ),
     );
   }
 }
-
-////////////////BURALARA HER BİR POST LİSTESİ YAZILCAK
-/*class Post extends StatefulWidget { //TODO
-  const Post({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _PostState createState() => _PostState();
-}
-
-class _PostState extends State<Post> {
-  //late List<Product> products;
-  BuySellPostList? buyandsellPostsListObject;
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: buyandsellPostsListObject?.total,
-        itemBuilder: (context, index) {
-          return BuyPostContainer(
-              post: buyandsellPostsListObject!.items![index]);
-        },
-      ),
-    );
-  }
-}*/
-
 ////////////PROFİL FOTOSU BURDA
 class MyAvatar extends StatefulWidget {
   final double? size;

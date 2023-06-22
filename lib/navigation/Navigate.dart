@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metuverse/screens/auth_screens/login/view/LoginPage.dart';
 import 'package:metuverse/screens/home/screens/HomePage.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellPage.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
@@ -43,6 +44,14 @@ class MyNavigation extends Navigator{
         context,
         MaterialPageRoute(
             builder: (context) => SportPage(searchModeFlag: false, notificationMode: false,)
+        )
+    );
+  }
+  static navigateToLogin(context){
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoginPage()
         )
     );
   }

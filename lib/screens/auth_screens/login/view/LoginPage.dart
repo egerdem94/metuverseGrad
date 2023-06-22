@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/auth_screens/forgot_password/ForgotPasswordPage.dart';
+import 'package:metuverse/screens/auth_screens/forgot_password/view/ForgotPasswordSendVerification.dart';
 import 'package:metuverse/screens/auth_screens/widgets/AuthTextInput.dart';
 import 'package:metuverse/screens/auth_screens/login/controller/storage/backend/LoginBackend.dart';
 import 'package:metuverse/screens/auth_screens/login/model/LoginModelX.dart';

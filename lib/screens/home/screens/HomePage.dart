@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                     text: "",
                     onPressed: () {
                       Get.to(TransportationPage(
-                          customerOrDriver: 'c', searchModeFlag: false));
+                          customerOrDriver: 'd', searchModeFlag: false));
                     },
                     imageUrl: 'assets-images/carshare.PNG',
                   ),
