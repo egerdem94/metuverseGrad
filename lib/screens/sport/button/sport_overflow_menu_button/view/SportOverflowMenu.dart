@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/palette.dart';
 import 'package:get/get.dart';
-import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/BuySellEditPostPage.dart';
+import 'package:metuverse/palette.dart';
+import 'package:metuverse/screens/sport/button/sport_overflow_menu_button/controller/SportOverflowController.dart';
+import 'package:metuverse/screens/sport/create_edit_post/view/SportEditPostPage.dart';
+import 'package:metuverse/screens/sport/sport_main/controller/db/DatabaseHelperSport.dart';
 import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
-import 'package:metuverse/screens/whisper/button/whisper_overflow_menu_button/controller/WhisperOverflowController.dart';
-import 'package:metuverse/screens/whisper/whisper_create_edit_post/view/WhisperEditPostPage.dart';
-import 'package:metuverse/screens/whisper/whisper_main/controller/storage/database/DatabaseHelperWhisper.dart';
-import 'package:metuverse/screens/whisper/whisper_main/model/WhisperPost.dart';
 import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 
@@ -16,10 +14,10 @@ class SportOverflowMenu extends StatefulWidget {
     required this.post,
     required this.onDeletePressedArgument,
     required this.onUpdateArgument,
-    //required this.dbHelper,TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    required this.dbHelper,
   }) : super(key: key);
   final SportPost post;
-  //final DatabaseHelperWhisper dbHelper;
+  final DatabaseHelperSport dbHelper;
   final Function onDeletePressedArgument;
   final Function onUpdateArgument;
 
@@ -31,8 +29,8 @@ class _SportOverflowMenuState extends State<SportOverflowMenu> {
   bool isPostDeleted = false;
 
   Future<void> deletePost() async {
-    /*var isDeleted =
-    //await WhisperOverflowController().deletePressed(widget.post.postID,widget.dbHelper);
+    var isDeleted =
+    await SportOverflowController().deletePressed(widget.post.postID,widget.dbHelper);
     setState(() {
       isPostDeleted = isDeleted;
     });
@@ -49,7 +47,26 @@ class _SportOverflowMenuState extends State<SportOverflowMenu> {
           content: Text('Post could not be deleted'),
         ),
       );
-    }*/
+    }
+  }
+  Future<void> toggleStatus() async {
+    var isToggled = await SportOverflowController()
+        .selectAsFoundPressed(widget.post.postID);
+    if (isToggled) {
+      widget.onUpdateArgument();
+      if (widget.post.sportmateStatus == 2) {
+        widget.post.sportmateStatus = 1;
+      } else {
+        widget.post.sportmateStatus = 2;
+      }
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Post status could not be changed'),
+        ),
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -84,9 +101,11 @@ class _SportOverflowMenuState extends State<SportOverflowMenu> {
           );
         }
         else if (value == "Modify") {
-          /*Get.to(WhisperEditPostPage(
-            whisperPost: widget.post,
-          ));*/
+          Get.to(SportEditPostPage(sportPost: widget.post,
+          ));
+        }
+        else if (value == "Toggle Post Status"){
+          await toggleStatus();
         }
         else if (value == "Report") {
           String? reportReason;
@@ -156,7 +175,7 @@ class _SportOverflowMenuState extends State<SportOverflowMenu> {
                       TextButton(
                         onPressed: () async {
                           if (reportReason != null) {
-                            String? message = await WhisperOverflowController()
+                            String? message = await SportOverflowController()
                                 .reportPostRequest(
                                 widget.post.postID,
                                 GeneralUtil.getReportReasonIndex(
@@ -203,6 +222,10 @@ class _SportOverflowMenuState extends State<SportOverflowMenu> {
             PopupMenuItem<String>(
               value: 'Delete',
               child: Text('Delete'),
+            ),
+            PopupMenuItem<String>(
+              value: 'Toggle Post Status',
+              child: Text('Toggle Post Status'),
             ),
           ];
         } else {

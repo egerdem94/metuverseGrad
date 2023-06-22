@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/widget/BuyAndSellAppBar.dart';
 import 'package:metuverse/screens/new_buy_sell/create_edit_post/view/widget/BuySellCreateEditPostBody.dart';
 import 'package:metuverse/storage/models/Photo.dart';
-import 'package:metuverse/widgets/drawer.dart';
 
 class BuySellCreatePostPage extends StatefulWidget {
   final buyOrSell;

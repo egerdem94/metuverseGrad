@@ -23,7 +23,9 @@ class SportCreateEditPostBody extends StatefulWidget {
   late final GlobalKey<FormState> _formKey;
   final TextEditingController descriptionController;
   final String editOrCreate;
-  SportCreateEditPostBody({ required this.editOrCreate,required this.descriptionController,}) : super();
+  final String selectedSport;
+  final postID;
+  SportCreateEditPostBody({ required this.editOrCreate,required this.descriptionController, required this.selectedSport, this.postID,}) : super();
 
   @override
   _SportCreateEditPostBodyState createState() => _SportCreateEditPostBodyState();
@@ -34,12 +36,13 @@ class _SportCreateEditPostBodyState extends State<SportCreateEditPostBody> {
   void initState() {
     super.initState();
     widget._formKey = GlobalKey<FormState>();
+    _selectedSport = widget.selectedSport;
   }
   bool isButtonClicked = false; //to prevent multiple clicks
   bool isResponseReceived = false;
   GeneralResponse? generalResponseObject;
   var generalResponseCreatePost;
-  var _selectedSport = "Football";
+  late String _selectedSport;
   Future _sendPostToBackend() async {
     var url;
     if(widget.editOrCreate == 'c'){
@@ -52,6 +55,8 @@ class _SportCreateEditPostBodyState extends State<SportCreateEditPostBody> {
 
     int i = 0;
     request.fields['token'] = User.privateToken;
+    if(widget.editOrCreate == 'e')
+      request.fields['postID'] = widget.postID;
     request.fields['sportID'] = (SportTypes.getIndexOfSportType(_selectedSport) +1).toString();
     request.fields['eventDate'] = "TODO";
     request.fields['totalPerson'] = "4"; //TODO change
@@ -166,7 +171,7 @@ class _SportCreateEditPostBodyState extends State<SportCreateEditPostBody> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('Post'), // <-- Text
+                                Text(widget.editOrCreate == 'c'?'Post':"Update"), // <-- Text
                                 SizedBox(
                                   width: 5,
                                 ),

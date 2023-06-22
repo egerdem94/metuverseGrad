@@ -11,28 +11,32 @@ class FavoriteButton extends StatefulWidget {
   _FavoriteButtonState createState() => _FavoriteButtonState();
 }
 class _FavoriteButtonState extends State<FavoriteButton> {
-  late bool isButtonClicked;
+  late bool isFavorited;
+  bool isApiCallOnProgress = false;
   FavoriteButtonController favoriteButtonController = FavoriteButtonController();
   @override
   void initState() {
     super.initState();
     favoriteButtonController.init();
-    isButtonClicked = widget.post.isFavorite!;
+    isFavorited = widget.post.isFavorite!;
   }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () async {
-        // Perform the API call here
-        bool status = await favoriteButtonController.onFavoriteButtonPressed(widget.post);
-        setState(() {
+        if(!isApiCallOnProgress){
+          isApiCallOnProgress = true;
+          bool status = await favoriteButtonController.onFavoriteButtonPressed(widget.post);
+          setState(() {
+            isFavorited = status;
+          });
+          isApiCallOnProgress = false;
+        }
 
-          isButtonClicked = status;
-        });
       },
-      icon: Icon(isButtonClicked == true? Icons.favorite:Icons.favorite_border),
-      color: isButtonClicked ? Colors.red : Colors.blue,
+      icon: Icon(isFavorited == true? Icons.favorite:Icons.favorite_border),
+      color: isFavorited ? Colors.red : Colors.blue,
     );
   }
 }

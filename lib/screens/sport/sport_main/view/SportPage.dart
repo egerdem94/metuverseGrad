@@ -9,7 +9,7 @@ import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 import 'package:metuverse/widgets/drawer.dart';
 
-import '../../create_edit_post/view/SportCreatePost.dart';
+import '../../create_edit_post/view/SportCreatePostPage.dart';
 
 class SportPage extends StatefulWidget {
   final searchModeFlag;
@@ -154,6 +154,11 @@ class _SportPageState extends State<SportPage> {
           onDeletePressedArgument: () {
             setState(() {
               sportPostHandler.sportPostList.posts!.removeAt(index);
+            });
+          }, dbHelper: sportPostHandler.dbHelper,
+          onUpdateArgument:(){
+            setState(() {
+              //rebuild widget
             });
           },
           //onlineOrOfflineImage: widget.searchModeFlag ? 'online' : 'offline', // onlineOrOffline value here
