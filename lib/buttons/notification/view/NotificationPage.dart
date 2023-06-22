@@ -4,6 +4,9 @@ import 'package:metuverse/buttons/notification/controller/NotificationController
 import 'package:metuverse/buttons/notification/model/MyNotification.dart';
 import 'package:metuverse/buttons/notification/view/ReportPage.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellNotificationPage.dart';
+import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationNotificationPage.dart';
+import 'package:metuverse/screens/sport/sport_main/view/SportNotificationPage.dart';
+import 'package:metuverse/screens/whisper/whisper_main/view/WhisperNotificationPage.dart';
 import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
 
@@ -73,14 +76,19 @@ class _NotificationPageState extends State<NotificationPage> {
             description: notification?.description ?? '',
             pageID: 1,
             onTap: () {
-              if(notification.pageID == 201 || notification.pageID == 202){
+              if(notification.pageID == 1){
+                Get.to(WhisperNotificationPage(notificationID: notification.postID!.toString()));
+              }
+              else if(notification.pageID == 201 || notification.pageID == 202){
                 var buyOrSell = notification.pageID == 201?'s':'b';
-                /*Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!,
-                        )));*/
                 Get.to(BuySellNotificationPage(buyOrSell: buyOrSell, postID: notification.postID!));
+              }
+              else if(notification.pageID == 301 || notification.pageID == 302){
+                var customerOrDriver = notification.pageID == 301?'c':'d';
+                Get.to(TransportationNotificationPage(customerOrDriver: customerOrDriver, postID: notification.postID!));
+              }
+              else if(notification.pageID == 4){
+                Get.to(SportNotificationPage(notificationPostID: notification.postID!.toString(),));
               }
             },
           );

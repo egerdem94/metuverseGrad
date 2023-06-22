@@ -20,16 +20,20 @@ class SportPostHandler extends PostHandler{
   }
   Future<bool> handlePostList(firstTime, notificationModeFlag,notificationID) async {
     PostsToDisplay? postsToDisplay;
+    List<String> postsToBeAsked;
     if (firstTime) {
       sportPostList = SportPostList.defaults();
     }
-    postsToDisplay = await backendHelper.requestPostsToDisplay(
-        getLastPostID(sportPostList, firstTime)
-    );
-    List<String> postsToBeAsked =
-    await preparePostToRequestString(postsToDisplay,dbHelper);
     if(notificationModeFlag){
-      postsToBeAsked.insert(0, notificationID);
+      postsToBeAsked = ["",""];
+      postsToBeAsked[0] = ',' + notificationID.toString();
+    }
+    else{
+      postsToDisplay = await backendHelper.requestPostsToDisplay(
+          getLastPostID(sportPostList, firstTime)
+      );
+      postsToBeAsked =
+      await preparePostToRequestString(postsToDisplay,dbHelper);
     }
     return await handlePostListHelper(postsToBeAsked);
   }

@@ -1,4 +1,4 @@
-/*
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -12,6 +12,7 @@ import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/create_post/DescriptionInputBox.dart';
 
+/*
 class TransportationCreatePostBody extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   final Function createProduct;
@@ -577,7 +578,9 @@ class PersonTextFormField extends StatelessWidget {
       keyboardType: TextInputType.number,
     );
   }
-}*/
+}
+*/
+ */
 /*
   Future _sendPostToBackend2() async {
     var url = "http://www.birikikoli.com/mv_services/postPage/transportation/createPost.php";

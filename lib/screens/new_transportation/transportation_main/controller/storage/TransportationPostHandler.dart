@@ -84,7 +84,7 @@ class TransportationPostHandler {
     return [postsToBeAskedBackendIDList, postsToBeAskedLocalDB];
   }
 
-  Future<bool> handlePostList(customerOrDriver, firstTime) async {
+  /*Future<bool> handlePostList(customerOrDriver, firstTime) async {
     PostsToDisplay? postsToDisplay;
     if (firstTime) {
       customerPostList = TransportationPostList.defaults();
@@ -148,9 +148,66 @@ class TransportationPostHandler {
           'Error in TransportationPostHandler.dart Unexpected customerOrDriver value');
       return false;
     }
+  }*/
+  Future<bool> handlePostList(customerOrDriver, firstTime, notificationModeFlag, notificationID) async {
+    PostsToDisplay? postsToDisplay;
+    List<String> postsToBeAsked;
+    if (firstTime) {
+      customerPostList = TransportationPostList.defaults();
+      driverPostList = TransportationPostList.defaults();
+    }
+    if(notificationModeFlag){
+      postsToBeAsked = ["",""];
+      postsToBeAsked[0] = ',' + notificationID.toString();
+    }
+    else{
+      postsToDisplay = await backendHelper.requestPostsToDisplay(
+          customerOrDriver, getLastPostID(customerOrDriver, firstTime));
+      postsToBeAsked = await preparePostToRequestString(postsToDisplay);
+    }
+    return await handlePostListHelper(postsToBeAsked, customerOrDriver);
   }
 
-  TransportationPostList? getTransportationPostList(customerOrDriver) {
+  Future<bool> handlePostListHelper(List<String> postsToBeAsked, String customerOrDriver) async {
+    TransportationPostList? tempPostList = (await backendHelper.getPostsFromBackend(postsToBeAsked[0])) as TransportationPostList?;
+    TransportationPostList? postList = customerOrDriver == 'c' ? customerPostList : driverPostList;
+
+    if (tempPostList != null) {
+      postList.addNewPosts(tempPostList);
+      tempPostList.posts!.forEach((element) async {
+        final id = await dbHelper.insertNewTransportationPost(element);
+      });
+    }
+
+    TransportationPostList? tempPostList2 = (await dbHelper.getPostsFromLocalDB(convertIdList(postsToBeAsked[1]))) as TransportationPostList?;
+    if (tempPostList2 != null) {
+      postList.addNewPosts(tempPostList2);
+    }
+
+    if (postList.isEmpty()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  /*Future<bool> handleNotificationPost(customerOrDriver, firstTime, notificationModeFlag,notificationID) async {
+    PostsToDisplay? postsToDisplay;
+    List<String> postsToBeAsked;
+    if (firstTime) {
+      driverPostList = TransportationPostList.defaults();
+      customerPostList = TransportationPostList.defaults();
+    }
+    postsToBeAsked = ["",""];
+    postsToBeAsked[0] = ',' + notificationID.toString();
+
+
+  }*/
+
+
+
+    TransportationPostList? getTransportationPostList(customerOrDriver) {
     if (customerOrDriver == 'c') {
       return customerPostList;
     } else if (customerOrDriver == 'd') {
