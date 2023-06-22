@@ -11,7 +11,8 @@ import 'package:metuverse/widgets/TopLeftCommercialPost.dart';
 class TransportationDriverContainer extends StatefulWidget {
   final TransportationPost post;
   final Function onDeletePressedArgument;
-  TransportationDriverContainer({required this.post, required this.onDeletePressedArgument});
+  final Function onUpdateArgument;
+  TransportationDriverContainer({required this.post, required this.onDeletePressedArgument, required this.onUpdateArgument});
 
   @override
   _TransportationDriverContainerState createState() =>
@@ -19,21 +20,18 @@ class TransportationDriverContainer extends StatefulWidget {
 }
 class _TransportationDriverContainerState
     extends State<TransportationDriverContainer> {
-  late Color color;
-  late int totalSeats;
-  late int seatsTaken;
+ /* late Color color;
+
   @override
   void initState() {
     super.initState();
-    totalSeats = widget.post.totalPerson!;
-    seatsTaken = widget.post.availablePerson!;
-    if(seatsTaken == 0)
+    if(widget.post.availablePerson! == 0)
       color = Colors.green;
-    else if(seatsTaken < totalSeats)
+    else if(widget.post.availablePerson! < widget.post.totalPerson!)
       color = Colors.yellow;
     else
       color = Colors.red;
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +50,7 @@ class _TransportationDriverContainerState
                   style: kwhiteText),
               SizedBox(width: 8.0),
               TransportationOverflowMenu(post: widget.post,
-                onDeletePressedArgument: widget.onDeletePressedArgument,
+                onDeletePressedArgument: widget.onDeletePressedArgument, onUpdateArgument: widget.onUpdateArgument,
               ),
             ],
           ),
@@ -65,10 +63,10 @@ class _TransportationDriverContainerState
             children: [
               FavoriteButton(post: widget.post,),
               Spacer(),
-              Icon(MdiIcons.seatPassenger, color:color,),
+              Icon(MdiIcons.seatPassenger, color:widget.post.availablePerson! == widget.post.totalPerson ? Colors.red : (widget.post.availablePerson! == 0 ? Colors.green : Colors.yellow) ,),
               Text(
-                "$seatsTaken/$totalSeats",
-                style: TextStyle(color:color)
+                "${widget.post.availablePerson!}/${widget.post.totalPerson!}",
+                style: TextStyle(color:widget.post.availablePerson! == widget.post.totalPerson ? Colors.red : (widget.post.availablePerson! == 0 ? Colors.green : Colors.yellow))
               ),
               SizedBox(width: 8.0,),
               Chip(

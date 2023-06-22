@@ -31,7 +31,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           isButtonClicked = status;
         });
       },
-      icon: Icon(Icons.add_circle_outline),
+      icon: Icon(isButtonClicked == true? Icons.favorite:Icons.favorite_border),
       color: isButtonClicked ? Colors.red : Colors.blue,
     );
   }

@@ -53,11 +53,12 @@ class _TransportationPageState extends State<TransportationPage> {
         });
       } else {
         transportationPostHandler
-            .handlePostList(widget.customerOrDriver, true).then((_) {
-              setState(() {
-                transportationPostList = transportationPostHandler
-                    .getTransportationPostList(widget.customerOrDriver);
-              });
+            .handlePostList(widget.customerOrDriver, true)
+            .then((_) {
+          setState(() {
+            transportationPostList = transportationPostHandler
+                .getTransportationPostList(widget.customerOrDriver);
+          });
         });
       }
     });
@@ -122,6 +123,11 @@ class _TransportationPageState extends State<TransportationPage> {
                                       .removeAt(index);
                                 });
                               },
+                              onUpdateArgument: () {
+                                setState(() {
+                                  //rebuild widget
+                                });
+                              },
                             );
                           },
                         )
@@ -135,6 +141,11 @@ class _TransportationPageState extends State<TransportationPage> {
                                 setState(() {
                                   transportationPostList!.posts!
                                       .removeAt(index);
+                                });
+                              },
+                              onUpdateArgument: () {
+                                setState(() {
+                                  //rebuild widget
                                 });
                               },
                             );
@@ -160,14 +171,17 @@ class _TransportationPageState extends State<TransportationPage> {
           ),
         ],
       ),
-      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 3,),
+      bottomNavigationBar: GeneralBottomNavigation(
+        pageIndex: 3,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(TransportationCreatePostPage());
         },
-        shape: CircleBorder(), // set the shape to a circle
-        backgroundColor: Colors
-            .blue, // make the background transparent so that the border is visible
+        shape: CircleBorder(),
+        // set the shape to a circle
+        backgroundColor: Colors.blue,
+        // make the background transparent so that the border is visible
         child: Icon(
           Icons.add,
           color: Colors.white,

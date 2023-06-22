@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metuverse/screens/new_buy_sell/button/buysell_overflow_menu_button/controller/BuySellOverflowController.dart';
 import 'package:metuverse/palette.dart';
-import 'package:metuverse/screens/new_buy_sell/buy_sell_main/model/BuySellPost.dart';
+import 'package:metuverse/screens/new_transportation/button/transportation_overflow_menu_button/controller/TransportationOverflowController.dart';
 import 'package:metuverse/screens/new_transportation/create_edit_post/view/TransportationEditPostPage.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
@@ -12,10 +11,13 @@ class TransportationOverflowMenu extends StatefulWidget {
     Key? key,
     required this.post,
     required this.onDeletePressedArgument,
+    required this.onUpdateArgument,
+
   }) : super(key: key);
 
   final TransportationPost post;
   final Function onDeletePressedArgument;
+  final Function onUpdateArgument;
   @override
   _TransportationOverflowMenuState createState() => _TransportationOverflowMenuState();
 }
@@ -24,7 +26,7 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
   bool isPostDeleted = false;
 
   Future<void> deletePost() async {
-    var isDeleted = await BuySellOverflowController().deletePressed(widget.post.postID);
+    var isDeleted = await TransportationOverflowController().deletePressed(widget.post.postID);
     setState(() {
       isPostDeleted = isDeleted;
     });
@@ -44,11 +46,23 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
     }
   }
   Future<void> toggleStatus() async{
-    if(widget.post is BuySellPost){
-      var isToggled = await BuySellOverflowController().selectAsFoundPressed(widget.post.postID);
+    var isToggled = await TransportationOverflowController().selectAsFoundPressed(widget.post.postID);
+    if (isToggled) {
+      widget.onUpdateArgument();
+      if (widget.post.transportationStatus == 2) {
+        widget.post.transportationStatus = 1;
+        widget.post.availablePerson = 0;
+      } else {
+        widget.post.transportationStatus = 2;
+        widget.post.availablePerson = widget.post.totalPerson;
+      }
     }
-    else{
-      //snack bar showing unable to change status
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error occurred while toggling!'),
+        ),
+      );
     }
   }
 

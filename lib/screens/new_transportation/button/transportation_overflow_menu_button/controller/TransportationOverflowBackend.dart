@@ -21,7 +21,7 @@ class TransportationOverflowBackend{
     return false;
   }
   Future<bool> selectAsFoundRequest(postID) async{
-    String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/buyandsell/buyandsell_switchProductStatus.php';
+    String serviceAddress = 'http://www.birikikoli.com/mv_services/postPage/transportation/transportation_switchTransportationStatus.php';
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.privateToken,

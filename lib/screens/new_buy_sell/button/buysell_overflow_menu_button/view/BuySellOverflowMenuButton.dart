@@ -60,6 +60,13 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
         widget.post.productStatus = 2;
       }
     }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Post status could not be changed'),
+        ),
+      );
+    }
   }
 
   @override

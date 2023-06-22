@@ -11,7 +11,8 @@ import 'package:metuverse/buttons/comment_button/CommentButtonWidget.dart';
 class TransportationCustomerContainer extends StatelessWidget {
   final TransportationPost post;
   final Function onDeletePressedArgument;
-  TransportationCustomerContainer({required this.post, required this.onDeletePressedArgument});
+  final Function onUpdateArgument;
+  TransportationCustomerContainer({required this.post, required this.onDeletePressedArgument, required this.onUpdateArgument});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class TransportationCustomerContainer extends StatelessWidget {
             children: [
               TopLeftCommercialPost(post: post),
               Spacer(),
-              TransportationOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument,),
+              TransportationOverflowMenu(post: post, onDeletePressedArgument: onDeletePressedArgument, onUpdateArgument: onUpdateArgument,),
             ],
           ),
           SizedBox(height: 8.0),
