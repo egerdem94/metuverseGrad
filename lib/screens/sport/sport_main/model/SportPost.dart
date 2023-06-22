@@ -4,7 +4,7 @@ import 'package:metuverse/storage/models/BasePost.dart';
 
 class SportPostList extends BasePostList<SportPost>{
   String? message;
-
+  bool nothingFound = false;
   SportPostList.fromJson(Map<String, dynamic> json)
       : super.defaults() {
     if (json['items'] != null) {
@@ -16,7 +16,10 @@ class SportPostList extends BasePostList<SportPost>{
     this.total = json['total'];
     this.message = json['message'];
   }
-
+  SportPostList.nothingFound()
+      : super.defaults() {
+    this.nothingFound = true;
+  }
   SportPostList.defaults(): super.defaults() {
     this.posts = [];
     this.total = 0;

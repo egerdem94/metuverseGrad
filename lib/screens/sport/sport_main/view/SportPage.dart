@@ -13,6 +13,7 @@ class SportPage extends StatefulWidget {
   final searchModeFlag;
   final notificationMode;
   final notificationPostID;
+  final selectedSportID;
   final searchKey;
 
   const SportPage({
@@ -21,6 +22,7 @@ class SportPage extends StatefulWidget {
     this.searchKey,
     required this.notificationMode,
     this.notificationPostID,
+    this.selectedSportID,
   }) : super(key: key);
 
   @override
@@ -40,7 +42,11 @@ class _SportPageState extends State<SportPage> {
     sportPostHandler.init().then((_) {
       if (mounted) { // Added mounted check
         if (widget.searchModeFlag != null && widget.searchModeFlag) {
-          // Handle search posts here
+          sportPostHandler.handleSearchPosts(widget.searchKey, widget.selectedSportID).then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
+          });
         } else {
           sportPostHandler
               .handlePostList(

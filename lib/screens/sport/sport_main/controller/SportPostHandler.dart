@@ -56,4 +56,11 @@ class SportPostHandler extends PostHandler{
       return true;
     }
   }
+  Future handleSearchPosts(
+      searchKey, filteredSportID) async {
+    SportPostList? tempSearchedPostList =
+    sportPostList = await backendHelper.requestSearchPosts(
+        searchKey, filteredSportID);
+
+  }
 }

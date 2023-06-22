@@ -30,27 +30,25 @@ class BackendHelperSport implements IBackendHelperPostPage {
     return temp;
   }
 
-/*  Future<BuySellPostList?> requestSearchPosts(
-      searchKey, filteredProductPrice, filteredCurrency, buyOrSell) async {
+  Future<SportPostList> requestSearchPosts(
+      searchKey, filteredSportID) async {
     String serviceAddress =
-        "http://www.birikikoli.com/mv_services/postPage/buyandsell/searchandfilter_allList.php";
+        "http://www.birikikoli.com/mv_services/postPage/sport/sport_searchandfilter_allList.php";
     Uri serviceUri = Uri.parse(serviceAddress);
     final response = await http.post(serviceUri, body: {
       "token": User.privateToken,
-      "buyerOrSeller": buyOrSell,
       "searchKey": searchKey,
-      "filteredProductPrice": filteredProductPrice,
-      "filteredCurrency": filteredCurrency,
+      "filteredSportID": filteredSportID,
     });
     String stringData = response.body;
     Map<String, dynamic> jsonObject = jsonDecode(stringData);
     //if no post exists in jsonObject, return BuySellPostList.nothingFound()
     if (jsonObject['items'] == null) {
-      return BuySellPostList.nothingFound();
+      return SportPostList.nothingFound();
     }
-    BuySellPostList buySellPostList = BuySellPostList.fromJson(jsonObject);
-    return buySellPostList;
-  }*/
+    SportPostList sportPostList = SportPostList.fromJson(jsonObject);
+    return sportPostList;
+  }
 
   Future<PostsToDisplay?> requestPostsToDisplay(lastPostID) async {
     String serviceAddress =

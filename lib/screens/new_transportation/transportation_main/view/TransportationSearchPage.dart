@@ -5,7 +5,6 @@ import 'package:metuverse/screens/new_transportation/transportation_main/model/T
 import 'package:metuverse/screens/new_transportation/transportation_main/view/TransportationPage.dart';
 import 'package:metuverse/screens/new_transportation/transportation_main/view/widget/TransportationBottomNavigationBar.dart';
 import 'package:metuverse/widgets/app_bar.dart';
-import 'package:metuverse/widgets/drawer.dart';
 
 class TransportationSearchPage extends StatefulWidget {
   final customerOrDriver;

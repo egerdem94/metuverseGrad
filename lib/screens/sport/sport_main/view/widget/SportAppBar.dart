@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
 import 'package:metuverse/screens/new_buy_sell/buy_sell_main/view/BuySellSearchPage.dart';
 import 'package:metuverse/buttons/friends/view/FriendsButton.dart';
+import 'package:metuverse/screens/sport/sport_main/view/SportSearchPage.dart';
 
 class SportAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -35,9 +36,7 @@ class SportAppBar extends StatelessWidget
           IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
-/*              Get.to((BuySellSearchPage(
-                buyOrSell: buyOrSell,
-              )));*/
+              Get.to((SportSearchPage()));
             },
           ),
           NotificationButton(),
