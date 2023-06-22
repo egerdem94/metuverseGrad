@@ -9,7 +9,6 @@ import 'package:metuverse/widgets/GenrealUtil.dart';
 import 'package:metuverse/widgets/LoadingIndicator.dart';
 import 'package:metuverse/widgets/NothingToDisplay.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/drawer.dart';
 
 import '../../create_edit_post/view/BuySellCreatePostPage.dart';
 
@@ -44,29 +43,38 @@ class _BuySellPageState extends State<BuySellPage> {
     _scrollController.addListener(_scrollListener);
     buySellPostHandler = BuySellPostHandler();
     buySellPostHandler.init().then((_) {
-      if (widget.searchModeFlag) {
-        buySellPostHandler
-            .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
-                widget.filteredCurrency, widget.buyOrSell)
-            .then((_) {
-          setState(() {});
-        });
-      } else {
-        buySellPostHandler
-            .handlePostList(widget.buyOrSell, true,false,0)
-            .then((_) {
-          setState(() {});
-        });
-      }
-      // Start the delayed future to periodically check the condition
-      if (widget.searchModeFlag) {
-        Future.delayed(Duration(milliseconds: 1000), () {
-          setState(() {
-            _isLoading = false;
+      if (mounted) { // Added mounted check
+        if (widget.searchModeFlag) {
+          buySellPostHandler
+              .handleSearchPosts(widget.searchKey, widget.filteredProductPrice,
+              widget.filteredCurrency, widget.buyOrSell)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
           });
-        });
-      } else {
-        _startDelayedFuture();
+        } else {
+          buySellPostHandler
+              .handlePostList(widget.buyOrSell, true,false,0)
+              .then((_) {
+            if (mounted) { // Added mounted check
+              setState(() {});
+            }
+          });
+        }
+
+        // Start the delayed future to periodically check the condition
+        if (widget.searchModeFlag) {
+          Future.delayed(Duration(milliseconds: 1000), () {
+            if (mounted) { // Added mounted check
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          });
+        } else {
+          _startDelayedFuture();
+        }
       }
     });
   }
@@ -78,9 +86,11 @@ class _BuySellPageState extends State<BuySellPage> {
       if (!buySellPostHandler.ready) {
         _startDelayedFuture(); // Call the method again to continue checking
       } else {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) { // Added mounted check
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     });
   }
@@ -88,16 +98,20 @@ class _BuySellPageState extends State<BuySellPage> {
   void _scrollListener() {
     if (!widget.searchModeFlag) {
       if (_scrollController.offset >=
-              _scrollController.position.maxScrollExtent &&
+          _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange) {
         // Load more data
-        setState(() {
-          buySellPostHandler
-              .handlePostList(widget.buyOrSell, false,false,0)
-              .then((_) {
-            setState(() {});
+        if (mounted) { // Added mounted check
+          setState(() {
+            buySellPostHandler
+                .handlePostList(widget.buyOrSell, false,false,0)
+                .then((_) {
+              if (mounted) { // Added mounted check
+                setState(() {});
+              }
+            });
           });
-        });
+        }
       }
     }
   }
@@ -121,12 +135,12 @@ class _BuySellPageState extends State<BuySellPage> {
               child: _isLoading
                   ? LoadingIndicator()
                   : RefreshIndicator(
-                      onRefresh: _handleRefresh,
-                      child: !buySellPostHandler.sellPostList.isEmpty() ||
-                              !buySellPostHandler.buyPostList.isEmpty()
-                          ? buildPostListView()
-                          : NothingToDisplay(),
-                    ),
+                onRefresh: _handleRefresh,
+                child: !buySellPostHandler.sellPostList.isEmpty() ||
+                    !buySellPostHandler.buyPostList.isEmpty()
+                    ? buildPostListView()
+                    : NothingToDisplay(),
+              ),
             ),
           )
         ],
@@ -161,42 +175,53 @@ class _BuySellPageState extends State<BuySellPage> {
       itemBuilder: (context, index) {
         return widget.buyOrSell == 's'
             ? SellPostContainer(
-                post: buySellPostHandler.sellPostList.posts![index],
-                onDeletePressedArgument: () {
-                  setState(() {
-                    buySellPostHandler.sellPostList.posts!.removeAt(index);
-                  });
-                },
-                onToggleArgument:(){
-                  setState(() {
-                    //rebuild widget
-                  });
-                },
-                onlineOrOfflineImage: widget.searchModeFlag
-                    ? 'online'
-                    : 'offline', // onlineOrOffline value here
-              )
+          post: buySellPostHandler.sellPostList.posts![index],
+          onDeletePressedArgument: () {
+            if (mounted) { // Added mounted check
+              setState(() {
+                buySellPostHandler.sellPostList.posts!.removeAt(index);
+              });
+            }
+          },
+          onToggleArgument:(){
+            if (mounted) { // Added mounted check
+              setState(() {
+                //rebuild widget
+              });
+            }
+          },
+          onlineOrOfflineImage: widget.searchModeFlag
+              ? 'online'
+              : 'offline', // onlineOrOffline value here
+        )
             : BuyPostContainer(
-                post: buySellPostHandler.buyPostList.posts![index],
-                onDeletePressedArgument: () {
-                  setState(() {
-                    buySellPostHandler.buyPostList.posts!.removeAt(index);
-                  });
-                },
-                onlineOrOfflineImage: widget.searchModeFlag
-                    ? 'online'
-                    : 'offline', onUpdateArgument:(){
-                        setState(() {
-                          //rebuild widget
-                        });
-                    }, // onlineOrOffline value here
-              );
+          post: buySellPostHandler.buyPostList.posts![index],
+          onDeletePressedArgument: () {
+            if (mounted) { // Added mounted check
+              setState(() {
+                buySellPostHandler.buyPostList.posts!.removeAt(index);
+              });
+            }
+          },
+          onlineOrOfflineImage: widget.searchModeFlag
+              ? 'online'
+              : 'offline', onUpdateArgument:(){
+          if (mounted) { // Added mounted check
+            setState(() {
+              //rebuild widget
+            });
+          }
+        }, // onlineOrOffline value here
+        );
       },
     );
   }
+
   Future<void> _handleRefresh() async {
     Future.delayed(Duration(seconds: 3)).then((_) {
-      setState(() {});
+      if (mounted) { // Added mounted check
+        setState(() {});
+      }
     });
   }
 }
