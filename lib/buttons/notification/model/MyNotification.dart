@@ -2,7 +2,7 @@ class NotificationList {
   List<MyNotification>? items;
   int? total;
   String? message;
-
+  NotificationList.empty();
   NotificationList({this.items, this.total, this.message});
 
   NotificationList.fromJson(Map<String, dynamic> json) {

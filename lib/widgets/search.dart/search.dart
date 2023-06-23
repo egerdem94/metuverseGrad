@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/widgets/app_bar.dart';
-import 'package:metuverse/widgets/drawer.dart';
 import '../GeneralBottomNavigation.dart';
-/*
-class SearchPage extends StatefulWidget {
+class SearchPersonPage extends StatefulWidget {
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _SearchPersonPageState createState() => _SearchPersonPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPersonPageState extends State<SearchPersonPage> {
   final _searchController = TextEditingController();
 
   void _submitSearch() {
@@ -40,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       ),
-      bottomNavigationBar: GeneralBottomNavigation(),
+      bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,),
     );
   }
-}*/
+}

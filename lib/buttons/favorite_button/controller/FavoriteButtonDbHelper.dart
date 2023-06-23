@@ -7,7 +7,9 @@ import 'package:metuverse/screens/sport/sport_main/model/SportPost.dart';
 import 'package:metuverse/screens/whisper/whisper_main/controller/storage/database/WhisperPostTableValues.dart';
 import 'package:metuverse/screens/whisper/whisper_main/model/WhisperPost.dart';
 import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
+import 'package:metuverse/storage/database/database_helper_post/BasePostTableValues.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
+import 'package:sqflite/sqflite.dart';
 
 class FavoriteButtonDbHelper extends DatabaseHelperParent{
   Future<bool> toggleFavorite(BasePost post) async {
@@ -61,38 +63,22 @@ class FavoriteButtonDbHelper extends DatabaseHelperParent{
     }
     return isSuccess;
   }
+  Future<bool> isPostExistInDB(int postID) async {
+    int count = await db.transaction<int>((txn) async {
+      List<Map<String, dynamic>> result = await txn.query(
+        BasePostTableValues.table,
+        columns: ['COUNT(*) as count'],
+        where: '${BasePostTableValues.columnPostID} = ?',
+        whereArgs: [postID],
+      );
 
-}
-/*
-else if(post is NewTransportationPost) {
-      result = await db.transaction(
+      return Sqflite.firstIntValue(result) ?? 0;
+    });
+    if (count == 1) {
+      return true;
     }
- */
-/*
-Future<int> insertOrUpdate(Map<String, dynamic> row) async {
-  int postID = row['${SellBuyTableValues.columnPostID}'];
-  int count = await db.transaction<int>((txn) async {
-    List<Map<String, dynamic>> result = await txn.query(
-      SellBuyTableValues.table,
-      columns: ['COUNT(*) as count'],
-      where: '${SellBuyTableValues.columnPostID} = ?',
-      whereArgs: [postID],
-    );
-
-    return Sqflite.firstIntValue(result);
-  });
-  if (count == 0) {
-    await baseInsertPost(postID);
+    else {
+      return false;
+    }
   }
-  return await db.transaction<int>((txn) async {
-    if (count == 0) {
-      debugPrint('inserted row id: $postID');
-      return await txn.insert(SellBuyTableValues.table, row);
-    } else {
-      debugPrint('updated row id: $postID');
-      return await txn.update(SellBuyTableValues.table, row,
-          where: '${SellBuyTableValues.columnPostID} = ?',
-          whereArgs: [postID]);
-    }
-  });
-}*/
+}

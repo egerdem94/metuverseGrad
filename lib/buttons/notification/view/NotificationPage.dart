@@ -9,6 +9,7 @@ import 'package:metuverse/screens/sport/sport_main/view/SportNotificationPage.da
 import 'package:metuverse/screens/whisper/whisper_main/view/WhisperNotificationPage.dart';
 import 'package:metuverse/user/User.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
+import 'package:metuverse/widgets/LoadingIndicator.dart';
 
 import '../../friends/view/FriendsButton.dart';
 
@@ -65,7 +66,9 @@ class _NotificationPageState extends State<NotificationPage> {
           FriendsButton(),
         ],
       ),
-      body: ListView.builder(
+      body: notifications == null
+          ? LoadingIndicator() // Display loading indicator when reports are null
+          : ListView.builder(
         itemCount: notifications?.length ?? 0,
         itemBuilder: (context, index) {
           final notification = notifications![index];

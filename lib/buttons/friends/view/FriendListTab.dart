@@ -6,6 +6,7 @@ import 'package:metuverse/buttons/friends/model/FriendList.dart';
 import 'package:metuverse/buttons/friends/view/FriendsPage.dart';
 import 'package:metuverse/buttons/whatsapp/view/WhatsappButton2.dart';
 import 'package:metuverse/screens/profile/screens/OtherUserProfilePage.dart';
+import 'package:metuverse/widgets/LoadingIndicator.dart';
 
 class FriendListTab extends StatefulWidget {
   FriendListTab();
@@ -36,7 +37,9 @@ class _FriendListTabState extends State<FriendListTab> {
       );
     }
 
-    return ListView.builder(
+    return friendList == null
+        ? LoadingIndicator() // Display loading indicator when reports are null
+        : ListView.builder(
       itemCount: friendList!.items!.length,
       itemBuilder: (context, index) {
         Friend friend = friendList!.items![index];
@@ -68,8 +71,7 @@ class _FriendListTabState extends State<FriendListTab> {
           ),
           onTap: () {
             Get.to(OtherUserProfilePage(
-              userFullName: friend.fullName,
-              profilePicture: friend.profilePicture,
+              publicToken: friend.relatedUserPublicToken!,
             ));
           },
         );

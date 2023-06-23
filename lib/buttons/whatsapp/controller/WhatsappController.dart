@@ -77,4 +77,7 @@ class WhatsappController{
       );
     }
   }
+  Future phoneNumberProcedure3(BuildContext context, String phoneNumber) async {
+      launchWhatsApp(phoneNumber, 'Hey!');
+  }
 }

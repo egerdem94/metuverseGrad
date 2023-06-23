@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metuverse/buttons/friends/view/FriendListTab.dart';
 import 'package:metuverse/buttons/friends/view/IncomingMessageRequestsTab.dart';
 import 'package:metuverse/buttons/friends/view/OutgoingMessageRequestsTab.dart';
 import 'package:metuverse/buttons/notification/view/NotificationButton.dart';
 import 'package:metuverse/widgets/GeneralBottomNavigation.dart';
-import 'package:metuverse/widgets/drawer.dart';
+import 'package:metuverse/widgets/search.dart/search.dart';
 
 class FriendsPage extends StatefulWidget {
   @override
@@ -43,6 +44,12 @@ class _FriendsPageState extends State<FriendsPage>
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         centerTitle: true,
         actions: [
+          IconButton( // New Search Button
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Get.to(SearchPersonPage());
+            },
+          ),
           NotificationButton(),
         ],
 

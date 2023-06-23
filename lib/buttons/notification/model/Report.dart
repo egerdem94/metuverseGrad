@@ -4,7 +4,7 @@ class ReportList {
   String? message;
 
   ReportList({this.items, this.total, this.message});
-
+  ReportList.empty();
   ReportList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
       items = <Report>[];

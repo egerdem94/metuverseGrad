@@ -9,7 +9,6 @@ class ProfilePictureCircleAvatarWidget extends StatelessWidget {
     super.key,
     required this.post,
   });
-
   final BasePost post;
 
   @override
@@ -21,8 +20,7 @@ class ProfilePictureCircleAvatarWidget extends StatelessWidget {
         }
         else{
           Get.to(OtherUserProfilePage(
-            userFullName: post.fullName,
-            profilePicture: post.getProfilePicture(),
+            publicToken: post.publicToken!,
           ));
         }
       },
