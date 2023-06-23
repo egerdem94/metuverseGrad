@@ -18,8 +18,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  static double avatarMaximumRadius = 40.0;
-  static double avatarMinimumRadius = 15.0;
+  static double avatarMaximumRadius = 80.0;
+  static double avatarMinimumRadius = 60.0;
   double avatarRadius = avatarMaximumRadius;
   double expandedHeader = 130.0;
   double translate = -avatarMaximumRadius;
@@ -189,7 +189,7 @@ class ProfileTabController extends StatelessWidget {
                           : MyAvatar(
                               size: avatarMinimumRadius,
                             ),
-                      Padding(
+                      /*Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -221,7 +221,7 @@ class ProfileTabController extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
+                      )*/
                     ],
                   ),
                   ProfileHeader(),
@@ -299,21 +299,18 @@ class ProfileHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-            height: 10,
+            height: 10.0,
           ),
-          Text(
+          Center(
+            child: Text(
             User.fullName,
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold),
+           )
           ),
-          SizedBox(
-            height: 5.0,
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
+
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metuverse/storage/models/BasePostWithMedia.dart';
 import 'package:metuverse/widgets/photo_grids/FullScreenImageViewOffline.dart';
+import 'package:metuverse/widgets/photo_grids/FullScreenImageViewOnline.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOffline.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOnline.dart';
 
@@ -25,8 +26,8 @@ class PostMediasWidget extends StatelessWidget {
         onImageClicked: (index) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => FullScreenImageViewOffline(
-                photo: post.photoList.photos[index],
+              builder: (context) => FullScreenImageViewOnline(
+                imageUrl: post.mediaList![index],
               ),
             ),
           );

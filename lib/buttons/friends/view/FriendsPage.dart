@@ -43,7 +43,7 @@ class _FriendsPageState extends State<FriendsPage>
         ),
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         centerTitle: true,
-        actions: [
+        /*actions: [
           IconButton( // New Search Button
             icon: Icon(Icons.search),
             onPressed: () {
@@ -51,7 +51,7 @@ class _FriendsPageState extends State<FriendsPage>
             },
           ),
           NotificationButton(),
-        ],
+        ],*/
 
         bottom: TabBar(
           controller: _tabController,

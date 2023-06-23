@@ -3,7 +3,7 @@ import 'package:metuverse/storage/models/Photo.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOffline.dart';
 import 'package:metuverse/widgets/photo_grids/PhotoGridOnline.dart';
 
-class PhotoGridGeneral extends StatefulWidget {
+/*class PhotoGridGeneral extends StatefulWidget {
   final List<String> imageUrls;
   final PhotoList? photoList;
   final Function(int) onImageClicked;
@@ -29,4 +29,4 @@ class _PhotoGridGeneralState extends State<PhotoGridGeneral> {
         : PhotoGridOffline(
             photoList: widget.photoList, onImageClicked: widget.onImageClicked);
   }
-}
+}*/
