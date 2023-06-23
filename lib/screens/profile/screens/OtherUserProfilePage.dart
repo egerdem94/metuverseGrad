@@ -210,19 +210,19 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                                                   bool isSuccessful = await profileController.removeFriend(widget.publicToken);
                                                   if(isSuccessful){
                                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                      content: Text("You sent the friend request successfully."),
+                                                      content: Text("You removed friend successfully."),
                                                     ));
                                                     profileController.otherUserProfileModel!.isFriend =false;
                                                     setState(() {});
                                                   }
                                                   else{
                                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                      content: Text("You have already sent a friend request."),
+                                                      content: Text("Error occured romoving friend"),
                                                     ));
                                                   }
                                                   Navigator.of(context).pop(); // Close the dialog after the action
                                                 },
-                                                child: Text('Send Request'),
+                                                child: Text('Remove'),
                                               ),
                                             ],
                                           );

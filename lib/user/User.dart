@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:metuverse/storage/database/database_helper_parent/DatabaseHelperParent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
@@ -7,7 +8,7 @@ class User {
   static late String publicToken;
   static late String profilePicture;
   static late int userRoleID;
-
+  static DatabaseHelperParent dbHelper = DatabaseHelperParent();
   //static String userName = "userName";
 
   static Future<void> logout() async {
@@ -17,6 +18,8 @@ class User {
     profilePicture = '';
     userRoleID = -1;
     await (User.clearData());
+    await dbHelper.init();
+    await dbHelper.clearDatabase();
   }
 
   static void insertUserCredentialsToCache(String token, String publicToken,

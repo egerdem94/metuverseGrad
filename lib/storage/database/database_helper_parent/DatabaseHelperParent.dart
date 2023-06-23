@@ -131,13 +131,14 @@ class DatabaseHelperParent {
             )
         ''');
   }
+  Future<void> clearDatabase() async {
+    await db.delete(BasePostTableValues.table);
+    await db.delete(SellBuyTableValues.table);
+    await db.delete(WhisperPostTableValues.table);
+    await db.delete(DatabasePhotoTableValues.table);
+    await db.delete(TransportationPostTableValues.table);
+    await db.delete(SportTableValues.table);
+  }
 
-/*  Future createBasePostTable(Database db){
-    return db.execute('''
-          CREATE TABLE ${BasePostTableValues.table} (
-            ${BasePostTableValues.columnPostID} INTEGER UNSIGNED PRIMARY KEY
-          )
-          ''');
-  } */
   Future close() async => db.close();
 }

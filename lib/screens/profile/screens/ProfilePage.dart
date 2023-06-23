@@ -78,154 +78,176 @@ class _ProfilePageState extends State<ProfilePage> {
               }
               return false;
             },
-            child: DefaultTabController(
-              length: 8,
-              child: CustomScrollView(
-                physics: ClampingScrollPhysics(),
-                slivers: <Widget>[
-                  SliverAppBar(
-                    expandedHeight: expandedHeader,
-                    backgroundColor: Colors.grey,
-                    leading: Builder(
-                      builder: (BuildContext context) {
-                        return IconButton(
-                          icon: Icon(
-                            MdiIcons.logout,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            User.logout();
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                              return LoginPage();
-                            }), (r) {
-                              return false;
-                            });
-                          },
-                        );
-                      },
-                    ),
-                    title: Text(
-                      "Metuverse",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    centerTitle: true,
-                    actions: [
-                    ],
-                    pinned: true,
-                    elevation: 5.0,
-                    forceElevated: true,
-                    flexibleSpace: Container(
-                      decoration: BoxDecoration(
-                          color: isExpanded
-                              ? Colors.transparent
-                              : Color.fromARGB(255, 0, 0, 0),
-                          image: isExpanded
-                              ? DecorationImage(
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.bottomCenter,
-                                  image:AssetImage("assets-images/background.jpeg")
-                                )
-                              : null),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: isExpanded
-                            ? Transform(
-                                transform: Matrix4.identity()
-                                  ..translate(0.0, avatarMaximumRadius),
-                                child: MyAvatar(
-                                  size: avatarRadius,
-                                ),
-                              )
-                            : SizedBox.shrink(),
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              isExpanded
-                                  ? SizedBox(
-                                      height: avatarMinimumRadius * 2,
-                                    )
-                                  : MyAvatar(
-                                      size: avatarMinimumRadius,
-                                    ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10.0),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 10.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.lightBlue,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // handle button press
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5.0, horizontal: 6.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.lightBlue,
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Text(
-                                        "Edit Profile",
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          ProfileHeader(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: ProfileTabs(50.0),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        //return Post();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: ProfileTabController(expandedHeader: expandedHeader, isExpanded: isExpanded, avatarMaximumRadius: avatarMaximumRadius, avatarRadius: avatarRadius, avatarMinimumRadius: avatarMinimumRadius),
           ),
           bottomNavigationBar: GeneralBottomNavigation(pageIndex: 0,)),
     );
   }
 }
 
+class ProfileTabController extends StatelessWidget {
+  const ProfileTabController({
+    super.key,
+    required this.expandedHeader,
+    required this.isExpanded,
+    required this.avatarMaximumRadius,
+    required this.avatarRadius,
+    required this.avatarMinimumRadius,
+  });
+
+  final double expandedHeader;
+  final bool isExpanded;
+  final double avatarMaximumRadius;
+  final double avatarRadius;
+  final double avatarMinimumRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 8,
+      child: CustomScrollView(
+        physics: ClampingScrollPhysics(),
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: expandedHeader,
+            backgroundColor: Colors.grey,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: Icon(
+                    MdiIcons.logout,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    User.logout();
+                    Navigator.pushAndRemoveUntil(context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) {
+                      return LoginPage();
+                    }), (r) {
+                      return false;
+                    });
+                  },
+                );
+              },
+            ),
+            title: Text(
+              "Metuverse",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
+            actions: [
+            ],
+            pinned: true,
+            elevation: 5.0,
+            forceElevated: true,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  color: isExpanded
+                      ? Colors.transparent
+                      : Color.fromARGB(255, 0, 0, 0),
+                  image: isExpanded
+                      ? DecorationImage(
+                          fit: BoxFit.cover,
+                          alignment: Alignment.bottomCenter,
+                          image:AssetImage("assets-images/background.jpeg")
+                        )
+                      : null),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: isExpanded
+                    ? Transform(
+                        transform: Matrix4.identity()
+                          ..translate(0.0, avatarMaximumRadius),
+                        child: MyAvatar(
+                          size: avatarRadius,
+                        ),
+                      )
+                    : SizedBox.shrink(),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      isExpanded
+                          ? SizedBox(
+                              height: avatarMinimumRadius * 2,
+                            )
+                          : MyAvatar(
+                              size: avatarMinimumRadius,
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              // handle button press
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 6.0),
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlue,
+                                borderRadius:
+                                    BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                "Favorite Posts",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  ProfileHeader(),
+                ],
+              ),
+            ),
+          ),
+          /*SliverPersistentHeader(
+            pinned: true,
+            delegate: ProfileTabs(50.0),
+          ),*/
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                //return Post();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 ////////AŞAĞIDA KAYDIRILAN LİSTE ŞEYLERİ
-class ProfileTabs extends SliverPersistentHeaderDelegate {
+/*class ProfileTabs extends SliverPersistentHeaderDelegate {
   final double size;
 
   ProfileTabs(this.size);
@@ -265,7 +287,7 @@ class ProfileTabs extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(ProfileTabs oldDelegate) {
     return oldDelegate.size != size;
   }
-}
+}*/
 
 /////AD FALAN
 class ProfileHeader extends StatelessWidget {
