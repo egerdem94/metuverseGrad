@@ -177,7 +177,7 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ProfilePicture(),
-                  Container(
+                  widget.editOrCreate == 'c' ? Container(
                     height: 40,
                     margin: EdgeInsets.only(top: 16.0, left: 10.0),
                     decoration: BoxDecoration(
@@ -210,7 +210,7 @@ class _BuySellCreateEditPostBodyState extends State<BuySellCreateEditPostBody> {
                         dropdownColor: Colors.blue,
                       ),
                     ),
-                  ),
+                  ): Container(),
                   Row(
                     children: [
                       PriceInputBox(priceController: widget.priceController/*,initialPrice: ""*/),

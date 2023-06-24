@@ -5,6 +5,7 @@ import 'package:metuverse/screens/new_transportation/create_edit_post/view/Trans
 import 'package:metuverse/screens/new_transportation/transportation_main/model/TransportationPost.dart';
 import 'package:metuverse/storage/models/BasePost.dart';
 import 'package:metuverse/user/User.dart';
+import 'package:metuverse/widgets/GenrealUtil.dart';
 
 class TransportationOverflowMenu extends StatefulWidget {
   const TransportationOverflowMenu({
@@ -109,6 +110,110 @@ class _TransportationOverflowMenuState extends State<TransportationOverflowMenu>
                     transportationPost: widget.post,
                   )
               )
+          );
+        }
+        else if (value == "Report") {
+          String? reportReason;
+
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                // Required to update the state of the dialog
+                builder: (BuildContext context, StateSetter setState) {
+                  return AlertDialog(
+                    title: Text('Report Post'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: const Text('Spam'),
+                          leading: Radio<String>(
+                            value: 'Spam',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Bad word'),
+                          leading: Radio<String>(
+                            value: 'Bad word',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Sexual content'),
+                          leading: Radio<String>(
+                            value: 'Sexual content',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: const Text('Racism'),
+                          leading: Radio<String>(
+                            value: 'Racism',
+                            groupValue: reportReason,
+                            onChanged: (String? value) {
+                              setState(() {
+                                reportReason = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          if (reportReason != null) {
+                            String? message = await TransportationOverflowController()
+                                .reportPostRequest(
+                                widget.post.postID,
+                                GeneralUtil.getReportReasonIndex(
+                                    reportReason!));
+                            if (message != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(message),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error occurred!'),
+                                ),
+                              );
+                            }
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: Text('Report'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           );
         }
       },

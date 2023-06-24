@@ -35,4 +35,17 @@ class TransportationOverflowBackend{
     }
     return false;
   }
+  Future<String?> reportPostRequest(reportedPostID, reportReasonID) async{
+    String serviceAddress = 'http://www.birikikoli.com/mv_services/user/admin/report/report_createReportByUser.php';
+    Uri serviceUri = Uri.parse(serviceAddress);
+    final response = await http.post(serviceUri, body: {
+      "token": User.privateToken,
+      "reportedPostID": reportedPostID,
+      "reportReasonID": reportReasonID,
+    });
+    String stringData = response.body;
+    Map<String, dynamic> jsonObject = jsonDecode(stringData);
+    var temp = GeneralResponse.fromJson(jsonObject);
+    return temp.message;
+  }
 }

@@ -107,7 +107,8 @@ class _BuySellOverflowMenuState extends State<BuySellOverflowMenu> {
             buyOrSell: widget.buyOrSell,
             buySellPost: widget.post,
           ));
-        } else if (value == "Report") {
+        }
+        else if (value == "Report") {
           String? reportReason;
 
           showDialog(

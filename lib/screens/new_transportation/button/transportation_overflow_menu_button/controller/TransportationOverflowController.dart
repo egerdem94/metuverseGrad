@@ -10,4 +10,7 @@ class TransportationOverflowController{
   Future<bool> selectAsFoundPressed(postID) async{
     return await commercialOverflowBackend.selectAsFoundRequest(postID.toString());
   }
+  Future<String?> reportPostRequest(reportedPostID, reportReasonID) async {
+    return await commercialOverflowBackend.reportPostRequest(reportedPostID.toString(), reportReasonID.toString());
+  }
 }
